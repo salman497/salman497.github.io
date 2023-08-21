@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="mermaidContainer"></div>
+    <div id="inputPopup" class="popup">
+        <textarea id="mermaidInput" placeholder="Enter Mermaid diagram code here..."></textarea>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <button onclick="openPopup()">Input Mermaid Code</button>
+    <button onclick="nextStep()">Next</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
