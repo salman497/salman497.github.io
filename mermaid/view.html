@@ -9,13 +9,19 @@
 <body>
     <div id="mermaidContainer"></div>
     <div id="inputPopup" class="popup">
-        <textarea id="mermaidInput" placeholder="Enter Mermaid diagram code here..."></textarea>
+        <textarea id="mermaidInput" placeholder="Enter Mermaid diagram code here...">flowchart LR
+
+            A[Form Runtime Client ] 
+            C[Tables API]
+            
+            
+            A ===> | OData Query | C
+            C -. Table data.-> A</textarea>
         <button onclick="closePopup()">Close</button>
     </div>
     <button onclick="openPopup()">Input Mermaid Code</button>
     <button onclick="nextStep()">Next</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.3.1/dist/mermaid.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
