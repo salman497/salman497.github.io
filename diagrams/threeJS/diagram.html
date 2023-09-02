@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D HTTP Request Flow</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Basic scene setup
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Resizing
+        window.addEventListener('resize', function() {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // Create sequence steps as 3D text
+        var loader = new THREE.FontLoader();
+        var steps = ["Client sends request", "Server receives request", "Server processes request", "Server sends response", "Client receives response"];
+        // Function to draw an arrow from one position to another
+function drawArrow(from, to) {
+    var direction = to.clone().sub(from);
+    var length = direction.length();
+    var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00);
+    scene.add(arrowHelper);
+}
+
+loader.load('https://raw.githubusercontent.com/mrdoob/three.js/r128/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+    var textMeshes = [];
+    for (var i = 0; i < steps.length; i++) {
+        var textGeometry = new THREE.TextGeometry(steps[i], {
+            font: font,
+            size: 0.5,
+            height: 0.1,
+        });
+        var textMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+        textMesh.position.set(-5, 2.5 - i*1.5, 0);
+        scene.add(textMesh);
+        
+        textMeshes.push(textMesh);
+    }
+    
+    // Draw arrows connecting the steps
+    for (var j = 0; j < textMeshes.length - 1; j++) {
+        var startPos = new THREE.Vector3(-4, textMeshes[j].position.y - 0.25, 0);
+        var endPos = new THREE.Vector3(-4, textMeshes[j + 1].position.y + 0.25, 0);
+        drawArrow(startPos, endPos);
+    }
+});
+
+        camera.position.z = 10;
+
+        // Animation
+        var animate = function () {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
+        animate();
+    </script>
+</body>
+</html>
