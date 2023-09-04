@@ -29,6 +29,5 @@ jobs:
       with:
         deploy_key: ${{ secrets.GH_PAT }}
         publish_branch: gh-pages
-        publish_dir: ./public
+        publish_dir: dist/apps/demos
         allow_empty_commit: true
-        folder: dist/apps/demos
