@@ -24,12 +24,12 @@ jobs:
       run: npm ci
 
     - name: Build Nx Web app
-      run: npx nx build demos --prod
+      run: npx nx build ng-demos --prod
 
     - name: Deploy to GH Pages 
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/apps/demos
+        publish_dir: dist/apps/ng-demos
         publish_branch: gh-pages
         
