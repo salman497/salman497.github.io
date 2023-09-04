@@ -29,4 +29,4 @@ jobs:
       with:
         branch: gh-pages
         folder: dist/apps/demos
-        target-folder: .  # Deploy to the root directory of gh-pages branch
+        target-folder: .  
