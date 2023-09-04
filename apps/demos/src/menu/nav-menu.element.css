@@ -1,0 +1,39 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.dark-tile {
+  background-color: #343a40; /* Dark gray */
+  color: #ffffff; /* White text */
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+  opacity: 0; /* Set initial opacity to 0 for the animation */
+  transform: translateY(20px); /* Move tiles slightly down initially */
+  animation: fadeInUp 0.6s forwards; /* Apply the animation */
+}
+
+@keyframes fadeInUp {
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.dark-tile:hover {
+  background-color: #495057; /* Slightly lighter gray on hover */
+}
+
+.dark-tile a {
+  color: #ffffff; /* White text for the link */
+  text-decoration: none;
+}
+
+.dark-tile a:hover {
+  text-decoration: underline;
+}
+
+.fa-icon {
+  margin-right: 10px;
+}
