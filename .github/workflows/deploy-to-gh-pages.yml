@@ -31,4 +31,4 @@ jobs:
         branch: gh-pages
         folder: dist/apps/demos
         target-folder: .  
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_PAT }}
