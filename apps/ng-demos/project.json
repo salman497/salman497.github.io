@@ -16,8 +16,12 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ng-demos/tsconfig.app.json",
         "assets": ["apps/ng-demos/src/favicon.ico", "apps/ng-demos/src/assets"],
-        "styles": ["apps/ng-demos/src/styles.css"],
-        "scripts": []
+        "styles": ["apps/ng-demos/src/styles.css", 
+                   "node_modules/reveal.js/dist/reveal.css",
+                   "node_modules/reveal.js/dist/theme/black.css"  ],
+        "scripts": [
+          "node_modules/reveal.js/dist/reveal.js",
+          "node_modules/mermaid/dist/mermaid.min.js"]
       },
       "configurations": {
         "production": {
