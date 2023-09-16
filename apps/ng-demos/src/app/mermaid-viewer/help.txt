@@ -1,0 +1,3 @@
+- slideshow https://github.com/slidesdown/slidesdown/blob/366bf2d488256328cc35868e9c125a7dbc33490d/package.json
+
+- Angular: https://github.com/Canvasbird/canvasboard/blob/a573e022ccb5c0543015fb20b2757ea4734b6a75/src/app/components/new-board/new-board.component.html

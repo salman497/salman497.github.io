@@ -1,3 +1,4 @@
+
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -34,7 +35,6 @@ export class MermaidViewerComponent implements OnInit, AfterViewInit {
     let deck = new Reveal($('#revealDiv'));
     deck.initialize({
         plugins: [Markdown],
-        // hash: true,
         embedded: true,
         minScale: 1.0,
         controls: true,
