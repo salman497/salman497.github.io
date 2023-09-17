@@ -15,12 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {},
-    
-    "useDefineForClassFields": true,
- 
-
-
- 
+    "useDefineForClassFields": true
   },
   "exclude": ["node_modules", "tmp"]
 }
