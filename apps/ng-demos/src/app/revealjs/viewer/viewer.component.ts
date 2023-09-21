@@ -40,11 +40,14 @@ declare var $: any;
 export class ViewerComponent  implements OnInit, AfterViewInit {
   
   //constructor(private cd: ChangeDetectorRef) {}
-  public mermaidCode = ` graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;`;
+  public mermaidCode = `graph TD
+  A[Enter Chart Definition] --> B(Preview)
+  B --> C{decide}
+  C --> D[Keep]
+  C --> E[Edit Definition]
+  E --> B
+  D --> F[Save Image and Code]
+  F --> B`;
   ngOnInit() {
   //   let deck = new Reveal({
   //     plugins: [ Markdown ]
