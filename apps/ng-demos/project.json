@@ -18,7 +18,9 @@
         "assets": ["apps/ng-demos/src/favicon.ico", "apps/ng-demos/src/assets"],
         "styles": ["apps/ng-demos/src/styles.css", 
                    "node_modules/reveal.js/dist/reveal.css",
-                   "node_modules/reveal.js/dist/theme/black.css"  ]
+                   "node_modules/reveal.js/dist/reset.css",
+                   "node_modules/reveal.js/dist/theme/black.css",
+                   "node_modules/reveal.js-plugins/customcontrols/style.css" ]
       },
       "configurations": {
         "production": {
