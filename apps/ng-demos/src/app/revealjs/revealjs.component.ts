@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { RevealJsState } from './state/state';
 import * as AppActions from './state/actions';
 import { selectEditorContent } from './state/selector';
+import { tap } from 'rxjs';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
@@ -11,6 +12,7 @@ import { selectEditorContent } from './state/selector';
 })
 export class RevealjsComponent {
   editorVisible: boolean = false;
+  toggleViewer: boolean = false;
   content$ = this.store.select(selectEditorContent);
 
   constructor(private store: Store<RevealJsState>) { }
@@ -20,5 +22,6 @@ export class RevealjsComponent {
   }
   updateContent(value: string): void {
     this.store.dispatch(AppActions.updateEditorContent({ content: value }));
+    this.toggleViewer = !this.toggleViewer;
   }
 }
