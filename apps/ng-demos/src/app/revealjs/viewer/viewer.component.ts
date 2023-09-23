@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Input,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -15,25 +16,36 @@ declare var $: any;
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.css'],
 })
-export class ViewerComponent implements OnInit, AfterViewInit, OnChanges {
+export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() content: string | null = '';
-
+  deck: Reveal.Api | undefined;
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
    
   }
-
-  async ngOnChanges() {
+  ngOnDestroy() {
+    if(this.deck) {
+      this.deck.destroy();
+    }
+  }
+   ngOnChanges() {
     console.log('>>>>>', this.content);
+    // if(this.deck) {
+    //   this.deck.sync();
+    //   this.deck.initialize();
+    //   this.cd.detectChanges(); 
+    // }
   }
   async ngAfterViewInit() {
     try {
       
       const config = await getRevealConfig();
-      let deck = new Reveal($('#revealDiv'));
-      deck.initialize(config);
-      this.cd.detectChanges(); // Trigger change detection manually if needed
+      if(!this.deck) {
+        this.deck = new Reveal($('#revealDiv'));
+        this.deck.initialize(config);
+      }
+
     } catch (error) {
       console.error('Error ngAfterViewInit data:', error);
     }
