@@ -15,11 +15,11 @@ mono-repo-editor {
     display: flex;
     flex-direction: column;
     gap: 10px; /* spacing between textarea and button */
-    height: 100%;
+    height: 100vh;
   }
   
   .editor-container textarea {
-    flex-grow: 1; /* textarea will occupy available space */
+    /*flex-grow: 1;  textarea will occupy available space */
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
@@ -27,6 +27,7 @@ mono-repo-editor {
     resize: vertical; /* allow vertical resize only */
     outline: none;
     transition: border-color 0.2s;
+    height: 60vh;
   }
   
   .editor-container textarea:focus {
