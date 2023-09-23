@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   OnInit,
   ChangeDetectorRef,
+  Input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ['./viewer.component.css'],
 })
 export class ViewerComponent implements OnInit, AfterViewInit {
-  constructor(private cd: ChangeDetectorRef) {}
+  @Input() content: string = '';
   public mermaidCode = `graph TD
   A[Enter Chart Definition] --> B(Preview)
   B --> C{decide}
@@ -25,19 +26,15 @@ export class ViewerComponent implements OnInit, AfterViewInit {
   E --> B
   D --> F[Save Image and Code]
   F --> B`;
+  constructor(private cd: ChangeDetectorRef) {}
+
   ngOnInit() {
-    //   let deck = new Reveal({
-    //     plugins: [ Markdown ]
-    //  })
-    //  deck.initialize();
-    // Reveal.initialize().then(() => {
-    //   mermaid.initialize({startOnLoad: true});
-    //   this.cd.detectChanges();
-    // });
+   
   }
 
   async ngAfterViewInit() {
     try {
+      console.log('>>>>>', this.content);
       const config = await getRevealConfig();
       let deck = new Reveal($('#revealDiv'));
       deck.initialize(config);
@@ -46,4 +43,6 @@ export class ViewerComponent implements OnInit, AfterViewInit {
       console.error('Error ngAfterViewInit data:', error);
     }
   }
+
+  
 }

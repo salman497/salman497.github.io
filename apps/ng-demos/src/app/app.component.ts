@@ -10,5 +10,14 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Demos';
+  editorVisible: boolean = false;
+  content: string = '';
+
+  toggleEditor(): void {
+    this.editorVisible = !this.editorVisible;
+  }
+
+  updateContent(value: string): void {
+    this.content = value;
+  }
 }

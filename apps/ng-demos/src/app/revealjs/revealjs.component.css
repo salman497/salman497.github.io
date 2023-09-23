@@ -1,0 +1,33 @@
+.main-container {
+    display: grid;
+    grid-template-columns: 0% 100%; /* Initially, editor is hidden */
+    grid-template-rows: 100vh;
+    grid-template-areas: "editor viewer";
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .main-container.editor-visible {
+    grid-template-columns: 30% 70%; /* Adjusts when editor is visible */
+  }
+  
+  .menu-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+  }
+  
+  mono-repo-editor {
+    grid-area: editor;
+    overflow: hidden; /* So content doesn't spill when it's width is 0 */
+    transition: all 0.3s; /* Optional: To smoothly transition the editor's width */
+  }
+  
+  mono-repo-viewer {
+    grid-area: viewer;
+  }
+  
