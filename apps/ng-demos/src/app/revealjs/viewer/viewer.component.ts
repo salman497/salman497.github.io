@@ -12,13 +12,11 @@ import { getRevealConfig } from '../utils/reveal-js-config';
 declare var $: any;
 @Component({
   selector: 'mono-repo-viewer',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.css'],
 })
 export class ViewerComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() content: string = '';
+  @Input() content: string | null = '';
 
   constructor(private cd: ChangeDetectorRef) {}
 

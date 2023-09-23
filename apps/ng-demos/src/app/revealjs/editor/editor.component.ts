@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'mono-repo-editor',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })

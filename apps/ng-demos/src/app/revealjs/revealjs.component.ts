@@ -1,30 +1,24 @@
 import { Component} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ViewerComponent } from './viewer/viewer.component';
-import { EditorComponent } from './editor/editor.component';
-import { StartingTemplate } from './utils/constant';
+import { Store } from '@ngrx/store';
 
+import { RevealJsState } from './state/state';
+import * as AppActions from './state/actions';
+import { selectEditorContent } from './state/selector';
 @Component({
   selector: 'mono-repo-revealjs',
-  standalone: true,
-  imports: [CommonModule, ViewerComponent, EditorComponent],
   templateUrl: './revealjs.component.html',
   styleUrls: ['./revealjs.component.css']
 })
 export class RevealjsComponent {
   editorVisible: boolean = false;
-  content = StartingTemplate;
+  content$ = this.store.select(selectEditorContent);
 
-  constructor() {}
+  constructor(private store: Store<RevealJsState>) { }
 
   toggleEditor(): void {
     this.editorVisible = !this.editorVisible;
   }
-
   updateContent(value: string): void {
-    if(value) {
-      this.content = value;
-    }
-    
+    this.store.dispatch(AppActions.updateEditorContent({ content: value }));
   }
 }

@@ -1,4 +1,4 @@
-export const StartingTemplate = ` ## Pros and Cons of AI
+export const StartingTemplate = `## Pros and Cons of AI
   
 AI, or Artificial Intelligence, has been a transformative force in many sectors, driving innovation and efficiency. Its rapid growth and wide-reaching impacts are subjects of debate and discussion. For a deeper dive into AI and its implications, check out this [link](https://hakim.se).
 

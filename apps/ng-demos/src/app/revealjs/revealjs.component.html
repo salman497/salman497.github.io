@@ -4,5 +4,5 @@
     </div>
   
     <mono-repo-editor *ngIf="editorVisible" (contentChange)="updateContent($event)"></mono-repo-editor>
-    <mono-repo-viewer [content]="content"></mono-repo-viewer>
+    <mono-repo-viewer [content]="(content$ | async)"></mono-repo-viewer>
   </div>

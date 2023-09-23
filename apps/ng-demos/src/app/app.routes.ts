@@ -10,4 +10,5 @@ export const appRoutes: Route[] = [
     { path: 'mermaid', component: MermaidViewerComponent },
     { path: 'viewer', component: ViewerComponent },
     { path: 'editor', component: EditorComponent },
+    { path: 'nav', component: NavMenuComponent },
 ];
