@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewerComponent } from './viewer/viewer.component';
 import { EditorComponent } from './editor/editor.component';
+import { StartingTemplate } from './utils/constant';
 
 @Component({
   selector: 'mono-repo-revealjs',
@@ -12,14 +13,7 @@ import { EditorComponent } from './editor/editor.component';
 })
 export class RevealjsComponent {
   editorVisible: boolean = false;
-  content = `graph TD
-  A[Enter Chart Definition] --> B(Preview)
-  B --> C{decide}
-  C --> D[Keep]
-  C --> E[Edit Definition]
-  E --> B
-  D --> F[Save Image and Code]
-  F --> B`;
+  content = StartingTemplate;
 
   constructor() {}
 

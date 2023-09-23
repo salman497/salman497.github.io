@@ -1,3 +1,4 @@
 <div class="editor-container">
-    <textarea [value]="content" (input)="onInputChange($event.target)"></textarea>
-  </div>
+  <textarea [(ngModel)]="currentContent"></textarea>
+  <button (click)="updateContent()">Update</button>
+</div>

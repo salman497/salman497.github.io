@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   Input,
+  OnChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -16,25 +17,21 @@ declare var $: any;
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.css'],
 })
-export class ViewerComponent implements OnInit, AfterViewInit {
+export class ViewerComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() content: string = '';
-  public mermaidCode = `graph TD
-  A[Enter Chart Definition] --> B(Preview)
-  B --> C{decide}
-  C --> D[Keep]
-  C --> E[Edit Definition]
-  E --> B
-  D --> F[Save Image and Code]
-  F --> B`;
+
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
    
   }
 
+  async ngOnChanges() {
+    console.log('>>>>>', this.content);
+  }
   async ngAfterViewInit() {
     try {
-      console.log('>>>>>', this.content);
+      
       const config = await getRevealConfig();
       let deck = new Reveal($('#revealDiv'));
       deck.initialize(config);

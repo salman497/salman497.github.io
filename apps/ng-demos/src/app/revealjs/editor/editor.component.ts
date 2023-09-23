@@ -1,26 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StartingTemplate } from '../utils/constant';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'mono-repo-editor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent {
-  content = `graph TD
-  A[Enter Chart Definition] --> B(Preview)
-  B --> C{decide}
-  C --> D[Keep]
-  C --> E[Edit Definition]
-  E --> B
-  D --> F[Save Image and Code]
-  F --> B`;
+  currentContent = StartingTemplate;
   
   @Output() contentChange: EventEmitter<string> = new EventEmitter();
 
-  onInputChange(target: any): void {
-    this.contentChange.emit(target.value);
+  updateContent(): void {
+    this.contentChange.emit(this.currentContent);
   }
 }
