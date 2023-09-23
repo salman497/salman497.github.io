@@ -7,7 +7,7 @@ AI, or Artificial Intelligence, has been a transformative force in many sectors,
 ## Slide 2
 
 Content for Slide 2 goes here. ` + 
-"```mermaid " +
+"\n```mermaid \n" +
 `graph TD
   A[Enter Chart Definition] --> B(Preview)
   B --> C{decide}
@@ -16,7 +16,7 @@ Content for Slide 2 goes here. ` +
   E --> B
   D --> F[Save Image and Code]
   F --> B` +
-"```" +
+"\n```\n`" +
 `
 ---
 
