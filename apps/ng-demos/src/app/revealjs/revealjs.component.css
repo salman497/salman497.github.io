@@ -22,13 +22,13 @@
     color: #42affa;
   }
   
-  mono-repo-editor {
+  .main-editor {
     grid-area: editor;
     overflow: hidden; /* So content doesn't spill when it's width is 0 */
     transition: all 0.3s; /* Optional: To smoothly transition the editor's width */
   }
   
-  mono-repo-viewer {
+  .main-viewer {
     grid-area: viewer;
   }
   

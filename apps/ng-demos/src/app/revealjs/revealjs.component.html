@@ -3,7 +3,7 @@
       ☰
     </div>
   
-    <mono-repo-editor *ngIf="editorVisible" (contentChange)="updateContent($event)"></mono-repo-editor>
-    <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)"></mono-repo-viewer>
-    <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)"></mono-repo-viewer>
+    <mono-repo-editor *ngIf="editorVisible" (contentChange)="updateContent($event)" class="main-editor"></mono-repo-editor>
+    <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
+    <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
   </div>
