@@ -8,7 +8,7 @@ import { tap } from 'rxjs';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   styleUrls: ['./revealjs.component.css']
 })
 export class RevealjsComponent {

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent {

@@ -15,7 +15,7 @@ declare var $: any;
 @Component({
   selector: 'mono-repo-viewer',
   templateUrl: './viewer.component.html',
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   styleUrls: ['./viewer.component.css'],
 })
 export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
