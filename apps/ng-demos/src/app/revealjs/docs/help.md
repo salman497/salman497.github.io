@@ -6,3 +6,4 @@
 - typescript code  https://github.com/mythosthesia/reveal-course-utils
 - demo import https://github.com/AleCandido/show/blob/30b54767ef279f4ebd94f60b08a780a4809ab5cf/packages/show/src/lib/plugins/imports.ts 
 
+- config https://github.com/hakimel/reveal.js/blob/master/js/config.js
