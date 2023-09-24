@@ -15,7 +15,14 @@
         "main": "apps/ng-demos/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ng-demos/tsconfig.app.json",
-        "assets": ["apps/ng-demos/src/favicon.ico", "apps/ng-demos/src/assets"],
+        "assets": ["apps/ng-demos/src/favicon.ico", 
+                   "apps/ng-demos/src/assets",
+                   {
+                    "glob": "**/*",
+                    "input": "node_modules/reveal.js-plugins/chalkboard/img",
+                    "output": "/img/"
+                   }
+                  ],
         "styles": ["apps/ng-demos/src/styles.css", 
                    "node_modules/reveal.js/dist/reveal.css",
                    "node_modules/reveal.js/dist/reset.css",

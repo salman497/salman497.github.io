@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, ViewEncapsulation} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
@@ -8,6 +8,7 @@ import { tap } from 'rxjs';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./revealjs.component.css']
 })
 export class RevealjsComponent {
