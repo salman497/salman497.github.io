@@ -19,7 +19,3 @@
   background-color: #f8f9fa;
 }
 
-.main-viewer {
-  height: 100vh;
-  /* transition: width 0.3s;  <-- This line is removed */
-}

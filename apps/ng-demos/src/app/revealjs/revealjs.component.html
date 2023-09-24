@@ -7,7 +7,7 @@
     <mono-repo-editor (contentChange)="updateContent($event)"></mono-repo-editor>
   </mat-sidenav>
 
-  <mat-sidenav-content [style.width]="editorVisible ? '70%' : '100%'" class="main-viewer">
+  <mat-sidenav-content  class="main-viewer">
     <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
     <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
   </mat-sidenav-content>
