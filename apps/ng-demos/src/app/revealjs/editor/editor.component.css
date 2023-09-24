@@ -10,7 +10,7 @@
     height: 100vh;
   }
   
-  .editor-container textarea {
+  .editor-container .editor-textarea {
     /*flex-grow: 1;  textarea will occupy available space */
     padding: 10px;
     border: 1px solid #ced4da;
@@ -22,12 +22,12 @@
     height: 60vh;
   }
   
-  .editor-container textarea:focus {
+  .editor-container .editor-textarea:focus {
     border-color: #495057; /* Darker border on focus */
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap-like focus shadow */
   }
   
-  .editor-container button {
+  .editor-container .editor-button {
     align-self: flex-end; /* Align button to the right */
     padding: 6px 12px;
     background-color: #007bff; /* Blue color */
@@ -38,7 +38,7 @@
     transition: background-color 0.2s;
   }
   
-  .editor-container button:hover {
+  .editor-container .editor-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
   
