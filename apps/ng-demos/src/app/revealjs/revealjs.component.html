@@ -1,9 +1,14 @@
-<div class="main-container" [class.editor-visible]="editorVisible">
-    <div class="menu-icon" (click)="toggleEditor()">
-      ☰
-    </div>
-  
-    <mono-repo-editor *ngIf="editorVisible" (contentChange)="updateContent($event)" class="main-editor"></mono-repo-editor>
+<button mat-icon-button (click)="toggleEditor()" class="menu-icon">
+  ☰
+</button>
+
+<mat-sidenav-container class="main-container">
+  <mat-sidenav #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
+    <mono-repo-editor (contentChange)="updateContent($event)"></mono-repo-editor>
+  </mat-sidenav>
+
+  <mat-sidenav-content [style.width]="editorVisible ? '70%' : '100%'" class="main-viewer">
     <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
     <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
-  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

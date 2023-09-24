@@ -1,34 +1,25 @@
+.menu-icon {
+  position: fixed;
+  bottom: 28px;
+  left: 20px;
+  cursor: pointer;
+  font-size: 27px;
+  z-index: 10;
+  color: #42affa;
+}
+
 .main-container {
-    display: grid;
-    grid-template-columns: 0% 100%; /* Initially, editor is hidden */
-    grid-template-rows: 100vh;
-    grid-template-areas: "editor viewer";
-    width: 100%;
-    height: 100vh;
-    position: relative;
-  }
-  
-  .main-container.editor-visible {
-    grid-template-columns: 30% 70%; /* Adjusts when editor is visible */
-  }
-  
-  .menu-icon {
-    position: absolute;
-    bottom: 28px;
-    left: 200px;
-    cursor: pointer;
-    font-size: 27px;
-    z-index: 10;
-    color: #42affa;
-  }
-  
-  .main-editor {
-    grid-area: editor;
-    overflow: hidden; /* So content doesn't spill when it's width is 0 */
-    transition: all 0.3s; /* Optional: To smoothly transition the editor's width */
-  }
-  
-  .main-viewer {
-    grid-area: viewer;
-  }
-  
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff; /* Set this to the viewer's background color */
+}
+
+.main-editor {
+  width: 30%;
+  background-color: #f8f9fa;
+}
+
+.main-viewer {
+  height: 100vh;
+  /* transition: width 0.3s;  <-- This line is removed */
+}

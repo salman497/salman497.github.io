@@ -1,3 +1,7 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +10,7 @@ import { EditorComponent } from './editor/editor.component';
 import { RevealjsComponent } from './revealjs.component';
 import { revealJsReducer } from './state/reducer';
 import { ViewerComponent } from './viewer/viewer.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +21,9 @@ import { ViewerComponent } from './viewer/viewer.component';
   imports: [
     FormsModule,
     CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ revealJs: revealJsReducer })
   ],
   bootstrap: [RevealjsComponent]
