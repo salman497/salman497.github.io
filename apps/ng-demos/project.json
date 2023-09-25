@@ -30,7 +30,8 @@
           "node_modules/reveal.js/dist/reset.css",
           "node_modules/reveal.js/dist/theme/black.css",
           "node_modules/reveal.js-plugins/customcontrols/style.css",
-          "node_modules/reveal.js-plugins/chalkboard/style.css"
+          "node_modules/reveal.js-plugins/chalkboard/style.css",
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
         ]
       },
       "configurations": {

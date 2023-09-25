@@ -1,33 +1,62 @@
+.editor-container {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  height: 97.6vh;
+}
 
+.search-field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.editor-textarea-field {
+  width: 100%;
+  margin-top: 10px;
+  flex-grow: 1; /* Allow it to grow to occupy available space */
+}
+
+.editor-textarea {
+  height: 50vh!important; /* Set height to 60vh */
+}
+
+
+.editor-button {
+  margin-top: 10px;
+}
+
+.dropdown-field {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.toggle-container mat-slide-toggle {
+  display: block; /* Each toggle on a new line */
+  margin-bottom: 10px; /* Space between toggles */
+}
+
+/***material overwrite ****/
+.search-field {
+  margin-top: 5px;
+}
+
+.editor-mat-slide-toggle {
+  margin-top: 14px;
+}
+
+
+/* Media query for further adjustments for smaller screens */
+@media (max-width: 600px) {
   .editor-container {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* spacing between textarea and button */
-    height: 95.5vh;
+    padding: 5px;
   }
-  
-  .editor-container .editor-textarea {
-    /*flex-grow: 1;  textarea will occupy available space */
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-    resize: vertical; /* allow vertical resize only */
-    outline: none;
-    transition: border-color 0.2s;
-    height: 60vh;
+
+  .editor-textarea {
+    font-size: 12px;
+    height: 30vh;
   }
-  
-  .editor-container .editor-textarea:focus {
-    border-color: #495057; /* Darker border on focus */
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap-like focus shadow */
-  }
-  
-  .editor-button {
-    align-self: flex-end;
-    margin-top: 10px; /* Add some margin to separate it from the textarea */
-  }
+}
+
+

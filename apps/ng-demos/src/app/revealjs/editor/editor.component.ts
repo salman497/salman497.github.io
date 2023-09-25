@@ -11,6 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditorComponent {
   currentContent = StartingTemplate;
+  isLinear = false;
+  themes = ['Black', 'White', 'League', 'Sky', 'Beige', 'Simple', 'Serif', 'Blood', 'Night', 'Moon', 'Solarized'];
+  animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
+  showPen = true;
+  showDrawingArea = true;
+  showSlides = true;
   
   @Output() contentChange: EventEmitter<string> = new EventEmitter();
 

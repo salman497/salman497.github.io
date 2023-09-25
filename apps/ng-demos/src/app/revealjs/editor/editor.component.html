@@ -1,4 +1,53 @@
 <div class="editor-container">
-  <textarea class="editor-textarea" [(ngModel)]="currentContent"></textarea>
-  <button mat-raised-button color="primary" class="editor-button" (click)="updateContent()">Update</button>
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <!-- Icons for the Steps -->
+    <ng-template matStepperIcon="edit">
+      <mat-icon>edit</mat-icon>
+    </ng-template>
+    <ng-template matStepperIcon="settings">
+      <mat-icon>settings</mat-icon>
+    </ng-template>
+    <!-- Editor Section -->
+    <mat-step label="Editor" >
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search with AI</mat-label>
+        <input matInput placeholder="Search with AI">
+        <button mat-icon-button matSuffix aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="editor-textarea-field">
+        <textarea matInput class="editor-textarea" [(ngModel)]="currentContent"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="editor-button" (click)="updateContent()">Update</button>
+    </mat-step>
+
+    <!-- Settings Section -->
+    <mat-step label="Settings">
+      <!-- Theme Dropdown -->
+      <mat-form-field class="dropdown-field">
+        <mat-label>Theme</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let theme of themes" [value]="theme">{{theme}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Animation Dropdown -->
+      <mat-form-field class="dropdown-field">
+        <mat-label>Animation</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let animation of animations" [value]="animation">{{animation}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Slide Toggles -->
+      <div class="toggle-container">
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" aria-label="Show Pen">Show Pen</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides" aria-label="Show Slides">Show Slides</mat-slide-toggle>
+      </div>
+    </mat-step>
+
+
+  </mat-vertical-stepper>
 </div>
