@@ -28,6 +28,7 @@ export async function getRevealConfig(): Promise<any> {
       RevealSearch,
     //   window.RevealMenu
     ],
+	hash: true,
     embedded: true,
     minScale: 1.0,
     controls: true,
