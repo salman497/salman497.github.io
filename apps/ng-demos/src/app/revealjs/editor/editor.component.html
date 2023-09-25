@@ -30,7 +30,7 @@
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
-        <mat-select>
+        <mat-select [(value)]="themeSelected">
           <mat-option *ngFor="let theme of themes" [value]="theme">{{theme}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -38,7 +38,7 @@
       <!-- Animation Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Animation</mat-label>
-        <mat-select>
+        <mat-select [(value)]="animationSelected">
           <mat-option *ngFor="let animation of animations" [value]="animation">{{animation}}</mat-option>
         </mat-select>
       </mat-form-field>
