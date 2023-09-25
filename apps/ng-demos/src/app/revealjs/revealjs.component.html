@@ -2,12 +2,16 @@
   ☰
 </button>
 
-<mat-sidenav-container class="main-container" (backdropClick)="closeSidenav()">
+<mat-sidenav-container class="main-container">
   <mat-sidenav #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
+     <!-- Close Button -->
+     <button mat-icon-button (click)="closeSidenav()" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
     <mono-repo-editor (contentChange)="updateContent($event)"></mono-repo-editor>
   </mat-sidenav>
 
-  <mat-sidenav-content  class="main-viewer" (click)="closeSidenav()">
+  <mat-sidenav-content  class="main-viewer">
     <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
     <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
   </mat-sidenav-content>

@@ -15,9 +15,10 @@
         </button>
       </mat-form-field>
       <mat-form-field class="editor-textarea-field">
-        <textarea matInput class="editor-textarea" [(ngModel)]="currentContent"></textarea>
+        <mat-label>Edit markdown</mat-label>
+        <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="editor-button" (click)="updateContent()">Update</button>
+      <button mat-raised-button color="primary" class="editor-button" >Save</button>
     </mat-expansion-panel>
 
     <!-- Settings Section -->
