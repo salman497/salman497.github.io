@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { StartingTemplate } from '../utils/constant';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'mono-repo-editor',
