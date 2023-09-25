@@ -1,14 +1,12 @@
 <div class="editor-container">
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <!-- Icons for the Steps -->
-    <ng-template matStepperIcon="edit">
-      <mat-icon>edit</mat-icon>
-    </ng-template>
-    <ng-template matStepperIcon="settings">
-      <mat-icon>settings</mat-icon>
-    </ng-template>
+  <mat-accordion>
     <!-- Editor Section -->
-    <mat-step label="Editor" >
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>edit</mat-icon> Editor
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search with AI</mat-label>
         <input matInput placeholder="Search with AI">
@@ -20,10 +18,15 @@
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent"></textarea>
       </mat-form-field>
       <button mat-raised-button color="primary" class="editor-button" (click)="updateContent()">Update</button>
-    </mat-step>
+    </mat-expansion-panel>
 
     <!-- Settings Section -->
-    <mat-step label="Settings">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>settings</mat-icon> Settings
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
@@ -46,8 +49,6 @@
         <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
         <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
-    </mat-step>
-
-
-  </mat-vertical-stepper>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

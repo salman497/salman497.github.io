@@ -19,9 +19,8 @@
 }
 
 .editor-textarea {
-  height: 50vh!important; /* Set height to 60vh */
+  height: 55vh!important; /* Set height to 60vh */
 }
-
 
 .editor-button {
   margin-top: 10px;
@@ -37,15 +36,22 @@
   margin-bottom: 10px; /* Space between toggles */
 }
 
-/***material overwrite ****/
 .search-field {
   margin-top: 5px;
 }
 
 .editor-mat-slide-toggle {
-  margin-top: 14px;
+  margin-top: 18px;
 }
 
+/**(********* override material *********/
+.mat-expansion-panel-header {
+  font-size: 16px; /* Increase font size */
+}
+
+.mat-expansion-panel-header mat-icon {
+  margin-right: 10px; /* Add space between the icon and the text */
+}
 
 /* Media query for further adjustments for smaller screens */
 @media (max-width: 600px) {
@@ -58,5 +64,3 @@
     height: 30vh;
   }
 }
-
-
