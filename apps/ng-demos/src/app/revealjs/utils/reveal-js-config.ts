@@ -26,7 +26,7 @@ export async function getRevealConfig(): Promise<any> {
       RevealChalkboard,
       RevealZoom,
       RevealSearch,
-      window.RevealMenu
+    //   window.RevealMenu
     ],
     embedded: true,
     minScale: 1.0,

@@ -10,6 +10,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  margin-top: 5px;
 }
 
 .editor-textarea-field {
@@ -36,12 +37,8 @@
   margin-bottom: 10px; /* Space between toggles */
 }
 
-.search-field {
-  margin-top: 5px;
-}
-
 .editor-mat-slide-toggle {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 /**(********* override material *********/
