@@ -31,7 +31,7 @@
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
-        <mat-select [(value)]="themeSelected">
+        <mat-select [(value)]="themeSelected" (valueChange)="updateTheme()" >
           <mat-option *ngFor="let theme of themes" [value]="theme">{{theme}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -39,16 +39,16 @@
       <!-- Animation Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Animation</mat-label>
-        <mat-select [(value)]="animationSelected">
+        <mat-select [(value)]="animationSelected" (valueChange)="updateAnimation()">
           <mat-option *ngFor="let animation of animations" [value]="animation">{{animation}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <!-- Slide Toggles -->
       <div class="toggle-container">
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" aria-label="Show Pen">Show Pen</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides" aria-label="Show Slides">Show Slides</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" (valueChange)="updateShowPen()" aria-label="Show Pen">Show Pen</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea"  (valueChange)="updateShowDrawingArea()" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (valueChange)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

@@ -6,10 +6,22 @@ export interface RevealJsState {
 
   export interface Editor {
     content: string;
+    themeSelected: string;
+    animationSelected: string;
+    showPen: boolean;
+    showDrawingArea: boolean;
+    showSlides: boolean;
+    toggleViewer: boolean;
   }
   
   export const initialState: RevealJsState = {
     editor: {
-        content: StartingTemplate
+      content: StartingTemplate,
+      themeSelected: 'Black',
+      animationSelected: 'Slide',
+      showPen: true,
+      showDrawingArea: true,
+      showSlides: true,
+      toggleViewer: true 
     }
   };

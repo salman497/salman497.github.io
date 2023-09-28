@@ -8,11 +8,16 @@
      <button mat-icon-button (click)="closeSidenav()" class="close-button">
       <mat-icon>close</mat-icon>
     </button>
-    <mono-repo-editor (contentChange)="updateContent($event)"></mono-repo-editor>
+    <ng-container *ngIf="editorInitState$ | async as editor">
+      <mono-repo-editor [editor]="editor"></mono-repo-editor>
+    </ng-container>
+   
   </mat-sidenav>
 
   <mat-sidenav-content  class="main-viewer">
-    <mono-repo-viewer *ngIf="toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
-    <mono-repo-viewer *ngIf="!toggleViewer" [content]="(content$ | async)" class="main-viewer"></mono-repo-viewer>
+    <ng-container *ngIf="editor$ | async as editor">
+      <mono-repo-viewer *ngIf="editor?.toggleViewer" [editor]="editor" class="main-viewer"></mono-repo-viewer>
+      <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" class="main-viewer"></mono-repo-viewer>
+    </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>

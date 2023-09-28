@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
 import { getRevealConfig } from '../utils/reveal-js-config';
+import { Editor } from '../state/state';
 declare var $: any;
 @Component({
   selector: 'mono-repo-viewer',
@@ -19,7 +20,7 @@ declare var $: any;
   styleUrls: ['./viewer.component.css'],
 })
 export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-  @Input() content: string | null = '';
+  @Input() editor!: Editor;
   deck: Reveal.Api | undefined;
   constructor(private cd: ChangeDetectorRef) {}
 
@@ -32,7 +33,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     }
   }
    ngOnChanges() {
-    console.log('>>>>>', this.content);
+    console.log('>>>>>', this.editor);
     // if(this.deck) {
     //   this.deck.sync();
     //   this.deck.initialize();

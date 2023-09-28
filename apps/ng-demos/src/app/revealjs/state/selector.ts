@@ -4,8 +4,8 @@ import { RevealJsState } from './state';
 // Define the feature state first
 export const selectRevealJsState = (state: any) => state.revealJs;
 
-// Then define a selector to get the content
-export const selectEditorContent = createSelector(
+
+export const selectEditor = createSelector(
   selectRevealJsState,
-  (state: RevealJsState) => state.editor.content
+  (state: RevealJsState) => state.editor
 );

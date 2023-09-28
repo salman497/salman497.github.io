@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
 import * as AppActions from './state/actions';
-import { selectEditorContent } from './state/selector';
-import { tap } from 'rxjs';
+import { selectEditor } from './state/selector';
+import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 @Component({
   selector: 'mono-repo-revealjs',
@@ -14,8 +14,9 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class RevealjsComponent {
   editorVisible: boolean = false;
-  toggleViewer: boolean = false;
-  content$ = this.store.select(selectEditorContent);
+  // first time only 
+  editorInitState$ = this.store.select(selectEditor).pipe(take(1));
+  editor$ = this.store.select(selectEditor);
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
   constructor(private store: Store<RevealJsState>) { }
@@ -23,11 +24,10 @@ export class RevealjsComponent {
   toggleEditor(): void {
     this.editorVisible = !this.editorVisible;
   }
-  updateContent(value: string): void {
-    this.store.dispatch(AppActions.updateEditorContent({ content: value }));
-    this.toggleViewer = !this.toggleViewer;
-  }
+  
   closeSidenav() {
     this.editorSidenav.close();
   }
+
+  
 }

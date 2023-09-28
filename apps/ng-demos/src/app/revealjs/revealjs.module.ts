@@ -16,7 +16,7 @@ import { EditorComponent } from './editor/editor.component';
 import { RevealjsComponent } from './revealjs.component';
 import { revealJsReducer } from './state/reducer';
 import { ViewerComponent } from './viewer/viewer.component';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { ViewerComponent } from './viewer/viewer.component';
     RevealjsComponent
   ],
   imports: [
+    
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
@@ -36,7 +37,10 @@ import { ViewerComponent } from './viewer/viewer.component';
     MatSidenavModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ revealJs: revealJsReducer })
+    StoreModule.forRoot({ revealJs: revealJsReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    }),
   ],
   bootstrap: [RevealjsComponent]
 })

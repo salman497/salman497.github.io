@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx nx run ng-demos:serve --configuration=development",
     "backend": "npx nx run backend:serve --configuration=development",
-    "all":  "nx run-many --target=serve --configuration=development --parallel --projects=ng-demos,backend"
+    "all": "nx run-many --target=serve --configuration=development --parallel --projects=ng-demos,backend"
   },
   "private": true,
   "devDependencies": {
@@ -78,6 +78,7 @@
     "@nestjs/platform-express": "^10.0.2",
     "@ngrx/effects": "^16.2.0",
     "@ngrx/store": "^16.2.0",
+    "@ngrx/store-devtools": "^16.2.0",
     "@nrwl/nest": "^16.9.0",
     "mermaid": "^10.4.0",
     "reflect-metadata": "^0.1.13",
