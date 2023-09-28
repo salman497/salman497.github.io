@@ -9,7 +9,6 @@ import { StartingTemplate } from '../utils/constant';
 })
 export class EditorComponent {
   currentContent = StartingTemplate;
-  isLinear = false;
   themeSelected = 'Black';
   themes = ['Black', 'White', 'League', 'Sky', 'Beige', 'Simple', 'Serif', 'Blood', 'Night', 'Moon', 'Solarized'];
   animationSelected= 'Slide';
