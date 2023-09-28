@@ -117,7 +117,7 @@ function getCustomControls(editor: Editor) {
 			id: 'toggle-overview',
 			title: 'Toggle overview (O)',
 			icon: '<i class="fa fa-th"></i>',
-			action: 'Reveal.toggleOverview();',
+			action: 'globalRevealJs.toggleOverview();',
 		  });
 	}
 	if(editor.showDrawingArea) {

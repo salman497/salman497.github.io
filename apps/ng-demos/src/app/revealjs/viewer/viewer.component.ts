@@ -13,6 +13,9 @@ import Reveal from 'reveal.js';
 import { getRevealConfig } from '../utils/reveal-js-config';
 import { Editor } from '../state/state';
 declare var $: any;
+declare global {
+  interface Window { globalRevealJs: any; }
+}
 @Component({
   selector: 'mono-repo-viewer',
   templateUrl: './viewer.component.html',
@@ -31,6 +34,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   ngOnDestroy() {
     if(this.deck) {
       this.deck.destroy();
+      window.globalRevealJs = undefined;
     }
     setTimeout(() => {
       const linkEl = document.getElementById(this.editor.themeSelected.toLowerCase());
@@ -56,6 +60,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       const config = await getRevealConfig(this.editor);
       if(!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
+        window.globalRevealJs = this.deck;
         this.deck.initialize(config);
       }
 
