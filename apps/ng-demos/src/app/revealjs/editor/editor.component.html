@@ -46,9 +46,9 @@
 
       <!-- Slide Toggles -->
       <div class="toggle-container">
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" (valueChange)="updateShowPen()" aria-label="Show Pen">Show Pen</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea"  (valueChange)="updateShowDrawingArea()" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (valueChange)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" (change)="updateShowPen()" aria-label="Show Pen">Show Pen</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea"  (change)="updateShowDrawingArea()" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
+        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (change)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

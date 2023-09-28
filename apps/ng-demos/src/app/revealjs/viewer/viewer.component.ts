@@ -34,6 +34,8 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
    ngOnChanges() {
     console.log('>>>>>', this.editor);
+    this.deck?.configure({ transition: this.editor.animationSelected.toLowerCase() as any });
+    // this.deck?.configure({ theme: this.editor.animationSelected.toLowerCase() as any });
     // if(this.deck) {
     //   this.deck.sync();
     //   this.deck.initialize();
