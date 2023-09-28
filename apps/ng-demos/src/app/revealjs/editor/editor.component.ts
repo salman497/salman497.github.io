@@ -48,13 +48,16 @@ export class EditorComponent implements OnInit {
 
   updateShowPen(): void {
     this.store.dispatch(AppActions.updateEditorShowPen({ showPen: this.showPen }));
+    this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateShowDrawingArea(): void {
     this.store.dispatch(AppActions.updateEditorShowDrawingArea({ showDrawingArea: this.showDrawingArea }));
+    this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateShowSlides(): void {
     this.store.dispatch(AppActions.updateEditorShowSlides({ showSlides: this.showSlides }));
+    this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 }

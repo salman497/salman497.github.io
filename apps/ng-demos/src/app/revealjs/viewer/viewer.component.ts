@@ -53,7 +53,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   async ngAfterViewInit() {
     try {
       this.changeTheme(this.editor.themeSelected.toLowerCase());
-      const config = await getRevealConfig();
+      const config = await getRevealConfig(this.editor);
       if(!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
         this.deck.initialize(config);

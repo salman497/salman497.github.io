@@ -7,8 +7,9 @@ import RevealSvgTimelineFragment from 'reveal.js-svg-timeline-fragment';
 import RevealAnimateFragments from 'reveal.js-animate-fragments';
 import RevealScriptFragment from 'reveal.js-script-fragment';
 import dynamicImports from '../utils/reveal-js-dynamic-imports';
+import { Editor } from '../state/state';
 
-export async function getRevealConfig(): Promise<any> {
+export async function getRevealConfig(editor: Editor): Promise<any> {
   const RevealCustomControls = await dynamicImports.customControls();
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
@@ -36,24 +37,7 @@ export async function getRevealConfig(): Promise<any> {
     keyboardCondition: 'focused',
     menu: getMenuConfig(),
     customcontrols: {
-      controls: [
-        {
-          id: 'toggle-overview',
-          title: 'Toggle overview (O)',
-          icon: '<i class="fa fa-th"></i>',
-          action: 'Reveal.toggleOverview();',
-        },
-        {
-          icon: '<i class="fa fa-pen-square"></i>',
-          title: 'Toggle chalkboard (B)',
-          action: 'RevealChalkboard.toggleChalkboard();',
-        },
-        {
-          icon: '<i class="fa fa-pen"></i>',
-          title: 'Toggle notes canvas (C)',
-          action: 'RevealChalkboard.toggleNotesCanvas();',
-        },
-      ],
+      controls: getCustomControls(editor)
     },
   };
 }
@@ -90,21 +74,21 @@ function getMenuConfig() {
 		// properties, and either a 'src' or 'content' property.
 		custom: false,
 
-		// Specifies the themes that will be available in the themes
-		// menu panel. Set to 'false' to hide themes panel.
-		themes: [
-			{ name: 'Black', theme: 'css/theme/black.css' },
-			{ name: 'White', theme: 'css/theme/white.css' },
-			{ name: 'League', theme: 'css/theme/league.css' },
-			{ name: 'Sky', theme: 'css/theme/sky.css' },
-			{ name: 'Beige', theme: 'css/theme/beige.css' },
-			{ name: 'Simple', theme: 'css/theme/simple.css' },
-			{ name: 'Serif', theme: 'css/theme/serif.css' },
-			{ name: 'Blood', theme: 'css/theme/blood.css' },
-			{ name: 'Night', theme: 'css/theme/night.css' },
-			{ name: 'Moon', theme: 'css/theme/moon.css' },
-			{ name: 'Solarized', theme: 'css/theme/solarized.css' }
-		],
+		// // Specifies the themes that will be available in the themes
+		// // menu panel. Set to 'false' to hide themes panel.
+		// themes: [
+		// 	{ name: 'Black', theme: 'css/theme/black.css' },
+		// 	{ name: 'White', theme: 'css/theme/white.css' },
+		// 	{ name: 'League', theme: 'css/theme/league.css' },
+		// 	{ name: 'Sky', theme: 'css/theme/sky.css' },
+		// 	{ name: 'Beige', theme: 'css/theme/beige.css' },
+		// 	{ name: 'Simple', theme: 'css/theme/simple.css' },
+		// 	{ name: 'Serif', theme: 'css/theme/serif.css' },
+		// 	{ name: 'Blood', theme: 'css/theme/blood.css' },
+		// 	{ name: 'Night', theme: 'css/theme/night.css' },
+		// 	{ name: 'Moon', theme: 'css/theme/moon.css' },
+		// 	{ name: 'Solarized', theme: 'css/theme/solarized.css' }
+		// ],
 
 		// Specifies if the transitions menu panel will be shown.
 		transitions: true,
@@ -123,4 +107,33 @@ function getMenuConfig() {
 		// will be disabled while the menu is open.
 		keyboard: true
 	};
+}
+
+
+function getCustomControls(editor: Editor) {
+	const controls = [];
+	if(editor.showSlides) {
+		controls.push({
+			id: 'toggle-overview',
+			title: 'Toggle overview (O)',
+			icon: '<i class="fa fa-th"></i>',
+			action: 'Reveal.toggleOverview();',
+		  });
+	}
+	if(editor.showDrawingArea) {
+		controls.push({
+			icon: '<i class="fa fa-pen-square"></i>',
+			title: 'Toggle chalkboard (B)',
+			action: 'RevealChalkboard.toggleChalkboard();',
+		});
+	}
+
+	if(editor.showPen) {
+		controls.push({
+			icon: '<i class="fa fa-pen"></i>',
+			title: 'Toggle notes canvas (C)',
+			action: 'RevealChalkboard.toggleNotesCanvas();',
+		});
+	}
+	return controls;
 }
