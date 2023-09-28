@@ -16,12 +16,13 @@ declare var $: any;
 @Component({
   selector: 'mono-repo-viewer',
   templateUrl: './viewer.component.html',
-  //encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./viewer.component.css'],
 })
 export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() editor!: Editor;
   deck: Reveal.Api | undefined;
+  
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -31,6 +32,13 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     if(this.deck) {
       this.deck.destroy();
     }
+    setTimeout(() => {
+      const linkEl = document.getElementById(this.editor.themeSelected.toLowerCase());
+      if (linkEl) {
+        linkEl?.parentNode?.removeChild(linkEl);
+      }
+    }, 2000);
+   
   }
    ngOnChanges() {
     console.log('>>>>>', this.editor);
@@ -44,7 +52,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
   async ngAfterViewInit() {
     try {
-      
+      this.changeTheme(this.editor.themeSelected.toLowerCase());
       const config = await getRevealConfig();
       if(!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
@@ -55,6 +63,17 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       console.error('Error ngAfterViewInit data:', error);
     }
   }
+
+  changeTheme(themeName: string): void {
+    const linkEl = document.createElement('link');
+    linkEl.id = themeName;
+    linkEl.rel = 'stylesheet';
+    linkEl.href = `/reveal-theme/${themeName}.css`;
+    document.getElementsByTagName('head')[0].appendChild(linkEl);
+  }
+
+  
+
 
   
 }

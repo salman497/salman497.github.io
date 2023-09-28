@@ -7,7 +7,7 @@ import * as AppActions from './../state/actions';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
-  //encapsulation: ViewEncapsulation.None,
+  //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
@@ -39,6 +39,7 @@ export class EditorComponent implements OnInit {
 
   updateTheme(): void {
     this.store.dispatch(AppActions.updateEditorTheme({ themeSelected: this.themeSelected }));
+    this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateAnimation(): void {

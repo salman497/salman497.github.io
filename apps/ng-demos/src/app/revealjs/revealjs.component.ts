@@ -24,6 +24,8 @@ export class RevealjsComponent {
   toggleEditor(): void {
     this.editorVisible = !this.editorVisible;
   }
+
+ 
   
   closeSidenav() {
     this.editorSidenav.close();
