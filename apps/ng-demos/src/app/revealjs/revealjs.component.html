@@ -4,12 +4,8 @@
 
 <mat-sidenav-container class="main-container">
   <mat-sidenav #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
-     <!-- Close Button -->
-     <button mat-icon-button (click)="closeSidenav()" class="close-button">
-      <mat-icon>close</mat-icon>
-    </button>
     <ng-container *ngIf="editorInitState$ | async as editor">
-      <mono-repo-editor [editor]="editor"></mono-repo-editor>
+      <mono-repo-editor [editor]="editor" (onEditorClose)="toggleEditor()"></mono-repo-editor>
     </ng-container>
    
   </mat-sidenav>
