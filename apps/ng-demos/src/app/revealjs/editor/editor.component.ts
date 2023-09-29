@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
-import { selectEditor } from '../state/selector';
 import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
+import { AuthService } from '../../auth.service';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -21,12 +20,14 @@ export class EditorComponent implements OnInit {
   showDrawingArea!: boolean;
   showSlides!: boolean;
   /*** login */
-  isLoggedIn: boolean = false; // Set to true if the user is logged in
-  userName: string = 'Salman Aziz'; // Replace with actual user name
-  userImage: string = 'https://avatars.githubusercontent.com/u/15084194?v=4'; // Replace with actual image path
+  isLoggedIn = this.authservice.isAuthenticated(); // Set to true if the user is logged in
+  userName = this.authservice.getUserName(); // Replace with actual user name
+  userImage = this.authservice.getUserIMG(); // Replace with actual image path
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
-  constructor(private store: Store<RevealJsState>) { }
+  constructor(private store: Store<RevealJsState>, private authservice: AuthService) {
+   }
 
   ngOnInit() {
    this.currentContent = this.editor.content;
@@ -35,6 +36,7 @@ export class EditorComponent implements OnInit {
    this.showPen = this.editor.showPen;
    this.showDrawingArea = this.editor.showDrawingArea;
    this.showSlides = this.editor.showSlides;
+
   }
 
   updateContent(): void {
@@ -67,10 +69,16 @@ export class EditorComponent implements OnInit {
   }
 
   onLogin(): void {
+    this.authservice.signInWithGoogle();
+  }
 
+  OnLogout() {
+    this.authservice.logout();
   }
 
   onClose(): void {
     this.onEditorClose.emit();
   }
+
+
 }

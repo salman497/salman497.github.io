@@ -1,13 +1,18 @@
 <mat-toolbar>
-  <ng-container *ngIf="isLoggedIn">
-    <img class="user-image" [src]="userImage" alt="User Image" />
-    <span class="username">{{ userName }}</span>
-
+  <ng-container *ngIf="(isLoggedIn | async)">
+    <img class="user-image" [src]="userImage | async" alt="User Image" />
+    <span class="username">{{ userName | async }}</span>
+    <button mat-raised-button  class="toolbar-button" (click)="OnLogout()"  aria-label="Login">
+      Sign Out
+    </button>
   </ng-container>
   <span class="spacer"></span>
-  <button mat-raised-button *ngIf="!isLoggedIn" class="toolbar-button" (click)="onLogin()"  aria-label="Login">
-    Login
-  </button>
+  <ng-container *ngIf="(isLoggedIn | async) === false">
+    <button mat-raised-button class="toolbar-button" (click)="onLogin()"  aria-label="Login">
+      Login
+    </button>
+  </ng-container>
+ 
   <button mat-raised-button (click)="onClose()" class="toolbar-button" aria-label="Close">
     Close
   </button>
