@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SupabaseClient, User, createClient } from '@supabase/supabase-js';
-import { environment } from './enviroment/enviroment.prod'; // Ensure the path is correct
+import { environment } from './enviroment/enviroment';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthService {
     await this.supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:4200',
+        redirectTo: environment.hostULRL,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
