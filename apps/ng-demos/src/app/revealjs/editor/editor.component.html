@@ -1,6 +1,6 @@
 <mat-toolbar>
   <ng-container *ngIf="(isLoggedIn | async)">
-    <img class="user-image" [src]="userImage | async" alt="User Image" />
+    <img class="user-image" [src]="userImage | async" referrerpolicy="no-referrer" alt="User Image" />
     <span class="username">{{ userName | async }}</span>
     <button mat-raised-button  class="toolbar-button" (click)="OnLogout()"  aria-label="Login">
       Sign Out
