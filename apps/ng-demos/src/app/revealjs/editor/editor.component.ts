@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { selectEditor } from '../state/selector';
 import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
+import { AuthService } from '../../auth.service';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -20,8 +21,13 @@ export class EditorComponent implements OnInit {
   showPen!: boolean;
   showDrawingArea!: boolean;
   showSlides!: boolean;
+  user!: any;
+  IMG!: any;
 
-  constructor(private store: Store<RevealJsState>) { }
+  constructor(private store: Store<RevealJsState>, public auth: AuthService) {
+     this.user = this.auth.getUserName()
+     this.IMG = this.auth.getUserIMG()
+   }
 
   ngOnInit() {
    this.currentContent = this.editor.content;
@@ -60,4 +66,15 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(AppActions.updateEditorShowSlides({ showSlides: this.showSlides }));
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
+
+  logout() {
+    this.auth.logout()
+  }
+
+  storage() {
+    this.auth.storeMarkdown(this.editor)
+  }
+
+
+
 }

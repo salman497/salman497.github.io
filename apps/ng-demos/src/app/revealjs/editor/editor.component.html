@@ -1,5 +1,7 @@
 <div class="editor-container">
   <mat-accordion>
+
+    
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
@@ -7,18 +9,23 @@
           <mat-icon>edit</mat-icon> Editor
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-form-field appearance="fill" class="search-field">
+      <span> Welcome {{user | async}}!</span>
+      <img src="{{IMG | async}}" alt="">
+      <button (click)="logout()">logout</button>
+      <!-- <mat-form-field appearance="fill" class="search-field">
         <mat-label>Search with AI</mat-label>
         <input matInput placeholder="Search with AI">
         <button mat-icon-button matSuffix aria-label="Search">
           <mat-icon>search</mat-icon>
         </button>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="editor-textarea-field">
         <mat-label>Edit markdown</mat-label>
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="editor-button" >Save</button>
+      <span> Welcome {{user | async}}!</span>
+      <img src="{{IMG | async}}" alt="">
+      <button mat-raised-button color="primary" class="editor-button" (click)="storage()">Save</button>
     </mat-expansion-panel>
 
     <!-- Settings Section -->
@@ -51,5 +58,7 @@
         <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (change)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
     </mat-expansion-panel>
+    <span> Welcome {{user | async}}!</span>
+      <img src="{{IMG | async}}" alt="">
   </mat-accordion>
 </div>
