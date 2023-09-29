@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 
 export const appRoutes: Route[] = [
-    { path: '', component: RevealjsComponent, canActivate: [AuthGuard] },
+    { path: '', component: RevealjsComponent },
     { path: 'mermaid', component: MermaidViewerComponent },
     { path: 'viewer', component: ViewerComponent },
     { path: 'editor', component: EditorComponent },
