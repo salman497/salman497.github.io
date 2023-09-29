@@ -1,7 +1,19 @@
+<mat-toolbar>
+  <ng-container *ngIf="isLoggedIn">
+    <img class="user-image" [src]="userImage" alt="User Image" />
+    <span class="username">{{ userName }}</span>
+
+  </ng-container>
+  <span class="spacer"></span>
+  <button mat-raised-button *ngIf="!isLoggedIn" class="toolbar-button" (click)="onLogin()"  aria-label="Login">
+    Login
+  </button>
+  <button mat-raised-button (click)="onClose()" class="toolbar-button" aria-label="Close">
+    Close
+  </button>
+</mat-toolbar>
 <div class="editor-container">
   <mat-accordion>
-
-    
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
@@ -9,9 +21,6 @@
           <mat-icon>edit</mat-icon> Editor
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <span> Welcome {{user | async}}!</span>
-      <img src="{{IMG | async}}" alt="">
-      <button (click)="logout()">logout</button>
       <!-- <mat-form-field appearance="fill" class="search-field">
         <mat-label>Search with AI</mat-label>
         <input matInput placeholder="Search with AI">
@@ -23,9 +32,7 @@
         <mat-label>Edit markdown</mat-label>
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
       </mat-form-field>
-      <span> Welcome {{user | async}}!</span>
-      <img src="{{IMG | async}}" alt="">
-      <button mat-raised-button color="primary" class="editor-button" (click)="storage()">Save</button>
+      <button mat-raised-button color="primary" class="editor-button" >Save</button>
     </mat-expansion-panel>
 
     <!-- Settings Section -->
@@ -58,7 +65,5 @@
         <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (change)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
     </mat-expansion-panel>
-    <span> Welcome {{user | async}}!</span>
-      <img src="{{IMG | async}}" alt="">
   </mat-accordion>
 </div>

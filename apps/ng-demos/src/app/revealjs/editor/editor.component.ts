@@ -4,7 +4,6 @@ import { take } from 'rxjs';
 import { selectEditor } from '../state/selector';
 import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
-import { AuthService } from '../../auth.service';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -21,13 +20,13 @@ export class EditorComponent implements OnInit {
   showPen!: boolean;
   showDrawingArea!: boolean;
   showSlides!: boolean;
-  user!: any;
-  IMG!: any;
+  /*** login */
+  isLoggedIn: boolean = false; // Set to true if the user is logged in
+  userName: string = 'Salman Aziz'; // Replace with actual user name
+  userImage: string = 'https://avatars.githubusercontent.com/u/15084194?v=4'; // Replace with actual image path
+  @Output() onEditorClose = new EventEmitter<void>();
 
-  constructor(private store: Store<RevealJsState>, public auth: AuthService) {
-     this.user = this.auth.getUserName()
-     this.IMG = this.auth.getUserIMG()
-   }
+  constructor(private store: Store<RevealJsState>) { }
 
   ngOnInit() {
    this.currentContent = this.editor.content;
@@ -67,14 +66,11 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
-  logout() {
-    this.auth.logout()
+  onLogin(): void {
+
   }
 
-  storage() {
-    this.auth.storeMarkdown(this.editor)
+  onClose(): void {
+    this.onEditorClose.emit();
   }
-
-
-
 }
