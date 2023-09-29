@@ -1,3 +1,17 @@
+<mat-toolbar>
+  <ng-container *ngIf="isLoggedIn">
+    <img class="user-image" [src]="userImage" alt="User Image" />
+    <span class="username">{{ userName }}</span>
+
+  </ng-container>
+  <span class="spacer"></span>
+  <button mat-raised-button *ngIf="!isLoggedIn" class="toolbar-button" (click)="onLogin()"  aria-label="Login">
+    Login
+  </button>
+  <button mat-raised-button (click)="onClose()" class="toolbar-button" aria-label="Close">
+    Close
+  </button>
+</mat-toolbar>
 <div class="editor-container">
   <mat-accordion>
     <!-- Editor Section -->
@@ -7,13 +21,13 @@
           <mat-icon>edit</mat-icon> Editor
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-form-field appearance="fill" class="search-field">
+      <!-- <mat-form-field appearance="fill" class="search-field">
         <mat-label>Search with AI</mat-label>
         <input matInput placeholder="Search with AI">
         <button mat-icon-button matSuffix aria-label="Search">
           <mat-icon>search</mat-icon>
         </button>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="editor-textarea-field">
         <mat-label>Edit markdown</mat-label>
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>

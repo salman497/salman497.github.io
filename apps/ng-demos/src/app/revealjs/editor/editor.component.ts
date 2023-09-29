@@ -20,6 +20,11 @@ export class EditorComponent implements OnInit {
   showPen!: boolean;
   showDrawingArea!: boolean;
   showSlides!: boolean;
+  /*** login */
+  isLoggedIn: boolean = false; // Set to true if the user is logged in
+  userName: string = 'Salman Aziz'; // Replace with actual user name
+  userImage: string = 'https://avatars.githubusercontent.com/u/15084194?v=4'; // Replace with actual image path
+  @Output() onEditorClose = new EventEmitter<void>();
 
   constructor(private store: Store<RevealJsState>) { }
 
@@ -59,5 +64,13 @@ export class EditorComponent implements OnInit {
   updateShowSlides(): void {
     this.store.dispatch(AppActions.updateEditorShowSlides({ showSlides: this.showSlides }));
     this.store.dispatch(AppActions.toggleViewerToReRender());
+  }
+
+  onLogin(): void {
+
+  }
+
+  onClose(): void {
+    this.onEditorClose.emit();
   }
 }

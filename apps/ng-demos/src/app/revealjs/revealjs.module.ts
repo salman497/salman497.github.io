@@ -17,6 +17,7 @@ import { RevealjsComponent } from './revealjs.component';
 import { revealJsReducer } from './state/reducer';
 import { ViewerComponent } from './viewer/viewer.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CommonModule,
     MatSidenavModule,
     MatButtonModule,
+    MatToolbarModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ revealJs: revealJsReducer }),
     StoreDevtoolsModule.instrument({
