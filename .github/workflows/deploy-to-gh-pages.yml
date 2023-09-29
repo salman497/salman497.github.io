@@ -24,7 +24,7 @@ jobs:
       run: npm ci
 
     - name: Build Nx Web app
-      run: npx nx build ng-demos --prod
+      run: npx nx build ng-demos --configuration=production
 
     - name: Deploy to GH Pages 
       uses: peaceiris/actions-gh-pages@v3
