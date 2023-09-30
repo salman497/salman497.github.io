@@ -484,15 +484,27 @@ const Plugin = () => {
    * handles loading of external markdown.
    */
   async function processSlides(scope) {
-    // console.log("processSlides");
     const externalPromises = [];
-
+  
     [].slice.call(
       scope.querySelectorAll(
-        "section[data-markdown]:not([data-markdown-parsed])",
+        "section[data-markdown]:not([data-markdown-parsed]), section[data-markdown-raw-content]:not([data-markdown-parsed])",
       ),
     ).forEach(function (section, _i) {
-      if (section.getAttribute("data-markdown").length) {
+      // Check for data-markdown-raw-content attribute
+      const rawContent = section.getAttribute("data-markdown-raw-content");
+      if (rawContent) {
+        // Use the raw content as markdown
+        const promise = slidify(rawContent, {
+          separator: section.getAttribute("data-separator"),
+          verticalSeparator: section.getAttribute("data-separator-vertical"),
+          notesSeparator: section.getAttribute("data-separator-notes"),
+          attributes: getForwardedAttributes(section),
+        }).then((res) => {
+          section.outerHTML = res;
+        });
+        externalPromises.push(promise);
+      } else if (section.getAttribute("data-markdown").length) {
         const promise = loadExternalMarkdown(section).then(
           // Finished loading external file
           async function (xhr, _url) {
