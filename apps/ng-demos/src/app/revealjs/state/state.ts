@@ -12,6 +12,7 @@ export interface RevealJsState {
     showDrawingArea: boolean;
     showSlides: boolean;
     toggleViewer: boolean;
+    linkId: string; 
   }
   
   export const initialState: RevealJsState = {
@@ -22,6 +23,7 @@ export interface RevealJsState {
       showPen: true,
       showDrawingArea: true,
       showSlides: true,
-      toggleViewer: true 
+      toggleViewer: true,
+      linkId: ''
     }
   };

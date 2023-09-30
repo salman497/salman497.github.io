@@ -33,3 +33,8 @@ export const updateEditorShowSlides = createAction(
   '[RevealJs] Update Editor Show Slides',
   props<{ showSlides: boolean }>()
 );
+
+
+export const saveEditor = createAction(
+  '[RevealJs] Save Editor'
+);

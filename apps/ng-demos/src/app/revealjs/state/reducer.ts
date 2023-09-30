@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { toggleViewerToReRender, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
+import { saveEditor, toggleViewerToReRender, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
 import { initialState } from './state';
+import { v4 as uuidv4 } from 'uuid';
 
 export const revealJsReducer = createReducer(
   initialState,
@@ -52,5 +53,15 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       showSlides
     }
-  }))
+  })),
+  on(saveEditor, (state) => {
+    const linkId = uuidv4(); // Generate a new UUID
+    return {
+      ...state,
+      editor: {
+        ...state.editor,
+        linkId
+      }
+    };
+  })
 );
