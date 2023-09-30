@@ -1,6 +1,6 @@
 // @ts-nocheck
-import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
-import RevealMermaidPlugin from 'reveal.js-mermaid-plugin';
+// import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+// import RevealMermaidPlugin from 'reveal.js-mermaid-plugin';
 import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes.esm.js';
 import RevealSvgTimelineFragment from 'reveal.js-svg-timeline-fragment';
@@ -14,14 +14,19 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
   const RevealSearch = await dynamicImports.search();
-  const ChartJs = await dynamicImports.chartJs();
   const SlideDown = await dynamicImports.slideDown(); 
+  const SlideDownMermaidPlugin = await dynamicImports.slideDownMermaid(); 
+  const SlideDownChartJsPlugin = await dynamicImports.slideDownChartJs(); 
+  const SlideDownApexChartPlugin = await dynamicImports.slideDownApexChart(); 
   return {
     plugins: [
 	  SlideDown,
+	  SlideDownMermaidPlugin,
+	  SlideDownChartJsPlugin,
+	  SlideDownApexChartPlugin,
       // Markdown,
-	  ChartJs,
-      RevealMermaidPlugin,
+	  // ChartJs,
+      // RevealMermaidPlugin,
       RevealSvgTimelineFragment,
       RevealNotes,
       RevealScriptFragment,
