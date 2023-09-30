@@ -103,7 +103,7 @@ export class AuthService {
       const { data, error } = await this.supabase
         .from('markdown')
         .upsert([{ editor }])
-        .eq('userId', user.id);
+        .eq('user_id', user.id);
 
       console.log(
         '--------------saveEditor Output-----------------',
