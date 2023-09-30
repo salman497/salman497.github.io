@@ -1,13 +1,13 @@
 <mat-toolbar>
-  <ng-container *ngIf="(isLoggedIn | async)">
-    <img class="user-image" [src]="userImage | async" referrerpolicy="no-referrer" alt="User Image" />
-    <span class="username">{{ userName | async }}</span>
+  <ng-container *ngIf="(isLoggedIn$ | async)">
+    <img class="user-image" [src]="userImage$ | async" referrerpolicy="no-referrer" alt="User Image" />
+    <span class="username">{{ userName$ | async }}</span>
     <button mat-raised-button  class="toolbar-button" (click)="OnLogout()"  aria-label="Login">
       Sign Out
     </button>
   </ng-container>
   <span class="spacer"></span>
-  <ng-container *ngIf="(isLoggedIn | async) === false">
+  <ng-container *ngIf="(isLoggedIn$ | async) === false">
     <button mat-raised-button class="toolbar-button" (click)="onLogin()"  aria-label="Login">
       Login
     </button>
@@ -37,7 +37,7 @@
         <mat-label>Edit markdown</mat-label>
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="editor-button" >Save</button>
+      <button mat-raised-button color="primary" class="editor-button" (click)="onSave()" >Save</button>
     </mat-expansion-panel>
 
     <!-- Settings Section -->

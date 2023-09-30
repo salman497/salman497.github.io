@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
 import { AuthService } from '../../auth.service';
+import { take } from 'rxjs';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -20,23 +21,22 @@ export class EditorComponent implements OnInit {
   showDrawingArea!: boolean;
   showSlides!: boolean;
   /*** login */
-  isLoggedIn = this.authservice.isAuthenticated(); // Set to true if the user is logged in
-  userName = this.authservice.getUserName(); // Replace with actual user name
-  userImage = this.authservice.getUserIMG(); // Replace with actual image path
+  isLoggedIn$ = this.auth.isAuthenticated$(); // Set to true if the user is logged in
+  userName$ = this.auth.getUserName$(); // Replace with actual user name
+  userImage$ = this.auth.getUserImage$(); // Replace with actual image path
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
-  constructor(private store: Store<RevealJsState>, private authservice: AuthService) {
+  constructor(private store: Store<RevealJsState>, private auth: AuthService) {
    }
 
-  ngOnInit() {
+  async ngOnInit() {
    this.currentContent = this.editor.content;
    this.themeSelected = this.editor.themeSelected;
    this.animationSelected = this.editor.animationSelected;
    this.showPen = this.editor.showPen;
    this.showDrawingArea = this.editor.showDrawingArea;
    this.showSlides = this.editor.showSlides;
-
   }
 
   updateContent(): void {
@@ -69,15 +69,23 @@ export class EditorComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.authservice.signInWithGoogle();
+    this.auth.signInWithGoogle();
   }
 
   OnLogout() {
-    this.authservice.logout();
+    this.auth.logout();
   }
 
   onClose(): void {
     this.onEditorClose.emit();
+  }
+
+  onSave(): void {
+    if(this.auth.currentlyLoggedIn()) {
+      this.auth.saveEditor(this.editor);
+    } else {
+      console.log('----->>> LOGIN NOW!!!!!')
+    }
   }
 
 
