@@ -1,8 +1,14 @@
-/*!
- * The reveal.js markdown plugin. Handles parsing of
- * markdown inside of presentations as well as loading
- * of external markdown documents.
- */
+/*****************************************************************
+ ** Author: Jan Christoph Ebersbach, jceb@e-jc.de
+ **
+ ** A plugin for reveal.js https://github.com/slidesdown/slidesdown
+ ** The reveal.js markdown plugin. Handles parsing of markdown inside of presentations as well as loading of external markdown documents.
+ ** Version: 0.0.1
+ **
+ ** License: MIT license (see LICENSE.md)
+ **
+ ******************************************************************/
+
 
 import { marked } from "marked";
 import { baseUrl } from "marked-base-url";
