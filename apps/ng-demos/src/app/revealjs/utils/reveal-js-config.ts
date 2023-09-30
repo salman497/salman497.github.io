@@ -6,7 +6,7 @@ import RevealNotes from 'reveal.js/plugin/notes/notes.esm.js';
 import RevealSvgTimelineFragment from 'reveal.js-svg-timeline-fragment';
 import RevealAnimateFragments from 'reveal.js-animate-fragments';
 import RevealScriptFragment from 'reveal.js-script-fragment';
-import dynamicImports from '../utils/reveal-js-dynamic-imports';
+import dynamicImports from './reveal-plugins/reveal-js-dynamic-imports';
 import { Editor } from '../state/state';
 
 export async function getRevealConfig(editor: Editor): Promise<any> {
@@ -14,9 +14,13 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
   const RevealSearch = await dynamicImports.search();
+  const ChartJs = await dynamicImports.chartJs();
+  const SlideDown = await dynamicImports.slideDown(); 
   return {
     plugins: [
-      Markdown,
+	  SlideDown,
+      // Markdown,
+	  ChartJs,
       RevealMermaidPlugin,
       RevealSvgTimelineFragment,
       RevealNotes,
