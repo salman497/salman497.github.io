@@ -21,7 +21,7 @@ export async function slideDownChartJs() {
 }
 
 export async function slideDown() {
-  let slideDown = (await import('./reveal.js-slidedown/slidesdown')).default;
+  let slideDown = (await import('./reveal.js-slidedown/main')).default;
 
   return slideDown;
 }

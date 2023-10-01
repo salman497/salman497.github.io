@@ -37,7 +37,7 @@ async function createChart(canvas, data) {
     ); // wait for slide transition to re-add data and animation
   } else if (data) {
     try {
-      const { Chart } = await import("chart.js");
+      const { Chart } = await import("chart.js/auto");
       canvas.chart = null;
       const ctx = canvas.getContext("2d");
       const _data = JSON.parse(data);

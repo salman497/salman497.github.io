@@ -504,63 +504,6 @@ const Plugin = () => {
           section.outerHTML = res;
         });
         externalPromises.push(promise);
-      } else if (section.getAttribute("data-markdown").length) {
-        const promise = loadExternalMarkdown(section).then(
-          // Finished loading external file
-          async function (xhr, _url) {
-            if (!BASE_URL) {
-              // TODO: add support for multiple markdown elements
-              const base_url = new URL(xhr.responseURL);
-              const base_path = base_url.pathname.split(/\//);
-              base_url.pathname = base_path.splice(0, base_path.length - 1)
-                .join(
-                  "/",
-                );
-              // ensuere there's a trailing slash otherwish markered
-              // interprets it differently
-              BASE_URL = base_url.toString() + "/";
-            }
-            let markdown = xhr.responseText;
-            let metadata = {};
-            if (section.getAttribute("data-load-metadata") !== null) {
-              const metadataRegExp =
-                /^---\r?\n(?<metadata>(?:#.*|[a-zA-Z0-9-]+:\s.*|\r?\n)*)---(?:\r?\n)?/g;
-              const metadataMatch = metadataRegExp.exec(markdown);
-              if (metadataMatch) {
-                // TODO: a context element would be helpful to be able to
-                // properly set the metadata
-                if (metadataMatch.groups.metadata) {
-                  metadata = parseMetadata(metadataMatch.groups.metadata);
-                }
-                markdown = markdown.substring(metadataRegExp.lastIndex);
-              }
-            }
-            applyMetadata(metadata);
-            Reveal.on("ready", (_event) => {
-              hideCustomControlsIfVisiblityChanges(
-                document.querySelector(".controls"),
-              );
-            });
-            section.outerHTML = await slidify(markdown, {
-              separator: section.getAttribute("data-separator"),
-              verticalSeparator: section.getAttribute(
-                "data-separator-vertical",
-              ),
-              notesSeparator: section.getAttribute("data-separator-notes"),
-              attributes: getForwardedAttributes(section),
-            });
-          },
-          // Failed to load markdown
-          function (xhr, url) {
-            section.outerHTML = '<section data-state="alert">' +
-              "ERROR: The attempt to fetch " + url +
-              " failed with HTTP status " + xhr.status + "." +
-              "Check your browser's JavaScript console for more details." +
-              "<p>Remember that you need to serve the presentation HTML from a HTTP server.</p>" +
-              "</section>";
-          },
-        );
-        externalPromises.push(promise);
       } else {
         const promise = slidify(
           getMarkdownFromSlide(section, {
@@ -845,7 +788,7 @@ const Plugin = () => {
           delete markedOptions.baseUrl;
         }
         marked.use(gfmHeadingId());
-        markedOptions.async = true;
+        // markedOptions.async = true;
 
         const markedConfig = {
           ...markedOptions,

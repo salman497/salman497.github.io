@@ -33,6 +33,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
   ngOnDestroy() {
     if(this.deck) {
+     // this.deck.removeEventListeners();
       this.deck.destroy();
       window.globalRevealJs = undefined;
     }
