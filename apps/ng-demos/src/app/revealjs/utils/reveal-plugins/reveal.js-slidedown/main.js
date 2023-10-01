@@ -1,3 +1,11 @@
+/*****************************************************************
+ ** Original Author: Jan Christoph Ebersbach, jceb@e-jc.de
+ **
+ ** A plugin for reveal.js allowing to integrate mermaid.js https://github.com/slidesdown/slidesdown 
+ ** Updated for my needs
+ **
+ ******************************************************************/
+
 import { marked } from 'marked';
 import { processSlides, convertSlides } from './slideProcessing';
 import { codeHandler } from './codeHandler';
