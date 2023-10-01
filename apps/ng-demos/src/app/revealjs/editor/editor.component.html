@@ -8,7 +8,7 @@
   </ng-container>
   <span class="spacer"></span>
   <ng-container *ngIf="(isLoggedIn$ | async) === false">
-    <button mat-raised-button class="toolbar-button" (click)="onLogin()"  aria-label="Login">
+    <button mat-raised-button class="toolbar-button" (click)="onOpenLogin()"  aria-label="Login">
       Login
     </button>
   </ng-container>
@@ -16,6 +16,7 @@
   <button mat-raised-button (click)="onClose()" class="toolbar-button" aria-label="Close">
     Close
   </button>
+
 </mat-toolbar>
 <div class="editor-container">
   <mat-accordion>

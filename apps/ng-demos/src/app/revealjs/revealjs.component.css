@@ -27,4 +27,100 @@
 }
 
 
+/* Style the modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
 
+.login-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff7b00;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px; /* Set the maximum width for a phone-like size */
+  height: 80%; /* Adjust the height as needed */
+  max-height: 600px; /* Set the maximum height for a phone-like size */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  text-align: center;
+}
+
+/* Style the close button (X button) */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Style the Google login button */
+.google {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.google:hover {
+  background-color: #ffffff;
+}
+
+/* Style the Microsoft login button */
+.microsoft {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.microsoft:hover {
+  background-color: #ffffff;
+}
+
+/* Style the logo */
+.logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.login-button.microsoft {
+  position: relative; /* Make the button a positioning context */
+}
+
+/* Style the text color of the Microsoft login button */
+.login-button.microsoft .button-text {
+  color: #000; /* Black color */
+  position: relative; /* Make the text a positioning context */
+  top: -5px; /* Adjust the vertical position as needed */
+}
+.login-button.google  .button-text {
+  color: #000; /* Black color */
+  position: relative; /* Make the text a positioning context */
+  top: -5px; /* Adjust the vertical position as needed */
+}
+
+.login-button.google {
+  position: relative; /* Make the button a positioning context */
+}

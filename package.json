@@ -83,6 +83,7 @@
     "@supabase/auth-ui-react": "^0.4.5",
     "@supabase/auth-ui-shared": "^0.1.7",
     "@supabase/supabase-js": "^2.36.0",
+    "@supabase/ui": "^0.36.5",
     "firebase": "^10.4.0",
     "mermaid": "^10.4.0",
     "reflect-metadata": "^0.1.13",

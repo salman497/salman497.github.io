@@ -28,13 +28,15 @@ export class AuthService {
   async init() {
     const sessionResp = await this.supabase.auth.getSession();
     if (!valueExist(sessionResp?.data?.session)) {
-      console.log('----unabel to login No session exist---', sessionResp.error);
+      console.log('----unable to login No session exist---', sessionResp.error);
       return;
     }
     const userResp = await this.supabase.auth.getUser();
     if (userResp.error) {
       console.log('----get user error---', userResp.error);
       return;
+    } else {
+      console.log('info:', userResp.data)
     }
     this.supabase$.next({
       user: userResp?.data?.user,
@@ -55,15 +57,33 @@ export class AuthService {
     });
   }
 
+  async signInWithMicrosoft(): Promise<void> {
+    const scopes: string[] = ['openid', 'profile', 'email'];
+    await this.supabase.auth.signInWithOAuth({
+      provider: 'azure',
+      options: {
+        redirectTo: 'https://keopaarrwhppnzememsw.supabase.co/auth/v1/callback',
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        scopes: `${scopes}`,
+      },
+    })
+  
+   
+  }
+
+
   async logout(): Promise<void> {
     await this.supabase.auth.signOut();
     this.supabase.storage.emptyBucket(environment.supabaseKey);
     this.supabase.storage.deleteBucket(environment.supabaseKey);
     this.supabase$.next({});
-    // setTimeout(() => {
-    //   //signal logout after a second
-    //   this.supabase$.next({ });
-    // }, 1000);
+    setTimeout(() => {
+      //signal logout after a second
+      this.supabase$.next({ });
+    }, 1000);
 
     window.location.reload();
   }
@@ -112,4 +132,7 @@ export class AuthService {
       );
     }
   }
+
+
+
 }

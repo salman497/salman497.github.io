@@ -5,7 +5,7 @@
 <mat-sidenav-container class="main-container">
   <mat-sidenav #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
     <ng-container *ngIf="editorInitState$ | async as editor">
-      <mono-repo-editor [editor]="editor" (onEditorClose)="toggleEditor()"></mono-repo-editor>
+      <mono-repo-editor [editor]="editor" (onEditorClose)="toggleEditor()" (showlogin)="onShowLogin()"></mono-repo-editor>
     </ng-container>
    
   </mat-sidenav>
@@ -17,3 +17,20 @@
     </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+<ng-container *ngIf="this.isLoginModalVisible">
+  <div class="modal-overlay"></div>
+  <div class="login-modal">
+    <button class="close-button" (click)="onCloseLogin()">X</button>
+    <h3>Login</h3>
+    <button class="login-button google" (click)="onLoging()">
+      <img src="../../assets/google.png" alt="Reveal.js Logo" class="logo" />
+      <span class="button-text">Sign in with Google</span>
+    </button>
+    <button class="login-button microsoft" (click)="onLoginm()">
+      <img src="../../assets/Microsoft.png" alt="Reveal.js Logo" class="logo" />
+      <span class="button-text">Sign in with Microsoft</span>
+    </button>
+  </div>
+</ng-container>

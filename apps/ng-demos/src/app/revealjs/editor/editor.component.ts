@@ -26,8 +26,16 @@ export class EditorComponent implements OnInit {
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
+  @Output() showlogin = new EventEmitter<void>();
 
+
+  
   constructor(private store: Store<RevealJsState>, private auth: AuthService) {
+   }
+
+
+   onOpenLogin() {
+     this.showlogin.emit()
    }
 
   async ngOnInit() {
