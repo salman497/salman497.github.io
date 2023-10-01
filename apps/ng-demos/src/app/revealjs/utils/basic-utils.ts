@@ -6,20 +6,33 @@ export const valueExist = (value: any) : boolean => {
     return true;
 }
 
-export function addQueryParam(key: string, value: string) {
-    // Create a URL object with the current URL
-    const url = new URL(window.location.href);
-    
-    // Get the query string parameters from the URL
-    const params = new URLSearchParams(url.search);
-    
-    // Add or update the query string parameter
-    params.set(key, value);
-    
-    // Update the query string in the URL object
-    url.search = params.toString();
-    
-    // Update the URL in the address bar without reloading the page
-    window.history.pushState({}, '', url.toString());
+export function getQueryParam(param: string) {
+    // Getting the query string from the current URL
+    const queryString = window.location.search;
+    // Removing the leading '?' from the query string
+    const queryParams = new URLSearchParams(queryString);
+    // Getting the value of the specified query parameter
+    const value = queryParams.get(param);
+    return value;
+  }
+
+
+export function addQueryParam(key: string, value: any) {
+    window.location.hash = `${window.location.hash}?${key}=${value}`;
   }
   
+
+
+  export function updateWindowHash(event: any) {
+    console.log('-------updateWindowHash-------', event);
+    const queryString = window.location.search;
+    if(event.indexh && event.indexv) {
+        // Set the new hash fragment, keeping the existing query string
+        window.location.hash = `/${event.indexh}/${event.indexv}${queryString}`;
+    }
+    else if (event.indexh) {
+        // Set the new hash fragment, keeping the existing query string
+        window.location.hash = `/${event.indexh}${queryString}`;
+    }
+   
+  }

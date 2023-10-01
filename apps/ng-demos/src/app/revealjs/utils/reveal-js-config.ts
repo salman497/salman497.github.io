@@ -38,7 +38,8 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
       RevealSearch,
     //   window.RevealMenu
     ],
-	hash: true,
+	hashOneBasedIndex: false,
+	hash: false,
     embedded: true,
     minScale: 1.0,
     controls: true,
