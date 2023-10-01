@@ -1,16 +1,6 @@
 import { marked } from 'marked';
-import { baseUrl } from "marked-base-url";
-import { gfmHeadingId } from "marked-gfm-heading-id";
-import DOMPurify from "dompurify";
 import { processSlides, convertSlides } from './slideProcessing';
-
 import { codeHandler } from './codeHandler';
-import { 
-  CODE_LINE_NUMBER_REGEX, 
-} from './constants';
-
-
-let DIAGRAM_COUNTER = 0;
 
 const Plugin = () => {
     let deck;
