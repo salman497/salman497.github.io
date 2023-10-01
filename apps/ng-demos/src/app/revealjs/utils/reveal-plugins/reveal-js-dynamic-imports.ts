@@ -3,6 +3,31 @@
 // copied from https://github.com/AleCandido/show/blob/30b54767ef279f4ebd94f60b08a780a4809ab5cf/packages/show/src/lib/plugins/imports.ts 
 //built-in plugins
 
+export async function slideDownMermaid() {
+  let MermaidPlugin = (await import('./reveal.js-mermaid/plugin')).default;
+
+  return MermaidPlugin;
+}
+export async function slideDownApexChart() {
+  let ApexCharPlugin = (await import('./reveal.js-apexchart/plugin')).default;
+
+  return ApexCharPlugin;
+}
+
+export async function slideDownChartJs() {
+  let ChartJsPlugin = (await import('./reveal.js-chartjs/plugin')).default;
+
+  return ChartJsPlugin;
+}
+
+export async function slideDown() {
+  let slideDown = (await import('./reveal.js-slidedown/main')).default;
+
+  return slideDown;
+}
+
+
+
 
 export async function highlight() {
     let Highlight = (await import('reveal.js/plugin/highlight/highlight.esm')).default;
@@ -48,4 +73,4 @@ export async function highlight() {
   //   return window.RevealMenu;
   // }
   
-  export default { highlight, notes, search, zoom, customControls, chalkboard };
+  export default { highlight, notes, search, zoom, customControls, chalkboard, slideDownChartJs, slideDownMermaid, slideDownApexChart, slideDown};

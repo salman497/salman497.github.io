@@ -33,6 +33,7 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
   ngOnDestroy() {
     if(this.deck) {
+     // this.deck.removeEventListeners();
       this.deck.destroy();
       window.globalRevealJs = undefined;
     }
@@ -62,6 +63,10 @@ export class ViewerComponent implements OnInit, AfterViewInit, OnChanges, OnDest
         this.deck = new Reveal($('#revealDiv'));
         window.globalRevealJs = this.deck;
         this.deck.initialize(config);
+        this.deck.on('slidechanged', event => {
+          console.log('-------REVEALJS-SLIDECHANGE-------', event);
+          // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+        } );
       }
 
     } catch (error) {
