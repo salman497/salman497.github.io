@@ -75,7 +75,7 @@ export class ViewerComponent
         window.globalRevealJs = this.deck;
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
-          updateWindowHash(event);
+         // updateWindowHash(event);
         });
       }
     } catch (error) {

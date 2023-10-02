@@ -1,6 +1,6 @@
 // @ts-nocheck
-// import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
-// import RevealMermaidPlugin from 'reveal.js-mermaid-plugin';
+
+import RevealMermaidPlugin from 'reveal.js-mermaid-plugin';
 import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes.esm.js';
 import RevealSvgTimelineFragment from 'reveal.js-svg-timeline-fragment';
@@ -14,19 +14,21 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
   const RevealSearch = await dynamicImports.search();
-  const SlideDown = await dynamicImports.slideDown(); 
-  const SlideDownMermaidPlugin = await dynamicImports.slideDownMermaid(); 
-  const SlideDownChartJsPlugin = await dynamicImports.slideDownChartJs(); 
-  const SlideDownApexChartPlugin = await dynamicImports.slideDownApexChart(); 
+  const Markdown = await dynamicImports.markdown();
+  const RevealMath = await dynamicImports.math();
+//   const SlideDown = await dynamicImports.slideDown(); 
+//   const SlideDownMermaidPlugin = await dynamicImports.slideDownMermaid(); 
+//   const SlideDownChartJsPlugin = await dynamicImports.slideDownChartJs(); 
+//   const SlideDownApexChartPlugin = await dynamicImports.slideDownApexChart(); 
   return {
     plugins: [
-	  SlideDown,
-	  SlideDownMermaidPlugin,
-	  SlideDownChartJsPlugin,
-	  SlideDownApexChartPlugin,
-      // Markdown,
-	  // ChartJs,
-      // RevealMermaidPlugin,
+	//   SlideDown,
+	//   SlideDownMermaidPlugin,
+	//   SlideDownChartJsPlugin,
+	//   SlideDownApexChartPlugin,
+      Markdown,
+	 // ChartJs,
+      RevealMermaidPlugin,
       RevealSvgTimelineFragment,
       RevealNotes,
       RevealScriptFragment,
@@ -36,10 +38,11 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
       RevealChalkboard,
       RevealZoom,
       RevealSearch,
+	  RevealMath.KaTeX
     //   window.RevealMenu
     ],
-	hashOneBasedIndex: false,
-	hash: false,
+	hashOneBasedIndex: true,
+	hash: true,
     embedded: true,
     minScale: 1.0,
     controls: true,

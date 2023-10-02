@@ -1,28 +1,16 @@
 <div class="viewer-container">
   <div id="revealDiv" class="reveal">
     <div class="slides">
-      <section
-        data-separator="^(#{1,2} |---$)"
-        [attr.data-markdown-raw-content]="editor.content"
+      <!-- <section
+        data-separator="\r?\n---\r?\n"
         data-separator-vertical="^(#{3} |\|\|\|$)"
-        data-separator-notes="^notes?:"
-        id="markdown"
-      >
-    </section>
+        data-separator-notes="^\s*notes?:"
+        data-attributes='\.slide:\s*?(\S.+?)$'
+        data-element-attributes="\.element\s*?(.+?)$" -->
+      <section data-markdown>
+        {{ editor.content }}
+      </section>
     </div>
 
-    <!-- Layout components -->
-    <header id="slide-header">
-      <div id="slide-header-1"></div>
-      <div id="slide-header-2"></div>
-      <div id="slide-header-3"></div>
-    </header>
-    <footer id="slide-footer">
-      <div id="slide-footer-1"></div>
-      <div id="slide-footer-2"></div>
-      <div id="slide-footer-3"></div>
-    </footer>
   </div>
-
-
 </div>
