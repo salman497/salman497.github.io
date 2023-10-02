@@ -18,7 +18,7 @@ export interface RevealJsState {
   export const initialState: RevealJsState = {
     editor: {
       content: StartingTemplate,
-      themeSelected: 'Black',
+      themeSelected: 'White',
       animationSelected: 'Slide',
       showPen: true,
       showDrawingArea: true,

@@ -9,6 +9,7 @@
 import { marked } from 'marked';
 import { processSlides, convertSlides } from './slideProcessing';
 import { codeHandler } from './codeHandler';
+import { gfmHeadingId } from "marked-gfm-heading-id";
 
 const Plugin = () => {
     let deck;
@@ -38,7 +39,8 @@ const Plugin = () => {
           ...markedOptions
         });
         processSlides(marked, deck.getRevealElement());
-        
+        marked.use(gfmHeadingId());
+      //  marked.use(markedConfig);
         const slides = convertSlides(marked, deck);
         return slides;
       },

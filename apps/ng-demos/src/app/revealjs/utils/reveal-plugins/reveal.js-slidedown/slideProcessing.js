@@ -7,6 +7,7 @@ import {
 } from "./constants";
 import DOMPurify from "dompurify";
 
+
 export function processSlides(marked, scope) {
   scope.querySelectorAll(
     "section[data-markdown]:not([data-markdown-parsed]), section[data-markdown-raw-content]:not([data-markdown-parsed])"
@@ -50,12 +51,8 @@ export function convertSlides(marked, deck) {
       section,
       section,
       null,
-      section.getAttribute("data-element-attributes") ||
-      section.parentNode.getAttribute("data-element-attributes") ||
-      DEFAULT_ELEMENT_ATTRIBUTES_SEPARATOR,
-      section.getAttribute("data-attributes") ||
-      section.parentNode.getAttribute("data-attributes") ||
-      DEFAULT_SLIDE_ATTRIBUTES_SEPARATOR
+      section.getAttribute("data-element-attributes") || section.parentNode.getAttribute("data-element-attributes") || DEFAULT_ELEMENT_ATTRIBUTES_SEPARATOR,
+      section.getAttribute("data-attributes") || section.parentNode.getAttribute("data-attributes") || DEFAULT_SLIDE_ATTRIBUTES_SEPARATOR
     );
 
     if (notes) {
@@ -246,70 +243,71 @@ function getMarkdownFromSlide(section) {
   return text;
 }
 
-/**
- * Add attributes to the parent element of a text node,
- * or the element of an attribute node.
- */
-function addAttributes(
-  section,
-  element,
-  previousElement,
-  separatorElementAttributes,
-  separatorSectionAttributes,
-) {
-  // console.log("addAttributes");
-  if (
-    element != null && element.childNodes != undefined &&
-    element.childNodes.length > 0
+  /**
+   * Add attributes to the parent element of a text node,
+   * or the element of an attribute node.
+   */
+  function addAttributes(
+    section,
+    element,
+    previousElement,
+    separatorElementAttributes,
+    separatorSectionAttributes,
   ) {
-    let previousParentElement = element;
-    for (let i = 0; i < element.childNodes.length; i++) {
-      const childElement = element.childNodes[i];
-      if (i > 0) {
-        let j = i - 1;
-        while (j >= 0) {
-          const aPreviousChildElement = element.childNodes[j];
-          if (
-            typeof aPreviousChildElement.setAttribute == "function" &&
-            aPreviousChildElement.tagName != "BR"
-          ) {
-            previousParentElement = aPreviousChildElement;
-            break;
+    // console.log("addAttributes");
+    if (
+      element != null && element.childNodes != undefined &&
+      element.childNodes.length > 0
+    ) {
+      let previousParentElement = element;
+      for (let i = 0; i < element.childNodes.length; i++) {
+        const childElement = element.childNodes[i];
+        if (i > 0) {
+          let j = i - 1;
+          while (j >= 0) {
+            const aPreviousChildElement = element.childNodes[j];
+            if (
+              typeof aPreviousChildElement.setAttribute == "function" &&
+              aPreviousChildElement.tagName != "BR"
+            ) {
+              previousParentElement = aPreviousChildElement;
+              break;
+            }
+            j = j - 1;
           }
-          j = j - 1;
+        }
+        let parentSection = section;
+        if (childElement.nodeName == "section") {
+          parentSection = childElement;
+          previousParentElement = childElement;
+        }
+        if (
+          typeof childElement.setAttribute == "function" ||
+          childElement.nodeType == Node.COMMENT_NODE
+        ) {
+          addAttributes(
+            parentSection,
+            childElement,
+            previousParentElement,
+            separatorElementAttributes,
+            separatorSectionAttributes,
+          );
         }
       }
-      let parentSection = section;
-      if (childElement.nodeName == "section") {
-        parentSection = childElement;
-        previousParentElement = childElement;
-      }
+    }
+
+    if (element.nodeType == Node.COMMENT_NODE) {
       if (
-        typeof childElement.setAttribute == "function" ||
-        childElement.nodeType == Node.COMMENT_NODE
-      ) {
-        addAttributes(
-          parentSection,
-          childElement,
-          previousParentElement,
+        addAttributeInElement(
+          element,
+          previousElement,
           separatorElementAttributes,
-          separatorSectionAttributes,
-        );
+        ) == false
+      ) {
+        addAttributeInElement(element, section, separatorSectionAttributes);
       }
     }
   }
 
-  if (element.nodeType == Node.COMMENT_NODE) {
-    if (
-      addAttributeInElement(
-        element,
-        previousElement,
-        separatorElementAttributes,
-      ) == false
-    ) {
-      addAttributeInElement(element, section, separatorSectionAttributes);
-    }
-  }
-}
 
 
