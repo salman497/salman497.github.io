@@ -56,6 +56,12 @@ export async function math() {
   return math;
 }
 
+export async function customMarkdown() {
+  const markdown = (await import('./reveal.js-markdown/plugin')).default;
+
+  return markdown;
+}
+
 export async function markdown() {
   const markdown = (await import('reveal.js/plugin/markdown/markdown.esm.js'))
     .default;
@@ -95,5 +101,6 @@ export default {
   slideDownMermaid,
   slideDownApexChart,
   slideDown,
-  markdown
+  markdown,
+  customMarkdown
 };

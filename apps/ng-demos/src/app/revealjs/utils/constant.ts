@@ -1,7 +1,8 @@
 export const StartingTemplate = `
 ## Hi
 Lets explore RevealJs capability.
-
+Note:
+This will only display in the notes window.
 ---
 ## Mermaid
 

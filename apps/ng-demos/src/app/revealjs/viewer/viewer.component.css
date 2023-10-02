@@ -3,3 +3,9 @@
     width: auto;
     height: 100vh;
 }
+
+/*****Reveal Overwrites*****/
+
+code.mermaid.hljs.mathematica {
+    max-height: 50vh;
+}
