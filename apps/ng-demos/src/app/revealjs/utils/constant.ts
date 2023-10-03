@@ -89,18 +89,6 @@ via [chart.js](https://www.chartjs.org/)
 
 
 ---
-### Animate 
-<section data-auto-animate>
-        <div data-id="box" style="height: 50px; background: salmon;"></div>
-</section>
-
----
-### Animate 
-<section data-auto-animate>
-  <div data-id="box" style="height: 200px; background: blue;"></div>
-</section>
-
----
 ## Code 
 \`\`\`php [1|3-5]
 public function foo()
@@ -110,7 +98,54 @@ public function foo()
     )
 }
 \`\`\`
+
+
+--- 
+# Use Html
+Use html from RevealJs like 
+
+---
+<section data-auto-animate>
+    <h3>Animate</h3>
+    <div data-id="box" style="height: 50px; background: salmon;"></div>
+</section>
+
+---
+
+<section data-auto-animate>
+  <h3>Animate</h3>
+  <div data-id="box" style="height: 200px; background: blue;"></div>
+</section>
+
+--- 
+### Imbed Video
+<video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+
+--- 
+<section data-background-color="aquamarine">
+  <h2>Change Background</h2>
+  <h2>🍦</h2>
+</section>
+
+--- 
+<section data-background-color="rgb(70, 70, 255)">
+  <h2> Change Background</h2>
+  <h2>🍰</h2>
+</section>
+
+---
+<section>
+  <h2> Iframe </h2>
+  <iframe data-src="//www.tinywebgallery.com/en/features.php" data-preload></iframe>
+</section>
+
 `;
+
+
+// ### iframe
+// <section>
+//   <iframe data-src="//www.tinywebgallery.com/en/features.php" data-preload></iframe>
+// </section>
 
 // <section data-auto-animate>
 //         <div data-id="box" style="height: 50px; background: salmon;"></div>
