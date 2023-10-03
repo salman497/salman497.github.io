@@ -11,6 +11,8 @@ export const appRoutes: Route[] = [
     { path: 'viewer', component: ViewerComponent },
     { path: 'editor', component: EditorComponent },
     { path: 'nav', component: NavMenuComponent },
-    { path: ':slideNumber', component: RevealjsComponent },
-    { path: ':slideNumber/:subSlideNumber', component: RevealjsComponent },
+    { path: ':identifier', component: RevealjsComponent },
+    // { path: ':slideNumber', component: RevealjsComponent },
+    // { path: ':slideNumber/:subSlideNumber', component: RevealjsComponent },
+    // { path: ':identifier/:slideNumber/:subSlideNumber', component: RevealjsComponent },
 ];

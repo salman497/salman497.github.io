@@ -40,8 +40,8 @@ export class EditorComponent implements OnInit {
   }
 
   updateContent(): void {
-    this.store.dispatch(AppActions.updateEditorContent({ content: this.currentContent }));
-    this.store.dispatch(AppActions.toggleViewerToReRender());
+   // this.store.dispatch(AppActions.updateEditorContent({ content: this.currentContent }));
+  //this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateTheme(): void {
@@ -81,11 +81,11 @@ export class EditorComponent implements OnInit {
   }
 
   onSave(): void {
-    if(this.auth.currentlyLoggedIn()) {
-      this.auth.saveEditor(this.editor);
-    } else {
-      console.log('----->>> LOGIN NOW!!!!!')
-    }
+    // if(this.auth.currentlyLoggedIn()) {
+    //   this.auth.saveEditor(this.editor);
+    // } else {
+    //   console.log('----->>> LOGIN NOW!!!!!')
+    // }
   }
 
 

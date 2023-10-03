@@ -6,9 +6,10 @@ import {
   createClient,
   Session,
 } from '@supabase/supabase-js';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, from, map, Observable, of, tap } from 'rxjs';
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
+import { StartingTemplate } from './revealjs/utils/constant';
 
 @Injectable({
   providedIn: 'root',
@@ -97,19 +98,38 @@ export class AuthService {
   currentlyLoggedInUser(): User {
     return this.supabase$.value?.user as User;
   }
-  async saveEditor(editor: Editor): Promise<void> {
+  saveEditor(identifier: string, editor: Editor): Observable<any> {
     if (this.currentlyLoggedIn()) {
       const user = this.currentlyLoggedInUser();
-      const { data, error } = await this.supabase
-        .from('markdown')
-        .upsert([{ editor }])
-        .eq('user_id', user.id);
-
-      console.log(
-        '--------------saveEditor Output-----------------',
-        data,
-        error
+      return from(
+        this.supabase
+          .from('markdown')
+          .upsert([{ editor }])
+          .eq('user_id', user.id)
+      ).pipe(
+        tap(({ data, error }) => {
+          console.log(
+            '--------------saveEditor Output-----------------',
+            data,
+            error
+          );
+        })
       );
+    } else {
+      // If not logged in, return an empty observable
+      return EMPTY;
     }
+  }
+  
+   loadContent(identifier: string): Observable<Editor> {
+    return of({
+      content: StartingTemplate,
+      themeSelected: 'Black',
+      animationSelected: 'Slide',
+      showPen: true,
+      showDrawingArea: true,
+      showSlides: true,
+      toggleViewer: true,
+    });
   }
 }

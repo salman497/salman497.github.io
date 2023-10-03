@@ -1,10 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { saveEditor, toggleViewerToReRender, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
+import { updateEditorContent, updateEditorAnimation, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme, updateEditor } from './actions';
 import { initialState } from './state';
-import { v4 as uuidv4 } from 'uuid';
 
 export const revealJsReducer = createReducer(
   initialState,
+  on(updateEditor, (state, { editor }) => ({
+    ...state,
+    editor,
+    loaded: true
+  })),
   on(updateEditorContent, (state, { content }) => ({
     ...state,
     editor: {
@@ -40,13 +44,6 @@ export const revealJsReducer = createReducer(
       showDrawingArea
     }
   })),
-  on(toggleViewerToReRender, (state) => ({
-    ...state,
-    editor: {
-      ...state.editor,
-      toggleViewer: !state.editor.toggleViewer
-    }
-  })),
   on(updateEditorShowSlides, (state, { showSlides }) => ({
     ...state,
     editor: {
@@ -54,14 +51,6 @@ export const revealJsReducer = createReducer(
       showSlides
     }
   })),
-  on(saveEditor, (state) => {
-    const linkId = uuidv4(); // Generate a new UUID
-    return {
-      ...state,
-      editor: {
-        ...state.editor,
-        linkId
-      }
-    };
-  })
+  // Add other action handlers as needed
 );
+

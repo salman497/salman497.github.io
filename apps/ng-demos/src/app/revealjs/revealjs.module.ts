@@ -21,7 +21,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { EffectsModule } from '@ngrx/effects';
 import { RevealJsEffects } from './state/effects';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [EditorComponent, ViewerComponent, RevealjsComponent],
@@ -39,10 +38,8 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
     MatToolbarModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({
-      revealJs: revealJsReducer,
-      router: routerReducer,
+      revealJs: revealJsReducer
     }),
-    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([RevealJsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

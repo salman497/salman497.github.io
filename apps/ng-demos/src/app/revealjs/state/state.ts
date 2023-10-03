@@ -1,10 +1,12 @@
+// state.ts
 import { StartingTemplate } from "../utils/constant";
 
 export interface RevealJsState {
     editor: Editor;
-  }
+    loaded: boolean;
+}
 
-  export interface Editor {
+export interface Editor {
     content: string;
     themeSelected: string;
     animationSelected: string;
@@ -12,10 +14,9 @@ export interface RevealJsState {
     showDrawingArea: boolean;
     showSlides: boolean;
     toggleViewer: boolean;
-    linkId: string; 
-  }
-  
-  export const initialState: RevealJsState = {
+}
+
+export const initialState: RevealJsState = {
     editor: {
       content: StartingTemplate,
       themeSelected: 'White',
@@ -24,6 +25,6 @@ export interface RevealJsState {
       showDrawingArea: true,
       showSlides: true,
       toggleViewer: true,
-      linkId: ''
-    }
-  };
+    },
+    loaded: false
+};

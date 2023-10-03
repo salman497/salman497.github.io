@@ -1,8 +1,14 @@
 import { createAction, props } from '@ngrx/store';
+import { Editor } from './state';
 
 export const updateEditorContent = createAction(
   '[RevealJs] Update Editor Content',
   props<{ content: string }>()
+);
+
+export const updateEditor = createAction(
+  '[RevealJs] Update Editor',
+  props<{ editor: Editor }>()
 );
 
 export const updateEditorTheme = createAction(
@@ -34,7 +40,13 @@ export const updateEditorShowSlides = createAction(
   props<{ showSlides: boolean }>()
 );
 
+// New actions for loading and saving the editor state
+export const loadEditorState = createAction(
+  '[RevealJs] Load Editor State',
+  props<{ identifier: string, isLoggedIn: boolean }>()
+);
 
-export const saveEditor = createAction(
-  '[RevealJs] Save Editor'
+export const saveEditorState = createAction(
+  '[RevealJs] Save Editor State',
+  props<{ identifier: string, isLoggedIn: boolean }>()
 );

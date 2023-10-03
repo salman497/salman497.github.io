@@ -38,8 +38,8 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
       RevealMath.KaTeX,
       //   window.RevealMenu
     ],
-    hashOneBasedIndex: true,
-    hash: true,
+   // hashOneBasedIndex: true,
+    hash: false,
     showNotes: false, // IN speaker view S
     embedded: true,
     minScale: 1.0,

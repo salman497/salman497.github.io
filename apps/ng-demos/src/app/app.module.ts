@@ -13,7 +13,7 @@ import { appRoutes } from './app.routes';
   imports: [
     BrowserModule,  // Import the BrowserModule to enable Angular's features for web applications
     RevealJsModule,
-    RouterModule.forRoot(appRoutes, { useHash: true})
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],  // List of services (none in this basic example)
   bootstrap: [AppComponent]  // Indicates the component that should be bootstrapped at application startup
