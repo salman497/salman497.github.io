@@ -43,6 +43,7 @@ export class ViewerComponent
     if (this.deck) {
       // this.deck.removeEventListeners();
       this.deck.destroy();
+      this.deck.removeEventListeners();
       window.globalRevealJs = undefined;
     }
     setTimeout(() => {

@@ -5,6 +5,7 @@
  */
 
 import { marked } from 'marked';
+import { customCodeHandler } from './custom-code-handlers';
 
 const DEFAULT_SLIDE_SEPARATOR = '\r?\n---\r?\n',
 	  DEFAULT_VERTICAL_SEPARATOR = null,
@@ -455,11 +456,17 @@ const Plugin = () => {
 						language = language.replace( CODE_LINE_NUMBER_REGEX, '' ).trim();
 					}
 
+					// Custom handler
+					const customHtml = customCodeHandler(code, language);
+					if(customHtml) {
+						return customHtml;
+					}
+
 					// Escape before this gets injected into the DOM to
 					// avoid having the HTML parser alter our code before
 					// highlight.js is able to read it
 					code = escapeForHTML( code );
-
+					
 					// return `<pre><code ${lineNumbers} class="${language}">${code}</code></pre>`;
 
 					return `<pre><code ${lineNumbers} ${lineNumberOffset} class="${language}">${code}</code></pre>`;

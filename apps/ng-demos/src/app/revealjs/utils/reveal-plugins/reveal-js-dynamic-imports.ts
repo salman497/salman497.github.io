@@ -2,18 +2,18 @@
 // copied from https://github.com/AleCandido/show/blob/30b54767ef279f4ebd94f60b08a780a4809ab5cf/packages/show/src/lib/plugins/imports.ts
 //built-in plugins
 
-export async function slideDownMermaid() {
+export async function mermaid() {
   const MermaidPlugin = (await import('./reveal.js-mermaid/plugin')).default;
 
   return MermaidPlugin;
 }
-export async function slideDownApexChart() {
+export async function apexChart() {
   const ApexCharPlugin = (await import('./reveal.js-apexchart/plugin')).default;
 
   return ApexCharPlugin;
 }
 
-export async function slideDownChartJs() {
+export async function chartJs() {
   const ChartJsPlugin = (await import('./reveal.js-chartjs/plugin')).default;
 
   return ChartJsPlugin;
@@ -97,9 +97,9 @@ export default {
   math,
   customControls,
   chalkboard,
-  slideDownChartJs,
-  slideDownMermaid,
-  slideDownApexChart,
+  chartJs,
+  mermaid,
+  apexChart,
   slideDown,
   markdown,
   customMarkdown

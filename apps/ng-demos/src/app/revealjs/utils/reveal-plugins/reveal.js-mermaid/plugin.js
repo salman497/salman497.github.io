@@ -1,71 +1,54 @@
-/*****************************************************************
- ** Author: Jan Christoph Ebersbach, jceb@e-jc.de
- **
- ** A plugin for reveal.js allowing to integrate mermaid.js https://github.com/slidesdown/slidesdown
- **
- ** Version: 0.0.1
- **
- ** License: MIT license (see LICENSE.md)
- **
- ******************************************************************/
-
-async function initializeCharts(canvases) {
-  for (let i = 0; i < canvases.length; i++) {
-    await createChart(
-      canvases[i],
-      canvases[i].getAttribute("data-mermaid-id"),
-      atob(canvases[i].getAttribute("data-mermaid")),
-    );
-  }
-}
-
-async function createChart(canvas, id, data) {
-  if (id && data) {
-    try {
-      const { default: mermaid } = await import("mermaid");
-      const { svg } = await mermaid.render(
-        id,
-        data,
-      );
-      canvas.innerHTML = svg;
-    } catch (err) {
-      console.error(err);
-      canvas.textContent = err.toString();
-    }
-    // canvas.textContent = "done";
-  } else {
-    if (id) {
-      const msg = `mermaid: data missing found for chart "${id}"`;
-      console.warn(msg);
-      canvas.textContent = msg;
-    } else {
-      const msg = `mermaid: id missing found for chart`;
-      console.warn(msg);
-      canvas.textContent = msg;
-    }
-  }
-}
-
 /*!
- * reveal.js apexchart plugin
+ * reveal.js Mermaid plugin: code copied from reveal.js-mermaid-plugin
  */
+
+import mermaid from "mermaid";
+
 const Plugin = {
   id: "mermaid",
 
   init: function (reveal) {
-    reveal.addEventListener("ready", async function () {
-      // Get all canvases
-      const canvases = document.querySelectorAll("div[data-mermaid]");
-      await initializeCharts(canvases);
-    });
-    // reveal.addEventListener("slidechanged", async function () {
-    //   const canvases = reveal.getCurrentSlide().querySelectorAll(
-    //     "div[data-mermaid]",
-    //   );
-    //   await initializeCharts(canvases);
-    // });
+    let { ...mermaidConfig } = reveal.getConfig().mermaid || {};
 
-    return this;
+    mermaid.initialize({
+      // The node size will be calculated incorrectly if set `startOnLoad: start`,
+      // so we need to manually render.
+      startOnLoad: false,
+      ...mermaidConfig,
+    });
+
+    const mermaidEls = reveal.getRevealElement().querySelectorAll(".mermaid");
+
+    Array.from(mermaidEls).forEach(function (el) {
+      var insertSvg = function (svgCode, bindFunctions) {
+        el.innerHTML = svgCode;
+      };
+
+      // Using textContent not innerHTML, because innerHTML will get escaped code (eg: get --&gt; instead of -->).
+      var graphDefinition = el.textContent.trim();
+
+      try {
+        mermaid
+          .render(
+            `mermaid-${Math.random().toString(36).substring(2)}`,
+            graphDefinition
+          )
+          .then(({ svg }) => {
+            insertSvg(svg);
+          });
+      } catch (error) {
+        let errorStr = "";
+        if (error?.str) {
+          // From mermaid 9.1.4, error.message does not exists anymore
+          errorStr = error.str;
+        }
+        if (error?.message) {
+          errorStr = error.message;
+        }
+        console.error(errorStr, { error, graphDefinition, el });
+        el.innerHTML = errorStr;
+      }
+    });
   },
 };
 
