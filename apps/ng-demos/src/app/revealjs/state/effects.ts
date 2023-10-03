@@ -9,6 +9,7 @@ import { EMPTY, of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { initialState } from './state';
 import { selectEditor } from './selector';
+import { Constant } from '../utils/constants';
 
 
 
@@ -26,7 +27,7 @@ export class RevealJsEffects {
     this.actions$.pipe(
       ofType(loadEditorState),
       switchMap(({ identifier, isLoggedIn }) => {
-        if (identifier === 'startup') {
+        if (identifier === Constant.StartupTemplateIdentifier) {
           return of(updateEditor({ editor: initialState.editor }));
         } else if (!isLoggedIn) {
           const editor = JSON.parse(localStorage.getItem(identifier) || '{}');
@@ -46,7 +47,7 @@ export class RevealJsEffects {
       withLatestFrom(this.store.select(selectEditor)),
       switchMap(([action, currentEditor]) => {
         const { identifier, isLoggedIn } = action;
-        if (identifier === 'startup' && !isLoggedIn) {
+        if (identifier === Constant.StartupTemplateIdentifier && !isLoggedIn) {
           const newIdentifier = uuidv4();
           this.router.navigate([newIdentifier]);
           localStorage.setItem(newIdentifier, JSON.stringify(currentEditor));

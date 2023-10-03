@@ -9,7 +9,7 @@ import {
 import { BehaviorSubject, EMPTY, from, map, Observable, of, tap } from 'rxjs';
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
-import { StartingTemplate } from './revealjs/utils/constant';
+import { StartingTemplate } from './revealjs/utils/starter-template';
 
 @Injectable({
   providedIn: 'root',

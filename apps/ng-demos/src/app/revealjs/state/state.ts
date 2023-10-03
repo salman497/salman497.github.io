@@ -1,5 +1,5 @@
 // state.ts
-import { StartingTemplate } from "../utils/constant";
+import { StartingTemplate } from "../utils/starter-template";
 
 export interface RevealJsState {
     editor: Editor;

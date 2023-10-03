@@ -7,6 +7,7 @@ import { selectEditor } from './state/selector';
 import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
+import { Constant } from './utils/constants';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
@@ -22,7 +23,7 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
 
   constructor(private store: Store<RevealJsState>, private auth: AuthService) { }
   ngOnInit(): void {
-      this.loadState('startup', false);
+      this.loadState(Constant.StartupTemplateIdentifier, false);
   }
   async ngAfterViewInit() {
     // do auth check
