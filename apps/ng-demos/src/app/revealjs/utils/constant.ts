@@ -122,18 +122,15 @@ via [chart.js](https://www.chartjs.org/)
 
 ---
 ### Animate 
-\`\`\`html
 <section data-auto-animate>
         <div data-id="box" style="height: 50px; background: salmon;"></div>
 </section>
 
 ---
 ### Animate 
-\`\`\`html
 <section data-auto-animate>
   <div data-id="box" style="height: 200px; background: blue;"></div>
 </section>
-\`\`\`
 
 ---
 ## Code 
