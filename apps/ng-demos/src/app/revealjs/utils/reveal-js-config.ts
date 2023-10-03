@@ -47,6 +47,9 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
     controlsTutorial: true,
     keyboardCondition: 'focused',
     menu: getMenuConfig(),
+    // autoAnimateEasing: 'ease-out',
+    // autoAnimateDuration: 0.8,
+    // autoAnimateUnmatched: false,
     customcontrols: {
       controls: getCustomControls(editor),
     },

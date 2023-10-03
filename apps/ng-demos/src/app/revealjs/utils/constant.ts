@@ -31,17 +31,6 @@ Slide 3
 - Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
-## Code 
-\`\`\`php [1|3-5]
-public function foo()
-{
-    $foo = array(
-        'bar' => 'bar'
-    )
-}
-\`\`\`
-
----
 ## Image 
 ![Sample image](https://s3.amazonaws.com/static.slid.es/logo/v2/slides-symbol-512x512.png)
 
@@ -130,6 +119,32 @@ via [chart.js](https://www.chartjs.org/)
 
 </grid-box>
 
+
+---
+### Animate 
+\`\`\`html
+<section data-auto-animate>
+        <div data-id="box" style="height: 50px; background: salmon;"></div>
+</section>
+
+---
+### Animate 
+\`\`\`html
+<section data-auto-animate>
+  <div data-id="box" style="height: 200px; background: blue;"></div>
+</section>
+\`\`\`
+
+---
+## Code 
+\`\`\`php [1|3-5]
+public function foo()
+{
+    $foo = array(
+        'bar' => 'bar'
+    )
+}
+\`\`\`
 `;
 
 // <section data-auto-animate>
