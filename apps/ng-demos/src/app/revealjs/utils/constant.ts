@@ -34,7 +34,7 @@ Slide 3
 ## Image 
 ![Sample image](https://s3.amazonaws.com/static.slid.es/logo/v2/slides-symbol-512x512.png)
 
----
+-------
 ## The Lorenz Equations
 					[begin{aligned}
 					dot{x} = sigma(y-x) 
@@ -42,15 +42,16 @@ Slide 3
 					dot{z}  = -beta z + xy
 					end{aligned}]
 
----
+-----
 ## Charts: ChartJS
 
 via [chart.js](https://www.chartjs.org/)
 
----
-### Polar Area Chart
 
-<grid-box styles="grid-template: 'left code' / 50% 50%;">
+
+******
+
+### Polar Area Chart
 
 \`\`\`chartjs
 {
@@ -85,39 +86,6 @@ via [chart.js](https://www.chartjs.org/)
   }
 }
 \`\`\`
-
-<!-- .element: style="grid-area: left; height: 300px;" -->
-
-\`\`\`\`json
-\`\`\`chartjs
-{
-  "type": "polarArea",
-  "data": {
-    "labels": [
-      "Red",
-      ...
-    ],
-    "datasets": [
-      {
-        "label": "My First Dataset",
-        "data": [
-          11,
-          ...
-        ],
-        "backgroundColor": [
-          "rgb(255, 99, 132)",
-          ...
-        ]
-      }
-    ]
-  }
-}
-\`\`\`
-\`\`\`\`
-
-<!-- .element: style="grid-area: code;" -->
-
-</grid-box>
 
 
 ---

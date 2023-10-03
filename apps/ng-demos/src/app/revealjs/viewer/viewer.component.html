@@ -7,7 +7,9 @@
         data-separator-notes="^\s*notes?:"
         data-attributes='\.slide:\s*?(\S.+?)$'
         data-element-attributes="\.element\s*?(.+?)$" -->
-      <section data-markdown>
+      <section data-markdown 
+               data-separator="(?:\r?\n)?\s*---+\s*(?:\r?\n)"
+               data-separator-vertical="(?:\r?\n)?\s*\*\*\*+\s*(?:\r?\n)"               >
         {{ editor.content }}
       </section>
     
