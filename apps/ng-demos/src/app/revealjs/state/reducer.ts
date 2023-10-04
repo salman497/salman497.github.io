@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { updateEditorContent, updateEditorAnimation, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme, updateEditor } from './actions';
+import { toggleViewerToReRender, updateEditor, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
 import { initialState } from './state';
 
 export const revealJsReducer = createReducer(
@@ -44,13 +44,18 @@ export const revealJsReducer = createReducer(
       showDrawingArea
     }
   })),
+  on(toggleViewerToReRender, (state) => ({
+    ...state,
+    editor: {
+      ...state.editor,
+      toggleViewer: !state.editor.toggleViewer
+    }
+  })),
   on(updateEditorShowSlides, (state, { showSlides }) => ({
     ...state,
     editor: {
       ...state.editor,
       showSlides
     }
-  })),
-  // Add other action handlers as needed
+  }))
 );
-

@@ -40,8 +40,8 @@ export class EditorComponent implements OnInit {
   }
 
   updateContent(): void {
-   // this.store.dispatch(AppActions.updateEditorContent({ content: this.currentContent }));
-  //this.store.dispatch(AppActions.toggleViewerToReRender());
+    this.store.dispatch(AppActions.updateEditorContent({ content: this.currentContent }));
+    this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateTheme(): void {

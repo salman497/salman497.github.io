@@ -8,6 +8,8 @@ import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
 import { Constant } from './utils/constants';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
@@ -18,12 +20,22 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
   editorVisible: boolean = false;
   // first time only 
   editorInitState$ = this.store.select(selectEditor).pipe(take(1));
-  editor$ = this.store.select(selectEditor);
+  editor$ = this.store.select(selectEditor).pipe(tap((state) => {
+    console.log('-----------editor----------------', state);
+  }));
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
-  constructor(private store: Store<RevealJsState>, private auth: AuthService) { }
+  constructor(private store: Store<RevealJsState>, 
+              private auth: AuthService,
+              private route: ActivatedRoute,
+              private location: Location) { }
   ngOnInit(): void {
-      this.loadState(Constant.StartupTemplateIdentifier, false);
+    let identifier = this.route.snapshot.paramMap.get('identifier');
+    if (!identifier) {
+      identifier = Constant.StartupTemplateIdentifier;
+      this.location.replaceState(`/${identifier}`);
+    }
+    this.loadState(identifier, false);
   }
   async ngAfterViewInit() {
     // do auth check
