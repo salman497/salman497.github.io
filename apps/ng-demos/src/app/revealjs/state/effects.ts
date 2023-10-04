@@ -45,7 +45,7 @@ export class RevealJsEffects {
         withLatestFrom(this.store.select(selectEditor)),
         switchMap(([{ userType, id }, currentEditor]) => {
           if (!userType || userType === Constant.URLParamType.Startup) {
-            const newId = generateShortID(8);
+            const newId = generateShortID(6);
             localStorage.setItem(newId, JSON.stringify(currentEditor));
             this.location.replaceState(
               `/${Constant.URLParamType.Guest}/${Constant.URLParamMode.Edit}/${newId}`
