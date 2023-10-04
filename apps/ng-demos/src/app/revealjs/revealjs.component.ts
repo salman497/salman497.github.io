@@ -20,6 +20,7 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
   // first time only 
   editorInitState$ = this.store.select(selectEditor).pipe(take(1));
   editor$ = this.store.select(selectEditor);
+  isViewMode = false;
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
   constructor(private store: Store<RevealJsState>, 
@@ -30,6 +31,7 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
     const userType = params.get(Constant.URLParam.Type) as string;
     const mode = params.get(Constant.URLParam.Mode) as string;
     const id = params.get(Constant.URLParam.Id) as string;
+    this.isViewMode = mode === Constant.URLParamMode.View ? true : false;
     this.store.dispatch(AppActions.loadEditorState({ userType, mode, id }));
   }
   async ngAfterViewInit() {
