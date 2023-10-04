@@ -38,3 +38,32 @@ export function addQueryParam(key: string, value: any) {
     }
    
   }
+
+  export function generateShortID(length = 6) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
+export function isEmpty(value: any): boolean {
+    if (value == null) { // This checks for both null and undefined
+        return true;
+    }
+
+    if (typeof value === 'string' || Array.isArray(value)) {
+        return value.length === 0;
+    }
+
+    if (typeof value === 'object') {
+        return Object.keys(value).length === 0;
+    }
+
+    if (typeof value === 'number' || typeof value === 'boolean') {
+        return false;
+    }
+
+    return true; // Default case, though you might want to adjust based on your needs
+}

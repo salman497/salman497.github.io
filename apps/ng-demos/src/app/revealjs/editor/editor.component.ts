@@ -3,19 +3,32 @@ import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
 import { AuthService } from '../../auth.service';
-import { take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Constant } from '../utils/constants';
+
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
   //capsulation: ViewEncapsulation.None,
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit {
   @Input() editor!: Editor;
   currentContent!: string;
   themeSelected!: string;
-  themes = ['Black', 'White', 'League', 'Sky', 'Beige', 'Simple', 'Serif', 'Blood', 'Night', 'Moon', 'Solarized'];
+  themes = [
+    'Black',
+    'White',
+    'League',
+    'Sky',
+    'Beige',
+    'Simple',
+    'Serif',
+    'Blood',
+    'Night',
+    'Moon',
+    'Solarized',
+  ];
   animationSelected!: string;
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
   showPen!: boolean;
@@ -28,46 +41,63 @@ export class EditorComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
-  constructor(private store: Store<RevealJsState>, 
-              private route: ActivatedRoute, 
-              private auth: AuthService) {
-   }
+  constructor(
+    private store: Store<RevealJsState>,
+    private auth: AuthService,
+    private route: ActivatedRoute
+  ) {}
 
   async ngOnInit() {
-   this.currentContent = this.editor.content;
-   this.themeSelected = this.editor.themeSelected;
-   this.animationSelected = this.editor.animationSelected;
-   this.showPen = this.editor.showPen;
-   this.showDrawingArea = this.editor.showDrawingArea;
-   this.showSlides = this.editor.showSlides;
+    this.currentContent = this.editor.content;
+    this.themeSelected = this.editor.themeSelected;
+    this.animationSelected = this.editor.animationSelected;
+    this.showPen = this.editor.showPen;
+    this.showDrawingArea = this.editor.showDrawingArea;
+    this.showSlides = this.editor.showSlides;
   }
 
   updateContent(): void {
-    this.store.dispatch(AppActions.updateEditorContent({ content: this.currentContent }));
+    this.store.dispatch(
+      AppActions.updateEditorContent({ content: this.currentContent })
+    );
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateTheme(): void {
-    this.store.dispatch(AppActions.updateEditorTheme({ themeSelected: this.themeSelected }));
+    this.store.dispatch(
+      AppActions.updateEditorTheme({ themeSelected: this.themeSelected })
+    );
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateAnimation(): void {
-    this.store.dispatch(AppActions.updateEditorAnimation({ animationSelected: this.animationSelected }));
+    this.store.dispatch(
+      AppActions.updateEditorAnimation({
+        animationSelected: this.animationSelected,
+      })
+    );
   }
 
   updateShowPen(): void {
-    this.store.dispatch(AppActions.updateEditorShowPen({ showPen: this.showPen }));
+    this.store.dispatch(
+      AppActions.updateEditorShowPen({ showPen: this.showPen })
+    );
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateShowDrawingArea(): void {
-    this.store.dispatch(AppActions.updateEditorShowDrawingArea({ showDrawingArea: this.showDrawingArea }));
+    this.store.dispatch(
+      AppActions.updateEditorShowDrawingArea({
+        showDrawingArea: this.showDrawingArea,
+      })
+    );
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
   updateShowSlides(): void {
-    this.store.dispatch(AppActions.updateEditorShowSlides({ showSlides: this.showSlides }));
+    this.store.dispatch(
+      AppActions.updateEditorShowSlides({ showSlides: this.showSlides })
+    );
     this.store.dispatch(AppActions.toggleViewerToReRender());
   }
 
@@ -84,9 +114,10 @@ export class EditorComponent implements OnInit {
   }
 
   onSave(): void {
-    let identifier = this.route.snapshot.paramMap.get('identifier') as string;
-    this.store.dispatch(AppActions.saveEditorState({ identifier, isLoggedIn: this.auth.currentlyLoggedIn()}));
+    const params = this.route.snapshot.paramMap;
+    const userType = params.get(Constant.URLParam.Type) as string;
+    const mode = params.get(Constant.URLParam.Mode) as string;
+    const id = params.get(Constant.URLParam.Id) as string;
+    this.store.dispatch(AppActions.saveToLocalStorage({ userType, mode, id }));
   }
-
-
 }

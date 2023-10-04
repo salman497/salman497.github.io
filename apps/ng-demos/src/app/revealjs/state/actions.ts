@@ -42,11 +42,11 @@ export const updateEditorShowSlides = createAction(
 
 // New actions for loading and saving the editor state
 export const loadEditorState = createAction(
-  '[RevealJs] Load Editor State',
-  props<{ identifier: string, isLoggedIn: boolean }>()
+  '[RevealJs Effect] Load Editor State',
+   props<{ userType?: string, mode?: string, id?: string }>()
 );
 
-export const saveEditorState = createAction(
-  '[RevealJs] Save Editor State',
-  props<{ identifier: string, isLoggedIn: boolean }>()
+export const saveToLocalStorage = createAction(
+  '[RevealJs Effect] Save Editor to Local Storage',
+  props<{ userType?: string, mode?: string, id?: string }>()
 );

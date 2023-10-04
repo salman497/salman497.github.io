@@ -7,9 +7,8 @@ import { selectEditor } from './state/selector';
 import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
-import { Constant } from './utils/constants';
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Constant } from './utils/constants';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
@@ -20,22 +19,18 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
   editorVisible: boolean = false;
   // first time only 
   editorInitState$ = this.store.select(selectEditor).pipe(take(1));
-  editor$ = this.store.select(selectEditor).pipe(tap((state) => {
-    console.log('-----------editor----------------', state);
-  }));
+  editor$ = this.store.select(selectEditor);
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
   constructor(private store: Store<RevealJsState>, 
-              private auth: AuthService,
-              private route: ActivatedRoute,
-              private location: Location) { }
+              private auth: AuthService, 
+              private route: ActivatedRoute) { }
   ngOnInit(): void {
-    let identifier = this.route.snapshot.paramMap.get('identifier');
-    if (!identifier) {
-      identifier = Constant.StartupTemplateIdentifier;
-      this.location.replaceState(`/${identifier}`);
-    }
-    this.loadState(identifier, false);
+    const params = this.route.snapshot.paramMap;
+    const userType = params.get(Constant.URLParam.Type) as string;
+    const mode = params.get(Constant.URLParam.Mode) as string;
+    const id = params.get(Constant.URLParam.Id) as string;
+    this.store.dispatch(AppActions.loadEditorState({ userType, mode, id }));
   }
   async ngAfterViewInit() {
     // do auth check
@@ -45,15 +40,7 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
     this.editorVisible = !this.editorVisible;
   }
 
- 
- loadState(identifier: string, isLoggedIn: boolean): void {
-      this.store.dispatch(AppActions.loadEditorState({ identifier, isLoggedIn }));
-  }
-
-
   closeSidenav() {
     this.editorSidenav.close();
   }
-
-  
 }

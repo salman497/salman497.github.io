@@ -47,6 +47,7 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
     controlsTutorial: true,
     keyboardCondition: 'focused',
     menu: getMenuConfig(),
+    transition: editor.animationSelected.toLowerCase(),
     // autoAnimateEasing: 'ease-out',
     // autoAnimateDuration: 0.8,
     // autoAnimateUnmatched: false,
