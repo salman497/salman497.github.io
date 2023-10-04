@@ -6,8 +6,8 @@ export const updateEditorContent = createAction(
   props<{ content: string }>()
 );
 
-export const updateEditor = createAction(
-  '[RevealJs] Update Editor',
+export const initEditor = createAction(
+  '[RevealJs] Initialize Editor',
   props<{ editor: Editor }>()
 );
 

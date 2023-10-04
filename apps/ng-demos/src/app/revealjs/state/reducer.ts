@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { toggleViewerToReRender, updateEditor, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
+import { toggleViewerToReRender, initEditor, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
 import { initialState } from './state';
 
 export const revealJsReducer = createReducer(
   initialState,
-  on(updateEditor, (state, { editor }) => ({
+  on(initEditor, (state, { editor }) => ({
     ...state,
     editor,
     loaded: true

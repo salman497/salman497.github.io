@@ -4,12 +4,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { switchMap, map, withLatestFrom, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { loadEditorState, saveEditorState, updateEditor } from './actions';
+import { loadEditorState, saveEditorState, initEditor } from './actions';
 import { EMPTY, of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { initialState } from './state';
 import { selectEditor } from './selector';
 import { Constant } from '../utils/constants';
+import { Location } from '@angular/common';
 
 
 
@@ -20,7 +21,8 @@ export class RevealJsEffects {
     private actions$: Actions,
     private router: Router,
     private store: Store,
-    private auth: AuthService 
+    private auth: AuthService,
+    private location: Location
   ) {}
 
   loadEditorState$ = createEffect(() =>
@@ -28,13 +30,13 @@ export class RevealJsEffects {
       ofType(loadEditorState),
       switchMap(({ identifier, isLoggedIn }) => {
         if (identifier === Constant.StartupTemplateIdentifier) {
-          return of(updateEditor({ editor: initialState.editor }));
+          return of(initEditor({ editor: initialState.editor }));
         } else if (!isLoggedIn) {
           const editor = JSON.parse(localStorage.getItem(identifier) || '{}');
-          return of(updateEditor({ editor }));
+          return of(initEditor({ editor }));
         } else {
           return this.auth.loadContent(identifier).pipe(
-            map(editor => updateEditor({ editor }))
+            map(editor => initEditor({ editor }))
           );
         }
       })
@@ -49,7 +51,7 @@ export class RevealJsEffects {
         const { identifier, isLoggedIn } = action;
         if (identifier === Constant.StartupTemplateIdentifier && !isLoggedIn) {
           const newIdentifier = uuidv4();
-          this.router.navigate([newIdentifier]);
+          this.location.replaceState(`/${newIdentifier}`);
           localStorage.setItem(newIdentifier, JSON.stringify(currentEditor));
           return EMPTY;
         } else if (!isLoggedIn) {

@@ -33,6 +33,8 @@ export function addQueryParam(key: string, value: any) {
     else if (event.indexh) {
         // Set the new hash fragment, keeping the existing query string
         window.location.hash = `/${event.indexh}${queryString}`;
+    } else {
+        window.location.hash = '/';
     }
    
   }

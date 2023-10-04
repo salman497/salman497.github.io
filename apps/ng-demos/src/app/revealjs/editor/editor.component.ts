@@ -4,6 +4,7 @@ import { Editor, RevealJsState } from '../state/state';
 import * as AppActions from './../state/actions';
 import { AuthService } from '../../auth.service';
 import { take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -27,7 +28,9 @@ export class EditorComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
-  constructor(private store: Store<RevealJsState>, private auth: AuthService) {
+  constructor(private store: Store<RevealJsState>, 
+              private route: ActivatedRoute, 
+              private auth: AuthService) {
    }
 
   async ngOnInit() {
@@ -81,11 +84,8 @@ export class EditorComponent implements OnInit {
   }
 
   onSave(): void {
-    // if(this.auth.currentlyLoggedIn()) {
-    //   this.auth.saveEditor(this.editor);
-    // } else {
-    //   console.log('----->>> LOGIN NOW!!!!!')
-    // }
+    let identifier = this.route.snapshot.paramMap.get('identifier') as string;
+    this.store.dispatch(AppActions.saveEditorState({ identifier, isLoggedIn: this.auth.currentlyLoggedIn()}));
   }
 
 
