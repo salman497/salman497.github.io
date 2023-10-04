@@ -20,5 +20,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@latest/menu.js"></script> -->
-  <script src="runtime.a151bd7ecb7b429e.js" type="module"></script><script src="polyfills.1069a660d58aa68e.js" type="module"></script><script src="main.8516479f4b5b73fa.js" type="module"></script></body>
+    <script>
+      (function(){
+        if (sessionStorage.redirect) {
+          const redirect = sessionStorage.redirect;
+          delete sessionStorage.redirect;
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+  <script src="runtime.a151bd7ecb7b429e.js" type="module"></script><script src="polyfills.1069a660d58aa68e.js" type="module"></script><script src="main.c249c2cb48ac5b86.js" type="module"></script></body>
 </html>
