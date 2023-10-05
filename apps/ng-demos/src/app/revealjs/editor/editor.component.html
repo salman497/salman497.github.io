@@ -26,13 +26,7 @@
           <mat-icon>edit</mat-icon> Editor
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <!-- <mat-form-field appearance="fill" class="search-field">
-        <mat-label>Search with AI</mat-label>
-        <input matInput placeholder="Search with AI">
-        <button mat-icon-button matSuffix aria-label="Search">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field> -->
+
       <mat-form-field class="editor-textarea-field">
         <mat-label>Edit markdown</mat-label>
         <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
@@ -70,5 +64,55 @@
         <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (change)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
       </div>
     </mat-expansion-panel>
+
+        <!-- Publish Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>publish</mat-icon> Publish
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+    
+          <!-- Presentation Name Input -->
+          <mat-form-field class="input-field">
+            <mat-label>Presentation Name</mat-label>
+            <input matInput [(ngModel)]="presentationName" pattern="[a-zA-Z0-9- ]*" placeholder="My presentation">
+            <mat-error>Only alphanumeric characters, hyphens, and spaces are allowed.</mat-error>
+          </mat-form-field>
+    
+          <!-- Publish Button -->
+          <button mat-raised-button color="primary" class="publish-button" (click)="onPublish()">
+            Publish
+          </button>
+    
+          <!-- Published view Url Input -->
+          <mat-form-field class="input-field">
+            <mat-label>Published view Url</mat-label>
+            <input matInput [(ngModel)]="publishedViewUrl" readonly>
+            <button mat-icon-button matSuffix (click)="copyToClipboard(publishedViewUrl)" aria-label="Copy URL">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix (click)="openInNewTab(publishedViewUrl)" aria-label="Open in new tab">
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+          </mat-form-field>
+    
+          <!-- Published edit Url Input -->
+          <mat-form-field class="input-field">
+            <mat-label>Published edit Url</mat-label>
+            <input matInput [(ngModel)]="publishedEditUrl" readonly>
+            <button mat-icon-button matSuffix (click)="copyToClipboard(publishedEditUrl)" aria-label="Copy URL">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+    
+          <!-- Load my presentation Dropdown -->
+          <mat-form-field class="dropdown-field" >
+            <mat-label>Load my presentation</mat-label>
+            <mat-select [(value)]="selectedPresentation" [disabled]="true" matTooltip="Login to enable this feature.">
+              <mat-option *ngFor="let presentation of userPresentations" [value]="presentation">{{presentation}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-expansion-panel>
   </mat-accordion>
 </div>

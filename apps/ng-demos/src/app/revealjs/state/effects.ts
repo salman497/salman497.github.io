@@ -43,17 +43,16 @@ export class RevealJsEffects {
       this.actions$.pipe(
         ofType(saveToLocalStorage),
         withLatestFrom(this.store.select(selectEditor)),
-        switchMap(([{ userType, id }, currentEditor]) => {
-          if (!userType || userType === Constant.URLParamType.Startup) {
-            const newId = generateShortID(6);
-            localStorage.setItem(newId, JSON.stringify(currentEditor));
+        switchMap(([param, currentEditor]) => {
+          if (!param.userType || param.userType === Constant.URLParamType.Startup) {
+            localStorage.setItem(param.id, JSON.stringify(currentEditor));
             this.location.replaceState(
-              `/${Constant.URLParamType.Guest}/${Constant.URLParamMode.Edit}/${newId}`
+              `/${Constant.URLParamType.Guest}/${Constant.URLParamMode.Edit}/${param.id}/${param.name}`
             );
             return EMPTY;
           }
-          if (id) {
-            localStorage.setItem(id as string, JSON.stringify(currentEditor));
+          if (param.id) {
+            localStorage.setItem(param.id, JSON.stringify(currentEditor));
           }
           return EMPTY;
         })

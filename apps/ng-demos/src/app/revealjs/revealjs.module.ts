@@ -21,6 +21,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { EffectsModule } from '@ngrx/effects';
 import { RevealJsEffects } from './state/effects';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [EditorComponent, ViewerComponent, RevealjsComponent],
@@ -37,6 +40,9 @@ import { RevealJsEffects } from './state/effects';
     MatButtonModule,
     MatToolbarModule,
     BrowserAnimationsModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    ClipboardModule,
     StoreModule.forRoot({
       revealJs: revealJsReducer
     }),

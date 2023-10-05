@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { URLParam } from '../models/url.model';
 import { Editor } from './state';
 
 export const updateEditorContent = createAction(
@@ -48,5 +49,5 @@ export const loadEditorState = createAction(
 
 export const saveToLocalStorage = createAction(
   '[RevealJs Effect] Save Editor to Local Storage',
-  props<{ userType?: string, mode?: string, id?: string }>()
+  props<URLParam>()
 );
