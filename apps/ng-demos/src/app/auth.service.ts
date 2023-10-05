@@ -132,4 +132,15 @@ export class AuthService {
       toggleViewer: true,
     });
   }
+
+    // Simulate fetching data
+    mockFetchData(): Observable<void> {
+      // Simulate an asynchronous delay (you can adjust the duration)
+      return new Observable((observer) => {
+        setTimeout(() => {
+          observer.next();
+          observer.complete();
+        }, 2000); // Simulate a 2-second delay
+      });
+    }
 }

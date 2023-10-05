@@ -9,6 +9,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Constant } from './utils/constants';
+import { LoadingComponent } from './loading/loading.component';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
@@ -25,8 +27,23 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
 
   constructor(private store: Store<RevealJsState>, 
               private auth: AuthService, 
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private loadingService: LoadingComponent,
+              private http: HttpClient) { }
   ngOnInit(): void {
+
+// Start loading
+this.loadingService.startLoading();
+
+// Simulate fetching data
+this.auth.mockFetchData().subscribe(() => {
+  // Process your mock data here
+
+  // Stop loading when the data has "finished loading"
+  this.loadingService.stopLoading();
+});
+
+    
     const params = this.route.snapshot.paramMap;
     const userType = params.get(Constant.URLParam.Type) as string;
     const mode = params.get(Constant.URLParam.Mode) as string;

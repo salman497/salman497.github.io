@@ -1,7 +1,7 @@
 <button mat-icon-button *ngIf="!isViewMode" (click)="toggleEditor()" class="menu-icon">
   ☰
 </button>
-
+<app-loading></app-loading>
 <mat-sidenav-container  class="main-container">
   <mat-sidenav *ngIf="!isViewMode" #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
     <ng-container *ngIf="editorInitState$ | async as editor">
@@ -9,6 +9,8 @@
     </ng-container>
    
   </mat-sidenav>
+
+
 
   <mat-sidenav-content  class="main-viewer">
     <ng-container *ngIf="editor$ | async as editor">
