@@ -1,19 +1,39 @@
 <mat-toolbar>
-  <ng-container *ngIf="(isLoggedIn$ | async)">
-    <img class="user-image" [src]="userImage$ | async" referrerpolicy="no-referrer" alt="User Image" />
+  <ng-container *ngIf="isLoggedIn$ | async">
+    <img
+      class="user-image"
+      [src]="userImage$ | async"
+      referrerpolicy="no-referrer"
+      alt="User Image"
+    />
     <span class="username">{{ userName$ | async }}</span>
-    <button mat-raised-button  class="toolbar-button" (click)="OnLogout()"  aria-label="Login">
+    <button
+      mat-raised-button
+      class="toolbar-button"
+      (click)="OnLogout()"
+      aria-label="Login"
+    >
       Sign Out
     </button>
   </ng-container>
   <span class="spacer"></span>
   <ng-container *ngIf="(isLoggedIn$ | async) === false">
-    <button mat-raised-button class="toolbar-button" (click)="onLogin()"  aria-label="Login">
+    <button
+      mat-raised-button
+      class="toolbar-button"
+      (click)="onLogin()"
+      aria-label="Login"
+    >
       Login
     </button>
   </ng-container>
- 
-  <button mat-raised-button (click)="onClose()" class="toolbar-button" aria-label="Close">
+
+  <button
+    mat-raised-button
+    (click)="onClose()"
+    class="toolbar-button"
+    aria-label="Close"
+  >
     Close
   </button>
 </mat-toolbar>
@@ -22,16 +42,26 @@
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>edit</mat-icon> Editor
-        </mat-panel-title>
+        <mat-panel-title> <mat-icon>edit</mat-icon> Editor </mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field class="editor-textarea-field">
         <mat-label>Edit markdown</mat-label>
-        <textarea matInput class="editor-textarea" [(ngModel)]="currentContent" (blur)="updateContent()"></textarea>
+        <textarea
+          matInput
+          class="editor-textarea"
+          [(ngModel)]="currentContent"
+          (blur)="updateContent()"
+        ></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="editor-button" (click)="onSave()" >Save</button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="editor-button"
+        (click)="onSave()"
+      >
+        Save
+      </button>
     </mat-expansion-panel>
 
     <!-- Settings Section -->
@@ -44,75 +74,141 @@
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
-        <mat-select [(value)]="themeSelected" (valueChange)="updateTheme()" >
-          <mat-option *ngFor="let theme of themes" [value]="theme">{{theme}}</mat-option>
+        <mat-select [(value)]="themeSelected" (valueChange)="updateTheme()">
+          <mat-option *ngFor="let theme of themes" [value]="theme">{{
+            theme
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <!-- Animation Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Animation</mat-label>
-        <mat-select [(value)]="animationSelected" (valueChange)="updateAnimation()">
-          <mat-option *ngFor="let animation of animations" [value]="animation">{{animation}}</mat-option>
+        <mat-select
+          [(value)]="animationSelected"
+          (valueChange)="updateAnimation()"
+        >
+          <mat-option
+            *ngFor="let animation of animations"
+            [value]="animation"
+            >{{ animation }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
       <!-- Slide Toggles -->
       <div class="toggle-container">
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showPen" (change)="updateShowPen()" aria-label="Show Pen">Show Pen</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showDrawingArea"  (change)="updateShowDrawingArea()" aria-label="Show Drawing Area">Show Drawing Area</mat-slide-toggle>
-        <mat-slide-toggle class="editor-mat-slide-toggle" [(ngModel)]="showSlides"  (change)="updateShowSlides()" aria-label="Show Slides">Show Slides</mat-slide-toggle>
+        <mat-slide-toggle
+          class="editor-mat-slide-toggle"
+          [(ngModel)]="showPen"
+          (change)="updateShowPen()"
+          aria-label="Show Pen"
+          >Show Pen</mat-slide-toggle
+        >
+        <mat-slide-toggle
+          class="editor-mat-slide-toggle"
+          [(ngModel)]="showDrawingArea"
+          (change)="updateShowDrawingArea()"
+          aria-label="Show Drawing Area"
+          >Show Drawing Area</mat-slide-toggle
+        >
+        <mat-slide-toggle
+          class="editor-mat-slide-toggle"
+          [(ngModel)]="showSlides"
+          (change)="updateShowSlides()"
+          aria-label="Show Slides"
+          >Show Slides</mat-slide-toggle
+        >
       </div>
     </mat-expansion-panel>
 
-        <!-- Publish Section -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>publish</mat-icon> Publish
-            </mat-panel-title>
-          </mat-expansion-panel-header>
+    <!-- Publish Section -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>publish</mat-icon> Publish
+        </mat-panel-title>
+      </mat-expansion-panel-header>
     
-          <!-- Presentation Name Input -->
-          <mat-form-field class="input-field">
-            <mat-label>Presentation Name</mat-label>
-            <input matInput [(ngModel)]="presentationName" pattern="[a-zA-Z0-9- ]*" placeholder="My presentation">
-            <mat-error>Only alphanumeric characters, hyphens, and spaces are allowed.</mat-error>
-          </mat-form-field>
+      <!-- Top Row -->
+      <div class="top-row">
+        <!-- Presentation Name Input -->
+        <mat-form-field class="input-field presentation-input">
+          <mat-label>Presentation Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="presentationName"
+            pattern="[a-zA-Z0-9- ]*"
+            placeholder="My presentation"
+          />
+          <mat-error
+            >Only alphanumeric characters, hyphens, and spaces are
+            allowed.</mat-error
+          >
+        </mat-form-field>
     
-          <!-- Publish Button -->
-          <button mat-raised-button color="primary" class="publish-button" (click)="onPublish()">
-            Publish
-          </button>
-    
-          <!-- Published view Url Input -->
-          <mat-form-field class="input-field">
-            <mat-label>Published view Url</mat-label>
-            <input matInput [(ngModel)]="publishedViewUrl" readonly>
-            <button mat-icon-button matSuffix (click)="copyToClipboard(publishedViewUrl)" aria-label="Copy URL">
-              <mat-icon>content_copy</mat-icon>
-            </button>
-            <button mat-icon-button matSuffix (click)="openInNewTab(publishedViewUrl)" aria-label="Open in new tab">
-              <mat-icon>open_in_new</mat-icon>
-            </button>
-          </mat-form-field>
-    
-          <!-- Published edit Url Input -->
-          <mat-form-field class="input-field">
-            <mat-label>Published edit Url</mat-label>
-            <input matInput [(ngModel)]="publishedEditUrl" readonly>
-            <button mat-icon-button matSuffix (click)="copyToClipboard(publishedEditUrl)" aria-label="Copy URL">
-              <mat-icon>content_copy</mat-icon>
-            </button>
-          </mat-form-field>
-    
-          <!-- Load my presentation Dropdown -->
-          <mat-form-field class="dropdown-field" >
-            <mat-label>Load my presentation</mat-label>
-            <mat-select [(value)]="selectedPresentation" [disabled]="true" matTooltip="Login to enable this feature.">
-              <mat-option *ngFor="let presentation of userPresentations" [value]="presentation">{{presentation}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-expansion-panel>
+        <!-- Publish Button -->
+        <button
+          mat-raised-button
+          color="primary"
+          class="publish-button"
+          (click)="onPublish()"
+        >
+          Publish
+        </button>
+      </div>
+
+      <!-- Published view Url Input -->
+      <mat-form-field class="input-field">
+        <mat-label>Published view Url</mat-label>
+        <input matInput [(ngModel)]="publishedViewUrl" readonly />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="copyToClipboard(publishedViewUrl)"
+          aria-label="Copy URL"
+        >
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="openInNewTab(publishedViewUrl)"
+          aria-label="Open in new tab"
+        >
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Published edit Url Input -->
+      <mat-form-field class="input-field">
+        <mat-label>Published edit Url</mat-label>
+        <input matInput [(ngModel)]="publishedEditUrl" readonly />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="copyToClipboard(publishedEditUrl)"
+          aria-label="Copy URL"
+        >
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Load my presentation Dropdown -->
+      <mat-form-field class="dropdown-field">
+        <mat-label>Load my presentation [Login Required]</mat-label>
+        <mat-select
+          [(value)]="selectedPresentation"
+          [disabled]="true"
+          matTooltip="Login to enable this feature."
+        >
+          <mat-option
+            *ngFor="let presentation of userPresentations"
+            [value]="presentation"
+            >{{ presentation }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </mat-expansion-panel>
   </mat-accordion>
 </div>

@@ -69,6 +69,28 @@ mat-toolbar {
 .editor-mat-slide-toggle {
   margin-top: 16px;
 }
+/***************** publish ***************/
+.top-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.presentation-input {
+  flex: 7; /* 70% width */
+  height: 100%;
+}
+
+.publish-button {
+  flex: 3; /* 30% width */
+  height: 48px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.input-field,
+.dropdown-field {
+  width: 100%;
+}
 
 /**(********* override material *********/
 .mat-expansion-panel-header {
