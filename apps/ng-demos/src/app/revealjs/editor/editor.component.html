@@ -54,14 +54,7 @@
           (blur)="updateContent()"
         ></textarea>
       </mat-form-field>
-      <button
-        mat-raised-button
-        color="primary"
-        class="editor-button"
-        (click)="onSave()"
-      >
-        Save
-      </button>
+    
     </mat-expansion-panel>
 
     <!-- Settings Section -->
@@ -138,7 +131,7 @@
           <input
             matInput
             [(ngModel)]="presentationName"
-            pattern="[a-zA-Z0-9- ]*"
+            pattern="[a-zA-Z0-9\s]*"
             placeholder="My presentation"
           />
           <mat-error

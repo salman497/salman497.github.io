@@ -143,11 +143,12 @@ export class EditorComponent implements OnInit {
     this.snackBar.open('Login will give the ability to load their existing presentations', 'Close', {
       duration: 3000,
     });
-
+    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    const name = this.presentationName.replace(/\s+/g, '-').toLowerCase();
     // Here, add your logic to save and publish the presentation
     // For the sake of this example, I'm just setting some dummy URLs
-    this.publishedViewUrl = `https://yourwebsite.com/view/${this.presentationName.replace(/\s+/g, '-').toLowerCase()}`;
-    this.publishedEditUrl = `https://yourwebsite.com/edit/${this.presentationName.replace(/\s+/g, '-').toLowerCase()}`;
+    this.publishedViewUrl = `${window.location.origin}/guest/view/${this.urlParam.id}/${name}`;
+    this.publishedEditUrl = `${window.location.origin}/guest/edit/${this.urlParam.id}/${name}`;
   }
 
   copyToClipboard(url: string) {
