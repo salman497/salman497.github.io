@@ -38,6 +38,11 @@ export class EditorComponent implements OnInit {
   isLoggedIn$ = this.auth.isAuthenticated$(); // Set to true if the user is logged in
   userName$ = this.auth.getUserName$(); // Replace with actual user name
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
+
+  paramUserType!: string;
+  paramMode!: string;
+  paramId!: string;
+
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
@@ -54,6 +59,11 @@ export class EditorComponent implements OnInit {
     this.showPen = this.editor.showPen;
     this.showDrawingArea = this.editor.showDrawingArea;
     this.showSlides = this.editor.showSlides;
+
+    const params = this.route.snapshot.paramMap;
+    this.paramUserType = params.get(Constant.URLParam.Type) as string;
+    this.paramMode = params.get(Constant.URLParam.Mode) as string;
+    this.paramId = params.get(Constant.URLParam.Id) as string;
   }
 
   updateContent(): void {
@@ -114,10 +124,12 @@ export class EditorComponent implements OnInit {
   }
 
   onSave(): void {
-    const params = this.route.snapshot.paramMap;
-    const userType = params.get(Constant.URLParam.Type) as string;
-    const mode = params.get(Constant.URLParam.Mode) as string;
-    const id = params.get(Constant.URLParam.Id) as string;
-    this.store.dispatch(AppActions.saveToLocalStorage({ userType, mode, id }));
+    this.store.dispatch(
+      AppActions.saveToLocalStorage({
+        userType: this.paramUserType,
+        mode: this.paramMode,
+        id: this.paramId,
+      })
+    );
   }
 }
