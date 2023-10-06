@@ -12,7 +12,7 @@ export const appRoutes: Route[] = [
     { path: 'viewer', component: ViewerComponent },
     { path: 'editor', component: EditorComponent },
     { path: 'nav', component: NavMenuComponent },
-    { path: 'startup', component: RevealjsComponent },
+    { path: ':userType', component: RevealjsComponent },
     { path: ':userType/:mode/:identifier/:name', component: RevealjsComponent },
     { path: ':userType/:mode/:name', component: RevealjsComponent },
     // { path: ':slideNumber', component: RevealjsComponent },

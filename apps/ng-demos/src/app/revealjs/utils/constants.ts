@@ -18,6 +18,10 @@ export const Constant = {
         Local: 'local' as const,
         Published: 'published' as const,
         Startup: 'startup' as const
+    },
+    Error: {
+        SaveError: { errorType: 'save-error', message: 'Unable to save, please try again' },
+        SaveErrorNoEditor: { errorType: 'save-error-editor-not-present', message: 'editor is not loaded property'}
     }
 
 }

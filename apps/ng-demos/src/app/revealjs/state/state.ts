@@ -1,9 +1,17 @@
 // state.ts
 import { StartingTemplate } from "../utils/starter-template";
 
+export interface ErrorState {
+    errorType: string, 
+    message: string
+} 
 export interface RevealJsState {
     editor: Editor;
-    loaded: boolean;
+    editorInitialized: boolean;
+    loading: boolean
+    id: number,
+    name: string,
+    error?: ErrorState
 }
 
 export interface Editor {
@@ -26,5 +34,8 @@ export const initialState: RevealJsState = {
       showSlides: true,
       toggleViewer: true,
     },
-    loaded: false
+    editorInitialized: false,
+    loading: true,
+    id: 0,
+    name: 'startup' 
 };

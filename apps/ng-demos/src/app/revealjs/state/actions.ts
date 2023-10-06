@@ -1,15 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { URLParam } from '../models/url.model';
-import { Editor } from './state';
+import { Editor, ErrorState } from './state';
 
 export const updateEditorContent = createAction(
   '[RevealJs] Update Editor Content',
   props<{ content: string }>()
-);
-
-export const initEditor = createAction(
-  '[RevealJs] Initialize Editor',
-  props<{ editor: Editor }>()
 );
 
 export const updateEditorTheme = createAction(
@@ -41,18 +36,41 @@ export const updateEditorShowSlides = createAction(
   props<{ showSlides: boolean }>()
 );
 
-// New actions for loading and saving the editor state
-export const loadEditorState = createAction(
-  '[RevealJs Effect] Load Editor State',
-   props<{ userType?: string, mode?: string, id?: string }>()
-);
 
 export const saveToLocalStorage = createAction(
   '[RevealJs Effect] Save Editor to Local Storage',
   props<URLParam>()
 );
 
+/********************* ASYNC OPERATIONS ***************************/
+
+export const loadEditorState = createAction(
+  '[RevealJs Effect] Load Editor State',
+   props<{ userType?: string, mode?: string, id?: string }>()
+);
+
+export const loadEditorStateSuccess = createAction(
+  '[RevealJs] Load Editor State Success',
+   props<{ editor: Editor }>()
+);
+
+export const loadEditorStateFailure = createAction(
+  '[RevealJs] Load Editor State Failure',
+   props<ErrorState>()
+);
+
+
 export const saveToStorage = createAction(
   '[RevealJs Effect] Save Editor to Storage',
   props<URLParam>()
+);
+
+export const saveToStorageSuccess = createAction(
+  '[RevealJs] Save Editor to Storage Success',
+  props<{ id: number, name: string }>()
+);
+
+export const saveToStorageFailure = createAction(
+  '[RevealJs] Save Editor to Storage failure',
+  props<ErrorState>()
 );

@@ -1,5 +1,5 @@
 import { URLParam } from './../models/url.model';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
@@ -16,8 +16,10 @@ import { Clipboard } from '@angular/cdk/clipboard';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnChanges{
   @Input() editor!: Editor;
+  @Input() id!: number;
+  @Input() name!: string;
   currentContent!: string;
   themeSelected!: string;
   themes = [
@@ -77,6 +79,18 @@ export class EditorComponent implements OnInit {
       id: (Number(params.get(Constant.URLParam.Id))),
       name: (params.get(Constant.URLParam.Name) as string) || 'my-presentation',
     };
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['id'] || changes['name']) {
+      this.urlParam = {
+         ...this.urlParam,
+        id: this.id,
+        name: this.name
+      };
+      this.setPublishedURL();
+    }
   }
 
   updateContent(): void {
@@ -142,17 +156,24 @@ export class EditorComponent implements OnInit {
 
   // publish
   onPublish() {
-    this.store.dispatch(actions.saveToStorage(this.urlParam));
-    this.snackBar.open(
-      'Login will give the ability to load their existing presentations',
-      'Close',
-      {
-        duration: 3000,
-      }
-    );
     this.urlParam.name = this.presentationName
-      .replace(/\s+/g, '-')
-      .toLowerCase();
+    .replace(/\s+/g, '-')
+    .toLowerCase();
+    this.store.dispatch(actions.saveToStorage(this.urlParam));
+  }
+
+  copyToClipboard(url: string) {
+    this.clipboard.copy(url);
+    this.snackBar.open('URL copied to clipboard!', 'Close', {
+      duration: 2000,
+    });
+  }
+
+  openInNewTab(url: string) {
+    window.open(url, '_blank');
+  }
+
+  setPublishedURL() {
     // Here, add your logic to save and publish the presentation
     // For the sake of this example, I'm just setting some dummy URLs
     this.publishedViewUrl = buildURL({
@@ -167,16 +188,5 @@ export class EditorComponent implements OnInit {
       id: this.urlParam.id,
       name: this.urlParam.name,
     });
-  }
-
-  copyToClipboard(url: string) {
-    this.clipboard.copy(url);
-    this.snackBar.open('URL copied to clipboard!', 'Close', {
-      duration: 2000,
-    });
-  }
-
-  openInNewTab(url: string) {
-    window.open(url, '_blank');
   }
 }

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
 import * as AppActions from './state/actions';
-import { selectEditor } from './state/selector';
+import { selectEditor, selectIsLoading, selectSavedValues } from './state/selector';
 import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
@@ -19,7 +19,9 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
   editorVisible: boolean = false;
   // first time only 
   editorInitState$ = this.store.select(selectEditor).pipe(take(1));
-  editor$ = this.store.select(selectEditor);
+  isLoading$ = this.store.select(selectIsLoading);
+  savedValues$ = this.store.select(selectSavedValues);
+  editor$ = this.store.select(selectEditor).pipe(tap(() => console.log('------------>> editor Changed')));
   isViewMode = false;
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 

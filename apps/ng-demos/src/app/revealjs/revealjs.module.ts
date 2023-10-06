@@ -24,7 +24,7 @@ import { RevealJsEffects } from './state/effects';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [EditorComponent, ViewerComponent, RevealjsComponent],
   imports: [
@@ -43,6 +43,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatTooltipModule,
     MatSnackBarModule,
     ClipboardModule,
+    MatProgressSpinnerModule,
     StoreModule.forRoot({
       revealJs: revealJsReducer
     }),

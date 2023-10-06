@@ -1,13 +1,37 @@
 import { createReducer, on } from '@ngrx/store';
-import { toggleViewerToReRender, initEditor, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme } from './actions';
+import { toggleViewerToReRender, loadEditorStateSuccess, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme, loadEditorStateFailure, saveToStorageFailure, saveToStorageSuccess } from './actions';
 import { initialState } from './state';
 
 export const revealJsReducer = createReducer(
   initialState,
-  on(initEditor, (state, { editor }) => ({
+  on(loadEditorStateSuccess, (state, { editor }) => ({
     ...state,
     editor,
-    loaded: true
+    loading: false,
+    editorInitialized: true
+  })),
+  on(loadEditorStateFailure, (state, { errorType, message}) => ({
+    ...state,
+    error: {
+      errorType,
+      message
+    },
+    loading: false,
+    editorInitialized: true
+  })),
+  on(saveToStorageSuccess, (state, { id, name }) => ({
+    ...state,
+    id,
+    name,
+    loading: false
+  })),
+  on(saveToStorageFailure, (state, { errorType, message}) => ({
+    ...state,
+    error: {
+      errorType,
+      message
+    },
+    loading: false
   })),
   on(updateEditorContent, (state, { content }) => ({
     ...state,
@@ -58,4 +82,5 @@ export const revealJsReducer = createReducer(
       showSlides
     }
   }))
+
 );

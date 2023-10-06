@@ -5,10 +5,20 @@ export const selectRevealJsState = (state: any) => state.revealJs;
 
 export const selectEditor = createSelector(
   selectRevealJsState,
-  (state: RevealJsState) => state.loaded ? state.editor : null
+  (state: RevealJsState) => state.editorInitialized ? state.editor : null
 );
 
-export const selectIsLoaded = createSelector(
+export const selectIsLoading = createSelector(
   selectRevealJsState,
-  (state: RevealJsState) => state.loaded
+  (state: RevealJsState) => state.loading
+);
+
+export const selectError = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.error ? state.error : null
+);
+
+export const selectSavedValues = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => ({ id: state.id, name: state.name })
 );
