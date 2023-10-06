@@ -15,8 +15,8 @@ export const Constant = {
         View: 'view' as const
     },
     URLParamType: {
-        Guest: 'guest' as const,
-        User: 'user' as const,
+        Local: 'local' as const,
+        Published: 'published' as const,
         Startup: 'startup' as const
     }
 

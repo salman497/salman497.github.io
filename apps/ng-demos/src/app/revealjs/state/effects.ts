@@ -25,7 +25,7 @@ export class RevealJsEffects {
     this.actions$.pipe(
       ofType(loadEditorState),
       switchMap(({ userType, id }) => {
-        if (userType === Constant.URLParamType.Guest && id) {
+        if (userType === Constant.URLParamType.Local && id) {
           const editor = JSON.parse(localStorage.getItem(id) || '{}');
           if (!isEmpty(editor)) {
             return of(initEditor({ editor }));
@@ -47,7 +47,7 @@ export class RevealJsEffects {
           if (!param.userType || param.userType === Constant.URLParamType.Startup) {
             localStorage.setItem(param.id, JSON.stringify(currentEditor));
             this.location.replaceState(
-              `/${Constant.URLParamType.Guest}/${Constant.URLParamMode.Edit}/${param.id}/${param.name}`
+              `/${Constant.URLParamType.Local}/${Constant.URLParamMode.Edit}/${param.id}/${param.name}`
             );
             return EMPTY;
           }

@@ -51,3 +51,8 @@ export const saveToLocalStorage = createAction(
   '[RevealJs Effect] Save Editor to Local Storage',
   props<URLParam>()
 );
+
+export const saveToStorage = createAction(
+  '[RevealJs Effect] Save Editor to Storage',
+  props<URLParam>()
+);

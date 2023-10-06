@@ -1,3 +1,6 @@
+import { URLParam } from "../models/url.model";
+import { Constant } from "./constants";
+
 export const valueExist = (value: any) : boolean => {
     if(value === null || value === undefined) {
         return false;
@@ -66,4 +69,9 @@ export function isEmpty(value: any): boolean {
     }
 
     return true; // Default case, though you might want to adjust based on your needs
+}
+
+
+export function buildURL(param: URLParam): string {
+    return `${window.location.origin}/${param.userType}/${param.mode}/${param.id}/${param.name}`;
 }
