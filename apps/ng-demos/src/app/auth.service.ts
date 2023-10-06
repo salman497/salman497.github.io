@@ -1,3 +1,4 @@
+import { switchMap } from 'rxjs/operators';
 import { Editor } from './revealjs/state/state';
 import { Injectable } from '@angular/core';
 import {
@@ -6,7 +7,16 @@ import {
   createClient,
   Session,
 } from '@supabase/supabase-js';
-import { BehaviorSubject, EMPTY, from, map, Observable, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  EMPTY,
+  from,
+  map,
+  Observable,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
 import { StartingTemplate } from './revealjs/utils/starter-template';
@@ -98,30 +108,22 @@ export class AuthService {
   currentlyLoggedInUser(): User {
     return this.supabase$.value?.user as User;
   }
-  saveEditor(identifier: string, editor: Editor): Observable<any> {
-    if (this.currentlyLoggedIn()) {
-      const user = this.currentlyLoggedInUser();
-      return from(
-        this.supabase
-          .from('markdown')
-          .upsert([{ editor }])
-          .eq('user_id', user.id)
-      ).pipe(
-        tap(({ data, error }) => {
-          console.log(
-            '--------------saveEditor Output-----------------',
-            data,
-            error
-          );
-        })
-      );
-    } else {
-      // If not logged in, return an empty observable
-      return EMPTY;
-    }
+  saveEditor(id: number, url_name: string, editor: Editor): Observable<any> {
+    return from(
+      this.supabase.from('markdown').upsert([{  url_name, editor }]).select()
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data[0] : {};
+      })
+    );
   }
-  
-   loadContent(identifier: string): Observable<Editor> {
+
+  loadContent(identifier: string): Observable<Editor> {
     return of({
       content: StartingTemplate,
       themeSelected: 'Black',

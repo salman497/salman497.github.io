@@ -74,7 +74,7 @@ export class EditorComponent implements OnInit {
     this.urlParam = {
       userType: params.get(Constant.URLParam.Type) as string,
       mode: params.get(Constant.URLParam.Mode) as string,
-      id: (params.get(Constant.URLParam.Id) as string) || generateShortID(6),
+      id: (Number(params.get(Constant.URLParam.Id))),
       name: (params.get(Constant.URLParam.Name) as string) || 'my-presentation',
     };
   }
@@ -142,6 +142,7 @@ export class EditorComponent implements OnInit {
 
   // publish
   onPublish() {
+    this.store.dispatch(actions.saveToStorage(this.urlParam));
     this.snackBar.open(
       'Login will give the ability to load their existing presentations',
       'Close',
