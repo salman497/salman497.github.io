@@ -192,13 +192,13 @@
         <mat-label>Load my presentation [Login Required]</mat-label>
         <mat-select
           [(value)]="selectedPresentation"
-          [disabled]="true"
+          [disabled]="this.disabled$ | async"
           matTooltip="Login to enable this feature."
         >
           <mat-option
-            *ngFor="let presentation of userPresentations"
-            [value]="presentation"
-            >{{ presentation }}</mat-option
+            *ngFor="let presentation of (userPresentations$ | async)"
+            [value]="presentation.id"
+            >{{ presentation.name }}</mat-option
           >
         </mat-select>
       </mat-form-field>

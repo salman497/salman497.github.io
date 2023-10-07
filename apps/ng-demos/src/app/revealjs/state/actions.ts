@@ -49,7 +49,7 @@ export const loadEditorState = createAction(
 
 export const loadEditorStateSuccess = createAction(
   '[RevealJs] Load Editor State Success',
-   props<{ editor: Editor }>()
+   props<{ id?: number, name?: string, editor: Editor }>()
 );
 
 export const loadEditorStateFailure = createAction(

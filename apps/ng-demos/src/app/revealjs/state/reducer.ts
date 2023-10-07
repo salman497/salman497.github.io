@@ -26,10 +26,12 @@ export const revealJsReducer = createReducer(
     ...state,
     loading: true,
   })),
-  on(loadEditorStateSuccess, (state, { editor }) => ({
+  on(loadEditorStateSuccess, (state, { name, id, editor }) => ({
     ...state,
     editor,
     editorInitialized: true,
+    name: name ? name : state.name,
+    id: id ? id : state.id,
   })),
   on(loadEditorStateFailure, (state, { errorType, message }) => ({
     ...state,

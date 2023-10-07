@@ -9,6 +9,7 @@ import { Constant } from '../utils/constants';
 import { buildURL, generateShortID } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -42,6 +43,12 @@ export class EditorComponent implements OnInit{
   isLoggedIn$ = this.auth.isAuthenticated$(); // Set to true if the user is logged in
   userName$ = this.auth.getUserName$(); // Replace with actual user name
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
+  disabled$ = this.auth.isAuthenticated$().pipe(map(isLogin => {
+    if(isLogin) {
+      return false;
+    }
+    return true;
+}));
 
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
@@ -50,7 +57,7 @@ export class EditorComponent implements OnInit{
   @Input() presentationName: string = 'My presentation';
   @Input() publishedViewUrl: string = ''; // This will be set after publishing
   @Input() publishedEditUrl: string = ''; // This will be set after publishing
-  userPresentations: string[] = []; // This should be fetched from the backend
+  userPresentations$ = this.auth.getMyEditors(); // This should be fetched from the backend
   selectedPresentation: string = '';
 
   constructor(

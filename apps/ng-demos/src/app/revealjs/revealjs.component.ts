@@ -18,7 +18,7 @@ import { Constant } from './utils/constants';
 export class RevealjsComponent implements OnInit, AfterViewInit {
   editorVisible: boolean = false;
   // first time only 
-  editorInitState$ = this.store.select(selectEditor).pipe(take(1));
+  editorInitState$ = this.store.select(selectEditor);
   isLoading$ = this.store.select(selectIsLoading);
   editor$ = this.store.select(selectEditor).pipe(tap(() => console.log('------------>> editor Changed')));
   isEditMode$ = this.store.select(selectIsEditMode);
