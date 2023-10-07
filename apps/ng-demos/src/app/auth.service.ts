@@ -142,6 +142,24 @@ export class AuthService {
     );
   }
 
+  getMyEditors(): Observable<Array<{ id: number, name: string }>> {
+    if(!this.currentlyLoggedIn()) {
+      return of([]);
+    }
+    return from(
+      this.supabase.from('markdown').select().eq('user_id', this.currentlyLoggedInUser().id)
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data: [];
+      })
+    );
+  }
+
   loadContent(identifier: string): Observable<Editor> {
     return of({
       content: StartingTemplate,

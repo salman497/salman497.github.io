@@ -52,7 +52,7 @@ export class RevealJsEffects {
         if (userType === Constant.UrlLoadType.Published && id) {
           return this.auth.getEditor(Number(id)).pipe(
             map((data) => {
-              return loadEditorStateSuccess({ editor: data.editor as Editor });
+              return loadEditorStateSuccess({ id: data.id, name: data.name, editor: data.editor as Editor });
             }),
             catchError(() =>
               of(loadEditorStateFailure(Constant.Error.LoadError))
