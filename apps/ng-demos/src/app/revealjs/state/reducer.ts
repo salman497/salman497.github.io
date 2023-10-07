@@ -107,9 +107,14 @@ export const revealJsReducer = createReducer(
       showSlides,
     },
   })),
-  on(updateURLInfo, (state, urlInfo) => ({
+  on(updateURLInfo, (state, {id, loadType, mode, name} ) => ({
     ...state,
-    urlInfo,
+    urlInfo: {
+      id,
+      loadType,
+      mode,
+      name
+    },
   })),
   on(updateURLNameOnly, (state, { name }) => ({
     ...state,

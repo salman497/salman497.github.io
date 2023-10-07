@@ -10,6 +10,13 @@ export const selectEditor = createSelector(
   (state: RevealJsState) => state.editorInitialized ? state.editor : null
 );
 
+export const selectFullState = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state
+);
+
+
+
 export const selectIsLoading = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => state.loading

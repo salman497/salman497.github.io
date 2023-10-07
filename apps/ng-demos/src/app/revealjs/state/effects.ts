@@ -21,7 +21,7 @@ import {
 } from './actions';
 import { EMPTY, of } from 'rxjs';
 import { initialState } from './state';
-import { selectEditor, selectUrlInfo } from './selector';
+import { selectEditor, selectFullState, selectUrlInfo } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
 import { isEmpty } from '../utils/basic-utils';
@@ -58,13 +58,12 @@ export class RevealJsEffects {
     this.actions$.pipe(
       ofType(saveToStorage),
       withLatestFrom(
-        this.store.select(selectUrlInfo),
-        this.store.select(selectEditor)
+        this.store.select(selectFullState)
       ),
-      switchMap(([_ac, param, editor]) => {
-        if (editor) {
+      switchMap(([_ac, obj]) => {
+        if (obj.editor) {
           return this.auth
-            .saveEditor(Number(param.id), param.name as string, editor)
+            .saveEditor(Number(obj.id), obj.name as string, obj.editor)
             .pipe(
               tap((data) => {
                 this.store.dispatch(
@@ -72,7 +71,7 @@ export class RevealJsEffects {
                     loadType: Constant.UrlLoadType.Published,
                     mode: Constant.UrlMode.Edit,
                     id: String(data.id),
-                    name: param.name,
+                    name: obj.urlInfo.name,
                   })
                 );
                 // show message
@@ -83,7 +82,7 @@ export class RevealJsEffects {
               map((data) =>
                 saveToStorageSuccess({
                   id: data.id,
-                  name: data,
+                  name: obj.name,
                 })
               ),
               catchError(() =>
