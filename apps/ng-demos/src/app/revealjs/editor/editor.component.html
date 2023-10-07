@@ -130,8 +130,7 @@
           <mat-label>Presentation Name</mat-label>
           <input
             matInput
-            [ngModel]="presentationName"
-            (ngModelChange)="onNameChange($event)"
+            [(ngModel)]="presentationName"
             pattern="[a-zA-Z0-9\s]*"
             placeholder="My presentation"
           />

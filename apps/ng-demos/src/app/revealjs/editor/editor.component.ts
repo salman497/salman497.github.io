@@ -132,13 +132,13 @@ export class EditorComponent implements OnInit{
     this.onEditorClose.emit();
   }
 
-  onNameChange(newName: string): void {
-    this.store.dispatch(actions.updateNameOnly({ name: newName }));
-    const urlName = newName.replace(/\s+/g, '-').toLowerCase();
-    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
-  }
+
   // publish
   onPublish() {
+    this.store.dispatch(actions.updateNameOnly({ name: this.presentationName }));
+    const urlName = this.presentationName.replace(/\s+/g, '-').toLowerCase();
+    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
+    // store
     this.store.dispatch(actions.saveToStorage());
   }
 

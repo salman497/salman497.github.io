@@ -57,24 +57,39 @@ export class RevealJsEffects {
   saveToStorage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(saveToStorage),
-      withLatestFrom(this.store.select(selectUrlInfo),this.store.select(selectEditor)),
+      withLatestFrom(
+        this.store.select(selectUrlInfo),
+        this.store.select(selectEditor)
+      ),
       switchMap(([_ac, param, editor]) => {
         if (editor) {
-          return this.auth.saveEditor(Number(param.id), param.name as string, editor).pipe(
-            tap(() => {
-               // show message
+          return this.auth
+            .saveEditor(Number(param.id), param.name as string, editor)
+            .pipe(
+              tap((data) => {
+                this.store.dispatch(
+                  updateURLInfo({
+                    loadType: Constant.UrlLoadType.Published,
+                    mode: Constant.UrlMode.Edit,
+                    id: String(data.id),
+                    name: param.name,
+                  })
+                );
+                // show message
                 this.snackBar.open('Successfully saved!', 'Close', {
                   duration: 5000,
                 });
-            }),
-            map((data) =>
-              saveToStorageSuccess({
-                id: data.id,
-                name: data
-              })
-            ),
-            catchError(() => of(saveToStorageFailure(Constant.Error.SaveError)))
-          );
+              }),
+              map((data) =>
+                saveToStorageSuccess({
+                  id: data.id,
+                  name: data,
+                })
+              ),
+              catchError(() =>
+                of(saveToStorageFailure(Constant.Error.SaveError))
+              )
+            );
         }
         return of(saveToStorageFailure(Constant.Error.SaveErrorNoEditor));
       })
@@ -88,15 +103,25 @@ export class RevealJsEffects {
     () =>
       this.actions$.pipe(
         ofType(saveToLocalStorage),
-        withLatestFrom(this.store.select(selectUrlInfo), this.store.select(selectEditor)),
+        withLatestFrom(
+          this.store.select(selectUrlInfo),
+          this.store.select(selectEditor)
+        ),
         switchMap(([_ac, param, currentEditor]) => {
           if (param.loadType === Constant.UrlLoadType.Startup) {
             // For first time only
-            this.store.dispatch(updateURLInfo({ loadType: Constant.UrlLoadType.Local,
-                                                mode: Constant.UrlMode.Edit, 
-                                                id: '0', 
-                                                name: Constant.UrlName.Default }));
-            localStorage.setItem(Constant.UrlName.Default, JSON.stringify(currentEditor));
+            this.store.dispatch(
+              updateURLInfo({
+                loadType: Constant.UrlLoadType.Local,
+                mode: Constant.UrlMode.Edit,
+                id: '0',
+                name: Constant.UrlName.Default,
+              })
+            );
+            localStorage.setItem(
+              Constant.UrlName.Default,
+              JSON.stringify(currentEditor)
+            );
             return EMPTY;
           }
           if (param.name) {
@@ -108,14 +133,15 @@ export class RevealJsEffects {
     { dispatch: false }
   );
 
-    /***
+  /***
    * Updates URL Info to url
    */
-   updateURLInfo$ = createEffect(
+  updateURLInfo$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(updateURLInfo),
-        switchMap((param) => {
+        withLatestFrom(this.store.select(selectUrlInfo)),
+        switchMap(([_ac, param]) => {
           if (param.loadType === Constant.UrlLoadType.Local) {
             this.location.replaceState(
               `/${Constant.UrlLoadType.Local}/${Constant.UrlMode.Edit}/${param.name}`
