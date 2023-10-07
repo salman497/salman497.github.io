@@ -20,6 +20,7 @@ import {
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
 import { StartingTemplate } from './revealjs/utils/starter-template';
+import { MarkdownDB } from './revealjs/models/db.model';
 
 @Injectable({
   providedIn: 'root',
@@ -108,9 +109,27 @@ export class AuthService {
   currentlyLoggedInUser(): User {
     return this.supabase$.value?.user as User;
   }
-  saveEditor(id: number, url_name: string, editor: Editor): Observable<any> {
+  saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
+    if(data.id === 0) {
+      delete data.id;
+    }
     return from(
-      this.supabase.from('markdown').upsert([{  url_name, editor }]).select()
+      this.supabase.from('markdown').upsert([data]).select()
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data[0] : {};
+      })
+    );
+  }
+
+  getEditor(id: number): Observable<MarkdownDB> {
+    return from(
+      this.supabase.from('markdown').select().eq('id', id)
     ).pipe(
       map((resp) => {
         if (resp.error) {

@@ -12,6 +12,7 @@ import {
 import { Store } from '@ngrx/store';
 import {
   loadEditorState,
+  loadEditorStateFailure,
   loadEditorStateSuccess,
   saveToLocalStorage,
   saveToStorage,
@@ -20,7 +21,7 @@ import {
   updateURLInfo,
 } from './actions';
 import { EMPTY, of } from 'rxjs';
-import { initialState } from './state';
+import { initialState, Editor } from './state';
 import { selectEditor, selectFullState, selectUrlInfo } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
@@ -47,6 +48,17 @@ export class RevealJsEffects {
             return of(loadEditorStateSuccess({ editor }));
           }
         }
+
+        if (userType === Constant.UrlLoadType.Published && id) {
+          return this.auth.getEditor(Number(id)).pipe(
+            map((data) => {
+              return loadEditorStateSuccess({ editor: data.editor as Editor });
+            }),
+            catchError(() =>
+              of(loadEditorStateFailure(Constant.Error.LoadError))
+            )
+          );
+        }
         return of(loadEditorStateSuccess({ editor: initialState.editor }));
       })
     )
@@ -57,13 +69,16 @@ export class RevealJsEffects {
   saveToStorage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(saveToStorage),
-      withLatestFrom(
-        this.store.select(selectFullState)
-      ),
+      withLatestFrom(this.store.select(selectFullState)),
       switchMap(([_ac, obj]) => {
         if (obj.editor) {
           return this.auth
-            .saveEditor(Number(obj.id), obj.name as string, obj.editor)
+            .saveEditor({
+              id: Number(obj.id),
+              name: obj.name,
+              editor: obj.editor,
+              url_name: obj.urlInfo.name,
+            })
             .pipe(
               tap((data) => {
                 this.store.dispatch(
@@ -81,7 +96,7 @@ export class RevealJsEffects {
               }),
               map((data) =>
                 saveToStorageSuccess({
-                  id: data.id,
+                  id: data.id as number,
                   name: obj.name,
                 })
               ),
