@@ -1,86 +1,125 @@
 import { createReducer, on } from '@ngrx/store';
-import { toggleViewerToReRender, loadEditorStateSuccess, updateEditorAnimation, updateEditorContent, updateEditorShowDrawingArea, updateEditorShowPen, updateEditorShowSlides, updateEditorTheme, loadEditorStateFailure, saveToStorageFailure, saveToStorageSuccess } from './actions';
+import {
+  toggleViewerToReRender,
+  loadEditorStateSuccess,
+  updateEditorAnimation,
+  updateEditorContent,
+  updateEditorShowDrawingArea,
+  updateEditorShowPen,
+  updateEditorShowSlides,
+  updateEditorTheme,
+  loadEditorStateFailure,
+  saveToStorageFailure,
+  saveToStorageSuccess,
+  loadEditorState,
+  saveToStorage,
+  updateURLInfo,
+  updateURLNameOnly,
+  updateNameOnly,
+} from './actions';
 import { initialState } from './state';
 
 export const revealJsReducer = createReducer(
   initialState,
+  on(loadEditorState, (state) => ({
+    ...state,
+    loading: true,
+  })),
   on(loadEditorStateSuccess, (state, { editor }) => ({
     ...state,
     editor,
     loading: false,
-    editorInitialized: true
+    editorInitialized: true,
   })),
-  on(loadEditorStateFailure, (state, { errorType, message}) => ({
+  on(loadEditorStateFailure, (state, { errorType, message }) => ({
     ...state,
     error: {
       errorType,
-      message
+      message,
     },
     loading: false,
-    editorInitialized: true
+    editorInitialized: true,
+  })),
+  on(saveToStorage, (state) => ({
+    ...state,
+    loading: true,
   })),
   on(saveToStorageSuccess, (state, { id, name }) => ({
     ...state,
     id,
     name,
-    loading: false
+    loading: false,
   })),
-  on(saveToStorageFailure, (state, { errorType, message}) => ({
+  on(saveToStorageFailure, (state, { errorType, message }) => ({
     ...state,
     error: {
       errorType,
-      message
+      message,
     },
-    loading: false
+    loading: false,
   })),
   on(updateEditorContent, (state, { content }) => ({
     ...state,
     editor: {
       ...state.editor,
-      content
-    }
+      content,
+    },
   })),
   on(updateEditorTheme, (state, { themeSelected }) => ({
     ...state,
     editor: {
       ...state.editor,
-      themeSelected
-    }
+      themeSelected,
+    },
   })),
   on(updateEditorAnimation, (state, { animationSelected }) => ({
     ...state,
     editor: {
       ...state.editor,
-      animationSelected
-    }
+      animationSelected,
+    },
   })),
   on(updateEditorShowPen, (state, { showPen }) => ({
     ...state,
     editor: {
       ...state.editor,
-      showPen
-    }
+      showPen,
+    },
   })),
   on(updateEditorShowDrawingArea, (state, { showDrawingArea }) => ({
     ...state,
     editor: {
       ...state.editor,
-      showDrawingArea
-    }
+      showDrawingArea,
+    },
   })),
   on(toggleViewerToReRender, (state) => ({
     ...state,
     editor: {
       ...state.editor,
-      toggleViewer: !state.editor.toggleViewer
-    }
+      toggleViewer: !state.editor.toggleViewer,
+    },
   })),
   on(updateEditorShowSlides, (state, { showSlides }) => ({
     ...state,
     editor: {
       ...state.editor,
-      showSlides
-    }
+      showSlides,
+    },
+  })),
+  on(updateURLInfo, (state, urlInfo) => ({
+    ...state,
+    urlInfo,
+  })),
+  on(updateURLNameOnly, (state, { name }) => ({
+    ...state,
+    urlInfo: {
+      ...state.urlInfo,
+      name,
+    },
+  })),
+  on(updateNameOnly, (state, { name }) => ({
+    ...state,
+    name
   }))
-
 );

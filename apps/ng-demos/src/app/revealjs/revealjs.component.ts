@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
 import * as AppActions from './state/actions';
-import { selectEditor, selectIsLoading, selectSavedValues } from './state/selector';
+import { selectEditor, selectIsEditMode, selectIsLoading, selectName, selectUrlEdit, selectUrlView } from './state/selector';
 import { take, tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
@@ -20,9 +20,11 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
   // first time only 
   editorInitState$ = this.store.select(selectEditor).pipe(take(1));
   isLoading$ = this.store.select(selectIsLoading);
-  savedValues$ = this.store.select(selectSavedValues);
   editor$ = this.store.select(selectEditor).pipe(tap(() => console.log('------------>> editor Changed')));
-  isViewMode = false;
+  isEditMode$ = this.store.select(selectIsEditMode);
+  name$ = this.store.select(selectName);
+  viewUrl$ = this.store.select(selectUrlView);
+  editUrl$ = this.store.select(selectUrlEdit);
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
   constructor(private store: Store<RevealJsState>, 
@@ -30,11 +32,12 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute) { }
   ngOnInit(): void {
     const params = this.route.snapshot.paramMap;
-    const userType = params.get(Constant.URLParam.Type) as string;
-    const mode = params.get(Constant.URLParam.Mode) as string;
-    const id = params.get(Constant.URLParam.Id) as string;
-    this.isViewMode = mode === Constant.URLParamMode.View ? true : false;
-    this.store.dispatch(AppActions.loadEditorState({ userType, mode, id }));
+    const loadType = params.get(Constant.UrlPart.Type) as string;
+    const mode = params.get(Constant.UrlPart.Mode) as string;
+    const id = params.get(Constant.UrlPart.Id) as string;
+    const name = params.get(Constant.UrlPart.Name) as string;
+    this.store.dispatch(AppActions.updateURLInfo({ loadType, mode, id, name }));
+    this.store.dispatch(AppActions.loadEditorState({ loadType, mode, id }));
   }
   async ngAfterViewInit() {
     // do auth check

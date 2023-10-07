@@ -1,3 +1,4 @@
+import { Constant } from './../utils/constants';
 // state.ts
 import { StartingTemplate } from "../utils/starter-template";
 
@@ -5,12 +6,21 @@ export interface ErrorState {
     errorType: string, 
     message: string
 } 
+
+export interface URLInfo {
+    id?: string, 
+    loadType?: string,
+    mode?: string,
+    name?: string
+} 
+
 export interface RevealJsState {
     editor: Editor;
     editorInitialized: boolean;
     loading: boolean
     id: number,
     name: string,
+    urlInfo: URLInfo,
     error?: ErrorState
 }
 
@@ -37,5 +47,8 @@ export const initialState: RevealJsState = {
     editorInitialized: false,
     loading: true,
     id: 0,
-    name: 'startup' 
+    name: Constant.DefaultName,
+    urlInfo: {
+        loadType: Constant.UrlLoadType.Startup
+    }
 };

@@ -1,4 +1,4 @@
-import { URLParam } from "../models/url.model";
+import { URLInfo } from "../state/state";
 import { Constant } from "./constants";
 
 export const valueExist = (value: any) : boolean => {
@@ -72,6 +72,9 @@ export function isEmpty(value: any): boolean {
 }
 
 
-export function buildURL(param: URLParam): string {
-    return `${window.location.origin}/${param.userType}/${param.mode}/${param.id}/${param.name}`;
+export function buildURL(param: URLInfo): string {
+    if(param.loadType === Constant.UrlLoadType.Published) {
+        return `${window.location.origin}/${param.loadType}/${param.mode}/${param.id}/${param.name}`;
+    }
+    return ``;
 }

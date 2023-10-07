@@ -1,5 +1,7 @@
+import { Constant } from './../utils/constants';
 import { createSelector } from '@ngrx/store';
 import { RevealJsState } from './state';
+import { buildURL } from '../utils/basic-utils';
 
 export const selectRevealJsState = (state: any) => state.revealJs;
 
@@ -22,3 +24,34 @@ export const selectSavedValues = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => ({ id: state.id, name: state.name })
 );
+
+export const selectUrlInfo = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.urlInfo
+);
+
+export const selectIsEditMode = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.urlInfo.mode !== Constant.UrlMode.View
+);
+
+export const selectName = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.name
+);
+
+/******** URL ***********/
+export const selectUrlView = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => { 
+    return buildURL({ ...state.urlInfo, mode: Constant.UrlMode.View});
+  }
+);
+
+export const selectUrlEdit = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => { 
+    return buildURL({ ...state.urlInfo, mode: Constant.UrlMode.Edit});
+  }
+);
+

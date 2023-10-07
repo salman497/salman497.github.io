@@ -1,4 +1,4 @@
-import { URLParam } from './../models/url.model';
+
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
@@ -16,10 +16,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit, OnChanges{
+export class EditorComponent implements OnInit{
   @Input() editor!: Editor;
-  @Input() id!: number;
-  @Input() name!: string;
   currentContent!: string;
   themeSelected!: string;
   themes = [
@@ -45,14 +43,13 @@ export class EditorComponent implements OnInit, OnChanges{
   userName$ = this.auth.getUserName$(); // Replace with actual user name
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
 
-  urlParam!: URLParam;
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
   // publish section
-  presentationName: string = 'My presentation';
-  publishedViewUrl: string = ''; // This will be set after publishing
-  publishedEditUrl: string = ''; // This will be set after publishing
+  @Input() presentationName: string = 'My presentation';
+  @Input() publishedViewUrl: string = ''; // This will be set after publishing
+  @Input() publishedEditUrl: string = ''; // This will be set after publishing
   userPresentations: string[] = []; // This should be fetched from the backend
   selectedPresentation: string = '';
 
@@ -71,34 +68,15 @@ export class EditorComponent implements OnInit, OnChanges{
     this.showPen = this.editor.showPen;
     this.showDrawingArea = this.editor.showDrawingArea;
     this.showSlides = this.editor.showSlides;
-
-    const params = this.route.snapshot.paramMap;
-    this.urlParam = {
-      userType: params.get(Constant.URLParam.Type) as string,
-      mode: params.get(Constant.URLParam.Mode) as string,
-      id: (Number(params.get(Constant.URLParam.Id))),
-      name: (params.get(Constant.URLParam.Name) as string) || 'my-presentation',
-    };
-    
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['id'] || changes['name']) {
-      this.urlParam = {
-         ...this.urlParam,
-        id: this.id,
-        name: this.name
-      };
-      this.setPublishedURL();
-    }
-  }
 
   updateContent(): void {
     this.store.dispatch(
       actions.updateEditorContent({ content: this.currentContent })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   updateTheme(): void {
@@ -106,7 +84,7 @@ export class EditorComponent implements OnInit, OnChanges{
       actions.updateEditorTheme({ themeSelected: this.themeSelected })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   updateAnimation(): void {
@@ -115,13 +93,13 @@ export class EditorComponent implements OnInit, OnChanges{
         animationSelected: this.animationSelected,
       })
     );
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   updateShowPen(): void {
     this.store.dispatch(actions.updateEditorShowPen({ showPen: this.showPen }));
     this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   updateShowDrawingArea(): void {
@@ -131,7 +109,7 @@ export class EditorComponent implements OnInit, OnChanges{
       })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   updateShowSlides(): void {
@@ -139,7 +117,7 @@ export class EditorComponent implements OnInit, OnChanges{
       actions.updateEditorShowSlides({ showSlides: this.showSlides })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage(this.urlParam));
+    this.store.dispatch(actions.saveToLocalStorage());
   }
 
   onLogin(): void {
@@ -154,12 +132,14 @@ export class EditorComponent implements OnInit, OnChanges{
     this.onEditorClose.emit();
   }
 
+  onNameChange(newName: string): void {
+    this.store.dispatch(actions.updateNameOnly({ name: newName }));
+    const urlName = newName.replace(/\s+/g, '-').toLowerCase();
+    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
+  }
   // publish
   onPublish() {
-    this.urlParam.name = this.presentationName
-    .replace(/\s+/g, '-')
-    .toLowerCase();
-    this.store.dispatch(actions.saveToStorage(this.urlParam));
+    this.store.dispatch(actions.saveToStorage());
   }
 
   copyToClipboard(url: string) {
@@ -173,20 +153,5 @@ export class EditorComponent implements OnInit, OnChanges{
     window.open(url, '_blank');
   }
 
-  setPublishedURL() {
-    // Here, add your logic to save and publish the presentation
-    // For the sake of this example, I'm just setting some dummy URLs
-    this.publishedViewUrl = buildURL({
-      userType: Constant.URLParamType.Published,
-      mode: Constant.URLParamMode.View,
-      id: this.urlParam.id,
-      name: this.urlParam.name,
-    });
-    this.publishedEditUrl = buildURL({
-      userType: Constant.URLParamType.Published,
-      mode: Constant.URLParamMode.Edit,
-      id: this.urlParam.id,
-      name: this.urlParam.name,
-    });
-  }
+ 
 }

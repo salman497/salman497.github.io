@@ -1,28 +1,36 @@
 
 
 export const Constant = {
-    StartupRoute: ':userType' as const,
-    Route: ':userType/:mode/:identifier/:name' as const,
-    URLParam: {
-        Type: 'userType' as const,
+    UrlRoute: {
+        Startup: ':loadType' as const,
+        Local: ':loadType/:mode/:name' as const,
+        Published: ':loadType/:mode/:identifier/:name' as const
+    },
+    UrlPart: {
+        Type: 'loadType' as const,
         Mode: 'mode' as const,
         Id: 'identifier' as const,
         Name: 'name' as const
     },
 
-    URLParamMode: {
+    UrlMode: {
         Edit: 'edit' as const,
         View: 'view' as const
     },
-    URLParamType: {
+    UrlLoadType: {
         Local: 'local' as const,
         Published: 'published' as const,
         Startup: 'startup' as const
     },
+    UrlName: {
+        Default: 'my-presentation' as const
+    },
     Error: {
         SaveError: { errorType: 'save-error', message: 'Unable to save, please try again' },
         SaveErrorNoEditor: { errorType: 'save-error-editor-not-present', message: 'editor is not loaded property'}
-    }
+    },
+   
+    DefaultName: 'My presentation' as const 
 
 }
 

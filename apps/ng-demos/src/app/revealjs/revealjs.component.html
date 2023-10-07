@@ -1,4 +1,4 @@
-<button mat-icon-button *ngIf="!isViewMode" (click)="toggleEditor()" class="menu-icon">
+<button mat-icon-button *ngIf="isEditMode$ | async" (click)="toggleEditor()" class="menu-icon">
   ☰
 </button>
 <div class="loading-container" *ngIf="isLoading$ | async">
@@ -6,9 +6,14 @@
   <p>Loading...</p>
 </div>
 <mat-sidenav-container  class="main-container">
-  <mat-sidenav *ngIf="!isViewMode" #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
+  <mat-sidenav *ngIf="isEditMode$ | async" #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
     <ng-container *ngIf="editorInitState$ | async as editor">
-      <mono-repo-editor [editor]="editor" [id]="(savedValues$ | async)?.id ?? 0" [name]="(savedValues$ | async)?.name ?? ''" (onEditorClose)="toggleEditor()"></mono-repo-editor>
+      <mono-repo-editor 
+      [editor]="editor"  
+      [presentationName]="(name$ | async) ?? ''" 
+      [publishedViewUrl]="(viewUrl$ | async) ?? ''" 
+      [publishedEditUrl]="(editUrl$ | async) ?? ''" 
+      (onEditorClose)="toggleEditor()"></mono-repo-editor>
     </ng-container>
    
   </mat-sidenav>
