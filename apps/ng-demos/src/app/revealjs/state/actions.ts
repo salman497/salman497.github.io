@@ -88,3 +88,10 @@ export const updateNameOnly = createAction(
 );
 
 
+export const changeLoadingState = createAction(
+  '[RevealJs] Change Loading State',
+  props<{ loading: boolean}>()
+);
+
+
+

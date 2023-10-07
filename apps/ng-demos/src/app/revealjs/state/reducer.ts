@@ -16,6 +16,7 @@ import {
   updateURLInfo,
   updateURLNameOnly,
   updateNameOnly,
+  changeLoadingState,
 } from './actions';
 import { initialState } from './state';
 
@@ -28,7 +29,6 @@ export const revealJsReducer = createReducer(
   on(loadEditorStateSuccess, (state, { editor }) => ({
     ...state,
     editor,
-    loading: false,
     editorInitialized: true,
   })),
   on(loadEditorStateFailure, (state, { errorType, message }) => ({
@@ -126,5 +126,9 @@ export const revealJsReducer = createReducer(
   on(updateNameOnly, (state, { name }) => ({
     ...state,
     name
+  })),
+  on(changeLoadingState, (state, { loading }) => ({
+    ...state,
+    loading
   }))
 );

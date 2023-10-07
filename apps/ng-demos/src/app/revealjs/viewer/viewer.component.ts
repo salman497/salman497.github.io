@@ -1,3 +1,4 @@
+import { changeLoadingState } from './../state/actions';
 import {
   Component,
   AfterViewInit,
@@ -11,9 +12,10 @@ import {
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
 import { getRevealConfig } from '../utils/reveal-js-config';
-import { Editor } from '../state/state';
+import { Editor, RevealJsState } from '../state/state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { updateWindowHash } from '../utils/basic-utils';
+import { Store } from '@ngrx/store';
 declare var $: any;
 declare global {
   interface Window {
@@ -32,11 +34,7 @@ export class ViewerComponent
   @Input() editor!: Editor;
   deck: Reveal.Api | undefined;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private store: Store<RevealJsState>) {}
 
   ngOnInit() {}
   ngOnDestroy() {
@@ -76,6 +74,10 @@ export class ViewerComponent
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
           updateWindowHash(event);
+        });
+        this.deck.on('ready', () => {
+          // hide loading when reveal js presentation is ready
+          this.store.dispatch(changeLoadingState({ loading: false }));
         });
       }
     } catch (error) {
