@@ -25,6 +25,8 @@ jobs:
 
     - name: Build Nx Web app
       run: npx nx build ng-demos --configuration=production
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the OpenAI API key as an environment variable
 
     - name: Deploy to GH Pages 
       uses: peaceiris/actions-gh-pages@v3
@@ -32,4 +34,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/apps/ng-demos
         publish_branch: gh-pages
-        

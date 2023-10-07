@@ -5,15 +5,19 @@ import { AppComponent } from './app.component';
 import { RevealJsModule } from './revealjs/revealjs.module';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
+import { PresentationGeneratorComponent } from './presentation-generator/presentation-generator.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent  // Declare the root AppComponent
+    AppComponent,
+    PresentationGeneratorComponent  // Declare the root AppComponent
   ],
   imports: [
-    BrowserModule,  // Import the BrowserModule to enable Angular's features for web applications
     RevealJsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserModule,
+    HttpClientModule,
   ],
   providers: [],  // List of services (none in this basic example)
   bootstrap: [AppComponent]  // Indicates the component that should be bootstrapped at application startup

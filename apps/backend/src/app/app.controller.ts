@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
-
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('openai')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Post('generate')
+  @HttpCode(200)
+  async generateResponse(@Body('prompt') prompt: string): Promise<string> {
+    return this.appService.generateResponse(prompt);
   }
 }

@@ -5,6 +5,7 @@ import { Route } from '@angular/router';
 import { ViewerComponent } from './revealjs/viewer/viewer.component';
 import { EditorComponent } from './revealjs/editor/editor.component';
 import { Constant } from './revealjs/utils/constants';
+import { PresentationGeneratorComponent } from './presentation-generator/presentation-generator.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: RevealjsComponent },
@@ -12,7 +13,8 @@ export const appRoutes: Route[] = [
     { path: 'viewer', component: ViewerComponent },
     { path: 'editor', component: EditorComponent },
     { path: 'nav', component: NavMenuComponent },
-    { path: Constant.StartupRoute, component: RevealjsComponent },
+    { path: 'start', component: RevealjsComponent },
+    { path: 'ai', component: PresentationGeneratorComponent },
     { path: Constant.Route, component: RevealjsComponent },
     // { path: ':slideNumber', component: RevealjsComponent },
     // { path: ':slideNumber/:subSlideNumber', component: RevealjsComponent },

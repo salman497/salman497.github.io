@@ -1,0 +1,7 @@
+<div>
+    <input #promptInput type="text" placeholder="Enter a prompt" />
+    <button (click)="generatePresentation(promptInput.value)">Generate Presentation</button>
+  </div>
+  
+  <div *ngIf="html" [innerHTML]="html"></div>
+  
