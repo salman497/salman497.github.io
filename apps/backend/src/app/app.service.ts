@@ -15,7 +15,7 @@ export class AppService {
     return converter.makeHtml(markdown);
   }
 
-  async generateResponse(prompt: string): Promise<string> {
+  async generateResponse(prompt: string): Promise<{ markdown: string } | HttpException> {    
     const apiKey = this.configService.get<string>('OPENAI_API_KEY');
     console.log('------------------>>>>',apiKey, process.env);
     try {
@@ -170,10 +170,11 @@ Use html from RevealJs like
           },
         })
         .toPromise();
-      const markdown = response.data.choices[0].text.trim();
-      return markdown;
+        const markdown = response.data.choices[0].text.trim();
+        return { markdown: markdown as string };
+
     } catch (error) {
       throw new HttpException('Unable to generate response', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-}
+  }
