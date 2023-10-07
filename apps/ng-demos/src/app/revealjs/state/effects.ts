@@ -122,7 +122,7 @@ export class RevealJsEffects {
           this.store.select(selectEditor)
         ),
         switchMap(([_ac, param, currentEditor]) => {
-          if (param.loadType === Constant.UrlLoadType.Startup) {
+          if (!param.loadType || param.loadType === Constant.UrlLoadType.Startup) {
             // For first time only
             this.store.dispatch(
               updateURLInfo({
