@@ -189,18 +189,20 @@
 
       <!-- Load my presentation Dropdown -->
       <mat-form-field class="dropdown-field">
-        <mat-label>Load my presentation [Login Required]</mat-label>
+        <mat-label>{{this.titlename}}</mat-label>
         <mat-select
-          [(value)]="selectedPresentation"
-          [disabled]="this.disabled$ | async"
-          matTooltip="Login to enable this feature."
+        [(value)]="selectedPresentation"
+        [disabled]="this.disabled$ | async"
+        (selectionChange)="onPresentationSelected()"
+        matTooltip="{{this.tooltip}}"
+      >
+        <mat-option
+          *ngFor="let presentation of userPresentations$ | async"
+          [value]="presentation"
         >
-          <mat-option
-            *ngFor="let presentation of (userPresentations$ | async)"
-            [value]="presentation.id"
-            >{{ presentation.name }}</mat-option
-          >
-        </mat-select>
+          {{ presentation.name }}
+        </mat-option>
+      </mat-select>
       </mat-form-field>
     </mat-expansion-panel>
   </mat-accordion>

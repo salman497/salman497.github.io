@@ -1,15 +1,15 @@
 
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
 import { AuthService } from '../../auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { Constant } from '../utils/constants';
-import { buildURL, generateShortID } from '../utils/basic-utils';
+import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { map } from 'rxjs';
+import { MarkdownDB } from '../models/db.model';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -54,11 +54,14 @@ export class EditorComponent implements OnInit{
   @Output() onEditorClose = new EventEmitter<void>();
 
   // publish section
-  @Input() presentationName: string = 'My presentation';
-  @Input() publishedViewUrl: string = ''; // This will be set after publishing
-  @Input() publishedEditUrl: string = ''; // This will be set after publishing
-  userPresentations$ = this.auth.getMyEditors(); // This should be fetched from the backend
-  selectedPresentation: string = '';
+  @Input() presentationName = 'My presentation';
+  @Input() publishedViewUrl = ''; // This will be set after publishing
+  @Input() publishedEditUrl = ''; // This will be set after publishing
+  userPresentations$ = this?.auth.getMyEditors(); // This should be fetched from the backend
+  selectedPresentation!: MarkdownDB;
+  titlename = 'Login to enable this feature. [login required]'
+  tooltip = 'Login to enable this feature. [login required]'
+
 
   constructor(
     private store: Store<RevealJsState>,
@@ -75,6 +78,16 @@ export class EditorComponent implements OnInit{
     this.showPen = this.editor.showPen;
     this.showDrawingArea = this.editor.showDrawingArea;
     this.showSlides = this.editor.showSlides;
+    
+    if(!this.auth.currentlyLoggedIn()) {
+      this.titlename = 'Presenation Selecton [login required]'
+      this.tooltip = 'Login to enable this feature. [login required]'
+    } else {
+      this.titlename = 'Presenation Selecton'
+      this.tooltip  = 'Presenation Selecton'
+
+    }
+
   }
 
 
@@ -142,7 +155,7 @@ export class EditorComponent implements OnInit{
 
   // publish
   onPublish() {
-    this.store.dispatch(actions.updateNameOnly({ name: this.presentationName }));
+    this.store.dispatch(actions.updateNameOnly({ name: this.presentationName}));
     const urlName = this.presentationName.replace(/\s+/g, '-').toLowerCase();
     this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
     // store
@@ -160,5 +173,11 @@ export class EditorComponent implements OnInit{
     window.open(url, '_blank');
   }
 
+
+  onPresentationSelected() { 
+    const url = buildPublishedURL(String(this.selectedPresentation.id), this.selectedPresentation.url_name as string);
+    window.location.replace(url)
+  }
+  
  
 }

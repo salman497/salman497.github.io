@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
 import * as AppActions from './state/actions';
 import { selectEditor, selectIsEditMode, selectIsLoading, selectName, selectUrlEdit, selectUrlView } from './state/selector';
-import { take, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { Constant } from './utils/constants';
   styleUrls: ['./revealjs.component.css']
 })
 export class RevealjsComponent implements OnInit, AfterViewInit {
-  editorVisible: boolean = false;
+  editorVisible = false as boolean;
   // first time only 
   editorInitState$ = this.store.select(selectEditor);
   isLoading$ = this.store.select(selectIsLoading);

@@ -1,7 +1,6 @@
 import { AuthService } from './../../auth.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ActivatedRoute, Router } from '@angular/router';
 import {
   switchMap,
   map,
@@ -70,7 +69,7 @@ export class RevealJsEffects {
     this.actions$.pipe(
       ofType(saveToStorage),
       withLatestFrom(this.store.select(selectFullState)),
-      switchMap(([_ac, obj]) => {
+      switchMap(([_, obj]) => {
         if (obj.editor) {
           return this.auth
             .saveEditor({

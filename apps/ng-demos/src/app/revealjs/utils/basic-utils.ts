@@ -20,7 +20,7 @@ export function getQueryParam(param: string) {
   }
 
 
-export function addQueryParam(key: string, value: any) {
+export function addQueryParam(key: string, value: string | number) {
     window.location.hash = `${window.location.hash}?${key}=${value}`;
   }
   
@@ -51,7 +51,7 @@ export function addQueryParam(key: string, value: any) {
     return result;
 }
 
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: string | number): boolean {
     if (value == null) { // This checks for both null and undefined
         return true;
     }
@@ -77,4 +77,8 @@ export function buildURL(param: URLInfo): string {
         return `${window.location.origin}/${param.loadType}/${param.mode}/${param.id}/${param.name}`;
     }
     return ``;
+}
+
+export function buildPublishedURL(id: string, name: string): string {
+    return `${window.location.origin}/${Constant.UrlLoadType.Published}/${Constant.UrlMode.Edit}/${id}/${name}`;
 }
