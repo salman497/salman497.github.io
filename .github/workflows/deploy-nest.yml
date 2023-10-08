@@ -39,8 +39,7 @@ jobs:
         resourceGroupName: evonix
         template: infra/backend.azure-template.json
         parameters: infra/backend.azure-parameters.json
-        parameterOverrides: |
-          someSecretValue=${{ secrets.SOME_SECRET_VALUE }}
+        additionalArguments: '-parameters someSecretValue=${{ secrets.SOME_SECRET_VALUE }}'
 
     - name: Deploy NestJS to App Service
       uses: azure/webapps-deploy@v2
