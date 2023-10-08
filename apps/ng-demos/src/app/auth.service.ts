@@ -101,8 +101,8 @@ export class AuthService {
   }
   currentlyLoggedIn(): boolean {
     return (
-      valueExist(this.supabase$.value?.user) &&
-      valueExist(this.supabase$.value?.session)
+      valueExist(this.supabase$?.value.user) &&
+      valueExist(this.supabase$?.value.session)
     );
   }
 
