@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { switchMap } from 'rxjs/operators';
 import { Editor } from './revealjs/state/state';
 import { Injectable } from '@angular/core';
@@ -160,7 +161,7 @@ export class AuthService {
     );
   }
 
-  loadContent(identifier: string): Observable<Editor> {
+  loadContent(): Observable<Editor> {
     return of({
       content: StartingTemplate,
       themeSelected: 'Black',
@@ -170,5 +171,25 @@ export class AuthService {
       showSlides: true,
       toggleViewer: true,
     });
+  }
+
+  async deleteMarkdown(markdownId: any): Promise<Observable<void>> {
+    try {
+      // Replace 'markdown' with your actual table name
+      const { error } = await this.supabase
+        .from("markdown")
+        .delete()
+        .match({"id": markdownId});
+    
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+    
+      return of(undefined);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
