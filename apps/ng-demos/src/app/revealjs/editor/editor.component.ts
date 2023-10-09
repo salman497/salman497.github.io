@@ -46,7 +46,7 @@ export class EditorComponent implements OnInit{
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
   disabled$ = this.auth.isAuthenticated$().pipe(map(isLogin => {
     if(isLogin) {
-      return false;
+    return false;
     }
     return true;
 }));
@@ -161,7 +161,10 @@ export class EditorComponent implements OnInit{
     const urlName = this.presentationName.replace(/\s+/g, '-').toLowerCase();
     this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
     // store
+
     this.store.dispatch(actions.saveToStorage());
+    window.location.reload()
+
   }
 
   copyToClipboard(url: string) {
