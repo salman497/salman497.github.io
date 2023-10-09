@@ -8,8 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { map } from 'rxjs';
+import { EMPTY, map } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
+import { Constant } from '../utils/constants';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -45,7 +46,7 @@ export class EditorComponent implements OnInit{
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
   disabled$ = this.auth.isAuthenticated$().pipe(map(isLogin => {
     if(isLogin) {
-      return false;
+      return false
     }
     return true;
 }));
@@ -87,6 +88,7 @@ export class EditorComponent implements OnInit{
       this.tooltip  = 'Presenation Selecton'
 
     }
+
 
   }
 
@@ -175,9 +177,27 @@ export class EditorComponent implements OnInit{
 
 
   onPresentationSelected() { 
-    const url = buildPublishedURL(String(this.selectedPresentation.id), this.selectedPresentation.url_name as string);
-    window.location.replace(url)
+    this.store.dispatch(actions.updateURLInfo({ loadType: Constant.UrlLoadType.Published, 
+                                                mode: Constant.UrlMode.Edit, 
+                                                id: String(this.selectedPresentation.id), 
+                                                name: this.selectedPresentation.url_name }));
+    this.store.dispatch(actions.loadEditorState({ loadType: Constant.UrlLoadType.Published, mode: Constant.UrlMode.Edit, id : String(this.selectedPresentation.id) }));
+    this.store.dispatch(actions.toggleViewerToReRender());
+    //const url = buildPublishedURL(String(this.selectedPresentation.id), this.selectedPresentation.url_name as string);
+   // window.location.replace(url)
   }
   
+  async onDeleteButtonClick() {
+    if (this.selectedPresentation && typeof this.selectedPresentation.id) {
+      // Call Deletemarkdown with the presentation's id
+      (await
+        // Call Deletemarkdown with the presentation's id
+        this.auth.deleteMarkdown(this.selectedPresentation.id)).subscribe(() => {
+        // Optionally, you can also update your userPresentations$ observable
+        this.selectedPresentation;
+        
+      });
+    }
+  }
  
 }
