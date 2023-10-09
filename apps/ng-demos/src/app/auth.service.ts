@@ -21,15 +21,13 @@ import {
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
 import { MarkdownDB } from './revealjs/models/db.model';
-import { Store } from '@ngrx/store';
-import { setUserLogin } from './revealjs/state/actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private supabase: SupabaseClient;
-   constructor(private store: Store<RevealJsState>) {
+   constructor() {
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey
@@ -73,13 +71,12 @@ export class AuthService {
     this.supabase.storage.emptyBucket(environment.supabaseKey);
     this.supabase.storage.deleteBucket(environment.supabaseKey);
     // set empty login state
-    this.store.dispatch(setUserLogin({}));
     // setTimeout(() => {
     //   //signal logout after a second
     //   this.supabase$.next({ });
     // }, 1000);
 
-    // window.location.reload();
+    window.location.reload();
   }
 
   saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
