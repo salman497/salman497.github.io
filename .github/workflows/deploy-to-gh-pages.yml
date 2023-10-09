@@ -32,4 +32,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/apps/ng-demos
         publish_branch: gh-pages
+        cname: markdownmagic.com
         
