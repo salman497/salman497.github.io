@@ -10,6 +10,8 @@ import {
 } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import {
+  checkUserLogin,
+  getLoginUserEditors,
   loadEditorState,
   loadEditorStateFailure,
   loadEditorStateSuccess,
@@ -17,11 +19,18 @@ import {
   saveToStorage,
   saveToStorageFailure,
   saveToStorageSuccess,
+  setLoginUserEditors,
+  setUserLogin,
   updateURLInfo,
 } from './actions';
-import { EMPTY, of } from 'rxjs';
-import { initialState, Editor } from './state';
-import { selectEditor, selectFullState, selectUrlInfo } from './selector';
+import { EMPTY, from, of } from 'rxjs';
+import { initialState, Editor, LoginUser } from './state';
+import {
+  selectEditor,
+  selectFullState,
+  selectUrlInfo,
+  selectUser,
+} from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
 import { isEmpty } from '../utils/basic-utils';
@@ -37,6 +46,45 @@ export class RevealJsEffects {
     private snackBar: MatSnackBar
   ) {}
 
+  /**
+   * check user login and call action to set state
+   */
+  checkUserLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(checkUserLogin),
+      switchMap(() => {
+        return from(this.auth.getLoginUser()).pipe(
+          map((user) => setUserLogin(user))
+        );
+      })
+    )
+  );
+
+  /**
+   * Get login user editors
+   */
+  getLoginUserEditors$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setUserLogin, getLoginUserEditors),
+      withLatestFrom(this.store.select(selectUser)),
+      switchMap(([_, user]) => {
+        if (user?.id) {
+          return this.auth
+            .getAllUserEditors$(user.id)
+            .pipe(
+              map((editors) =>
+                setLoginUserEditors({ loginUserEditors: editors })
+              )
+            );
+        }
+        return of(setLoginUserEditors({ loginUserEditors: [] }));
+      })
+    )
+  );
+
+  /***
+   * Load editor state
+   */
   loadEditorState$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadEditorState),
@@ -49,9 +97,13 @@ export class RevealJsEffects {
         }
 
         if (userType === Constant.UrlLoadType.Published && id) {
-          return this.auth.getEditor(Number(id)).pipe(
+          return this.auth.getEditor$(Number(id)).pipe(
             map((data) => {
-              return loadEditorStateSuccess({ id: data.id, name: data.name, editor: data.editor as Editor });
+              return loadEditorStateSuccess({
+                id: data.id,
+                name: data.name,
+                editor: data.editor as Editor,
+              });
             }),
             catchError(() =>
               of(loadEditorStateFailure(Constant.Error.LoadError))
@@ -80,6 +132,8 @@ export class RevealJsEffects {
             })
             .pipe(
               tap((data) => {
+                // try getting his editor if login
+                this.store.dispatch(getLoginUserEditors());
                 this.store.dispatch(
                   updateURLInfo({
                     loadType: Constant.UrlLoadType.Published,
@@ -121,7 +175,10 @@ export class RevealJsEffects {
           this.store.select(selectEditor)
         ),
         switchMap(([_ac, param, currentEditor]) => {
-          if (!param.loadType || param.loadType === Constant.UrlLoadType.Startup) {
+          if (
+            !param.loadType ||
+            param.loadType === Constant.UrlLoadType.Startup
+          ) {
             // For first time only
             this.store.dispatch(
               updateURLInfo({

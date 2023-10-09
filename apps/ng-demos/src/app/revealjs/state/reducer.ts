@@ -17,6 +17,8 @@ import {
   updateURLNameOnly,
   updateNameOnly,
   changeLoadingState,
+  setUserLogin,
+  setLoginUserEditors,
 } from './actions';
 import { initialState } from './state';
 
@@ -132,5 +134,14 @@ export const revealJsReducer = createReducer(
   on(changeLoadingState, (state, { loading }) => ({
     ...state,
     loading
+  })),
+  on(setUserLogin, (state, loginUser) => ({
+    ...state,
+    loginUser,
+    isLogin: loginUser?.id ? true: false
+  })),
+  on(setLoginUserEditors, (state, { loginUserEditors }) => ({
+    ...state,
+    loginUserEditors: loginUserEditors ? [...loginUserEditors] : []
   }))
 );

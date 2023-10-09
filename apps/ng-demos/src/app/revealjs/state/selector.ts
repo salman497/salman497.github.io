@@ -62,3 +62,31 @@ export const selectUrlEdit = createSelector(
   }
 );
 
+
+/************** login ******************/
+
+export const selectIsLogin = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.isLogin ? true : false
+);
+
+export const selectUser = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.loginUser
+);
+
+export const selectUserName = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.loginUser?.name ? state.loginUser?.name : ''
+);
+
+export const selectUserImageUrl = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.loginUser?.imageUrl ? state.loginUser?.imageUrl : ''
+);
+
+
+export const selectLoginUserEditors = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.loginUserEditors ? state.loginUserEditors : []
+);

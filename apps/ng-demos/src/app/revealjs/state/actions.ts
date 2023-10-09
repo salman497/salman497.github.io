@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Editor, ErrorState, URLInfo } from './state';
+import { MarkdownDB } from '../models/db.model';
+import { Editor, ErrorState, URLInfo, LoginUser } from './state';
 
 export const updateEditorContent = createAction(
   '[RevealJs] Update Editor Content',
@@ -92,6 +93,29 @@ export const changeLoadingState = createAction(
   '[RevealJs] Change Loading State',
   props<{ loading: boolean}>()
 );
+
+
+export const checkUserLogin = createAction(
+  '[RevealJs Effect] Check User login'
+);
+
+export const setUserLogin = createAction(
+  '[RevealJs] Set User Info',
+  props<LoginUser>()
+);
+
+export const getLoginUserEditors = createAction(
+  '[RevealJs Effect] Get Login User Editors'
+);
+
+export const setLoginUserEditors = createAction(
+  '[RevealJs Effect] Set Login User Editors',
+  props<{ loginUserEditors?: MarkdownDB[] }>()
+);
+
+
+
+
 
 
 

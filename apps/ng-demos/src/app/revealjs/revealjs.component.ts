@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
-import * as AppActions from './state/actions';
+import * as actions from './state/actions';
 import { selectEditor, selectIsEditMode, selectIsLoading, selectName, selectUrlEdit, selectUrlView } from './state/selector';
 import { tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -15,16 +15,11 @@ import { Constant } from './utils/constants';
   //encapsulation: ViewEncapsulation.None,
   styleUrls: ['./revealjs.component.css']
 })
-export class RevealjsComponent implements OnInit, AfterViewInit {
+export class RevealjsComponent implements OnInit {
   editorVisible = false as boolean;
-  // first time only 
-  editorInitState$ = this.store.select(selectEditor);
+  editor$ = this.store.select(selectEditor);
   isLoading$ = this.store.select(selectIsLoading);
-  editor$ = this.store.select(selectEditor).pipe(tap(() => console.log('------------>> editor Changed')));
   isEditMode$ = this.store.select(selectIsEditMode);
-  name$ = this.store.select(selectName);
-  viewUrl$ = this.store.select(selectUrlView);
-  editUrl$ = this.store.select(selectUrlEdit);
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
   constructor(private store: Store<RevealJsState>, 
@@ -36,13 +31,10 @@ export class RevealjsComponent implements OnInit, AfterViewInit {
     const mode = params.get(Constant.UrlPart.Mode) as string;
     const id = params.get(Constant.UrlPart.Id) as string;
     const name = params.get(Constant.UrlPart.Name) as string;
-    this.store.dispatch(AppActions.updateURLInfo({ loadType, mode, id, name }));
-    this.store.dispatch(AppActions.loadEditorState({ loadType, mode, id }));
+    this.store.dispatch(actions.updateURLInfo({ loadType, mode, id, name }));
+    this.store.dispatch(actions.loadEditorState({ loadType, mode, id }));
   }
-  async ngAfterViewInit() {
-    // do auth check
-    await this.auth.init();
-  }
+
   toggleEditor(): void {
     this.editorVisible = !this.editorVisible;
   }

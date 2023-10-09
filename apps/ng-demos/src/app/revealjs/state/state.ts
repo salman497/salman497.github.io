@@ -1,6 +1,7 @@
 import { Constant } from './../utils/constants';
 // state.ts
 import { StartingTemplate } from "../utils/starter-template";
+import { MarkdownDB } from '../models/db.model';
 
 export interface ErrorState {
     errorType: string, 
@@ -14,6 +15,14 @@ export interface URLInfo {
     name?: string
 } 
 
+export interface LoginUser {
+    id?: string; 
+    name?: string;
+    imageUrl?: string;
+} 
+
+
+
 export interface RevealJsState {
     editor: Editor;
     editorInitialized: boolean;
@@ -21,7 +30,10 @@ export interface RevealJsState {
     id: number,
     name: string,
     urlInfo: URLInfo,
-    error?: ErrorState
+    isLogin?: boolean,
+    loginUser?: LoginUser,
+    error?: ErrorState,
+    loginUserEditors?: MarkdownDB[]
 }
 
 export interface Editor {
@@ -47,7 +59,9 @@ export const initialState: RevealJsState = {
     editorInitialized: false,
     loading: true,
     id: 0,
+    isLogin: false,
     name: Constant.DefaultName,
+    loginUserEditors: [],
     urlInfo: {
         loadType: Constant.UrlLoadType.Startup
     }

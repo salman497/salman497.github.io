@@ -38,6 +38,7 @@
   </button>
 </mat-toolbar>
 <div class="editor-container">
+  <ng-container *ngIf="editor$ | async as editor">
   <mat-accordion>
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
@@ -50,8 +51,8 @@
         <textarea
           matInput
           class="editor-textarea"
-          [(ngModel)]="currentContent"
-          (blur)="updateContent()"
+          [ngModel]="editor.content"
+          (blur)="updateContent($event)"
         ></textarea>
       </mat-form-field>
     
@@ -67,7 +68,7 @@
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
-        <mat-select [(value)]="themeSelected" (valueChange)="updateTheme()">
+        <mat-select [value]="editor.themeSelected" (valueChange)="updateTheme($event)">
           <mat-option *ngFor="let theme of themes" [value]="theme">{{
             theme
           }}</mat-option>
@@ -78,8 +79,8 @@
       <mat-form-field class="dropdown-field">
         <mat-label>Animation</mat-label>
         <mat-select
-          [(value)]="animationSelected"
-          (valueChange)="updateAnimation()"
+        [value]="editor.animationSelected"
+          (valueChange)="updateAnimation($event)"
         >
           <mat-option
             *ngFor="let animation of animations"
@@ -93,22 +94,22 @@
       <div class="toggle-container">
         <mat-slide-toggle
           class="editor-mat-slide-toggle"
-          [(ngModel)]="showPen"
-          (change)="updateShowPen()"
+          [ngModel]="editor.showPen"
+          (change)="updateShowPen($event)"
           aria-label="Show Pen"
           >Show Pen</mat-slide-toggle
         >
         <mat-slide-toggle
           class="editor-mat-slide-toggle"
-          [(ngModel)]="showDrawingArea"
-          (change)="updateShowDrawingArea()"
+          [(ngModel)]="editor.showDrawingArea"
+          (change)="updateShowDrawingArea($event)"
           aria-label="Show Drawing Area"
           >Show Drawing Area</mat-slide-toggle
         >
         <mat-slide-toggle
           class="editor-mat-slide-toggle"
-          [(ngModel)]="showSlides"
-          (change)="updateShowSlides()"
+          [ngModel]="editor.showSlides"
+          (change)="updateShowSlides($event)"
           aria-label="Show Slides"
           >Show Slides</mat-slide-toggle
         >
@@ -130,9 +131,11 @@
           <mat-label>Presentation Name</mat-label>
           <input
             matInput
-            [(ngModel)]="presentationName"
+            [ngModel]="name$ | async"
+            (blur)="onPresentationNameChange($event)"
             pattern="[a-zA-Z0-9\s]*"
             placeholder="My presentation"
+            #presentationName
           />
           <mat-error
             >Only alphanumeric characters, hyphens, and spaces are
@@ -145,7 +148,7 @@
           mat-raised-button
           color="primary"
           class="publish-button"
-          (click)="onPublish()"
+          (click)="onPublish(presentationName.value)"
         >
           Publish
         </button>
@@ -154,11 +157,11 @@
       <!-- Published view Url Input -->
       <mat-form-field class="input-field">
         <mat-label>Published view Url</mat-label>
-        <input matInput [(ngModel)]="publishedViewUrl" readonly />
+        <input matInput [ngModel]= "viewUrl$ | async" #viewUrl readonly />
         <button
           mat-icon-button
           matSuffix
-          (click)="copyToClipboard(publishedViewUrl)"
+          (click)="copyToClipboard(viewUrl.value)"
           aria-label="Copy URL"
         >
           <mat-icon>content_copy</mat-icon>
@@ -166,7 +169,7 @@
         <button
           mat-icon-button
           matSuffix
-          (click)="openInNewTab(publishedViewUrl)"
+          (click)="openInNewTab(viewUrl.value)"
           aria-label="Open in new tab"
         >
           <mat-icon>open_in_new</mat-icon>
@@ -176,11 +179,11 @@
       <!-- Published edit Url Input -->
       <mat-form-field class="input-field">
         <mat-label>Published edit Url</mat-label>
-        <input matInput [(ngModel)]="publishedEditUrl" readonly />
+        <input matInput [ngModel]= "editUrl$ | async" #editUrl readonly />
         <button
           mat-icon-button
           matSuffix
-          (click)="copyToClipboard(publishedEditUrl)"
+          (click)="copyToClipboard(editUrl.value)"
           aria-label="Copy URL"
         >
           <mat-icon>content_copy</mat-icon>
@@ -189,7 +192,7 @@
 
       <!-- Load my presentation Dropdown -->
       <mat-form-field class="dropdown-field">
-        <mat-label>{{this.titlename}}</mat-label>
+        <mat-label>{{this.titleName}}</mat-label>
         <mat-select
         [(value)]="selectedPresentation"
         [disabled]="this.disabled$ | async"
@@ -209,4 +212,5 @@
       </button>
     </mat-expansion-panel>
   </mat-accordion>
+</ng-container>
 </div>

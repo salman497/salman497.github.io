@@ -1,3 +1,4 @@
+import { selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -8,9 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { EMPTY, map } from 'rxjs';
+import { EMPTY, map, tap } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
 import { Constant } from '../utils/constants';
+import { selectIsLogin } from '../state/selector';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -19,9 +22,6 @@ import { Constant } from '../utils/constants';
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit{
-  @Input() editor!: Editor;
-  currentContent!: string;
-  themeSelected!: string;
   themes = [
     'Black',
     'White',
@@ -35,17 +35,24 @@ export class EditorComponent implements OnInit{
     'Moon',
     'Solarized',
   ];
-  animationSelected!: string;
+ 
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
-  showPen!: boolean;
-  showDrawingArea!: boolean;
-  showSlides!: boolean;
   /*** login */
-  isLoggedIn$ = this.auth.isAuthenticated$(); // Set to true if the user is logged in
-  userName$ = this.auth.getUserName$(); // Replace with actual user name
-  userImage$ = this.auth.getUserImage$(); // Replace with actual image path
-  disabled$ = this.auth.isAuthenticated$().pipe(map(isLogin => {
+  isLoggedIn$ = this.store.select(selectIsLogin); 
+  userName$ = this.store.select(selectUserName);
+  userImage$ = this.store.select(selectUserImageUrl);
+  editor$ = this.store.select(selectEditor);
+  isEditMode$ = this.store.select(selectIsEditMode);
+  name$ = this.store.select(selectName);
+  viewUrl$ = this.store.select(selectUrlView);
+  editUrl$ = this.store.select(selectUrlEdit);
+  
+  titleName = 'Login to enable this feature. [login required]'
+  tooltip = 'Login to enable this feature. [login required]' 
+  disabled$ = this.store.select(selectIsLogin).pipe(map(isLogin => {
     if(isLogin) {
+      this.titleName = 'Presenation Selecton'
+      this.tooltip  = 'Presenation Selecton'
       return false;
     }
     return true;
@@ -54,89 +61,77 @@ export class EditorComponent implements OnInit{
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
-  // publish section
-  @Input() presentationName = 'My presentation';
-  @Input() publishedViewUrl = ''; // This will be set after publishing
-  @Input() publishedEditUrl = ''; // This will be set after publishing
-  userPresentations$ = this?.auth.getMyEditors(); // This should be fetched from the backend
+  
   selectedPresentation!: MarkdownDB;
-  titlename = 'Login to enable this feature. [login required]'
-  tooltip = 'Login to enable this feature. [login required]'
-
+  userPresentations$ =  this.store.select(selectLoginUserEditors).pipe(tap(presets =>{
+    if(presets && presets.length > 0) {
+      const params = this.route.snapshot.paramMap;
+      const id = params.get(Constant.UrlPart.Id) as string;
+      const selectedPresentation = presets.find(present => String(present.id) == id);
+      if(!this.selectedPresentation && selectedPresentation) {
+        this.selectedPresentation = selectedPresentation;
+      }
+    }
+  })); 
 
   constructor(
     private store: Store<RevealJsState>,
     private auth: AuthService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private route: ActivatedRoute
   ) {}
 
-  async ngOnInit() {
-    this.currentContent = this.editor.content;
-    this.themeSelected = this.editor.themeSelected;
-    this.animationSelected = this.editor.animationSelected;
-    this.showPen = this.editor.showPen;
-    this.showDrawingArea = this.editor.showDrawingArea;
-    this.showSlides = this.editor.showSlides;
-    
-    if(!this.auth.currentlyLoggedIn()) {
-      this.titlename = 'Presenation Selecton [login required]'
-      this.tooltip = 'Login to enable this feature. [login required]'
-    } else {
-      this.titlename = 'Presenation Selecton'
-      this.tooltip  = 'Presenation Selecton'
-
-    }
-
-
+  ngOnInit() {
+    this.store.dispatch(actions.checkUserLogin());
   }
 
 
-  updateContent(): void {
+  updateContent(event: any): void {
+    const content = event.target.value;
     this.store.dispatch(
-      actions.updateEditorContent({ content: this.currentContent })
+      actions.updateEditorContent({ content })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
-  updateTheme(): void {
+  updateTheme(themeSelected: string): void {
     this.store.dispatch(
-      actions.updateEditorTheme({ themeSelected: this.themeSelected })
+      actions.updateEditorTheme({ themeSelected })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
-  updateAnimation(): void {
+  updateAnimation(animationSelected: string): void {
     this.store.dispatch(
       actions.updateEditorAnimation({
-        animationSelected: this.animationSelected,
+        animationSelected,
       })
     );
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
-  updateShowPen(): void {
-    this.store.dispatch(actions.updateEditorShowPen({ showPen: this.showPen }));
+  updateShowPen(event: MatSlideToggleChange): void {
+    this.store.dispatch(actions.updateEditorShowPen({ showPen: event.checked }));
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
-  updateShowDrawingArea(): void {
+  updateShowDrawingArea(event: MatSlideToggleChange): void {
     this.store.dispatch(
       actions.updateEditorShowDrawingArea({
-        showDrawingArea: this.showDrawingArea,
+        showDrawingArea: event.checked,
       })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
-  updateShowSlides(): void {
+  updateShowSlides(event: MatSlideToggleChange): void {
     this.store.dispatch(
-      actions.updateEditorShowSlides({ showSlides: this.showSlides })
+      actions.updateEditorShowSlides({ showSlides: event.checked })
     );
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
@@ -156,12 +151,12 @@ export class EditorComponent implements OnInit{
 
 
   // publish
-  onPublish() {
-    this.store.dispatch(actions.updateNameOnly({ name: this.presentationName}));
-    const urlName = this.presentationName.replace(/\s+/g, '-').toLowerCase();
+  onPublish(presentationName: string) {
+    const urlName = presentationName.replace(/\s+/g, '-').toLowerCase();
     this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
     // store
     this.store.dispatch(actions.saveToStorage());
+   
   }
 
   copyToClipboard(url: string) {
@@ -175,6 +170,10 @@ export class EditorComponent implements OnInit{
     window.open(url, '_blank');
   }
 
+  onPresentationNameChange(event: any) {
+    const name = event.target.value;
+    this.store.dispatch(actions.updateNameOnly({ name }));
+  }
 
   onPresentationSelected() { 
     this.store.dispatch(actions.updateURLInfo({ loadType: Constant.UrlLoadType.Published, 
@@ -189,14 +188,7 @@ export class EditorComponent implements OnInit{
   
   async onDeleteButtonClick() {
     if (this.selectedPresentation && typeof this.selectedPresentation.id) {
-      // Call Deletemarkdown with the presentation's id
-      (await
-        // Call Deletemarkdown with the presentation's id
-        this.auth.deleteMarkdown(this.selectedPresentation.id)).subscribe(() => {
-        // Optionally, you can also update your userPresentations$ observable
-        this.selectedPresentation;
-        
-      });
+      await this.auth.deleteMarkdown(this.selectedPresentation.id)
     }
   }
  

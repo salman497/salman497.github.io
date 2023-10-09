@@ -6,14 +6,8 @@
 </div>
 <mat-sidenav-container  class="main-container">
   <mat-sidenav *ngIf="isEditMode$ | async" #editorSidenav mode="side" [(opened)]="editorVisible" class="main-editor">
-    <ng-container *ngIf="editorInitState$ | async as editor">
       <mono-repo-editor 
-      [editor]="editor"  
-      [presentationName]="(name$ | async) ?? ''" 
-      [publishedViewUrl]="(viewUrl$ | async) ?? ''" 
-      [publishedEditUrl]="(editUrl$ | async) ?? ''" 
       (onEditorClose)="toggleEditor()"></mono-repo-editor>
-    </ng-container>
    
   </mat-sidenav>
 

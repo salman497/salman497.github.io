@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import { switchMap } from 'rxjs/operators';
-import { Editor } from './revealjs/state/state';
+import { Editor, LoginUser, RevealJsState } from './revealjs/state/state';
 import { Injectable } from '@angular/core';
 import {
   SupabaseClient,
@@ -20,39 +20,39 @@ import {
 } from 'rxjs';
 import { environment } from './environment/environment';
 import { valueExist } from './revealjs/utils/basic-utils';
-import { StartingTemplate } from './revealjs/utils/starter-template';
 import { MarkdownDB } from './revealjs/models/db.model';
+import { Store } from '@ngrx/store';
+import { setUserLogin } from './revealjs/state/actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private supabase: SupabaseClient;
-  private supabase$: BehaviorSubject<{ user?: User; session?: Session }> =
-    new BehaviorSubject<{ user?: User; userSession?: Session }>({});
-
-  constructor() {
+   constructor(private store: Store<RevealJsState>) {
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey
     );
   }
 
-  async init() {
+  async getLoginUser(): Promise<LoginUser> {
     const sessionResp = await this.supabase.auth.getSession();
     if (!valueExist(sessionResp?.data?.session)) {
       console.log('----unabel to login No session exist---', sessionResp.error);
-      return;
+      return {};
     }
-    const userResp = await this.supabase.auth.getUser();
-    if (userResp.error) {
-      console.log('----get user error---', userResp.error);
-      return;
+
+    const { data, error} = await this.supabase.auth.getUser();
+    if (error) {
+      console.log('----get user error---', error);
+      return {};
     }
-    this.supabase$.next({
-      user: userResp?.data?.user,
-      session: sessionResp?.data?.session as Session,
-    });
+    return {
+      id: data?.user?.id,
+      name: data?.user?.user_metadata['name'],
+      imageUrl: data?.user?.user_metadata['avatar_url'],
+    };
   }
 
   async signInWithGoogle(): Promise<void> {
@@ -72,44 +72,16 @@ export class AuthService {
     await this.supabase.auth.signOut();
     this.supabase.storage.emptyBucket(environment.supabaseKey);
     this.supabase.storage.deleteBucket(environment.supabaseKey);
-    this.supabase$.next({});
+    // set empty login state
+    this.store.dispatch(setUserLogin({}));
     // setTimeout(() => {
     //   //signal logout after a second
     //   this.supabase$.next({ });
     // }, 1000);
 
-    window.location.reload();
+    // window.location.reload();
   }
 
-  isAuthenticated$(): Observable<boolean> {
-    return this.supabase$.pipe(
-      map((obj) => valueExist(obj?.session) && valueExist(obj?.user))
-    );
-  }
-
-  getUser$(): Observable<User | undefined> {
-    return this.supabase$.pipe(map((obj) => obj.user));
-  }
-
-  getUserName$(): Observable<string | undefined> {
-    return this.supabase$.pipe(map((obj) => obj.user?.user_metadata['name']));
-  }
-
-  getUserImage$(): Observable<string | null> {
-    return this.supabase$.pipe(
-      map((obj) => obj.user?.user_metadata['avatar_url'])
-    );
-  }
-  currentlyLoggedIn(): boolean {
-    return (
-      valueExist(this.supabase$?.value.user) &&
-      valueExist(this.supabase$?.value.session)
-    );
-  }
-
-  currentlyLoggedInUser(): User {
-    return this.supabase$.value?.user as User;
-  }
   saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
     if(data.id === 0) {
       delete data.id;
@@ -128,7 +100,7 @@ export class AuthService {
     );
   }
 
-  getEditor(id: number): Observable<MarkdownDB> {
+  getEditor$(id: number): Observable<MarkdownDB> {
     return from(
       this.supabase.from('markdown').select().eq('id', id)
     ).pipe(
@@ -143,12 +115,9 @@ export class AuthService {
     );
   }
 
-  getMyEditors(): Observable<Array<{ id: number, name: string }>> {
-    if(!this.currentlyLoggedIn()) {
-      return of([]);
-    }
+  getAllUserEditors$(userId: string): Observable<MarkdownDB[]> {
     return from(
-      this.supabase.from('markdown').select().eq('user_id', this.currentlyLoggedInUser().id)
+      this.supabase.from('markdown').select().eq('user_id', userId)
     ).pipe(
       map((resp) => {
         if (resp.error) {
@@ -161,19 +130,7 @@ export class AuthService {
     );
   }
 
-  loadContent(): Observable<Editor> {
-    return of({
-      content: StartingTemplate,
-      themeSelected: 'Black',
-      animationSelected: 'Slide',
-      showPen: true,
-      showDrawingArea: true,
-      showSlides: true,
-      toggleViewer: true,
-    });
-  }
-
-  async deleteMarkdown(markdownId: any): Promise<Observable<void>> {
+  async deleteMarkdown(markdownId: any): Promise<void> {
     try {
       // Replace 'markdown' with your actual table name
       const { error } = await this.supabase
@@ -186,7 +143,7 @@ export class AuthService {
         throw error;
       }
     
-      return of(undefined);
+      return undefined;
     } catch (error) {
       console.error(error);
       throw error;
