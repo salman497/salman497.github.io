@@ -21,6 +21,7 @@ import {
   saveToStorageSuccess,
   setLoginUserEditors,
   setUserLogin,
+  toggleViewerToReRender,
   updateURLInfo,
 } from './actions';
 import { EMPTY, from, of } from 'rxjs';
@@ -112,6 +113,13 @@ export class RevealJsEffects {
         }
         return of(loadEditorStateSuccess({ editor: initialState.editor }));
       })
+    )
+  );
+
+  loadEditorStateSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadEditorStateSuccess),
+      map(() => toggleViewerToReRender())
     )
   );
   /***

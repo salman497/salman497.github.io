@@ -181,7 +181,7 @@ export class EditorComponent implements OnInit{
                                                 id: String(this.selectedPresentation.id), 
                                                 name: this.selectedPresentation.url_name }));
     this.store.dispatch(actions.loadEditorState({ loadType: Constant.UrlLoadType.Published, mode: Constant.UrlMode.Edit, id : String(this.selectedPresentation.id) }));
-    this.store.dispatch(actions.toggleViewerToReRender());
+
     //const url = buildPublishedURL(String(this.selectedPresentation.id), this.selectedPresentation.url_name as string);
    // window.location.replace(url)
   }
