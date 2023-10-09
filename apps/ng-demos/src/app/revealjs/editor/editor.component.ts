@@ -46,7 +46,7 @@ export class EditorComponent implements OnInit{
   userImage$ = this.auth.getUserImage$(); // Replace with actual image path
   disabled$ = this.auth.isAuthenticated$().pipe(map(isLogin => {
     if(isLogin) {
-      return false
+      return false;
     }
     return true;
 }));
