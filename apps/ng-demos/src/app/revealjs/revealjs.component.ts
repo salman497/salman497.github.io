@@ -31,8 +31,8 @@ export class RevealjsComponent implements OnInit {
     const mode = params.get(Constant.UrlPart.Mode) as string;
     const id = params.get(Constant.UrlPart.Id) as string;
     const name = params.get(Constant.UrlPart.Name) as string;
-    this.store.dispatch(actions.updateURLInfo({ loadType, mode, id, name }));
-    this.store.dispatch(actions.loadEditorState({ loadType, mode, id }));
+    this.store.dispatch(actions.setURLInfo({ loadType, mode, id, name }));
+    this.store.dispatch(actions.loadLoginUserInfo());
   }
 
   toggleEditor(): void {

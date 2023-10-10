@@ -7,12 +7,11 @@ import {
   withLatestFrom,
   tap,
   catchError,
+  concatMap,
 } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import {
-  checkUserLogin,
-  getLoginUserEditors,
-  loadEditorState,
+  loadLoginUserInfo,
   loadEditorStateFailure,
   loadEditorStateSuccess,
   saveToLocalStorage,
@@ -20,9 +19,11 @@ import {
   saveToStorageFailure,
   saveToStorageSuccess,
   setLoginUserEditors,
-  setUserLogin,
   toggleViewerToReRender,
-  updateURLInfo,
+  setURLInfo,
+  setLoginUserInfo,
+  loadAllLoginUserEditors,
+  loadLoginUserEditor,
 } from './actions';
 import { EMPTY, from, of } from 'rxjs';
 import { initialState, Editor, LoginUser } from './state';
@@ -34,7 +35,7 @@ import {
 } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
-import { isEmpty } from '../utils/basic-utils';
+import { allowAccessToEditor, isEmpty } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
@@ -47,15 +48,20 @@ export class RevealJsEffects {
     private snackBar: MatSnackBar
   ) {}
 
-  /**
-   * check user login and call action to set state
-   */
-  checkUserLogin$ = createEffect(() =>
+
+  loadLoginUserInfo$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(checkUserLogin),
+      ofType(loadLoginUserInfo),
       switchMap(() => {
         return from(this.auth.getLoginUser()).pipe(
-          map((user) => setUserLogin(user))
+          concatMap((loginUser) => {
+            return from([
+              // multiple actions
+              setLoginUserInfo(loginUser),
+              loadLoginUserEditor(),
+              loadAllLoginUserEditors(),
+            ])
+          })
         );
       })
     )
@@ -64,9 +70,9 @@ export class RevealJsEffects {
   /**
    * Get login user editors
    */
-  getLoginUserEditors$ = createEffect(() =>
+  loadAllLoginUserEditors$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(setUserLogin, getLoginUserEditors),
+      ofType(loadAllLoginUserEditors),
       withLatestFrom(this.store.select(selectUser)),
       switchMap(([_, user]) => {
         if (user?.id) {
@@ -88,21 +94,27 @@ export class RevealJsEffects {
    */
   loadEditorState$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadEditorState),
-      switchMap(({ loadType: userType, id }) => {
-        if (userType === Constant.UrlLoadType.Local && id) {
-          const editor = JSON.parse(localStorage.getItem(id) || '{}');
+      ofType(loadLoginUserEditor),
+      withLatestFrom(this.store.select(selectFullState)),
+      switchMap(([_, state]) => {
+        const urlInfo = state?.urlInfo || {};
+        if (urlInfo.loadType === Constant.UrlLoadType.Local && urlInfo.id) {
+          const editor = JSON.parse(localStorage.getItem(urlInfo.id) || '{}');
           if (!isEmpty(editor)) {
             return of(loadEditorStateSuccess({ editor }));
           }
         }
 
-        if (userType === Constant.UrlLoadType.Published && id) {
-          return this.auth.getEditor$(Number(id)).pipe(
+        if (urlInfo.loadType === Constant.UrlLoadType.Published) {
+          return this.auth.getEditor$(Number(urlInfo.id)).pipe(
             map((data) => {
+              if(!allowAccessToEditor(state.loginUser, data)) {
+                return loadEditorStateFailure(Constant.Error.LoadErrorNoAccess); 
+              }
               return loadEditorStateSuccess({
                 id: data.id,
                 name: data.name,
+                publicAccess: data.public_access,
                 editor: data.editor as Editor,
               });
             }),
@@ -122,6 +134,25 @@ export class RevealJsEffects {
       map(() => toggleViewerToReRender())
     )
   );
+
+
+loadEditorStateFailure$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(loadEditorStateFailure),
+    tap((obj) => {
+       this.store.dispatch(
+        setURLInfo({
+          loadType: Constant.UrlLoadType.Startup
+        })
+      );
+       // show message
+       this.snackBar.open(obj.message, 'Close', {
+        duration: 5000,
+      });
+    }),
+  ),
+  { dispatch: false }
+);
   /***
    * Save editor to supabase
    */
@@ -137,13 +168,14 @@ export class RevealJsEffects {
               name: obj.name,
               editor: obj.editor,
               url_name: obj.urlInfo.name,
+              public_access: obj.allowPublicAccess
             })
             .pipe(
               tap((data) => {
                 // try getting his editor if login
-                this.store.dispatch(getLoginUserEditors());
+                this.store.dispatch(loadAllLoginUserEditors());
                 this.store.dispatch(
-                  updateURLInfo({
+                  setURLInfo({
                     loadType: Constant.UrlLoadType.Published,
                     mode: Constant.UrlMode.Edit,
                     id: String(data.id),
@@ -172,7 +204,7 @@ export class RevealJsEffects {
   );
 
   /***
-   * Save editor to local storage, for reload
+   * Save editor to local storage
    */
   saveToLocalStorage$ = createEffect(
     () =>
@@ -189,7 +221,7 @@ export class RevealJsEffects {
           ) {
             // For first time only
             this.store.dispatch(
-              updateURLInfo({
+              setURLInfo({
                 loadType: Constant.UrlLoadType.Local,
                 mode: Constant.UrlMode.Edit,
                 id: '0',
@@ -212,12 +244,12 @@ export class RevealJsEffects {
   );
 
   /***
-   * Updates URL Info to url
+   * Updates URL Info in location
    */
-  updateURLInfo$ = createEffect(
+  updateURLLocation$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(updateURLInfo),
+        ofType(setURLInfo),
         withLatestFrom(this.store.select(selectUrlInfo)),
         switchMap(([_ac, param]) => {
           if (param.loadType === Constant.UrlLoadType.Local) {

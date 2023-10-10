@@ -11,24 +11,26 @@ import {
   loadEditorStateFailure,
   saveToStorageFailure,
   saveToStorageSuccess,
-  loadEditorState,
   saveToStorage,
-  updateURLInfo,
+  setURLInfo,
   updateURLNameOnly,
   updateNameOnly,
   changeLoadingState,
-  setUserLogin,
+ 
   setLoginUserEditors,
+  loadLoginUserInfo,
+  setLoginUserInfo,
+  setAllowPublicAccess,
 } from './actions';
 import { initialState } from './state';
 
 export const revealJsReducer = createReducer(
   initialState,
-  on(loadEditorState, (state) => ({
+  on(loadLoginUserInfo, (state) => ({
     ...state,
     loading: true,
   })),
-  on(loadEditorStateSuccess, (state, { name, id, editor }) => ({
+  on(loadEditorStateSuccess, (state, { name, id, editor, publicAccess }) => ({
     ...state,
     editor: {
       ...editor
@@ -36,6 +38,7 @@ export const revealJsReducer = createReducer(
     editorInitialized: true,
     name: name ? name : state.name,
     id: id ? id : state.id,
+    allowPublicAccess: publicAccess === false ? false : true,
   })),
   on(loadEditorStateFailure, (state, { errorType, message }) => ({
     ...state,
@@ -113,7 +116,7 @@ export const revealJsReducer = createReducer(
       showSlides,
     },
   })),
-  on(updateURLInfo, (state, {id, loadType, mode, name} ) => ({
+  on(setURLInfo, (state, {id, loadType, mode, name} ) => ({
     ...state,
     urlInfo: {
       id,
@@ -137,7 +140,7 @@ export const revealJsReducer = createReducer(
     ...state,
     loading
   })),
-  on(setUserLogin, (state, loginUser) => ({
+  on(setLoginUserInfo, (state, loginUser) => ({
     ...state,
     loginUser,
     isLogin: loginUser?.id ? true: false
@@ -145,5 +148,9 @@ export const revealJsReducer = createReducer(
   on(setLoginUserEditors, (state, { loginUserEditors }) => ({
     ...state,
     loginUserEditors: loginUserEditors ? [...loginUserEditors] : []
-  }))
+  })),
+  on(setAllowPublicAccess, (state, { allowPublicAccess }) => ({
+    ...state,
+    allowPublicAccess,
+  })),
 );

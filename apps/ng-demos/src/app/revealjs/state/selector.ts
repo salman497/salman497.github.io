@@ -90,3 +90,8 @@ export const selectLoginUserEditors = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => state.loginUserEditors ? state.loginUserEditors : []
 );
+
+export const selectAllowPublicAccess = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.allowPublicAccess === false ? false : true
+);

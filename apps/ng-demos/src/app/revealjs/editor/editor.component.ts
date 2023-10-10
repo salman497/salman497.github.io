@@ -1,4 +1,4 @@
-import { selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
+import { selectAllowPublicAccess, selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -35,7 +35,7 @@ export class EditorComponent implements OnInit{
     'Moon',
     'Solarized',
   ];
- 
+  publicAccess$ = this.store.select(selectAllowPublicAccess);
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
   /*** login */
   isLoggedIn$ = this.store.select(selectIsLogin); 
@@ -46,7 +46,6 @@ export class EditorComponent implements OnInit{
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
   editUrl$ = this.store.select(selectUrlEdit);
-  
   titleName = 'Login to enable this feature. [login required]'
   tooltip = 'Login to enable this feature. [login required]' 
   disabled$ = this.store.select(selectIsLogin).pipe(map(isLogin => {
@@ -83,7 +82,7 @@ export class EditorComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(actions.checkUserLogin());
+  
   }
 
 
@@ -156,7 +155,6 @@ export class EditorComponent implements OnInit{
     this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
     // store
     this.store.dispatch(actions.saveToStorage());
-   
   }
 
   copyToClipboard(url: string) {
@@ -176,14 +174,15 @@ export class EditorComponent implements OnInit{
   }
 
   onPresentationSelected() { 
-    this.store.dispatch(actions.updateURLInfo({ loadType: Constant.UrlLoadType.Published, 
+    this.store.dispatch(actions.setURLInfo({ loadType: Constant.UrlLoadType.Published, 
                                                 mode: Constant.UrlMode.Edit, 
                                                 id: String(this.selectedPresentation.id), 
                                                 name: this.selectedPresentation.url_name }));
-    this.store.dispatch(actions.loadEditorState({ loadType: Constant.UrlLoadType.Published, mode: Constant.UrlMode.Edit, id : String(this.selectedPresentation.id) }));
+    this.store.dispatch(actions.loadLoginUserEditor());
+  }
 
-    //const url = buildPublishedURL(String(this.selectedPresentation.id), this.selectedPresentation.url_name as string);
-   // window.location.replace(url)
+  onPublicAccessChange(event: MatSlideToggleChange) {
+    this.store.dispatch(actions.setAllowPublicAccess({ allowPublicAccess: event.checked }));
   }
   
   async onDeleteButtonClick() {

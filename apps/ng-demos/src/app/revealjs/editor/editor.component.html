@@ -189,7 +189,16 @@
           <mat-icon>content_copy</mat-icon>
         </button>
       </mat-form-field>
-
+      <div class="toggle-container">
+        <mat-slide-toggle
+          class="editor-mat-slide-toggle"
+          [ngModel]="publicAccess$ | async"
+          (change)="onPublicAccessChange($event)"
+          [disabled]="(this.disabled$ | async)? true: false"
+          aria-label="Public Access"
+          >Public Access</mat-slide-toggle
+        >
+      </div>
       <!-- Load my presentation Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>{{this.titleName}}</mat-label>

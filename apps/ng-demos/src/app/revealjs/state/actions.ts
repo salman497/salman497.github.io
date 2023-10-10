@@ -36,31 +36,11 @@ export const updateEditorShowSlides = createAction(
   props<{ showSlides: boolean }>()
 );
 
-
-export const saveToLocalStorage = createAction(
-  '[RevealJs Effect] Save Editor to Local Storage'
-);
-
-/********************* ASYNC OPERATIONS ***************************/
-
-export const loadEditorState = createAction(
-  '[RevealJs Effect] Load Editor State',
-   props<{ loadType?: string, mode?: string, id?: string }>()
-);
+/******************** Operations ************************/
 
 export const loadEditorStateSuccess = createAction(
   '[RevealJs] Load Editor State Success',
-   props<{ id?: number, name?: string, editor: Editor }>()
-);
-
-export const loadEditorStateFailure = createAction(
-  '[RevealJs] Load Editor State Failure',
-   props<ErrorState>()
-);
-
-
-export const saveToStorage = createAction(
-  '[RevealJs Effect] Save Editor to Storage'
+   props<{ id?: number, name?: string, publicAccess?: boolean, editor: Editor }>()
 );
 
 export const saveToStorageSuccess = createAction(
@@ -73,13 +53,9 @@ export const saveToStorageFailure = createAction(
   props<ErrorState>()
 );
 
-export const updateURLInfo = createAction(
-  '[RevealJs +Effect] Update URL info',
-  props<URLInfo>()
-);
 
 export const updateURLNameOnly = createAction(
-  '[RevealJs] Update URL Name only',
+  '[RevealJs] Update URL Info Name only',
   props<{ name: string}>()
 );
 
@@ -88,29 +64,63 @@ export const updateNameOnly = createAction(
   props<{ name: string}>()
 );
 
+export const loadEditorStateFailure = createAction(
+  '[RevealJs] Load Editor State Failure',
+   props<ErrorState>()
+);
+
+export const setLoginUserInfo = createAction(
+  '[RevealJs] Set Login User Info',
+  props<LoginUser>()
+);
+
+
+export const setAllowPublicAccess = createAction(
+  '[RevealJs] Set Allow Public Access',
+  props<{ allowPublicAccess: boolean}>()
+);
+
 
 export const changeLoadingState = createAction(
   '[RevealJs] Change Loading State',
   props<{ loading: boolean}>()
 );
 
-
-export const checkUserLogin = createAction(
-  '[RevealJs Effect] Check User login'
-);
-
-export const setUserLogin = createAction(
-  '[RevealJs] Set User Info',
-  props<LoginUser>()
-);
-
-export const getLoginUserEditors = createAction(
-  '[RevealJs Effect] Get Login User Editors'
-);
-
 export const setLoginUserEditors = createAction(
-  '[RevealJs Effect] Set Login User Editors',
+  '[RevealJs] Set Login User Editors',
   props<{ loginUserEditors?: MarkdownDB[] }>()
+);
+
+
+/********************* That Trigger Effects  ***************************/
+
+export const loadLoginUserInfo = createAction(
+  '[RevealJs Effect] Try to load login User'
+);
+
+
+export const saveToStorage = createAction(
+  '[RevealJs Effect] Save Editor to Storage'
+);
+
+
+export const saveToLocalStorage = createAction(
+  '[RevealJs Effect] Save Editor to Local Storage'
+);
+
+
+export const loadAllLoginUserEditors = createAction(
+  '[RevealJs Effect] Load All Login User Editors'
+);
+
+export const loadLoginUserEditor = createAction(
+  '[RevealJs Effect] Load Login User Editor'
+);
+
+
+export const setURLInfo = createAction(
+  '[RevealJs +Effect] Set URL info and update location',
+  props<URLInfo>()
 );
 
 

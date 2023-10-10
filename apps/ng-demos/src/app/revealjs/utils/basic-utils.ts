@@ -1,3 +1,5 @@
+import { MarkdownDB } from './../models/db.model';
+import { LoginUser } from './../state/state';
 import { URLInfo } from "../state/state";
 import { Constant } from "./constants";
 
@@ -81,4 +83,13 @@ export function buildURL(param: URLInfo): string {
 
 export function buildPublishedURL(id: string, name: string): string {
     return `${window.location.origin}/${Constant.UrlLoadType.Published}/${Constant.UrlMode.Edit}/${id}/${name}`;
+}
+
+
+export function allowAccessToEditor(loginUser: LoginUser | undefined, dbItem: MarkdownDB): boolean {
+    if(dbItem.public_access === false && dbItem.user_id && dbItem.user_id !== loginUser?.id) {
+        return false; 
+    }
+
+  return true;
 }
