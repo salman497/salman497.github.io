@@ -34,7 +34,7 @@ export interface RevealJsState {
     loginUser?: LoginUser,
     error?: ErrorState,
     loginUserEditors?: MarkdownDB[]
-    allowPublicAccess?: boolean;
+    allowEdit?: boolean;
 }
 
 export interface Editor {

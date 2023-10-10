@@ -40,7 +40,7 @@ export const updateEditorShowSlides = createAction(
 
 export const loadEditorStateSuccess = createAction(
   '[RevealJs] Load Editor State Success',
-   props<{ id?: number, name?: string, publicAccess?: boolean, editor: Editor }>()
+   props<{ id?: number, name?: string, allowEdit?: boolean, editor: Editor }>()
 );
 
 export const saveToStorageSuccess = createAction(
@@ -59,6 +59,7 @@ export const updateURLNameOnly = createAction(
   props<{ name: string}>()
 );
 
+
 export const updateNameOnly = createAction(
   '[RevealJs] Update Presentation Name only',
   props<{ name: string}>()
@@ -75,9 +76,9 @@ export const setLoginUserInfo = createAction(
 );
 
 
-export const setAllowPublicAccess = createAction(
-  '[RevealJs] Set Allow Public Access',
-  props<{ allowPublicAccess: boolean}>()
+export const setAllowEdit = createAction(
+  '[RevealJs] Set Allow Edit to Other User',
+  props<{ allowEdit: boolean}>()
 );
 
 

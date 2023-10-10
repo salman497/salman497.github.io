@@ -26,7 +26,7 @@ export const Constant = {
         Default: 'my-presentation' as const
     },
     Error: {
-        LoadErrorNoAccess: { errorType: 'load-error-access', message: 'Access to presentation is restricted, please ask author to give public access' },
+        LoadErrorNoEditPermission: { errorType: 'load-error-access', message: 'Edit permission is not given.' },
         LoadError: { errorType: 'load-error', message: 'Unable to load, please try again' },
         SaveError: { errorType: 'save-error', message: 'Unable to save, please try again' },
         SaveErrorNoEditor: { errorType: 'save-error-editor-not-present', message: 'editor is not loaded property'}

@@ -35,7 +35,7 @@ import {
 } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
-import { allowAccessToEditor, isEmpty } from '../utils/basic-utils';
+import { allowEdit, isEmpty } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
@@ -107,14 +107,28 @@ export class RevealJsEffects {
 
         if (urlInfo.loadType === Constant.UrlLoadType.Published) {
           return this.auth.getEditor$(Number(urlInfo.id)).pipe(
-            map((data) => {
-              if(!allowAccessToEditor(state.loginUser, data)) {
-                return loadEditorStateFailure(Constant.Error.LoadErrorNoAccess); 
+            tap(data => {
+              
+              if(!allowEdit(state.loginUser, data) && urlInfo.mode === Constant.UrlMode.Edit) {
+                // Apply permission
+                this.snackBar.open('Only view permission given.', 'Close', {
+                  duration: 5000,
+                });
+                this.store.dispatch(
+                  setURLInfo({
+                    loadType: Constant.UrlLoadType.Published,
+                    mode: Constant.UrlMode.View,
+                    id: String(data.id),
+                    name: data.url_name
+                  })
+                );
               }
+            }),
+            map((data) => {
               return loadEditorStateSuccess({
                 id: data.id,
                 name: data.name,
-                publicAccess: data.public_access,
+                allowEdit: data.allow_edit,
                 editor: data.editor as Editor,
               });
             }),
@@ -140,11 +154,7 @@ loadEditorStateFailure$ = createEffect(() =>
   this.actions$.pipe(
     ofType(loadEditorStateFailure),
     tap((obj) => {
-       this.store.dispatch(
-        setURLInfo({
-          loadType: Constant.UrlLoadType.Startup
-        })
-      );
+
        // show message
        this.snackBar.open(obj.message, 'Close', {
         duration: 5000,
@@ -168,7 +178,8 @@ loadEditorStateFailure$ = createEffect(() =>
               name: obj.name,
               editor: obj.editor,
               url_name: obj.urlInfo.name,
-              public_access: obj.allowPublicAccess
+              allow_edit: obj.allowEdit,
+              user_id: obj?.loginUser?.id
             })
             .pipe(
               tap((data) => {
@@ -179,7 +190,7 @@ loadEditorStateFailure$ = createEffect(() =>
                     loadType: Constant.UrlLoadType.Published,
                     mode: Constant.UrlMode.Edit,
                     id: String(data.id),
-                    name: obj.urlInfo.name,
+                    name: obj.urlInfo.name
                   })
                 );
                 // show message
@@ -260,7 +271,7 @@ loadEditorStateFailure$ = createEffect(() =>
           }
           if (param.loadType === Constant.UrlLoadType.Published) {
             this.location.replaceState(
-              `/${Constant.UrlLoadType.Published}/${Constant.UrlMode.Edit}/${param.id}/${param.name}`
+              `/${Constant.UrlLoadType.Published}/${param.mode}/${param.id}/${param.name}`
             );
             return EMPTY;
           }

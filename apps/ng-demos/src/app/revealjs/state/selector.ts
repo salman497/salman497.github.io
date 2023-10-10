@@ -39,7 +39,7 @@ export const selectUrlInfo = createSelector(
 
 export const selectIsEditMode = createSelector(
   selectRevealJsState,
-  (state: RevealJsState) => state.urlInfo.mode !== Constant.UrlMode.View
+  (state: RevealJsState) => state.urlInfo.mode !== Constant.UrlMode.View 
 );
 
 export const selectName = createSelector(
@@ -91,7 +91,7 @@ export const selectLoginUserEditors = createSelector(
   (state: RevealJsState) => state.loginUserEditors ? state.loginUserEditors : []
 );
 
-export const selectAllowPublicAccess = createSelector(
+export const selectAllowEdit = createSelector(
   selectRevealJsState,
-  (state: RevealJsState) => state.allowPublicAccess === false ? false : true
+  (state: RevealJsState) => state.allowEdit === false ? false : true
 );

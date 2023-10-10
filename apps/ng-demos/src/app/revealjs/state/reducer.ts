@@ -20,7 +20,7 @@ import {
   setLoginUserEditors,
   loadLoginUserInfo,
   setLoginUserInfo,
-  setAllowPublicAccess,
+  setAllowEdit
 } from './actions';
 import { initialState } from './state';
 
@@ -30,7 +30,7 @@ export const revealJsReducer = createReducer(
     ...state,
     loading: true,
   })),
-  on(loadEditorStateSuccess, (state, { name, id, editor, publicAccess }) => ({
+  on(loadEditorStateSuccess, (state, { name, id, editor, allowEdit }) => ({
     ...state,
     editor: {
       ...editor
@@ -38,7 +38,7 @@ export const revealJsReducer = createReducer(
     editorInitialized: true,
     name: name ? name : state.name,
     id: id ? id : state.id,
-    allowPublicAccess: publicAccess === false ? false : true,
+    allowEdit: allowEdit === false ? false : true,
   })),
   on(loadEditorStateFailure, (state, { errorType, message }) => ({
     ...state,
@@ -149,8 +149,8 @@ export const revealJsReducer = createReducer(
     ...state,
     loginUserEditors: loginUserEditors ? [...loginUserEditors] : []
   })),
-  on(setAllowPublicAccess, (state, { allowPublicAccess }) => ({
+  on(setAllowEdit, (state, { allowEdit }) => ({
     ...state,
-    allowPublicAccess,
+    allowEdit,
   })),
 );

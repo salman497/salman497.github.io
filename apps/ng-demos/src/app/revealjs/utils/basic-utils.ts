@@ -86,8 +86,8 @@ export function buildPublishedURL(id: string, name: string): string {
 }
 
 
-export function allowAccessToEditor(loginUser: LoginUser | undefined, dbItem: MarkdownDB): boolean {
-    if(dbItem.public_access === false && dbItem.user_id && dbItem.user_id !== loginUser?.id) {
+export function allowEdit(loginUser: LoginUser | undefined, dbItem: MarkdownDB): boolean {
+    if(dbItem.allow_edit === false && dbItem.user_id && dbItem.user_id !== loginUser?.id) {
         return false; 
     }
 

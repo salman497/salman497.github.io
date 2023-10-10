@@ -1,4 +1,4 @@
-import { selectAllowPublicAccess, selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
+import { selectAllowEdit, selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -35,7 +35,7 @@ export class EditorComponent implements OnInit{
     'Moon',
     'Solarized',
   ];
-  publicAccess$ = this.store.select(selectAllowPublicAccess);
+  allowEdit$ = this.store.select(selectAllowEdit);
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
   /*** login */
   isLoggedIn$ = this.store.select(selectIsLogin); 
@@ -181,8 +181,8 @@ export class EditorComponent implements OnInit{
     this.store.dispatch(actions.loadLoginUserEditor());
   }
 
-  onPublicAccessChange(event: MatSlideToggleChange) {
-    this.store.dispatch(actions.setAllowPublicAccess({ allowPublicAccess: event.checked }));
+  onAllowEditChange(event: MatSlideToggleChange) {
+    this.store.dispatch(actions.setAllowEdit({ allowEdit: event.checked }));
   }
   
   async onDeleteButtonClick() {

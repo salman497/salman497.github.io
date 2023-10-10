@@ -6,6 +6,5 @@ export interface MarkdownDB {
     user_id?: any,
     name?: string,
     url_name?: string,
-    public_access?: boolean, 
-    allowed_user_ids?: string
+    allow_edit?: boolean
 }

@@ -192,11 +192,11 @@
       <div class="toggle-container">
         <mat-slide-toggle
           class="editor-mat-slide-toggle"
-          [ngModel]="publicAccess$ | async"
-          (change)="onPublicAccessChange($event)"
+          [ngModel]="allowEdit$ | async"
+          (change)="onAllowEditChange($event)"
           [disabled]="(this.disabled$ | async)? true: false"
-          aria-label="Public Access"
-          >Public Access</mat-slide-toggle
+          aria-label="Allow Others to edit"
+          >Allow Others to edit</mat-slide-toggle
         >
       </div>
       <!-- Load my presentation Dropdown -->
