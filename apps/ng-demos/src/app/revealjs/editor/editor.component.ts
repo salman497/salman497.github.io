@@ -46,12 +46,15 @@ export class EditorComponent implements OnInit{
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
   editUrl$ = this.store.select(selectUrlEdit);
-  titleName = 'Login to enable this feature. [login required]'
-  tooltip = 'Login to enable this feature. [login required]' 
+  loginFeatureText$ =  this.store.select(selectIsLogin).pipe(map(isLogin => {
+    if(!isLogin) {
+      return '[login required]'
+    }
+    return '';
+  }));
+
   disabled$ = this.store.select(selectIsLogin).pipe(map(isLogin => {
     if(isLogin) {
-      this.titleName = 'Presenation Selecton'
-      this.tooltip  = 'Presenation Selecton'
       return false;
     }
     return true;

@@ -195,18 +195,19 @@
           [ngModel]="allowEdit$ | async"
           (change)="onAllowEditChange($event)"
           [disabled]="(this.disabled$ | async)? true: false"
-          aria-label="Allow Others to edit"
-          >Allow Others to edit</mat-slide-toggle
+          aria-label="Allow Others to edit {{loginFeatureText$ | async}}"
+          >Allow Others to edit {{loginFeatureText$ | async}}</mat-slide-toggle
         >
       </div>
       <!-- Load my presentation Dropdown -->
       <mat-form-field class="dropdown-field">
-        <mat-label>{{this.titleName}}</mat-label>
+        <mat-label>Select Your Presentation {{loginFeatureText$ | async}}</mat-label>
         <mat-select
+        #selectPresentation
         [(value)]="selectedPresentation"
         [disabled]="this.disabled$ | async"
         (selectionChange)="onPresentationSelected()"
-        matTooltip="{{this.tooltip}}"
+        matTooltip="Your Presentation {{loginFeatureText$ | async}}"
       >
         <mat-option
           *ngFor="let presentation of userPresentations$ | async"
@@ -216,7 +217,7 @@
         </mat-option>
       </mat-select>
       </mat-form-field>
-      <button (click)="onDeleteButtonClick()">
+      <button (click)="onDeleteButtonClick()" *ngIf="selectPresentation.value ? true: false">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-expansion-panel>
