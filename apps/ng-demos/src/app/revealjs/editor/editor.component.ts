@@ -1,6 +1,6 @@
 import { selectAllowEdit, selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
@@ -9,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { EMPTY, map, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, EMPTY, filter, map, Subscription, tap } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
 import { Constant } from '../utils/constants';
 import { selectIsLogin } from '../state/selector';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -21,7 +22,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit{
+export class EditorComponent implements OnInit, OnDestroy{
   themes = [
     'Black',
     'White',
@@ -63,6 +64,7 @@ export class EditorComponent implements OnInit{
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
 
+
   
   selectedPresentation!: MarkdownDB;
   userPresentations$ =  this.store.select(selectLoginUserEditors).pipe(tap(presets =>{
@@ -75,6 +77,10 @@ export class EditorComponent implements OnInit{
       }
     }
   })); 
+  //internal
+  contentControl = new FormControl();
+  private contentSubscription?: Subscription;
+
 
   constructor(
     private store: Store<RevealJsState>,
@@ -85,12 +91,21 @@ export class EditorComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-  
+    this.contentSubscription = this.contentControl.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      filter(content => !!content && content.trim() !== ''),
+      tap(content => this.updateContent(content))
+    ).subscribe();
+  }
+  ngOnDestroy(): void {
+    if (this.contentSubscription) {
+      this.contentSubscription.unsubscribe();
+    }
   }
 
 
-  updateContent(event: any): void {
-    const content = event.target.value;
+  updateContent(content : string): void {
     this.store.dispatch(
       actions.updateEditorContent({ content })
     );

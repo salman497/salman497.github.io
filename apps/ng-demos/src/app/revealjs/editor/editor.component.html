@@ -52,7 +52,7 @@
           matInput
           class="editor-textarea"
           [ngModel]="editor.content"
-          (blur)="updateContent($event)"
+          [formControl]="contentControl"
         ></textarea>
       </mat-form-field>
     
