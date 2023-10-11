@@ -142,12 +142,7 @@ export class RevealJsEffects {
     )
   );
 
-  loadEditorStateSuccess$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadEditorStateSuccess),
-      map(() => toggleViewerToReRender())
-    )
-  );
+ 
 
 
 loadEditorStateFailure$ = createEffect(() =>

@@ -33,7 +33,8 @@ export const revealJsReducer = createReducer(
   on(loadEditorStateSuccess, (state, { name, id, editor, allowEdit }) => ({
     ...state,
     editor: {
-      ...editor
+      ...editor,
+      toggleViewer: !state.editor.toggleViewer,
     },
     editorInitialized: true,
     name: name ? name : state.name,
