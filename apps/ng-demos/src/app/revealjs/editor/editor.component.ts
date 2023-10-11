@@ -155,7 +155,8 @@ export class EditorComponent implements OnInit{
   // publish
   onPublish(presentationName: string) {
     const urlName = presentationName.replace(/\s+/g, '-').toLowerCase();
-    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));   
+    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
+    this.store.dispatch(actions.saveToStorage());
   }
 
   copyToClipboard(url: string) {
