@@ -260,18 +260,18 @@ loadEditorStateFailure$ = createEffect(() =>
         switchMap(([_ac, param]) => {
           if (param.loadType === Constant.UrlLoadType.Local) {
             this.location.replaceState(
-              `/${Constant.UrlLoadType.Local}/${Constant.UrlMode.Edit}/${param.name}`
+              `/${Constant.UrlLoadType.Local}/${Constant.UrlMode.Edit}/${param.name}${window.location.hash}`
             );
             return EMPTY;
           }
           if (param.loadType === Constant.UrlLoadType.Published) {
             this.location.replaceState(
-              `/${Constant.UrlLoadType.Published}/${param.mode}/${param.id}/${param.name}`
+              `/${Constant.UrlLoadType.Published}/${param.mode}/${param.id}/${param.name}${window.location.hash}`
             );
             return EMPTY;
           }
           // return startup state
-          this.location.replaceState(`/${Constant.UrlLoadType.Startup}`);
+          this.location.replaceState(`/${Constant.UrlLoadType.Startup}${window.location.hash}`);
           return EMPTY;
         })
       ),
