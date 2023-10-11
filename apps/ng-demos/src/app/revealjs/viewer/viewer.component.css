@@ -4,8 +4,12 @@
     height: 100vh;
 }
 
-/*****Reveal Overwrites*****/
+/*****Overwrites Reveal *****/
 
 code.mermaid.hljs.mathematica {
     max-height: 50vh;
+}
+
+:root {
+    --r-heading-text-transform: none!important;
 }
