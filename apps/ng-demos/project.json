@@ -16,7 +16,7 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ng-demos/tsconfig.app.json",
         "assets": [
-          "apps/ng-demos/src/favicon.ico",
+          "apps/ng-demos/src/favicon.svg",
           "apps/ng-demos/src/assets",
           "apps/ng-demos/src/404.html",
           {
