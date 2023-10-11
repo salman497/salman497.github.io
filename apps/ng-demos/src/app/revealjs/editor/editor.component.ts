@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { debounceTime, distinctUntilChanged, EMPTY, filter, map, Subscription, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, EMPTY, filter, map, Subscription, take, tap, withLatestFrom } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
 import { Constant } from '../utils/constants';
 import { selectIsLogin } from '../state/selector';
@@ -91,12 +91,16 @@ export class EditorComponent implements OnInit, OnDestroy{
   ) {}
 
   ngOnInit() {
+    this.editor$.pipe(filter(editor => !!editor?.content), take(1)).subscribe(editor => {
+       // initialize values 
+        this.contentControl.setValue(editor?.content, {emitEvent: false});
+    });
+    // listen content value change
     this.contentSubscription = this.contentControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      filter(content => !!content && content.trim() !== ''),
-      tap(content => this.updateContent(content))
-    ).subscribe();
+      filter((content) => !!content && content.trim() !== ''),
+    ).subscribe((content) => this.updateContent(content));
   }
   ngOnDestroy(): void {
     if (this.contentSubscription) {
