@@ -1,6 +1,23 @@
-import { selectAllowEdit, selectEditor, selectIsEditMode, selectLoginUserEditors, selectName, selectUrlEdit, selectUrlView, selectUserImageUrl, selectUserName } from './../state/selector';
+import {
+  selectAllowEdit,
+  selectEditor,
+  selectIsEditMode,
+  selectLoginUserEditors,
+  selectName,
+  selectUrlEdit,
+  selectUrlView,
+  selectUserImageUrl,
+  selectUserName,
+} from './../state/selector';
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Editor, RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
@@ -9,12 +26,18 @@ import { ActivatedRoute } from '@angular/router';
 import { buildPublishedURL } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { debounceTime, distinctUntilChanged, EMPTY, filter, map, Subscription, take, tap, withLatestFrom } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  Subject,
+  tap
+} from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
 import { Constant } from '../utils/constants';
 import { selectIsLogin } from '../state/selector';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mono-repo-editor',
@@ -22,7 +45,7 @@ import { FormControl } from '@angular/forms';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit, OnDestroy{
+export class EditorComponent implements OnInit, OnDestroy {
   themes = [
     'Black',
     'White',
@@ -39,7 +62,7 @@ export class EditorComponent implements OnInit, OnDestroy{
   allowEdit$ = this.store.select(selectAllowEdit);
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
   /*** login */
-  isLoggedIn$ = this.store.select(selectIsLogin); 
+  isLoggedIn$ = this.store.select(selectIsLogin);
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
   editor$ = this.store.select(selectEditor);
@@ -47,40 +70,43 @@ export class EditorComponent implements OnInit, OnDestroy{
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
   editUrl$ = this.store.select(selectUrlEdit);
-  loginFeatureText$ =  this.store.select(selectIsLogin).pipe(map(isLogin => {
-    if(!isLogin) {
-      return '[login required]'
-    }
-    return '';
-  }));
+  loginFeatureText$ = this.store.select(selectIsLogin).pipe(
+    map((isLogin) => {
+      if (!isLogin) {
+        return '[login required]';
+      }
+      return '';
+    })
+  );
 
-  disabled$ = this.store.select(selectIsLogin).pipe(map(isLogin => {
-    if(isLogin) {
-      return false;
-    }
-    return true;
-}));
+  disabled$ = this.store.select(selectIsLogin).pipe(
+    map((isLogin) => {
+      if (isLogin) {
+        return false;
+      }
+      return true;
+    })
+  );
 
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
+  private contentChangeSubject = new Subject<string>();
 
-
-  
   selectedPresentation!: MarkdownDB;
-  userPresentations$ =  this.store.select(selectLoginUserEditors).pipe(tap(presets =>{
-    if(presets && presets.length > 0) {
-      const params = this.route.snapshot.paramMap;
-      const id = params.get(Constant.UrlPart.Id) as string;
-      const selectedPresentation = presets.find(present => String(present.id) == id);
-      if(!this.selectedPresentation && selectedPresentation) {
-        this.selectedPresentation = selectedPresentation;
+  userPresentations$ = this.store.select(selectLoginUserEditors).pipe(
+    tap((presets) => {
+      if (presets && presets.length > 0) {
+        const params = this.route.snapshot.paramMap;
+        const id = params.get(Constant.UrlPart.Id) as string;
+        const selectedPresentation = presets.find(
+          (present) => String(present.id) == id
+        );
+        if (!this.selectedPresentation && selectedPresentation) {
+          this.selectedPresentation = selectedPresentation;
+        }
       }
-    }
-  })); 
-  //internal
-  contentControl = new FormControl();
-  private contentSubscription?: Subscription;
-
+    })
+  );
 
   constructor(
     private store: Store<RevealJsState>,
@@ -91,36 +117,30 @@ export class EditorComponent implements OnInit, OnDestroy{
   ) {}
 
   ngOnInit() {
-    this.editor$.pipe(filter(editor => !!editor?.content), take(1)).subscribe(editor => {
-       // initialize values 
-        this.contentControl.setValue(editor?.content, {emitEvent: false});
-    });
-    // listen content value change
-    this.contentSubscription = this.contentControl.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      filter((content) => !!content && content.trim() !== ''),
-    ).subscribe((content) => this.updateContent(content));
+    this.contentChangeSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        filter((content) => !!content && content.trim() !== '')
+      )
+      .subscribe((content) => {
+        this.store.dispatch(actions.updateEditorContent({ content }));
+        this.store.dispatch(actions.toggleViewerToReRender());
+        this.store.dispatch(actions.saveToLocalStorage());
+      });
   }
   ngOnDestroy(): void {
-    if (this.contentSubscription) {
-      this.contentSubscription.unsubscribe();
+    if (this.contentChangeSubject) {
+      this.contentChangeSubject.unsubscribe();
     }
   }
 
-
-  updateContent(content : string): void {
-    this.store.dispatch(
-      actions.updateEditorContent({ content })
-    );
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
+  onTextareaChange(content: string): void {
+    this.contentChangeSubject.next(content);
   }
 
   updateTheme(themeSelected: string): void {
-    this.store.dispatch(
-      actions.updateEditorTheme({ themeSelected })
-    );
+    this.store.dispatch(actions.updateEditorTheme({ themeSelected }));
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
@@ -135,7 +155,9 @@ export class EditorComponent implements OnInit, OnDestroy{
   }
 
   updateShowPen(event: MatSlideToggleChange): void {
-    this.store.dispatch(actions.updateEditorShowPen({ showPen: event.checked }));
+    this.store.dispatch(
+      actions.updateEditorShowPen({ showPen: event.checked })
+    );
     this.store.dispatch(actions.toggleViewerToReRender());
     this.store.dispatch(actions.saveToLocalStorage());
   }
@@ -170,7 +192,6 @@ export class EditorComponent implements OnInit, OnDestroy{
     this.onEditorClose.emit();
   }
 
-
   // publish
   onPublish(presentationName: string) {
     const urlName = presentationName.replace(/\s+/g, '-').toLowerCase();
@@ -194,22 +215,25 @@ export class EditorComponent implements OnInit, OnDestroy{
     this.store.dispatch(actions.updateNameOnly({ name }));
   }
 
-  onPresentationSelected() { 
-    this.store.dispatch(actions.setURLInfo({ loadType: Constant.UrlLoadType.Published, 
-                                                mode: Constant.UrlMode.Edit, 
-                                                id: String(this.selectedPresentation.id), 
-                                                name: this.selectedPresentation.url_name }));
+  onPresentationSelected() {
+    this.store.dispatch(
+      actions.setURLInfo({
+        loadType: Constant.UrlLoadType.Published,
+        mode: Constant.UrlMode.Edit,
+        id: String(this.selectedPresentation.id),
+        name: this.selectedPresentation.url_name,
+      })
+    );
     this.store.dispatch(actions.loadLoginUserEditor());
   }
 
   onAllowEditChange(event: MatSlideToggleChange) {
     this.store.dispatch(actions.setAllowEdit({ allowEdit: event.checked }));
   }
-  
+
   async onDeleteButtonClick() {
     if (this.selectedPresentation && typeof this.selectedPresentation.id) {
-      await this.auth.deleteMarkdown(this.selectedPresentation.id)
+      await this.auth.deleteMarkdown(this.selectedPresentation.id);
     }
   }
- 
 }

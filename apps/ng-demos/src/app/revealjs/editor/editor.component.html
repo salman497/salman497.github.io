@@ -51,7 +51,8 @@
         <textarea
           matInput
           class="editor-textarea"
-          [formControl]="contentControl"
+          [ngModel]="editor.content"
+          (ngModelChange)="onTextareaChange($event)"
         ></textarea>
       </mat-form-field>
     
