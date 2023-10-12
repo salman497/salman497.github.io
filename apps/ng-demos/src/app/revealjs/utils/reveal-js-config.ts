@@ -126,12 +126,19 @@ function getMenuConfig() {
 
 function getCustomControls(editor: Editor) {
   const controls = [];
+  controls.push({
+    id: 'menu-overview',
+    title: 'Menu overview (O)',
+    icon: '<i class="fa fa-bars"></i>',
+    action: "invokeFromOutsideOfAngular('menu');",
+  });
+
   if (editor.showSlides) {
     controls.push({
       id: 'toggle-overview',
       title: 'Toggle overview (O)',
       icon: '<i class="fa fa-th"></i>',
-      action: 'globalRevealJs.toggleOverview();',
+      action: "invokeFromOutsideOfAngular('toggle');",
     });
   }
   if (editor.showDrawingArea) {

@@ -13,3 +13,12 @@ code.mermaid.hljs.mathematica {
 :root {
     --r-heading-text-transform: none!important;
 }
+
+#customcontrols {
+    position: absolute!important;
+    left: 4px!important;
+}
+
+#customcontrols > ul {
+    position: unset!important;
+}

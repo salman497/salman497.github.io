@@ -11,6 +11,7 @@ import {
 } from './../state/selector';
 
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   Input,
@@ -45,7 +46,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   themes = [
     'Black',
     'White',
@@ -65,7 +66,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   isLoggedIn$ = this.store.select(selectIsLogin);
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
-  editor$ = this.store.select(selectEditor);
+  editor$ = this.store.select(selectEditor).pipe(filter(e => e && e.content ? true : false));
   isEditMode$ = this.store.select(selectIsEditMode);
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
@@ -117,26 +118,28 @@ export class EditorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.contentChangeSubject
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        filter((content) => !!content && content.trim() !== '')
-      )
-      .subscribe((content) => {
-        this.store.dispatch(actions.updateEditorContent({ content }));
-        this.store.dispatch(actions.toggleViewerToReRender());
-        this.store.dispatch(actions.saveToLocalStorage());
-      });
+   
   }
   ngOnDestroy(): void {
     if (this.contentChangeSubject) {
       this.contentChangeSubject.unsubscribe();
     }
   }
-
-  onTextareaChange(content: string): void {
-    this.contentChangeSubject.next(content);
+  ngAfterViewInit() { 
+    this.contentChangeSubject
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      filter((content) => !!content && content.trim() !== '')
+    )
+    .subscribe((content) => {
+      this.store.dispatch(actions.updateEditorContent({ content }));
+      this.store.dispatch(actions.toggleViewerToReRender());
+      this.store.dispatch(actions.saveToLocalStorage());
+    });
+  }
+  onTextareaChange(event: any): void {
+    this.contentChangeSubject.next(event?.target?.value);
   }
 
   updateTheme(themeSelected: string): void {

@@ -8,6 +8,10 @@ import {
   OnChanges,
   OnDestroy,
   ViewEncapsulation,
+  Renderer2,
+  ElementRef,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -19,7 +23,7 @@ import { Store } from '@ngrx/store';
 declare var $: any;
 declare global {
   interface Window {
-    globalRevealJs: any;
+    invokeFromOutsideOfAngular: any;
   }
 }
 @Component({
@@ -32,16 +36,32 @@ export class ViewerComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() editor!: Editor;
+  @Output() onMenuClick = new EventEmitter<void>();
   deck: Reveal.Api | undefined;
 
-  constructor(private store: Store<RevealJsState>) {}
+  constructor(private store: Store<RevealJsState>, 
+              private renderer: Renderer2, 
+              private el: ElementRef) {
+                
+              }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.invokeFromOutsideOfAngular = function(action: string) {
+      const customEvent = new CustomEvent('customControlEvent', { detail: action });
+      document.querySelector('mono-repo-viewer')?.dispatchEvent(customEvent);
+    }
+    
+
+    this.renderer.listen(this.el.nativeElement, 'customControlEvent', (event) => {
+      // Access component properties and invoke functions here
+      this.handEventsFromOutsideOfAngular(event.detail);
+    });
+  }
   ngOnDestroy() {
     if (this.deck) {
       // this.deck.removeEventListeners();
       this.deck.destroy();
-      window.globalRevealJs = undefined;
+      window.invokeFromOutsideOfAngular = undefined;
     }
     setTimeout(() => {
       const linkEl = document.getElementById(
@@ -57,12 +77,6 @@ export class ViewerComponent
     this.deck?.configure({
       transition: this.editor.animationSelected.toLowerCase() as any,
     });
-    // this.deck?.configure({ theme: this.editor.animationSelected.toLowerCase() as any });
-    // if(this.deck) {
-    //   this.deck.sync();
-    //   this.deck.initialize();
-    //   this.cd.detectChanges();
-    // }
   }
   async ngAfterViewInit() {
     try {
@@ -70,7 +84,6 @@ export class ViewerComponent
       const config = await getRevealConfig(this.editor);
       if (!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
-        window.globalRevealJs = this.deck;
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
           updateWindowHash(event);
@@ -79,11 +92,28 @@ export class ViewerComponent
           // hide loading when reveal js presentation is ready
           this.store.dispatch(changeLoadingState({ loading: false }));
         });
+        // define custom event
+
+       
+        // window.customControlEvent = (eventName: string) => {
+        //   console.log('---------------customControlEvent------------------', eventName);
+        // }
       }
     } catch (error) {
       console.error('Error ngAfterViewInit data:', error);
     }
   }
+
+  handEventsFromOutsideOfAngular(action: string) {
+    console.log('---->>>>>Action From Outside of angular', action);
+    if(action === 'toggle') {
+      this.deck?.toggleOverview();
+    }
+
+    if(action === 'menu') {
+      this.onMenuClick.emit();
+    }
+  } 
 
   changeTheme(themeName: string): void {
     const linkEl = document.createElement('link');

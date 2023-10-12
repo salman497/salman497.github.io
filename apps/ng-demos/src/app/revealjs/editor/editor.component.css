@@ -47,7 +47,7 @@ mat-toolbar {
 }
 
 .editor-textarea {
-  height: 55vh!important; /* Set height to 60vh */
+  height: 60vh!important; /* Set height to 60vh */
 }
 
 .editor-button {

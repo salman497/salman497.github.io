@@ -1,6 +1,3 @@
-<button mat-icon-button *ngIf="isEditMode$ | async" (click)="toggleEditor()" class="menu-icon">
-  ☰
-</button>
 <div class="loading-container" *ngIf="isLoading$ | async">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
@@ -13,8 +10,8 @@
 
   <mat-sidenav-content  class="main-viewer">
     <ng-container *ngIf="editor$ | async as editor">
-      <mono-repo-viewer *ngIf="editor?.toggleViewer" [editor]="editor" class="main-viewer"></mono-repo-viewer>
-      <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" class="main-viewer"></mono-repo-viewer>
+      <mono-repo-viewer  *ngIf="editor?.toggleViewer" [editor]="editor" class="main-viewer" (onMenuClick)="toggleEditor()"></mono-repo-viewer>
+      <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" class="main-viewer" (onMenuClick)="toggleEditor()"></mono-repo-viewer>
     </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
