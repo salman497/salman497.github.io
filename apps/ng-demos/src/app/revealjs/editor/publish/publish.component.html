@@ -1,0 +1,97 @@
+
+  
+    <!-- Top Row -->
+    <div class="top-row">
+      <!-- Presentation Name Input -->
+      <mat-form-field class="input-field presentation-input">
+        <mat-label>Presentation Name</mat-label>
+        <input
+          matInput
+          [ngModel]="name"
+          (blur)="onPresentationNameChange($event)"
+          pattern="[a-zA-Z0-9\s]*"
+          placeholder="My presentation"
+        />
+        <mat-error
+          >Only alphanumeric characters, hyphens, and spaces are
+          allowed.</mat-error
+        >
+      </mat-form-field>
+  
+      <!-- Publish Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="publish-button"
+        (click)="onPublish()"
+      >
+        Publish
+      </button>
+    </div>
+
+    <!-- Published view Url Input -->
+    <mat-form-field class="input-field">
+      <mat-label>Published view Url</mat-label>
+      <input matInput [ngModel]= "viewUrl" readonly />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="copyToClipboard(viewUrl)"
+        aria-label="Copy URL"
+      >
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="openInNewTab(viewUrl)"
+        aria-label="Open in new tab"
+      >
+        <mat-icon>open_in_new</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Published edit Url Input -->
+    <mat-form-field class="input-field">
+      <mat-label>Published edit Url</mat-label>
+      <input matInput [ngModel]= "editUrl" readonly />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="copyToClipboard(editUrl)"
+        aria-label="Copy URL"
+      >
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="toggle-container">
+      <mat-slide-toggle
+        class="editor-mat-slide-toggle"
+        [ngModel]="allowEdit"
+        (change)="onAllowEditChange($event)"
+        [disabled]="!isUserLogin"
+        aria-label="Allow Others to edit {{loginText}}"
+        >Allow Others to edit {{loginText}}</mat-slide-toggle
+      >
+    </div>
+    <!-- Load my presentation Dropdown -->
+    <mat-form-field class="dropdown-field">
+      <mat-label>Select Your Presentation {{loginText}}</mat-label>
+      <mat-select
+      #selectPresentation
+      [value]="selectedPresentationId"
+      [disabled]="!isUserLogin"
+      (selectionChange)="onPresentationSelected(selectPresentation.value)"
+      matTooltip="Your Presentation {{loginText}}"
+    >
+      <mat-option
+        *ngFor="let presentation of presentations"
+        [value]="presentation.id"
+      >
+        {{ presentation.name }}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+    <button (click)="onDeleteButtonClick()" *ngIf="selectPresentation.value ? true: false">
+      <mat-icon>delete</mat-icon>
+    </button>

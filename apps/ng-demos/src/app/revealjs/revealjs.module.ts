@@ -26,9 +26,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PublishComponent } from './editor/publish/publish.component';
+import { ContentComponent } from './editor/content/content.component';
+import { SettingsComponent } from './editor/settings/settings.component';
 
 @NgModule({
-  declarations: [EditorComponent, ViewerComponent, RevealjsComponent],
+  declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, ContentComponent, SettingsComponent],
   imports: [
     MatExpansionModule,
     MatFormFieldModule,

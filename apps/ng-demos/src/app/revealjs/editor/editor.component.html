@@ -131,104 +131,18 @@
           <mat-icon>publish</mat-icon> Publish
         </mat-panel-title>
       </mat-expansion-panel-header>
-    
-      <!-- Top Row -->
-      <div class="top-row">
-        <!-- Presentation Name Input -->
-        <mat-form-field class="input-field presentation-input">
-          <mat-label>Presentation Name</mat-label>
-          <input
-            matInput
-            [ngModel]="name$ | async"
-            (blur)="onPresentationNameChange($event)"
-            pattern="[a-zA-Z0-9\s]*"
-            placeholder="My presentation"
-            #presentationName
-          />
-          <mat-error
-            >Only alphanumeric characters, hyphens, and spaces are
-            allowed.</mat-error
-          >
-        </mat-form-field>
-    
-        <!-- Publish Button -->
-        <button
-          mat-raised-button
-          color="primary"
-          class="publish-button"
-          (click)="onPublish(presentationName.value)"
-        >
-          Publish
-        </button>
-      </div>
-
-      <!-- Published view Url Input -->
-      <mat-form-field class="input-field">
-        <mat-label>Published view Url</mat-label>
-        <input matInput [ngModel]= "viewUrl$ | async" #viewUrl readonly />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="copyToClipboard(viewUrl.value)"
-          aria-label="Copy URL"
-        >
-          <mat-icon>content_copy</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="openInNewTab(viewUrl.value)"
-          aria-label="Open in new tab"
-        >
-          <mat-icon>open_in_new</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <!-- Published edit Url Input -->
-      <mat-form-field class="input-field">
-        <mat-label>Published edit Url</mat-label>
-        <input matInput [ngModel]= "editUrl$ | async" #editUrl readonly />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="copyToClipboard(editUrl.value)"
-          aria-label="Copy URL"
-        >
-          <mat-icon>content_copy</mat-icon>
-        </button>
-      </mat-form-field>
-      <div class="toggle-container">
-        <mat-slide-toggle
-          class="editor-mat-slide-toggle"
-          [ngModel]="allowEdit$ | async"
-          (change)="onAllowEditChange($event)"
-          [disabled]="(this.disabled$ | async)? true: false"
-          aria-label="Allow Others to edit {{loginFeatureText$ | async}}"
-          >Allow Others to edit {{loginFeatureText$ | async}}</mat-slide-toggle
-        >
-      </div>
-      <!-- Load my presentation Dropdown -->
-      <mat-form-field class="dropdown-field">
-        <mat-label>Select Your Presentation {{loginFeatureText$ | async}}</mat-label>
-        <mat-select
-        #selectPresentation
-        [value]="selectedPresentation"
-        [disabled]="this.disabled$ | async"
-        (selectionChange)="onPresentationSelected()"
-        matTooltip="Your Presentation {{loginFeatureText$ | async}}"
-      >
-        <mat-option
-          *ngFor="let presentation of userPresentations$ | async"
-          [value]="presentation"
-        >
-          {{ presentation.name }}
-        </mat-option>
-      </mat-select>
-      </mat-form-field>
-      <button (click)="onDeleteButtonClick()" *ngIf="selectPresentation.value ? true: false">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-expansion-panel>
+          <mono-repo-publish 
+                [name]="(name$ | async) || ''"
+                [viewUrl]="(viewUrl$ | async) || ''"
+                [editUrl]="(editUrl$ | async) || ''"
+                [allowEdit]="(allowEdit$ | async) || false"
+                [isUserLogin]="(isLoggedIn$ | async) || false"
+                [loginText]="(loginFeatureText$ | async) || '' "
+                [presentations]="(userPresentations$ | async) || []"
+                [selectedPresentationId]="(selectedPresentationId$ | async)"
+                  > 
+          </mono-repo-publish>
+  </mat-expansion-panel>
   </mat-accordion>
 </ng-container>
 </div>

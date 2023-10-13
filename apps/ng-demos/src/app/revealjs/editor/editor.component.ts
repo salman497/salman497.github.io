@@ -5,6 +5,7 @@ import {
   selectLoginUserEditors,
   selectName,
   selectUrlEdit,
+  selectUrlInfo,
   selectUrlView,
   selectUserImageUrl,
   selectUserName,
@@ -71,6 +72,10 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
   editUrl$ = this.store.select(selectUrlEdit);
+  selectedPresentationId$ = this.store.select(selectUrlInfo).pipe(
+    filter(info => !!info?.id),
+    map(info => Number(info?.id)));
+    
   loginFeatureText$ = this.store.select(selectIsLogin).pipe(
     map((isLogin) => {
       if (!isLogin) {
@@ -80,40 +85,16 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   );
 
-  disabled$ = this.store.select(selectIsLogin).pipe(
-    map((isLogin) => {
-      if (isLogin) {
-        return false;
-      }
-      return true;
-    })
-  );
-
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onEditorClose = new EventEmitter<void>();
   private contentChangeSubject = new Subject<string>();
 
   selectedPresentation!: MarkdownDB;
-  userPresentations$ = this.store.select(selectLoginUserEditors).pipe(
-    tap((presets) => {
-      if (presets && presets.length > 0) {
-        const params = this.route.snapshot.paramMap;
-        const id = params.get(Constant.UrlPart.Id) as string;
-        const selectedPresentation = presets.find(
-          (present) => String(present.id) == id
-        );
-        if (!this.selectedPresentation && selectedPresentation) {
-          this.selectedPresentation = selectedPresentation;
-        }
-      }
-    })
-  );
+  userPresentations$ = this.store.select(selectLoginUserEditors);
 
   constructor(
     private store: Store<RevealJsState>,
     private auth: AuthService,
-    private snackBar: MatSnackBar,
-    private clipboard: Clipboard,
     private route: ActivatedRoute
   ) {}
 
@@ -201,50 +182,5 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onClose(): void {
     this.onEditorClose.emit();
-  }
-
-  // publish
-  onPublish(presentationName: string) {
-    const urlName = presentationName.replace(/\s+/g, '-').toLowerCase();
-    this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
-    this.store.dispatch(actions.saveToStorage());
-  }
-
-  copyToClipboard(url: string) {
-    this.clipboard.copy(url);
-    this.snackBar.open('URL copied to clipboard!', 'Close', {
-      duration: 2000,
-    });
-  }
-
-  openInNewTab(url: string) {
-    window.open(url, '_blank');
-  }
-
-  onPresentationNameChange(event: any) {
-    const name = event.target.value;
-    this.store.dispatch(actions.updateNameOnly({ name }));
-  }
-
-  onPresentationSelected() {
-    this.store.dispatch(
-      actions.setURLInfo({
-        loadType: Constant.UrlLoadType.Published,
-        mode: Constant.UrlMode.Edit,
-        id: String(this.selectedPresentation.id),
-        name: this.selectedPresentation.url_name,
-      })
-    );
-    this.store.dispatch(actions.loadLoginUserEditor());
-  }
-
-  onAllowEditChange(event: MatSlideToggleChange) {
-    this.store.dispatch(actions.setAllowEdit({ allowEdit: event.checked }));
-  }
-
-  async onDeleteButtonClick() {
-    if (this.selectedPresentation && typeof this.selectedPresentation.id) {
-      await this.auth.deleteMarkdown(this.selectedPresentation.id);
-    }
   }
 }
