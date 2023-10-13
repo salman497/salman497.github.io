@@ -36,6 +36,12 @@ export const updateEditorShowSlides = createAction(
   props<{ showSlides: boolean }>()
 );
 
+export const updateEditorShowAutoSlides = createAction(
+  '[RevealJs] Update Editor show Auto Slide',
+  props<{ showAutoSlide: boolean }>()
+);
+
+
 /******************** Operations ************************/
 
 export const loadEditorStateSuccess = createAction(

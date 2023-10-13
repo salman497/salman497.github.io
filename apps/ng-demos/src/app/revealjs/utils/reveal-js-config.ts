@@ -40,6 +40,8 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
     ],
    // hashOneBasedIndex: true,
     hash: false,
+    autoSlide: editor.showAutoSlide ? 4000 : 0,
+    autoPlayMedia: false,
     showNotes: false, // IN speaker view S
     embedded: true,
     minScale: 1.0,
@@ -59,6 +61,7 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
 
 function getMenuConfig() {
   return {
+    
     // Specifies which side of the presentation the menu will
     // be shown. Use 'left' or 'right'.
     side: 'left',

@@ -44,6 +44,7 @@ export interface Editor {
     showPen: boolean;
     showDrawingArea: boolean;
     showSlides: boolean;
+    showAutoSlide:boolean;
     toggleViewer: boolean;
 }
 
@@ -56,6 +57,7 @@ export const initialState: RevealJsState = {
       showDrawingArea: true,
       showSlides: true,
       toggleViewer: true,
+      showAutoSlide: false,
     },
     editorInitialized: false,
     loading: true,

@@ -101,7 +101,7 @@
         >
         <mat-slide-toggle
           class="editor-mat-slide-toggle"
-          [(ngModel)]="editor.showDrawingArea"
+          [ngModel]="editor.showDrawingArea"
           (change)="updateShowDrawingArea($event)"
           aria-label="Show Drawing Area"
           >Show Drawing Area</mat-slide-toggle
@@ -112,6 +112,14 @@
           (change)="updateShowSlides($event)"
           aria-label="Show Slides"
           >Show Slides</mat-slide-toggle
+        >
+
+        <mat-slide-toggle
+          class="editor-mat-slide-toggle"
+          [ngModel]="editor.showAutoSlide"
+          (change)="updateShowAutoSlides($event)"
+          aria-label="Auto Play"
+          >Auto Play</mat-slide-toggle
         >
       </div>
     </mat-expansion-panel>
@@ -204,7 +212,7 @@
         <mat-label>Select Your Presentation {{loginFeatureText$ | async}}</mat-label>
         <mat-select
         #selectPresentation
-        [(value)]="selectedPresentation"
+        [value]="selectedPresentation"
         [disabled]="this.disabled$ | async"
         (selectionChange)="onPresentationSelected()"
         matTooltip="Your Presentation {{loginFeatureText$ | async}}"

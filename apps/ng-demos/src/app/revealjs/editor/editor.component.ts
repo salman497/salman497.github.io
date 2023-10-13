@@ -183,6 +183,14 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch(actions.saveToLocalStorage());
   }
 
+  updateShowAutoSlides(event: MatSlideToggleChange): void {
+    this.store.dispatch(
+      actions.updateEditorShowAutoSlides({ showAutoSlide: event.checked })
+    );
+    this.store.dispatch(actions.toggleViewerToReRender());
+    this.store.dispatch(actions.saveToLocalStorage());
+  }
+
   onLogin(): void {
     this.auth.signInWithGoogle();
   }

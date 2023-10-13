@@ -22,3 +22,9 @@ code.mermaid.hljs.mathematica {
 #customcontrols > ul {
     position: unset!important;
 }
+
+.reveal .playback {
+    right: 15px!important;
+    top: 20px!important;  
+    left: unset!important;
+}

@@ -20,7 +20,8 @@ import {
   setLoginUserEditors,
   loadLoginUserInfo,
   setLoginUserInfo,
-  setAllowEdit
+  setAllowEdit,
+  updateEditorShowAutoSlides as updateEditorShowAutoSlide
 } from './actions';
 import { initialState } from './state';
 
@@ -115,6 +116,13 @@ export const revealJsReducer = createReducer(
     editor: {
       ...state.editor,
       showSlides,
+    },
+  })),
+  on(updateEditorShowAutoSlide, (state, { showAutoSlide }) => ({
+    ...state,
+    editor: {
+      ...state.editor,
+      showAutoSlide,
     },
   })),
   on(setURLInfo, (state, {id, loadType, mode, name} ) => ({
