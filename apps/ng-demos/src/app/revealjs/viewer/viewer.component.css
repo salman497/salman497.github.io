@@ -17,6 +17,8 @@ code.mermaid.hljs.mathematica {
 #customcontrols {
     position: absolute!important;
     left: 4px!important;
+    top: 14px!important;
+    bottom: unset!important;
 }
 
 #customcontrols > ul {

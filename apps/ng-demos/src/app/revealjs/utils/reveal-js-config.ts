@@ -5,7 +5,7 @@ import RevealScriptFragment from 'reveal.js-script-fragment';
 import dynamicImports from './reveal-plugins/reveal-js-dynamic-imports';
 import { Editor } from '../state/state';
 
-export async function getRevealConfig(editor: Editor): Promise<any> {
+export async function getRevealConfig(editor: Editor, isEditMode: boolean): Promise<any> {
   const RevealCustomControls = await dynamicImports.customControls();
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
@@ -48,13 +48,13 @@ export async function getRevealConfig(editor: Editor): Promise<any> {
     controls: true,
     controlsTutorial: true,
     keyboardCondition: 'focused',
-    menu: getMenuConfig(),
+    menu: getMenuConfig(isEditMode),
     transition: editor.animationSelected.toLowerCase(),
     // autoAnimateEasing: 'ease-out',
     // autoAnimateDuration: 0.8,
     // autoAnimateUnmatched: false,
     customcontrols: {
-      controls: getCustomControls(editor),
+      controls: getCustomControls(editor, isEditMode),
     },
   };
 }
@@ -127,14 +127,16 @@ function getMenuConfig() {
   };
 }
 
-function getCustomControls(editor: Editor) {
+function getCustomControls(editor: Editor, isEditMode: boolean) {
   const controls = [];
-  controls.push({
-    id: 'menu-overview',
-    title: 'Menu overview (O)',
-    icon: '<i class="fa fa-bars"></i>',
-    action: "invokeFromOutsideOfAngular('menu');",
-  });
+  if (isEditMode) {
+    controls.push({
+      id: 'menu-overview',
+      title: 'Menu overview (O)',
+      icon: '<i class="fa fa-bars"></i>',
+      action: "invokeFromOutsideOfAngular('menu');",
+    });
+  }
 
   if (editor.showSlides) {
     controls.push({

@@ -36,6 +36,7 @@ export class ViewerComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() editor!: Editor;
+  @Input() isEditMode!: boolean | null;
   @Output() onMenuClick = new EventEmitter<void>();
   deck: Reveal.Api | undefined;
 
@@ -81,7 +82,7 @@ export class ViewerComponent
   async ngAfterViewInit() {
     try {
       this.changeTheme(this.editor.themeSelected.toLowerCase());
-      const config = await getRevealConfig(this.editor);
+      const config = await getRevealConfig(this.editor, this.isEditMode === null ? false: this.isEditMode);
       if (!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
         this.deck.initialize(config);
