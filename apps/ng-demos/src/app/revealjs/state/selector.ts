@@ -10,6 +10,11 @@ export const selectEditor = createSelector(
   (state: RevealJsState) => state.editorInitialized ? state.editor : null
 );
 
+export const selectMarkdown = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.editorInitialized ? state.editor.content : null
+);
+
 export const selectFullState = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => state

@@ -38,7 +38,7 @@
   </button>
 </mat-toolbar>
 <div class="editor-container">
-  <ng-container *ngIf="editor$ | async as editor">
+  
   <mat-accordion>
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
@@ -46,15 +46,7 @@
         <mat-panel-title> <mat-icon>edit</mat-icon> Editor </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mat-form-field class="editor-textarea-field">
-        <mat-label>Edit markdown</mat-label>
-        <textarea
-          matInput
-          class="editor-textarea"
-          [ngModel]="editor.content"
-          (input)="onTextareaChange($event)"
-        ></textarea>
-      </mat-form-field>
+      <mono-repo-markdown [markdown]="(markdown$ | async) || ''"></mono-repo-markdown>
     
     </mat-expansion-panel>
 
@@ -65,6 +57,7 @@
           <mat-icon>settings</mat-icon> Settings
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <ng-container *ngIf="editor$ | async as editor">
       <!-- Theme Dropdown -->
       <mat-form-field class="dropdown-field">
         <mat-label>Theme</mat-label>
@@ -122,6 +115,7 @@
           >Auto Play</mat-slide-toggle
         >
       </div>
+    </ng-container>
     </mat-expansion-panel>
 
     <!-- Publish Section -->
@@ -144,5 +138,5 @@
           </mono-repo-publish>
   </mat-expansion-panel>
   </mat-accordion>
-</ng-container>
+
 </div>

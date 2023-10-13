@@ -1,0 +1,28 @@
+.editor-textarea-field {
+    width: 100%;
+    margin-top: 10px;
+    flex-grow: 1; /* Allow it to grow to occupy available space */
+  }
+  
+  .editor-textarea {
+    height: 60vh!important; /* Set height to 60vh */
+  }
+  
+  .editor-button {
+    margin-left: auto;
+    display: block;
+   
+  }
+
+
+  /* Media query for further adjustments for smaller screens */
+@media (max-width: 600px) {
+    .editor-container {
+      padding: 5px;
+    }
+  
+    .editor-textarea {
+      font-size: 12px;
+      height: 30vh;
+    }
+  }

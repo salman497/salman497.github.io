@@ -27,11 +27,11 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PublishComponent } from './editor/publish/publish.component';
-import { ContentComponent } from './editor/content/content.component';
+import { MarkDownComponent } from './editor/markdown/markdown.component';
 import { SettingsComponent } from './editor/settings/settings.component';
 
 @NgModule({
-  declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, ContentComponent, SettingsComponent],
+  declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, MarkDownComponent, SettingsComponent],
   imports: [
     MatExpansionModule,
     MatFormFieldModule,

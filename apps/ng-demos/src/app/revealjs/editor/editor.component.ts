@@ -3,6 +3,7 @@ import {
   selectEditor,
   selectIsEditMode,
   selectLoginUserEditors,
+  selectMarkdown,
   selectName,
   selectUrlEdit,
   selectUrlInfo,
@@ -12,32 +13,23 @@ import {
 } from './../state/selector';
 
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
-  Input,
-  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Editor, RevealJsState } from '../state/state';
+import { RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
 import { AuthService } from '../../auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { buildPublishedURL } from '../utils/basic-utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Clipboard } from '@angular/cdk/clipboard';
+
 import {
-  debounceTime,
-  distinctUntilChanged,
   filter,
   map,
   Subject,
-  tap
 } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
-import { Constant } from '../utils/constants';
 import { selectIsLogin } from '../state/selector';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
@@ -47,7 +39,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   //capsulation: ViewEncapsulation.None,
   styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EditorComponent implements OnInit {
   themes = [
     'Black',
     'White',
@@ -67,6 +59,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   isLoggedIn$ = this.store.select(selectIsLogin);
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
+  markdown$ = this.store.select(selectMarkdown);
   editor$ = this.store.select(selectEditor).pipe(filter(e => e && e.content ? true : false));
   isEditMode$ = this.store.select(selectIsEditMode);
   name$ = this.store.select(selectName);
@@ -95,34 +88,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private store: Store<RevealJsState>,
     private auth: AuthService,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
    
   }
-  ngOnDestroy(): void {
-    if (this.contentChangeSubject) {
-      this.contentChangeSubject.unsubscribe();
-    }
-  }
-  ngAfterViewInit() { 
-    this.contentChangeSubject
-    .pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      filter((content) => !!content && content.trim() !== '')
-    )
-    .subscribe((content) => {
-      this.store.dispatch(actions.updateEditorContent({ content }));
-      this.store.dispatch(actions.toggleViewerToReRender());
-      this.store.dispatch(actions.saveToLocalStorage());
-    });
-  }
-  onTextareaChange(event: any): void {
-    this.contentChangeSubject.next(event?.target?.value);
-  }
-
   updateTheme(themeSelected: string): void {
     this.store.dispatch(actions.updateEditorTheme({ themeSelected }));
     this.store.dispatch(actions.toggleViewerToReRender());
