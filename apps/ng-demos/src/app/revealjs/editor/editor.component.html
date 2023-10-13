@@ -38,7 +38,6 @@
   </button>
 </mat-toolbar>
 <div class="editor-container">
-  
   <mat-accordion>
     <!-- Editor Section -->
     <mat-expansion-panel [expanded]="true">
@@ -46,8 +45,9 @@
         <mat-panel-title> <mat-icon>edit</mat-icon> Editor </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mono-repo-markdown [markdown]="(markdown$ | async) || ''"></mono-repo-markdown>
-    
+      <mono-repo-markdown
+        [markdown]="(markdown$ | async) || ''"
+      ></mono-repo-markdown>
     </mat-expansion-panel>
 
     <!-- Settings Section -->
@@ -57,16 +57,15 @@
           <mat-icon>settings</mat-icon> Settings
         </mat-panel-title>
       </mat-expansion-panel-header>
-      
-      <mono-repo-settings
-      [theme]="(theme$ | async) || 'White'"
-      [animation]="(animation$ | async) || 'None'"
-      [showPen]="(showPen$ | async)"
-      [showDrawingArea]="(showDrawingArea$ | async)"
-      [showSlides]="(showSlides$ | async)"
-      [showAutoSlide]="(showAutoSlide$ | async)"
-      >
 
+      <mono-repo-settings
+        [theme]="(theme$ | async) || 'White'"
+        [animation]="(animation$ | async) || 'None'"
+        [showPen]="showPen$ | async"
+        [showDrawingArea]="showDrawingArea$ | async"
+        [showSlides]="showSlides$ | async"
+        [showAutoSlide]="showAutoSlide$ | async"
+      >
       </mono-repo-settings>
     </mat-expansion-panel>
 
@@ -77,18 +76,17 @@
           <mat-icon>publish</mat-icon> Publish
         </mat-panel-title>
       </mat-expansion-panel-header>
-          <mono-repo-publish 
-                [name]="(name$ | async) || ''"
-                [viewUrl]="(viewUrl$ | async) || ''"
-                [editUrl]="(editUrl$ | async) || ''"
-                [allowEdit]="(allowEdit$ | async) || false"
-                [isUserLogin]="(isLoggedIn$ | async) || false"
-                [loginText]="(loginFeatureText$ | async) || '' "
-                [presentations]="(userPresentations$ | async) || []"
-                [selectedPresentationId]="(selectedPresentationId$ | async)"
-                  > 
-          </mono-repo-publish>
-  </mat-expansion-panel>
+      <mono-repo-publish
+        [name]="(name$ | async) || ''"
+        [viewUrl]="(viewUrl$ | async) || ''"
+        [editUrl]="(editUrl$ | async) || ''"
+        [allowEdit]="(allowEdit$ | async) || false"
+        [isUserLogin]="(isLoggedIn$ | async) || false"
+        [loginText]="(loginFeatureText$ | async) || ''"
+        [presentations]="(userPresentations$ | async) || []"
+        [selectedPresentationId]="selectedPresentationId$ | async"
+      >
+      </mono-repo-publish>
+    </mat-expansion-panel>
   </mat-accordion>
-
 </div>
