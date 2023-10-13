@@ -57,65 +57,17 @@
           <mat-icon>settings</mat-icon> Settings
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ng-container *ngIf="editor$ | async as editor">
-      <!-- Theme Dropdown -->
-      <mat-form-field class="dropdown-field">
-        <mat-label>Theme</mat-label>
-        <mat-select [value]="editor.themeSelected" (valueChange)="updateTheme($event)">
-          <mat-option *ngFor="let theme of themes" [value]="theme">{{
-            theme
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      
+      <mono-repo-settings
+      [theme]="(theme$ | async) || 'White'"
+      [animation]="(animation$ | async) || 'None'"
+      [showPen]="(showPen$ | async)"
+      [showDrawingArea]="(showDrawingArea$ | async)"
+      [showSlides]="(showSlides$ | async)"
+      [showAutoSlide]="(showAutoSlide$ | async)"
+      >
 
-      <!-- Animation Dropdown -->
-      <mat-form-field class="dropdown-field">
-        <mat-label>Animation</mat-label>
-        <mat-select
-        [value]="editor.animationSelected"
-          (valueChange)="updateAnimation($event)"
-        >
-          <mat-option
-            *ngFor="let animation of animations"
-            [value]="animation"
-            >{{ animation }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-
-      <!-- Slide Toggles -->
-      <div class="toggle-container">
-        <mat-slide-toggle
-          class="editor-mat-slide-toggle"
-          [ngModel]="editor.showPen"
-          (change)="updateShowPen($event)"
-          aria-label="Show Pen"
-          >Show Pen</mat-slide-toggle
-        >
-        <mat-slide-toggle
-          class="editor-mat-slide-toggle"
-          [ngModel]="editor.showDrawingArea"
-          (change)="updateShowDrawingArea($event)"
-          aria-label="Show Drawing Area"
-          >Show Drawing Area</mat-slide-toggle
-        >
-        <mat-slide-toggle
-          class="editor-mat-slide-toggle"
-          [ngModel]="editor.showSlides"
-          (change)="updateShowSlides($event)"
-          aria-label="Show Slides"
-          >Show Slides</mat-slide-toggle
-        >
-
-        <mat-slide-toggle
-          class="editor-mat-slide-toggle"
-          [ngModel]="editor.showAutoSlide"
-          (change)="updateShowAutoSlides($event)"
-          aria-label="Auto Play"
-          >Auto Play</mat-slide-toggle
-        >
-      </div>
-    </ng-container>
+      </mono-repo-settings>
     </mat-expansion-panel>
 
     <!-- Publish Section -->

@@ -41,17 +41,6 @@ mat-toolbar {
 }
 
 
-
-.dropdown-field {
-  width: 100%;
-  margin-top: 10px;
-}
-
-.toggle-container mat-slide-toggle {
-  display: block; /* Each toggle on a new line */
-  margin-bottom: 10px; /* Space between toggles */
-}
-
 .editor-mat-slide-toggle {
   margin-top: 16px;
 }

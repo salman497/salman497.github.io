@@ -40,27 +40,20 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit {
-  themes = [
-    'Black',
-    'White',
-    'League',
-    'Sky',
-    'Beige',
-    'Simple',
-    'Serif',
-    'Blood',
-    'Night',
-    'Moon',
-    'Solarized',
-  ];
+ 
   allowEdit$ = this.store.select(selectAllowEdit);
-  animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
+ 
   /*** login */
   isLoggedIn$ = this.store.select(selectIsLogin);
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
   markdown$ = this.store.select(selectMarkdown);
-  editor$ = this.store.select(selectEditor).pipe(filter(e => e && e.content ? true : false));
+  theme$ = this.store.select(selectEditor).pipe(map(e => e && e.themeSelected));
+  animation$ = this.store.select(selectEditor).pipe(map(e => e && e.animationSelected));
+  showPen$ = this.store.select(selectEditor).pipe(map(e => e && e.showPen));
+  showDrawingArea$ = this.store.select(selectEditor).pipe(map(e => e && e.showDrawingArea));
+  showSlides$ = this.store.select(selectEditor).pipe(map(e => e && e.showSlides));
+  showAutoSlide$ = this.store.select(selectEditor).pipe(map(e => e && e.showAutoSlide));
   isEditMode$ = this.store.select(selectIsEditMode);
   name$ = this.store.select(selectName);
   viewUrl$ = this.store.select(selectUrlView);
@@ -93,54 +86,7 @@ export class EditorComponent implements OnInit {
   ngOnInit() {
    
   }
-  updateTheme(themeSelected: string): void {
-    this.store.dispatch(actions.updateEditorTheme({ themeSelected }));
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
 
-  updateAnimation(animationSelected: string): void {
-    this.store.dispatch(
-      actions.updateEditorAnimation({
-        animationSelected,
-      })
-    );
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
-
-  updateShowPen(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actions.updateEditorShowPen({ showPen: event.checked })
-    );
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
-
-  updateShowDrawingArea(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actions.updateEditorShowDrawingArea({
-        showDrawingArea: event.checked,
-      })
-    );
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
-
-  updateShowSlides(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actions.updateEditorShowSlides({ showSlides: event.checked })
-    );
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
-
-  updateShowAutoSlides(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actions.updateEditorShowAutoSlides({ showAutoSlide: event.checked })
-    );
-    this.store.dispatch(actions.toggleViewerToReRender());
-    this.store.dispatch(actions.saveToLocalStorage());
-  }
 
   onLogin(): void {
     this.auth.signInWithGoogle();

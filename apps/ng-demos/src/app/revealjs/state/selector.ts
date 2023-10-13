@@ -15,6 +15,8 @@ export const selectMarkdown = createSelector(
   (state: RevealJsState) => state.editorInitialized ? state.editor.content : null
 );
 
+
+
 export const selectFullState = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => state

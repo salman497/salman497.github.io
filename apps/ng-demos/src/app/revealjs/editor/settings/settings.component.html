@@ -1,1 +1,57 @@
-<p>settings works!</p>
+ <!-- Theme Dropdown -->
+ <mat-form-field class="dropdown-field">
+    <mat-label>Theme</mat-label>
+    <mat-select [value]="theme" (valueChange)="updateTheme($event)">
+      <mat-option *ngFor="let theme of themes" [value]="theme">{{
+        theme
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Animation Dropdown -->
+  <mat-form-field class="dropdown-field">
+    <mat-label>Animation</mat-label>
+    <mat-select
+    [value]="animation"
+      (valueChange)="updateAnimation($event)"
+    >
+      <mat-option
+        *ngFor="let animation of animations"
+        [value]="animation"
+        >{{ animation }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Slide Toggles -->
+  <div class="toggle-container">
+    <mat-slide-toggle
+      class="editor-mat-slide-toggle"
+      [ngModel]="showPen"
+      (change)="updateShowPen($event)"
+      aria-label="Show Pen"
+      >Show Pen</mat-slide-toggle
+    >
+    <mat-slide-toggle
+      class="editor-mat-slide-toggle"
+      [ngModel]="showDrawingArea"
+      (change)="updateShowDrawingArea($event)"
+      aria-label="Show Drawing Area"
+      >Show Drawing Area</mat-slide-toggle
+    >
+    <mat-slide-toggle
+      class="editor-mat-slide-toggle"
+      [ngModel]="showSlides"
+      (change)="updateShowSlides($event)"
+      aria-label="Show Slides"
+      >Show Slides</mat-slide-toggle
+    >
+
+    <mat-slide-toggle
+      class="editor-mat-slide-toggle"
+      [ngModel]="showAutoSlide"
+      (change)="updateShowAutoSlides($event)"
+      aria-label="Auto Play"
+      >Auto Play</mat-slide-toggle
+    >
+  </div>
