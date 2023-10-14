@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { RevealJsState } from './state/state';
@@ -6,13 +6,11 @@ import * as actions from './state/actions';
 import { selectEditor, selectIsEditMode, selectIsLoading, selectName, selectUrlEdit, selectUrlView } from './state/selector';
 import { tap } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Constant } from './utils/constants';
 @Component({
   selector: 'mono-repo-revealjs',
   templateUrl: './revealjs.component.html',
-  //encapsulation: ViewEncapsulation.None,
   styleUrls: ['./revealjs.component.css']
 })
 export class RevealjsComponent implements OnInit {
@@ -22,10 +20,10 @@ export class RevealjsComponent implements OnInit {
   isEditMode$ = this.store.select(selectIsEditMode);
   @ViewChild('editorSidenav') editorSidenav!: MatSidenav;
 
-  constructor(private store: Store<RevealJsState>, 
-              private auth: AuthService, 
+  constructor(private store: Store<RevealJsState>,
               private route: ActivatedRoute) { }
   ngOnInit(): void {
+    console.log('----------ngOnInit.RevealjsComponent-------------');
     const params = this.route.snapshot.paramMap;
     const loadType = params.get(Constant.UrlPart.Type) as string;
     const mode = params.get(Constant.UrlPart.Mode) as string;

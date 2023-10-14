@@ -30,19 +30,26 @@ export function addQueryParam(key: string, value: string | number) {
 
   export function updateWindowHash(event: any) {
     console.log('-------updateWindowHash-------', event);
-    const queryString = window.location.search;
-    if(event.indexh && event.indexv) {
-        // Set the new hash fragment, keeping the existing query string
-        window.location.hash = `/${event.indexh}/${event.indexv}${queryString}`;
-    }
-    else if (event.indexh) {
-        // Set the new hash fragment, keeping the existing query string
-        window.location.hash = `/${event.indexh}${queryString}`;
+
+    const currentURL = window.location.href; // Get the current URL
+    let newHash = '';
+
+    if (event.indexh && event.indexv) {
+        newHash = `/${event.indexh}/${event.indexv}`;
+    } else if (event.indexh) {
+        newHash = `/${event.indexh}`;
     } else {
-        window.location.hash = '/';
+        newHash = '/';
     }
-   
-  }
+
+    const newURL = currentURL.split('#')[0] + `#${newHash}`;
+
+    // Use history.replaceState to update the URL without reloading
+    history.replaceState(null, '', newURL);
+}
+
+
+
 
   export function generateShortID(length = 6) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';

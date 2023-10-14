@@ -87,7 +87,7 @@ export class ViewerComponent
         this.deck = new Reveal($('#revealDiv'));
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
-          updateWindowHash(event);
+           updateWindowHash(event);
         });
         this.deck.on('ready', () => {
           // hide loading when reveal js presentation is ready
