@@ -93,6 +93,9 @@ export class ViewerComponent
           // hide loading when reveal js presentation is ready
           this.store.dispatch(changeLoadingState({ loading: false }));
         });
+        this.deck.addEventListener( 'customevent', function() {
+          console.log( '"customevent" has fired2' );
+        });
         // define custom event
 
        

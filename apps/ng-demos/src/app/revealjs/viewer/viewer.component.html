@@ -6,10 +6,15 @@
         data-separator-vertical="^(#{3} |\|\|\|$)"
         data-separator-notes="^\s*notes?:"
         data-attributes='\.slide:\s*?(\S.+?)$'
+        data-separator-vertical="(?:\r?\n)?\s*\*\*\*+\s*(?:\r?\n)"               >
+        data-separator-vertical="^(#{3} |\|\|\|$)" >
         data-element-attributes="\.element\s*?(.+?)$" -->
       <section data-markdown 
                data-separator="(?:\r?\n)?\s*---+\s*(?:\r?\n)"
                data-separator-vertical="(?:\r?\n)?\s*\*\*\*+\s*(?:\r?\n)"               >
+              
+               
+      
         {{ editor.content }}
       </section>
     
