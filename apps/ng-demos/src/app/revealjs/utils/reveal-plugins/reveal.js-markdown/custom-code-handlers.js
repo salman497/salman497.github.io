@@ -16,5 +16,10 @@ export const customCodeHandler = (code, language) => {
     return `<div data-apexchart=${btoa(code)}></div>`;
   }
 
+  if (language === "mermaid") {
+    // INFO: height and width are set to work around bug https://github.com/chartjs/Chart.js/issues/5805
+    return `<div class="mermaid">${code}</div>`;
+  }
+
   return undefined;
 }
