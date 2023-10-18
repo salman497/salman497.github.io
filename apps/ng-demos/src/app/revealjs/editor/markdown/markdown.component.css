@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  background-color: white;
+}
+
 .editor-textarea-field {
     width: 100%;
     margin-top: 10px;

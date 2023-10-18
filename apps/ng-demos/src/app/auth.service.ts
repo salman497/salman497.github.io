@@ -57,7 +57,7 @@ export class AuthService {
     await this.supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: environment.hostURL,
+        redirectTo: window.location.origin,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
