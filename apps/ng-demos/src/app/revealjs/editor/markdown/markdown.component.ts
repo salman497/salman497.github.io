@@ -93,6 +93,8 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
       this.store.dispatch(actions.updateEditorContent({ content }));
       this.store.dispatch(actions.toggleViewerToReRender());
       this.store.dispatch(actions.saveToLocalStorage());
+      
+      // this.editor.setScrollTop(100);
     });
   }
 
