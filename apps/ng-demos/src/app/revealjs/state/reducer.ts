@@ -21,9 +21,11 @@ import {
   loadLoginUserInfo,
   setLoginUserInfo,
   setAllowEdit,
-  updateEditorShowAutoSlides as updateEditorShowAutoSlide
+  updateEditorShowAutoSlides as updateEditorShowAutoSlide,
+  setURLSlideNumber,
+  setEditorVisibility
 } from './actions';
-import { initialState } from './state';
+import { initialState, URLInfo } from './state';
 
 export const revealJsReducer = createReducer(
   initialState,
@@ -125,13 +127,23 @@ export const revealJsReducer = createReducer(
       showAutoSlide,
     },
   })),
-  on(setURLInfo, (state, {id, loadType, mode, name} ) => ({
+  on(setURLInfo, (state, {id, loadType, mode, name, slideNumber, slideNumberVertical} ) => ({
     ...state,
     urlInfo: {
       id,
       loadType,
       mode,
-      name
+      name,
+      slideNumber,
+      slideNumberVertical
+    },
+  })),
+  on(setURLSlideNumber, (state, {slideNumber, slideNumberVertical} ) => ({
+    ...state,
+    urlInfo: {
+      ...state.urlInfo,
+      slideNumber,
+      slideNumberVertical
     },
   })),
   on(updateURLNameOnly, (state, { name }) => ({
@@ -161,5 +173,9 @@ export const revealJsReducer = createReducer(
   on(setAllowEdit, (state, { allowEdit }) => ({
     ...state,
     allowEdit,
+  })),
+  on(setEditorVisibility, (state, { isEditorVisible }) => ({
+    ...state,
+    isEditorVisible,
   })),
 );

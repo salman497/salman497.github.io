@@ -13,6 +13,8 @@ export interface URLInfo {
     loadType?: string,
     mode?: string,
     name?: string
+    slideNumber?: string,
+    slideNumberVertical?: string
 } 
 
 export interface LoginUser {
@@ -35,6 +37,7 @@ export interface RevealJsState {
     error?: ErrorState,
     loginUserEditors?: MarkdownDB[]
     allowEdit?: boolean;
+    isEditorVisible?: boolean;
 }
 
 export interface Editor {

@@ -130,6 +130,18 @@ export const setURLInfo = createAction(
   props<URLInfo>()
 );
 
+export const setURLSlideNumber = createAction(
+  '[RevealJs] Set URL Slide Number',
+  props<{ slideNumber: string, slideNumberVertical?: string}>()
+);
+
+export const setEditorVisibility = createAction(
+  '[RevealJs] Set Editor Visibility',
+  props<{ isEditorVisible: boolean }>()
+);
+
+
+
 
 
 

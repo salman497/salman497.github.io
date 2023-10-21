@@ -1,4 +1,4 @@
-import { changeLoadingState } from './../state/actions';
+import { changeLoadingState, setURLSlideNumber } from './../state/actions';
 import {
   Component,
   AfterViewInit,
@@ -88,6 +88,7 @@ export class ViewerComponent
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
            updateWindowHash(event);
+           this.store.dispatch(setURLSlideNumber({ slideNumber: event.indexh, slideNumberVertical: event.indexv }));
         });
         this.deck.on('ready', () => {
           // hide loading when reveal js presentation is ready

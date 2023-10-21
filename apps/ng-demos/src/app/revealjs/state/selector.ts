@@ -54,6 +54,11 @@ export const selectName = createSelector(
   (state: RevealJsState) => state.name
 );
 
+export const selectIsEditorVisible = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => state.isEditorVisible
+);
+
 /******** URL ***********/
 export const selectUrlView = createSelector(
   selectRevealJsState,
@@ -66,6 +71,13 @@ export const selectUrlEdit = createSelector(
   selectRevealJsState,
   (state: RevealJsState) => { 
     return buildURL({ ...state.urlInfo, mode: Constant.UrlMode.Edit});
+  }
+);
+
+export const selectSlideNumber = createSelector(
+  selectRevealJsState,
+  (state: RevealJsState) => { 
+    return state.urlInfo.slideNumber;
   }
 );
 
