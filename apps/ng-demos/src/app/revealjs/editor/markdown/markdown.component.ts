@@ -22,7 +22,7 @@ import {
 import { RevealJsState } from '../../state/state';
 import * as actions from '../../state/actions';
 import Editor from '@toast-ui/editor';
-import { initEditor, scrollToHeading } from './tui-editor/tui-editor.utils';
+import { initEditor, scrollToHeading } from './tui-editor/editor.utils';
 import { selectIsEditorVisible, selectSlideNumber } from '../../state/selector';
 
 @Component({
