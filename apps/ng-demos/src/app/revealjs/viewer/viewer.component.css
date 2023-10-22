@@ -43,3 +43,14 @@ code.mermaid.hljs.mathematica {
     top: 20px!important;  
     left: unset!important;
 }
+
+/************** check box *******************/
+.reveal ul li:has(> input[type="checkbox"]) {
+    list-style: none;
+}
+.reveal ul li input[type="checkbox"] {
+    width: 2em;
+    height: 2em;
+    margin: 0 1em 0.5em -1.6em;
+    vertical-align: middle;
+}

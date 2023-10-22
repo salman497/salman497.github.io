@@ -12,25 +12,17 @@ import {
   BehaviorSubject,
   combineLatest,
   debounceTime,
-  delay,
   distinctUntilChanged,
   filter,
-  first,
   map,
   Subject,
-  switchMap,
   takeUntil,
 } from 'rxjs';
 import { RevealJsState } from '../../state/state';
 import * as actions from '../../state/actions';
 import Editor from '@toast-ui/editor';
-import { loadCss, scrollToHeading } from './tui-editor/tui-editor.utils';
-import customAddCodePlugin from './tui-editor/tui-editor-first.plugin';
+import { initEditor, scrollToHeading } from './tui-editor/tui-editor.utils';
 import { selectIsEditorVisible, selectSlideNumber } from '../../state/selector';
-const styles = [
-  'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
-  'https://uicdn.toast.com/editor/latest/toastui-editor.min.css',
-];
 
 @Component({
   selector: 'mono-repo-markdown',
@@ -86,45 +78,20 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
   loadEditor() {
     if (this.elm) {
       // this.elm.innerHTML = 'hello'
-      Promise.all(styles.map(loadCss)).then(() => {
-        this.zone.runOutsideAngular(() => {
-          const el = document.createElement('div');
-          this.elm.appendChild(el);
-          this.editor = new Editor({
-            el,
-            events: {
-              load: () => {
-                this.editorLoaded$.next(true);
-              },
-              change: () => {
-                const markdownContent = this.editor.getMarkdown();
-                this.content.next(markdownContent);
-              },
-            },
-            // previewStyle: 'vertical',
-            usageStatistics: false,
-            initialEditType: 'wysiwyg', // Set to 'wysiwyg' for the WYSIWYG mode
-            previewStyle: 'tab',
-            initialValue: this.markdown,
-            height: '600px',
-            // plugins: [customAddCodePlugin],
-            toolbarItems: [
-              ['code', 'codeblock'],
-              // [{
-              //   el: this.createDropdown(), //
-              //   command: 'bold',
-              //   tooltip: 'Custom Bold',
-              //   name: 'bold'
-              // }
-              // ],
-              ['hr', 'quote'],
-              ['heading', 'bold', 'italic', 'strike'],
-              ['ul', 'ol', 'task', 'indent', 'outdent'],
-              ['table', 'image', 'link'],
-            ],
-          });
-          // addCustomCommand(this.editor);
-        });
+      this.zone.runOutsideAngular(() => {
+        this.editor = initEditor(
+          this.markdown,
+          this.elm,
+          () => {
+            // on load
+            this.editorLoaded$.next(true);
+          },
+          () => {
+            // on change
+            const markdownContent = this.editor.getMarkdown();
+            this.content.next(markdownContent);
+          }
+        );
       });
     }
   }
@@ -139,17 +106,17 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
 
   registerOnContentChange() {
     this.content
-    .pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      filter((content) => !!content && content.trim() !== ''),
-      takeUntil(this.unsubscribe$)
-    )
-    .subscribe((content) => {
-      this.store.dispatch(actions.updateEditorContent({ content }));
-      this.store.dispatch(actions.toggleViewerToReRender());
-      this.store.dispatch(actions.saveToLocalStorage());
-    });
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        filter((content) => !!content && content.trim() !== ''),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((content) => {
+        this.store.dispatch(actions.updateEditorContent({ content }));
+        this.store.dispatch(actions.toggleViewerToReRender());
+        this.store.dispatch(actions.saveToLocalStorage());
+      });
   }
 
   registerOnSlideChangeSetScrollPosition() {
