@@ -1,5 +1,6 @@
 import Editor from '@toast-ui/editor';
 import { ToolbarItemOptions } from '@toast-ui/editor/types/ui';
+import editorPlugin from './editor-plugin';
 
 export function initEditor(
   markdown: string,
@@ -25,7 +26,7 @@ export function initEditor(
     previewStyle: 'tab',
     initialValue: markdown,
     height: '600px',
-    // plugins: [customAddCodePlugin],
+    plugins: [editorPlugin],
     toolbarItems: getToolbars(),
   });
 }

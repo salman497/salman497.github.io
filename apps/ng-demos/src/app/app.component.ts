@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Injector, ViewEncapsulation } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { RouterModule } from '@angular/router';
+import { EditorPluginComponent } from './revealjs/editor/markdown/tui-editor/editor-plugin.component';
 
 
 @Component({
@@ -11,6 +13,10 @@ import { RouterModule } from '@angular/router';
 export class AppComponent {
   editorVisible: boolean = false;
   content: string = '';
+  constructor(injector: Injector) {
+    const editorPluginElement = createCustomElement(EditorPluginComponent, { injector });
+    customElements.define('editor-plugin', editorPluginElement);
+  }
 
   toggleEditor(): void {
     this.editorVisible = !this.editorVisible;
