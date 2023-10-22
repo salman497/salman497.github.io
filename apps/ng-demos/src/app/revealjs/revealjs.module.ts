@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PublishComponent } from './editor/publish/publish.component';
 import { MarkDownComponent } from './editor/markdown/markdown.component';
 import { SettingsComponent } from './editor/settings/settings.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, MarkDownComponent, SettingsComponent],
@@ -44,6 +45,7 @@ import { SettingsComponent } from './editor/settings/settings.component';
     MatSidenavModule,
     MatButtonModule,
     MatToolbarModule,
+    MatMenuModule,
     BrowserAnimationsModule,
     MatTooltipModule,
     MatSnackBarModule,
