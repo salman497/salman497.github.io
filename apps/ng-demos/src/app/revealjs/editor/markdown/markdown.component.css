@@ -20,6 +20,18 @@
   }
 
 
+  /*****TUI ****/
+  button.editor-button { 
+    background-color: unset;
+  }
+
+  button.editor-button:hover  {
+    background-color: #fff;
+    border: 1px solid #e4e7ee;
+  }
+
+
+
   /* Media query for further adjustments for smaller screens */
 @media (max-width: 600px) {
     .editor-container {

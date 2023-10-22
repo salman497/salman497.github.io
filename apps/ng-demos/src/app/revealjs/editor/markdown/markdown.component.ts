@@ -6,6 +6,7 @@ import {
   NgZone,
   OnDestroy,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
@@ -27,6 +28,7 @@ import { selectIsEditorVisible, selectSlideNumber } from '../../state/selector';
 @Component({
   selector: 'mono-repo-markdown',
   templateUrl: './markdown.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./markdown.component.css'],
 })
 export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {

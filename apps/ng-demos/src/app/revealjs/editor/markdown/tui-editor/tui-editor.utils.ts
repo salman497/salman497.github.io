@@ -51,7 +51,7 @@ export function scrollToHeading(
 
 function getToolbars(): (string | ToolbarItemOptions)[][] {
   return [
-    ['code', 'codeblock'],
+   
     // [{
     //   el: this.createDropdown(), //
     //   command: 'bold',
@@ -59,10 +59,18 @@ function getToolbars(): (string | ToolbarItemOptions)[][] {
     //   name: 'bold'
     // }
     // ],
-    ['hr', 'quote'],
-    ['heading', 'bold', 'italic', 'strike'],
-    ['ul', 'ol', 'task', 'indent', 'outdent'],
-    ['table', 'image', 'link'],
+    [{
+      command: 'hr',
+      name: 'hr',
+      tooltip: 'Add Slide',
+      className: 'editor-button fas fa-solid fa-arrow-right'
+    }],
+    // Common
+    ['heading', 'bold', 'codeblock'],
+    ['table', 'image'],
+    ['quote', 'ul', 'ol', 'link' ],
+    [ 'task', 'italic', 'strike'],
+    ['code', 'indent', 'outdent']
   ];
 }
 
@@ -122,3 +130,17 @@ function getHeadingFromWYSUSYG(): NodeListOf<HTMLElement> {
   const hrElements: any = rootElement.querySelectorAll('div > hr');
   return hrElements;
 }
+
+
+// function createSlideButton(): ToolbarItemOptions {
+//   const button = document.createElement('button');
+//   button.className = 'toastui-editor-toolbar-icons last';
+//   button.style.backgroundImage = 'none';
+//   button.style.margin = '0';
+//   button.innerHTML = `<i>CC</i>`;
+//   button.addEventListener('click', () => {
+//     console.log(`click`);
+//     // executeCustomCommand(this.editor);
+//     // this.editor.exec('bold');
+//   });
+// }
