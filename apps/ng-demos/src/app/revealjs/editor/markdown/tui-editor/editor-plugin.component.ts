@@ -18,4 +18,12 @@ export class EditorPluginComponent implements OnInit {
   onChange(target: any) {
     this.markdownSelected.emit(target.value);
   }
+
+
+  onClick(v: string) {
+    if(v === '1') {
+      this.markdownSelected.emit('## Heading 2');
+    }
+    
+  }
 }
