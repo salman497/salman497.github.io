@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'editor-plugin',
+  standalone: true,
   template: `
     <select (change)="onChange($event.target)">
       <option value="" disabled selected>Select markdown</option>
