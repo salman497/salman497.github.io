@@ -3,6 +3,7 @@ import { PluginContext, PluginInfo } from '@toast-ui/editor';
 
 export default function editorPlugin(context: PluginContext): PluginInfo {
   const container = document.createElement('div');
+ // container.appendChild(createSlideButton());
   const editorPluginComponent = document.createElement('editor-plugin');
   container.appendChild(editorPluginComponent);
 
@@ -15,15 +16,15 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
     toolbarItems: [
       {
         groupIndex: 0,
-        itemIndex: 3,
+        itemIndex: 0,
         item: {
-          name: 'markdown dropdown',
-          tooltip: 'Select markdown',
-          className: 'editor-button fas fa-solid fa-plus',
-          popup: {
-            body: container,
-            style: { width: '200px' }
-          }
+          name: 'example plugin',
+          tooltip: 'Examples',
+          el: container,
+          // popup: {
+          //   body: container,
+          //   style: { width: '200px' }
+          // }
         }
       }
     ],
@@ -46,4 +47,14 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
       }
     }
   };
+}
+
+function createSlideButton() {
+  const button = document.createElement('button');
+  button.className = 'toastui-editor-toolbar-icons last';
+  button.style.backgroundImage = 'none';
+  button.style.margin = '0';
+  button.setAttribute('matMenuTriggerFor','#menu');
+  button.innerHTML = `<i>CC</i>`;
+  return button;
 }

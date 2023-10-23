@@ -60,6 +60,7 @@ function getToolbars(): (string | ToolbarItemOptions)[][] {
     //   name: 'bold'
     // }
     // ],
+    [],
     [{
       command: 'hr',
       name: 'hr',
