@@ -4,79 +4,79 @@
 ></button>
 <!-- Main Menu -->
 <mat-menu #rootMenu="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]="addNextSlideMenu">
-    <i class="fas fa-plus-circle"></i> Add Next Slide
+  <button mat-menu-item [matMenuTriggerFor]="addSlideMenu">
+    <i class="menu-icon fas fa-chevron-right"></i> Add Slide
   </button>
   <button mat-menu-item [matMenuTriggerFor]="addMermaidDiagramsMenu">
-    <i class="fas fa-project-diagram"></i> Add Mermaid Diagrams
+    <i class="menu-icon fas fa-project-diagram"></i> Add Mermaid Diagrams
   </button>
   <button mat-menu-item [matMenuTriggerFor]="addChartJsDiagramsMenu">
-    <i class="fas fa-chart-bar"></i> Add ChartJs Diagrams
+    <i class="menu-icon fas fa-chart-bar"></i> Add ChartJs Diagrams
   </button>
   <button mat-menu-item [matMenuTriggerFor]="addBackgroundsMenu">
-    <i class="fas fa-image"></i> Add Backgrounds
+    <i class="menu-icon fas fa-image"></i> Add Backgrounds
   </button>
   <button mat-menu-item [matMenuTriggerFor]="addOthersMenu">
-    <i class="fas fa-ellipsis-h"></i> Add Others
+    <i class="menu-icon fas fa-ellipsis-h"></i> Add Others
   </button>
 </mat-menu>
 
 <!-- Add Next Slide Menu -->
-<mat-menu #addNextSlideMenu="matMenu">
-  <button mat-menu-item (click)="onClick('normalSlide')">
-    <i class="fas fa-file"></i> Normal Slide
+<mat-menu #addSlideMenu="matMenu">
+  <button mat-menu-item (click)="onClick('slide')">
+    <i class="menu-icon fas fa-chevron-right"></i> Slide
   </button>
   <button mat-menu-item (click)="onClick('verticalSlide')">
-    <i class="fas fa-file-alt"></i> Vertical Slide
+    <i class="menu-icon fas fa-chevron-down"></i> Vertical Slide
   </button>
 </mat-menu>
 
 <!-- Add Mermaid Diagrams Menu -->
 <mat-menu #addMermaidDiagramsMenu="matMenu">
   <button mat-menu-item (click)="onClick('flowchart')">
-    <i class="fas fa-sitemap"></i> Flowchart
+    <i class="menu-icon fas fa-sitemap"></i> Flowchart
   </button>
   <button mat-menu-item (click)="onClick('sequenceDiagram')">
-    <i class="fas fa-exchange-alt"></i> Sequence Diagram
+    <i class="menu-icon fas fa-exchange-alt"></i> Sequence Diagram
   </button>
   <button mat-menu-item (click)="onClick('classDiagram')">
-    <i class="fas fa-code-branch"></i> Class Diagram
+    <i class="menu-icon fas fa-code-branch"></i> Class Diagram
   </button>
   <button mat-menu-item (click)="onClick('stateDiagram')">
-    <i class="fas fa-stream"></i> State Diagram
+    <i class="menu-icon fas fa-stream"></i> State Diagram
   </button>
   <button mat-menu-item (click)="onClick('entityRelationshipDiagram')">
-    <i class="fas fa-link"></i> Entity Relationship Diagram
+    <i class="menu-icon fas fa-link"></i> Entity Relationship Diagram
   </button>
   <button mat-menu-item (click)="onClick('userJourney')">
-    <i class="fas fa-user"></i> User Journey
+    <i class="menu-icon fas fa-user"></i> User Journey
   </button>
   <button mat-menu-item (click)="onClick('gantt')">
-    <i class="fas fa-tasks"></i> Gantt
+    <i class="menu-icon fas fa-tasks"></i> Gantt
   </button>
   <button mat-menu-item (click)="onClick('pieChart')">
-    <i class="fas fa-chart-pie"></i> Pie Chart
+    <i class="menu-icon fas fa-chart-pie"></i> Pie Chart
   </button>
   <button mat-menu-item (click)="onClick('quadrantChart')">
-    <i class="fas fa-chart-area"></i> Quadrant Chart
+    <i class="menu-icon fas fa-chart-area"></i> Quadrant Chart
   </button>
   <button mat-menu-item (click)="onClick('requirementDiagram')">
-    <i class="fas fa-list-alt"></i> Requirement Diagram
+    <i class="menu-icon fas fa-list-alt"></i> Requirement Diagram
   </button>
   <button mat-menu-item (click)="onClick('gitgraphGitDiagram')">
-    <i class="fas fa-code-branch"></i> Gitgraph (Git) Diagram
+    <i class="menu-icon fas fa-code-branch"></i> Gitgraph (Git) Diagram
   </button>
   <button mat-menu-item (click)="onClick('mindmaps')">
-    <i class="fas fa-brain"></i> Mindmaps
+    <i class="menu-icon fas fa-brain"></i> Mindmaps
   </button>
   <button mat-menu-item (click)="onClick('timeline')">
-    <i class="fas fa-hourglass-start"></i> Timeline
+    <i class="menu-icon fas fa-hourglass-start"></i> Timeline
   </button>
   <button mat-menu-item (click)="onClick('zenuml')">
-    <i class="fas fa-sitemap"></i> Zenuml
+    <i class="menu-icon fas fa-sitemap"></i> Zenuml
   </button>
   <button mat-menu-item (click)="onClick('sankey')">
-    <i class="fas fa-project-diagram"></i> Sankey
+    <i class="menu-icon fas fa-project-diagram"></i> Sankey
   </button>
 </mat-menu>
 
@@ -84,59 +84,59 @@
 <mat-menu #addChartJsDiagramsMenu="matMenu">
   <!-- Bar Charts -->
   <button mat-menu-item [matMenuTriggerFor]="barChartsMenu">
-    <i class="fas fa-chart-bar"></i> Bar Charts
+    <i class="menu-icon fas fa-chart-bar"></i> Bar Charts
   </button>
   <mat-menu #barChartsMenu="matMenu">
     <button mat-menu-item (click)="onClick('barChartBorderRadius')">
-      <i class="fas fa-chart-bar"></i> Bar Chart Border Radius
+      <i class="menu-icon fas fa-chart-bar"></i> Bar Chart Border Radius
     </button>
     <button mat-menu-item (click)="onClick('floatingBars')">
-      <i class="fas fa-chart-bar"></i> Floating Bars
+      <i class="menu-icon fas fa-chart-bar"></i> Floating Bars
     </button>
     <button mat-menu-item (click)="onClick('horizontalBarChart')">
-      <i class="fas fa-chart-bar"></i> Horizontal Bar Chart
+      <i class="menu-icon fas fa-chart-bar"></i> Horizontal Bar Chart
     </button>
     <!--... and so on for all Bar Charts items -->
   </mat-menu>
 
   <!-- Line Charts -->
   <button mat-menu-item [matMenuTriggerFor]="lineChartsMenu">
-    <i class="fas fa-chart-line"></i> Line Charts
+    <i class="menu-icon fas fa-chart-line"></i> Line Charts
   </button>
   <mat-menu #lineChartsMenu="matMenu">
     <button mat-menu-item (click)="onClick('interpolationModes')">
-      <i class="fas fa-chart-line"></i> Interpolation Modes
+      <i class="menu-icon fas fa-chart-line"></i> Interpolation Modes
     </button>
     <button mat-menu-item (click)="onClick('lineChart')">
-      <i class="fas fa-chart-line"></i> Line Chart
+      <i class="menu-icon fas fa-chart-line"></i> Line Chart
     </button>
     <!--... and so on for all Line Charts items -->
   </mat-menu>
 
   <!-- Area Charts -->
   <button mat-menu-item [matMenuTriggerFor]="areaChartsMenu">
-    <i class="fas fa-chart-area"></i> Area Charts
+    <i class="menu-icon fas fa-chart-area"></i> Area Charts
   </button>
   <mat-menu #areaChartsMenu="matMenu">
     <button mat-menu-item (click)="onClick('lineChartBoundaries')">
-      <i class="fas fa-chart-area"></i> Line Chart Boundaries
+      <i class="menu-icon fas fa-chart-area"></i> Line Chart Boundaries
     </button>
     <button mat-menu-item (click)="onClick('lineChartDatasets')">
-      <i class="fas fa-chart-area"></i> Line Chart Datasets
+      <i class="menu-icon fas fa-chart-area"></i> Line Chart Datasets
     </button>
     <!--... and so on for all Area Charts items -->
   </mat-menu>
 
   <!-- Other charts -->
   <button mat-menu-item [matMenuTriggerFor]="otherChartsMenu">
-    <i class="fas fa-chart-pie"></i> Other charts
+    <i class="menu-icon fas fa-chart-pie"></i> Other charts
   </button>
   <mat-menu #otherChartsMenu="matMenu">
     <button mat-menu-item (click)="onClick('bubble')">
-      <i class="fas fa-chart-pie"></i> Bubble
+      <i class="menu-icon fas fa-chart-pie"></i> Bubble
     </button>
     <button mat-menu-item (click)="onClick('comboBarLine')">
-      <i class="fas fa-chart-pie"></i> Combo bar/line
+      <i class="menu-icon fas fa-chart-pie"></i> Combo bar/line
     </button>
     <!--... and so on for all Other Charts items -->
   </mat-menu>
@@ -145,28 +145,28 @@
 <!-- Add Backgrounds Menu -->
 <mat-menu #addBackgroundsMenu="matMenu">
   <button mat-menu-item (click)="onClick('colorBackground')">
-    <i class="fas fa-fill"></i> Color Background
+    <i class="menu-icon fas fa-fill"></i> Color Background
   </button>
   <button mat-menu-item (click)="onClick('imageBackground')">
-    <i class="fas fa-image"></i> Image Background
+    <i class="menu-icon fas fa-image"></i> Image Background
   </button>
   <button mat-menu-item (click)="onClick('videoBackground')">
-    <i class="fas fa-video"></i> Video Background
+    <i class="menu-icon fas fa-video"></i> Video Background
   </button>
   <button mat-menu-item (click)="onClick('iframeBackgrounds')">
-    <i class="fas fa-window-restore"></i> Iframe Backgrounds
+    <i class="menu-icon fas fa-window-restore"></i> Iframe Backgrounds
   </button>
 </mat-menu>
 
 <!-- Add Others Menu -->
 <mat-menu #addOthersMenu="matMenu">
   <button mat-menu-item (click)="onClick('stackImages')">
-    <i class="fas fa-layer-group"></i> Stack Images
+    <i class="menu-icon fas fa-layer-group"></i> Stack Images
   </button>
   <button mat-menu-item (click)="onClick('media')">
-    <i class="fas fa-photo-video"></i> Media
+    <i class="menu-icon fas fa-photo-video"></i> Media
   </button>
   <button mat-menu-item (click)="onClick('iframes')">
-    <i class="fas fa-window-restore"></i> Iframes
+    <i class="menu-icon fas fa-window-restore"></i> Iframes
   </button>
 </mat-menu>

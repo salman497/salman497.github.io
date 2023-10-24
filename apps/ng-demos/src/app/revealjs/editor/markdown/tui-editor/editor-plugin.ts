@@ -19,7 +19,7 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
         itemIndex: 0,
         item: {
           name: 'example plugin',
-          tooltip: 'Examples',
+          tooltip: 'Add',
           el: container,
           // popup: {
           //   body: container,

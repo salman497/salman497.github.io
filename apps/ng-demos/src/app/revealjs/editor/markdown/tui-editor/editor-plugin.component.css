@@ -2,8 +2,13 @@
     margin-left: auto;
     display: block;
     margin-top: 0px;
+  
   }
 
+  .menu-icon {
+    min-width: 23px;
+    text-align: center;
+  }
 
   /*****TUI ****/
   button.editor-plugin-btn { 
@@ -14,3 +19,4 @@
     background-color: #fff;
     border: 1px solid #e4e7ee;
   }
+
