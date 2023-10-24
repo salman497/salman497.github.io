@@ -1,6 +1,7 @@
 // dropdown.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { exampleData } from './examples';
 
 @Component({
   selector: 'editor-plugin',
@@ -20,10 +21,9 @@ export class EditorPluginComponent implements OnInit {
   }
 
 
-  onClick(v: string) {
-    if(v === '1') {
-      this.markdownSelected.emit('## Heading 2');
+  onClick(key: string) {
+    if(exampleData[key]) {
+      this.markdownSelected.emit(exampleData[key].markdown);
     }
-    
   }
 }
