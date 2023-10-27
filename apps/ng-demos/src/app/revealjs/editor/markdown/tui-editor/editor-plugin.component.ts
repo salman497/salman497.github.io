@@ -1,7 +1,7 @@
 // dropdown.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { exampleData } from './examples';
+import { exampleData } from './examples/example';
 
 @Component({
   selector: 'editor-plugin',
@@ -11,7 +11,7 @@ import { exampleData } from './examples';
   styleUrls: ['./editor-plugin.component.css']
 })
 export class EditorPluginComponent implements OnInit {
-  @Output() markdownSelected = new EventEmitter<string>();
+  @Output() markdownSelected = new EventEmitter<{markdown: string, html: string}>();
     
   ngOnInit(): void {
    
@@ -23,7 +23,7 @@ export class EditorPluginComponent implements OnInit {
 
   onClick(key: string) {
     if(exampleData[key]) {
-      this.markdownSelected.emit(exampleData[key].markdown);
+      this.markdownSelected.emit(exampleData[key]);
     }
   }
 }

@@ -2,7 +2,8 @@ import { slide } from "./slide";
 
 interface ExampleData {
     [key: string]: {
-        markdown: string
+        markdown: string,
+        html: string
     };
 }
 

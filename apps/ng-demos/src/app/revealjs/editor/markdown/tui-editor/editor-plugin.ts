@@ -1,5 +1,6 @@
 // custom-plugin.ts
 import { PluginContext, PluginInfo } from '@toast-ui/editor';
+import { DOMParser as ProseMirrorDOMParser } from 'prosemirror-model';
 
 export default function editorPlugin(context: PluginContext): PluginInfo {
   const container = document.createElement('div');
@@ -9,7 +10,7 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
 
   editorPluginComponent.addEventListener('markdownSelected', (event: any) => {
     const payload = event.detail;
-    context.eventEmitter.emit('command', 'markdownCmd', { markdown: payload });
+    context.eventEmitter.emit('command', 'markdownCmd', {  markdown: payload.markdown, html: payload.html });
   });
 
   return {
@@ -21,10 +22,6 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
           name: 'example plugin',
           tooltip: 'Add',
           el: container,
-          // popup: {
-          //   body: container,
-          //   style: { width: '200px' }
-          // }
         }
       }
     ],
@@ -39,9 +36,13 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
     },
     wysiwygCommands: {
       markdownCmd: (payload, state, dispatch) => {
-        const { markdown } = payload;
+        const { html } = payload;
         const { from, to } = state.selection;
-        const tr = state.tr.insertText(markdown, from, to);
+    
+        const parser = ProseMirrorDOMParser.fromSchema(state.schema);
+        const contentNode = parser.parse(new DOMParser().parseFromString(html, 'text/html').body);
+    
+        const tr = state.tr.replaceWith(from, to, contentNode.content);
         dispatch(tr);
         return true;
       }
