@@ -10,8 +10,8 @@ export const slide = {
                <p>New Slide</p>`
     },
     verticalSlide: {
-        markdown: '===',
-        html: ''
+        markdown: `<div><span class="toastui-editor-md-heading toastui-editor-md-heading1 toastui-editor-md-delimiter toastui-editor-md-setext">===</span></div><div>Vertical Slide</div>`,
+        html: `<p>===</p><p>Vertical Slide</p>`
     }
 };
 
