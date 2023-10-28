@@ -33,52 +33,86 @@
 
 <!-- Add Mermaid Diagrams Menu -->
 <mat-menu #addMermaidDiagramsMenu="matMenu">
-  <button mat-menu-item (click)="onClick('flowchart')">
-    <i class="menu-icon fas fa-sitemap"></i> Flowchart
-  </button>
-  <button mat-menu-item (click)="onClick('sequenceDiagram')">
-    <i class="menu-icon fas fa-exchange-alt"></i> Sequence Diagram
-  </button>
-  <button mat-menu-item (click)="onClick('mindmaps')">
-    <i class="menu-icon fas fa-brain"></i> Mindmaps
-  </button>
-  <button mat-menu-item (click)="onClick('classDiagram')">
-    <i class="menu-icon fas fa-code-branch"></i> Class Diagram
-  </button>
-  <button mat-menu-item (click)="onClick('stateDiagram')">
-    <i class="menu-icon fas fa-stream"></i> State Diagram
-  </button>
-  <button mat-menu-item (click)="onClick('entityRelationshipDiagram')">
-    <i class="menu-icon fas fa-link"></i> Entity Relationship Diagram
-  </button>
-  <button mat-menu-item (click)="onClick('userJourney')">
-    <i class="menu-icon fas fa-user"></i> User Journey
-  </button>
-  <button mat-menu-item (click)="onClick('gantt')">
-    <i class="menu-icon fas fa-tasks"></i> Gantt
-  </button>
-  <button mat-menu-item (click)="onClick('pieChart')">
-    <i class="menu-icon fas fa-chart-pie"></i> Pie Chart
-  </button>
-  <button mat-menu-item (click)="onClick('quadrantChart')">
-    <i class="menu-icon fas fa-chart-area"></i> Quadrant Chart
-  </button>
-  <button mat-menu-item (click)="onClick('requirementDiagram')">
-    <i class="menu-icon fas fa-list-alt"></i> Requirement Diagram
-  </button>
-  <button mat-menu-item (click)="onClick('gitgraphGitDiagram')">
-    <i class="menu-icon fas fa-code-branch"></i> Gitgraph (Git) Diagram
-  </button>
   
-  <button mat-menu-item (click)="onClick('timeline')">
-    <i class="menu-icon fas fa-hourglass-start"></i> Timeline
+  <!-- Basic Diagrams -->
+  <button mat-menu-item [matMenuTriggerFor]="basicDiagramsMenu">
+    <i class="menu-icon fas fa-sitemap"></i> Basic Diagrams
   </button>
-  <button mat-menu-item (click)="onClick('zenuml')">
-    <i class="menu-icon fas fa-sitemap"></i> Zenuml
+  <mat-menu #basicDiagramsMenu="matMenu">
+    <button mat-menu-item (click)="onClick('flowchart')">
+      <i class="menu-icon fas fa-sitemap"></i> Flowchart
+    </button>
+    <button mat-menu-item (click)="onClick('sequenceDiagram')">
+      <i class="menu-icon fas fa-exchange-alt"></i> Sequence Diagram
+    </button>
+    <button mat-menu-item (click)="onClick('classDiagram')">
+      <i class="menu-icon fas fa-code-branch"></i> Class Diagram
+    </button>
+  </mat-menu>
+
+  <!-- Advanced Visualizations -->
+  <button mat-menu-item [matMenuTriggerFor]="advancedVisualizationsMenu">
+    <i class="menu-icon fas fa-stream"></i> Advanced Visualizations
   </button>
-  <button mat-menu-item (click)="onClick('sankey')">
-    <i class="menu-icon fas fa-project-diagram"></i> Sankey
+  <mat-menu #advancedVisualizationsMenu="matMenu">
+    <button mat-menu-item (click)="onClick('stateDiagram')">
+      <i class="menu-icon fas fa-stream"></i> State Diagram
+    </button>
+    <button mat-menu-item (click)="onClick('entityRelationshipDiagram')">
+      <i class="menu-icon fas fa-link"></i> Entity Relationship Diagram
+    </button>
+    <button mat-menu-item (click)="onClick('userJourney')">
+      <i class="menu-icon fas fa-user"></i> User Journey
+    </button>
+  </mat-menu>
+
+  <!-- Project Management -->
+  <button mat-menu-item [matMenuTriggerFor]="projectManagementMenu">
+    <i class="menu-icon fas fa-tasks"></i> Project Management
   </button>
+  <mat-menu #projectManagementMenu="matMenu">
+    <button mat-menu-item (click)="onClick('gantt')">
+      <i class="menu-icon fas fa-tasks"></i> Gantt
+    </button>
+    <button mat-menu-item (click)="onClick('timeline')">
+      <i class="menu-icon fas fa-hourglass-start"></i> Timeline
+    </button>
+  </mat-menu>
+
+  <!-- Data Presentation -->
+  <button mat-menu-item [matMenuTriggerFor]="dataPresentationMenu">
+    <i class="menu-icon fas fa-chart-pie"></i> Data Presentation
+  </button>
+  <mat-menu #dataPresentationMenu="matMenu">
+    <button mat-menu-item (click)="onClick('pieChart')">
+      <i class="menu-icon fas fa-chart-pie"></i> Pie Chart
+    </button>
+    <button mat-menu-item (click)="onClick('quadrantChart')">
+      <i class="menu-icon fas fa-chart-area"></i> Quadrant Chart
+    </button>
+    <button mat-menu-item (click)="onClick('sankey')">
+      <i class="menu-icon fas fa-project-diagram"></i> Sankey
+    </button>
+  </mat-menu>
+
+  <!-- Specialized Diagrams -->
+  <button mat-menu-item [matMenuTriggerFor]="specializedDiagramsMenu">
+    <i class="menu-icon fas fa-brain"></i> Specialized Diagrams
+  </button>
+  <mat-menu #specializedDiagramsMenu="matMenu">
+    <button mat-menu-item (click)="onClick('mindmaps')">
+      <i class="menu-icon fas fa-brain"></i> Mindmaps
+    </button>
+    <button mat-menu-item (click)="onClick('gitgraphGitDiagram')">
+      <i class="menu-icon fas fa-code-branch"></i> Gitgraph (Git) Diagram
+    </button>
+  </mat-menu>
+
+  <!-- Docs -->
+  <button mat-menu-item (click)="openInNewTab('https://mermaid.js.org/intro/')">
+    <i class="menu-icon fas fa-question-circle"></i> Mermaid Docs
+  </button>
+
 </mat-menu>
 
 <!-- Add ChartJs Diagrams Menu -->

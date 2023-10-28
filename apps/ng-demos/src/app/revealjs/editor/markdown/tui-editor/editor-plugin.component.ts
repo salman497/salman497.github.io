@@ -26,4 +26,8 @@ export class EditorPluginComponent implements OnInit {
       this.markdownSelected.emit(exampleData[key]);
     }
   }
+
+  openInNewTab(url: string) {
+    window.open(url, '_blank');
+  }
 }
