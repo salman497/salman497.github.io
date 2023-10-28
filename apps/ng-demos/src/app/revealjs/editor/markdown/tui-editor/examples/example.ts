@@ -1,3 +1,4 @@
+import { mermaid } from "./mermaid";
 import { slide } from "./slide";
 
 interface ExampleData {
@@ -8,5 +9,6 @@ interface ExampleData {
 }
 
 export const exampleData: ExampleData = {
-    ...slide
+    ...slide,
+    ...mermaid
 }

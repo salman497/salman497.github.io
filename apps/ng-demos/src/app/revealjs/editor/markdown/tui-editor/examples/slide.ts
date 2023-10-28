@@ -1,5 +1,3 @@
-import { HTML_EmptyLine, MarkDown_EmptyLine } from "./constant";
-
 export const slide = {
     slide: {
         markdown: `<div>
