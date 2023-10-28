@@ -29,7 +29,11 @@ export default function editorPlugin(context: PluginContext): PluginInfo {
       markdownCmd: (payload, state, dispatch) => {
         const { markdown } = payload;
         const { from, to } = state.selection;
-        const tr = state.tr.insertText(markdown, from, to);
+    
+        const parser = ProseMirrorDOMParser.fromSchema(state.schema);
+        const contentNode = parser.parse(new DOMParser().parseFromString(markdown, 'text/html').body);
+    
+        const tr = state.tr.replaceWith(from, to, contentNode.content);
         dispatch(tr);
         return true;
       }

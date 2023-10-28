@@ -30,7 +30,9 @@
     border: 1px solid #e4e7ee;
   }
 
-
+  .toastui-editor-contents h1, h2, h3 {
+    border-bottom: 0px!important;
+  }
 
   /* Media query for further adjustments for smaller screens */
 @media (max-width: 600px) {
