@@ -82,5 +82,18 @@ export const revealJs = {
 </code></pre></div>`,
         markdown: ``
     },
+    math: {
+        html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section&gt;
+  &lt;h2&gt;The Lorenz Equations&lt;/h2&gt;
+  \\[\\begin{aligned}
+  \\dot{x} &amp;amp; = \\sigma(y-x) \\\\
+  \\dot{y} &amp;amp; = \\rho x - y - xz \\\\
+  \\dot{z} &amp;amp; = -\\beta z + xy
+  \\end{aligned} \\]
+&lt;/section&gt;
+</code></pre></div>`,
+        markdown: ``
+    }
 };
 
