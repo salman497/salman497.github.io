@@ -94,6 +94,14 @@ export const revealJs = {
 &lt;/section&gt;
 </code></pre></div>`,
         markdown: ``
-    }
+    },
+    codeBlock: {
+      html: `<div contenteditable="true" translate="no" class="ProseMirror toastui-editor-contents"><div data-language="code" class="toastui-editor-ww-code-block"><pre><code data-language="code">(def lazy-fib
+        (concat
+         [0 1]
+         ((fn rfib [a b]
+              (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))</code></pre></div></div>`,
+      markdown: ``
+  }
 };
 
