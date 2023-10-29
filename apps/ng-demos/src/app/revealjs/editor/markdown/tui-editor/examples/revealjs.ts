@@ -111,7 +111,7 @@ export const revealJs = {
 }, 
 media: {
   html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
-&lt;video height="500px" controls data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" &gt;&lt;/video&gt;
+&lt;video height="500px" controls data-autoplay src="https://www.w3schools.com/html/mov_bbb.mp4" &gt;&lt;/video&gt;
 </code></pre></div>`,
 markdown: ``
 },
