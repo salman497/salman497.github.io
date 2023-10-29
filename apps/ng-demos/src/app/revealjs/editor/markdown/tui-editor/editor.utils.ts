@@ -61,16 +61,15 @@ function getToolbars(): (string | ToolbarItemOptions)[][] {
     // }
     // ],
     [],
+    // Common
     [{
       command: 'hr',
       name: 'hr',
       tooltip: 'Add Slide',
       className: 'editor-button fas fa-solid fa-chevron-right'
-    }],
-    // Common
-    ['heading', 'bold', 'codeblock'],
+    }, 'heading', 'bold', 'codeblock'],
     ['table', 'image'],
-    ['quote', 'ul', 'ol', 'link' ],
+    [ 'ul','quote', 'ol', 'link' ],
     [ 'task', 'italic', 'strike'],
     ['code', 'indent', 'outdent']
   ];
