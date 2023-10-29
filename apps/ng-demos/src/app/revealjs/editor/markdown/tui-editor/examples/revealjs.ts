@@ -114,6 +114,37 @@ media: {
 &lt;video height="500px" controls data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" &gt;&lt;/video&gt;
 </code></pre></div>`,
 markdown: ``
+},
+colorBackground: {
+  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-background-color="rgb(70, 70, 255)"&gt;
+  &lt;h2&gt;Color Background&lt;/h2&gt;
+&lt;/section&gt;</code></pre></div>`,
+  markdown: ``
+},
+imageBackground: {
+  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3"&gt;
+  &lt;h2&gt;Image Background&lt;/h2&gt;
+&lt;/section&gt;</code></pre></div>`,
+  markdown: ``
+},
+videoBackground: {
+  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+  data-background-video-loop data-background-video-muted&gt;
+&lt;h2&gt;Video Background&lt;/h2&gt;
+&lt;/section&gt;</code></pre></div>`,
+  markdown: ``
+},
+iframeBackgrounds: {
+  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-background-iframe="https://mermaid.js.org/intro/"
+            data-background-interactive&gt;
+    &lt;h2&gt;Iframe Background&lt;/h2&gt;
+&lt;/section&gt;
+</code></pre></div>`,
+  markdown: ``
 }
 };
 
