@@ -183,48 +183,40 @@
 <!-- Add Animation Menu -->
 <mat-menu #addAnimationMenu="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="fragmentsMenu">
-    <i class="menu-icon fas fa-step-forward"></i>Steps 
+    <i class="menu-icon fas fa-layer-group"></i>Steps 
   </button>
   <!-- fragments Menu -->
   <mat-menu #fragmentsMenu="matMenu">
     <button mat-menu-item (click)="onClick('fragmentText')">
-      <i class="menu-icon fas fa-step-forward"></i>Text 
+      <i class="menu-icon fas fa-font"></i>Text 
     </button>
     <button mat-menu-item (click)="onClick('fragmentStackImages')">
-      <i class="menu-icon fas fa-step-forward"></i>Stacked Images 
+      <i class="menu-icon fas fa-images"></i>Stacked Images 
     </button>
     <button mat-menu-item (click)="onClick('fragmentStackImagesIndex')">
-      <i class="menu-icon fas fa-step-forward"></i>Stacked Images Index 
+      <i class="menu-icon fas fa-list-ol"></i>Stacked Images Index 
     </button>
     <button mat-menu-item (click)="openInNewTab('https://revealjs.com/fragments/')">
       <i class="menu-icon fas fa-question-circle"></i> Docs
     </button>
   </mat-menu>
   <button mat-menu-item [matMenuTriggerFor]="autoAnimateMenu">
-    <i class="menu-icon fas fa-step-forward"></i>Auto Animate
+    <i class="menu-icon fas fa-play-circle"></i>Auto Animate
   </button>
   <!-- Auto animate Menu -->
   <mat-menu #autoAnimateMenu="matMenu">
     <button mat-menu-item (click)="onClick('autoAnimateText')">
-      <i class="menu-icon fas fa-step-forward"></i>Text Movement 
+      <i class="menu-icon fas fa-arrows-alt-h"></i>Text Movement 
     </button>
     <button mat-menu-item (click)="onClick('autoAnimateCode')">
-      <i class="menu-icon fas fa-step-forward"></i>Code Block Movement 
+      <i class="menu-icon fas fa-code"></i>Code Block Movement 
     </button>
     <button mat-menu-item (click)="openInNewTab('https://revealjs.com/auto-animate/')">
       <i class="menu-icon fas fa-question-circle"></i> Docs
     </button>
   </mat-menu>
-  <button mat-menu-item (click)="onClick('media')">
-    <i class="menu-icon fas fa-photo-video"></i> Media
-  </button>
-  <button mat-menu-item (click)="onClick('iframes')">
-    <i class="menu-icon fas fa-window-restore"></i> Iframes
-  </button>
-  
-  
-  
 </mat-menu>
+
 
 
 <!-- Add Backgrounds Menu -->
