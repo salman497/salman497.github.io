@@ -25,6 +25,47 @@ export const revealJs = {
   &lt;img class="fragment" src="https://placekitten.com/400/400" width="400" height="400"&gt;
 &lt;/div&gt;</code></pre></div>`,
         markdown: ``
+    },
+    autoAnimateText: {
+        html: `<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+ <div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+ &lt;section data-auto-animate&gt;
+  &lt;h1&gt;Implicit&lt;/h1&gt;
+  &lt;/section&gt;
+</code></pre></div>
+<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-auto-animate&gt;
+  &lt;h1&gt;Implicit&lt;/h1&gt;
+  &lt;h1&gt;Animation&lt;/h1&gt;
+&lt;/section&gt;
+</code></pre></div>`,
+        markdown: ``
+    },
+    autoAnimateCode: {
+        html: `<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+ <div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+ &lt;section data-auto-animate&gt;
+ &lt;pre data-id="code-animation"&gt;&lt;code data-trim data-line-numbers&gt;
+   let planets = [
+     { name: 'mars', diameter: 6779 },
+   ]
+ &lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;    
+</code></pre></div>
+<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-auto-animate&gt;
+  &lt;pre data-id="code-animation"&gt;&lt;code data-trim data-line-numbers&gt;
+    let planets = [
+      { name: 'mars', diameter: 6779 },
+      { name: 'earth', diameter: 12742 },
+      { name: 'jupiter', diameter: 139820 }
+    ]
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+</code></pre></div>`,
+        markdown: ``
     }
 };
 
