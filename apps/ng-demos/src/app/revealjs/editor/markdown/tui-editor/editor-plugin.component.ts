@@ -1,7 +1,7 @@
 // dropdown.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { exampleData } from './examples/example';
+import { exampleData } from './examples/examples';
 
 @Component({
   selector: 'editor-plugin',

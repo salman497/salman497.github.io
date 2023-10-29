@@ -13,6 +13,9 @@
   <button mat-menu-item [matMenuTriggerFor]="addChartJsDiagramsMenu">
     <i class="menu-icon fas fa-chart-bar"></i> Add ChartJs Diagrams
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="addAnimationMenu">
+    <i class="menu-icon fas fa-film"></i> Add Animations
+  </button>
   <button mat-menu-item [matMenuTriggerFor]="addBackgroundsMenu">
     <i class="menu-icon fas fa-image"></i> Add Backgrounds
   </button>
@@ -177,6 +180,40 @@
   </mat-menu>
 </mat-menu>
 
+<!-- Add Animation Menu -->
+<mat-menu #addAnimationMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="fragmentsMenu">
+    <i class="menu-icon fas fa-step-forward"></i>Step By Step
+  </button>
+  <mat-menu #fragmentsMenu="matMenu">
+    <button mat-menu-item (click)="onClick('fragmentText')">
+      <i class="menu-icon fas fa-step-forward"></i>Text 
+    </button>
+    <button mat-menu-item (click)="onClick('fragmentStackImages')">
+      <i class="menu-icon fas fa-step-forward"></i>Stacked Images 
+    </button>
+    <button mat-menu-item (click)="onClick('fragmentStackImagesIndex')">
+      <i class="menu-icon fas fa-step-forward"></i>Stacked Images Index 
+    </button>
+    <button mat-menu-item (click)="openInNewTab('https://revealjs.com/fragments/')">
+      <i class="menu-icon fas fa-question-circle"></i> Docs
+    </button>
+  </mat-menu>
+
+  <button mat-menu-item (click)="onClick('media')">
+    <i class="menu-icon fas fa-photo-video"></i> Media
+  </button>
+  <button mat-menu-item (click)="onClick('iframes')">
+    <i class="menu-icon fas fa-window-restore"></i> Iframes
+  </button>
+  <button mat-menu-item (click)="onClick('stackImages')">
+    <i class="menu-icon fas fa-layer-group"></i> Stack Images
+  </button>
+  
+  
+</mat-menu>
+
+
 <!-- Add Backgrounds Menu -->
 <mat-menu #addBackgroundsMenu="matMenu">
   <button mat-menu-item (click)="onClick('colorBackground')">
@@ -195,9 +232,6 @@
 
 <!-- Add Others Menu -->
 <mat-menu #addOthersMenu="matMenu">
-  <button mat-menu-item (click)="onClick('stackImages')">
-    <i class="menu-icon fas fa-layer-group"></i> Stack Images
-  </button>
   <button mat-menu-item (click)="onClick('media')">
     <i class="menu-icon fas fa-photo-video"></i> Media
   </button>
