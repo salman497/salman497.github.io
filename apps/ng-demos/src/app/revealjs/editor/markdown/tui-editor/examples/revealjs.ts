@@ -66,6 +66,21 @@ export const revealJs = {
 &lt;/section&gt;
 </code></pre></div>`,
         markdown: ``
-    }
+    },
+    autoAnimateHeight: {
+        html: `<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+ <div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-auto-animate&gt;
+  &lt;div data-id="box" style="height: 50px; background: salmon;"&gt;&lt;/div&gt;
+&lt;/section&gt;
+</code></pre></div>
+<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
+<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
+&lt;section data-auto-animate&gt;
+  &lt;div data-id="box" style="height: 200px; background: blue;"&gt;&lt;/div&gt;
+&lt;/section&gt;
+</code></pre></div>`,
+        markdown: ``
+    },
 };
 
