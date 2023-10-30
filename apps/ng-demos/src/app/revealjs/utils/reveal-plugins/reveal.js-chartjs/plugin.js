@@ -79,9 +79,13 @@ const Plugin = {
   init: function (reveal) {
     console.log("init");
     reveal.addEventListener("ready", async function () {
-      // Get all canvases
-      const canvases = document.querySelectorAll("canvasdata-chartjs");
-      console.log("canvases", canvases);
+      // // Get all canvases
+      // const canvases = document.querySelectorAll("canvasdata-chartjs");
+      // console.log("canvases", canvases);
+      // await initializeCharts(canvases);
+      const canvases = reveal.getCurrentSlide().querySelectorAll(
+        "canvas[data-chartjs]",
+      );
       await initializeCharts(canvases);
     });
     // Rendering required as the chart might not show under certain
