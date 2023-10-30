@@ -72,6 +72,7 @@ export class PublishComponent {
   async onDeleteButtonClick() {
     if (this.selectedPresentationId) {
       await this.auth.deleteMarkdown(this.selectedPresentationId);
+      window.location.href = window.location.origin;
     }
   }
 

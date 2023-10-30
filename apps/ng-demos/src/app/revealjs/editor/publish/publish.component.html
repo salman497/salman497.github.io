@@ -61,16 +61,7 @@
     <mat-icon>content_copy</mat-icon>
   </button>
 </mat-form-field>
-<div class="toggle-container">
-  <mat-slide-toggle
-    class="editor-mat-slide-toggle"
-    [ngModel]="allowEdit"
-    (change)="onAllowEditChange($event)"
-    [disabled]="!isUserLogin"
-    aria-label="Allow Others to edit {{ loginText }}"
-    >Allow Others to edit {{ loginText }}</mat-slide-toggle
-  >
-</div>
+
 <!-- Load my presentation Dropdown -->
 <mat-form-field class="dropdown-field">
   <mat-label>Select Your Presentation {{ loginText }}</mat-label>
@@ -79,6 +70,7 @@
     [value]="selectedPresentationId"
     [disabled]="!isUserLogin"
     (selectionChange)="onPresentationSelected(selectPresentation.value)"
+    class="select-presentation"
     matTooltip="Your Presentation {{ loginText }}"
   >
     <mat-option
@@ -88,10 +80,22 @@
       {{ presentation.name }}
     </mat-option>
   </mat-select>
+
 </mat-form-field>
-<button
-  (click)="onDeleteButtonClick()"
-  *ngIf="selectPresentation.value ? true : false"
+<mat-toolbar>
+  <mat-slide-toggle
+  class="editor-mat-slide-toggle"
+  [ngModel]="allowEdit"
+  (change)="onAllowEditChange($event)"
+  [disabled]="!isUserLogin"
+  aria-label="Allow Others to edit {{ loginText }}"
+  >Allow Others to edit {{ loginText }}</mat-slide-toggle
 >
-  <mat-icon>delete</mat-icon>
+  <span class="example-spacer"></span>
+  <button   (click)="onDeleteButtonClick()"
+  *ngIf="selectPresentation.value ? true : false" 
+  mat-icon-button class="example-icon" aria-label="delete">
+<mat-icon>delete</mat-icon>
 </button>
+
+</mat-toolbar>

@@ -26,3 +26,6 @@
     margin-bottom: 10px; /* Space between toggles */
   }
   
+  .example-spacer {
+    flex: 1 1 auto;
+  }

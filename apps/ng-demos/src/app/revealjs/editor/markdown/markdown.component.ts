@@ -1,3 +1,4 @@
+import { switchMap } from 'rxjs/operators';
 import {
   AfterViewInit,
   Component,
@@ -23,7 +24,7 @@ import { RevealJsState } from '../../state/state';
 import * as actions from '../../state/actions';
 import Editor from '@toast-ui/editor';
 import { initEditor, scrollToHeading } from './tui-editor/editor.utils';
-import { selectIsEditorVisible, selectSlideNumber } from '../../state/selector';
+import { selectIsEditorVisible, selectMarkdown, selectSlideNumber } from '../../state/selector';
 
 @Component({
   selector: 'mono-repo-markdown',
@@ -38,8 +39,7 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     private zone: NgZone
   ) {}
 
-  _markdown!: string;
-  _original!: string;
+  currentMarkDown!: string;
   private content = new Subject<string>();
   private elm = this.elmRef.nativeElement;
   private editor!: Editor;
@@ -47,26 +47,12 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
   editorLoaded$ = new BehaviorSubject<boolean>(false);
   isEditorVisible$ = this.store.select(selectIsEditorVisible);
   slideNumber$ = this.store.select(selectSlideNumber);
-
-  @Input() set markdown(x: string) {
-    if (x) {
-      if (!this._original) {
-        this._original = x;
-      }
-      if (this.editor && !this._markdown) {
-        /**
-         * the if is needed because on creation editor doesn't exist yet
-         * this way it sets it via _markdown on init, and otherwise with the setMarkdown.
-         */
-        this.editor.setMarkdown(x);
-      }
-
-      this._markdown = x.trimStart();
-    }
-  }
+  markdown$ = this.store.select(selectMarkdown);
+  
+  
 
   ngOnInit(): void {
-    this.loadEditor();
+    this.initEditor();
   }
 
   ngOnDestroy(): void {
@@ -77,20 +63,18 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.complete();
   }
 
-  loadEditor() {
-    if (this.elm) {
+  initEditor() {
+    if (!this.editor) {
       // this.elm.innerHTML = 'hello'
       this.zone.runOutsideAngular(() => {
         this.editor = initEditor(
-          this.markdown,
+          '',
           this.elm,
           () => {
-            // on load
-            this.editorLoaded$.next(true);
+            this.editorLoaded$.next(true); // on load
           },
           () => {
-            // on change
-            const markdownContent = this.editor.getMarkdown();
+            const markdownContent = this.editor.getMarkdown(); // on change
             this.content.next(markdownContent);
           }
         );
@@ -98,6 +82,7 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
   ngAfterViewInit() {
+    this.registerOutsideMarkdownChange();
     this.registerOnContentChange();
     this.registerOnSlideChangeSetScrollPosition();
   }
@@ -105,16 +90,31 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
   onTextareaChange(event: any): void {
     this.content.next(event?.target?.value);
   }
-
+  registerOutsideMarkdownChange() {
+    this.editorLoaded$.pipe(
+      filter(loaded => loaded),
+      switchMap(() => this.markdown$),
+      filter(markdown => this.currentMarkDown !== markdown),
+      distinctUntilChanged(),
+      takeUntil(this.unsubscribe$) 
+    ).subscribe((markdown) => { 
+      if(markdown != null) {
+        this.currentMarkDown = markdown;
+        this.editor.setMarkdown(markdown);
+      }
+    })
+  }
   registerOnContentChange() {
     this.content
       .pipe(
+        filter(markdown => this.currentMarkDown !== markdown),
         debounceTime(500),
         distinctUntilChanged(),
-        filter((content) => !!content && content.trim() !== ''),
+        // filter((content) => !!content && content.trim() !== ''),
         takeUntil(this.unsubscribe$)
       )
       .subscribe((content) => {
+        this.currentMarkDown = content;
         this.store.dispatch(actions.updateEditorContent({ content }));
         this.store.dispatch(actions.toggleViewerToReRender());
         this.store.dispatch(actions.saveToLocalStorage());
