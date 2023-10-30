@@ -1,3 +1,4 @@
+import { chartJs } from "./chartjs";
 import { mermaid } from "./mermaid";
 import { revealJs } from "./revealjs";
 import { slide } from "./slide";
@@ -12,5 +13,6 @@ interface ExampleData {
 export const exampleData: ExampleData = {
     ...slide,
     ...mermaid,
-    ...revealJs
+    ...revealJs,
+    ...chartJs
 }
