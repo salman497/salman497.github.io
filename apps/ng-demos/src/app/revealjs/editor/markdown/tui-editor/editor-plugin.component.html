@@ -120,64 +120,28 @@
 
 <!-- Add ChartJs Diagrams Menu -->
 <mat-menu #addChartJsDiagramsMenu="matMenu">
-  <!-- Bar Charts -->
-  <button mat-menu-item [matMenuTriggerFor]="barChartsMenu">
-    <i class="menu-icon fas fa-chart-bar"></i> Bar Charts
+    <!-- Bar Charts -->
+  <button mat-menu-item (click)="onClick('barChart')">
+    <i class="menu-icon fas fa-chart-bar"></i> Bar Chart
   </button>
-  <mat-menu #barChartsMenu="matMenu">
-    <button mat-menu-item (click)="onClick('barChartBorderRadius')">
-      <i class="menu-icon fas fa-chart-bar"></i> Bar Chart Border Radius
-    </button>
-    <button mat-menu-item (click)="onClick('floatingBars')">
-      <i class="menu-icon fas fa-chart-bar"></i> Floating Bars
-    </button>
-    <button mat-menu-item (click)="onClick('horizontalBarChart')">
-      <i class="menu-icon fas fa-chart-bar"></i> Horizontal Bar Chart
-    </button>
-    <!--... and so on for all Bar Charts items -->
-  </mat-menu>
 
-  <!-- Line Charts -->
-  <button mat-menu-item [matMenuTriggerFor]="lineChartsMenu">
-    <i class="menu-icon fas fa-chart-line"></i> Line Charts
+  <button mat-menu-item (click)="onClick('lineChart')">
+    <i class="menu-icon fas fa-chart-line"></i>Line Chart
   </button>
-  <mat-menu #lineChartsMenu="matMenu">
-    <button mat-menu-item (click)="onClick('interpolationModes')">
-      <i class="menu-icon fas fa-chart-line"></i> Interpolation Modes
-    </button>
-    <button mat-menu-item (click)="onClick('lineChart')">
-      <i class="menu-icon fas fa-chart-line"></i> Line Chart
-    </button>
-    <!--... and so on for all Line Charts items -->
-  </mat-menu>
 
-  <!-- Area Charts -->
-  <button mat-menu-item [matMenuTriggerFor]="areaChartsMenu">
-    <i class="menu-icon fas fa-chart-area"></i> Area Charts
+  <button mat-menu-item (click)="onClick('bubbleChart')">
+    <i class="menu-icon fas fa-chart-line"></i>Bubble Chart
   </button>
-  <mat-menu #areaChartsMenu="matMenu">
-    <button mat-menu-item (click)="onClick('lineChartBoundaries')">
-      <i class="menu-icon fas fa-chart-area"></i> Line Chart Boundaries
-    </button>
-    <button mat-menu-item (click)="onClick('lineChartDatasets')">
-      <i class="menu-icon fas fa-chart-area"></i> Line Chart Datasets
-    </button>
-    <!--... and so on for all Area Charts items -->
-  </mat-menu>
-
-  <!-- Other charts -->
-  <button mat-menu-item [matMenuTriggerFor]="otherChartsMenu">
-    <i class="menu-icon fas fa-chart-pie"></i> Other charts
+  <button mat-menu-item (click)="onClick('pieChart')">
+    <i class="menu-icon fas fa-chart-line"></i>Pie Chart
   </button>
-  <mat-menu #otherChartsMenu="matMenu">
-    <button mat-menu-item (click)="onClick('bubble')">
-      <i class="menu-icon fas fa-chart-pie"></i> Bubble
-    </button>
-    <button mat-menu-item (click)="onClick('comboBarLine')">
-      <i class="menu-icon fas fa-chart-pie"></i> Combo bar/line
-    </button>
-    <!--... and so on for all Other Charts items -->
-  </mat-menu>
+  <button mat-menu-item (click)="onClick('stackedBarChart')">
+    <i class="menu-icon fas fa-chart-line"></i>Stacked Bar Chart
+  </button>
+  <!-- Docs -->
+  <button mat-menu-item (click)="openInNewTab('https://www.chartjs.org/docs/latest/samples/information.html')">
+    <i class="menu-icon fas fa-question-circle"></i> Chart.Js Docs
+  </button>
 </mat-menu>
 
 <!-- Add Animation Menu -->
