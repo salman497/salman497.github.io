@@ -52,7 +52,7 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
   
 
   ngOnInit(): void {
-   this.markdown$.pipe(take(1)).subscribe(markdown => {
+   this.markdown$.pipe(filter(markdown => markdown !== null), take(1)).subscribe(markdown => {
     if(markdown !== null) {
       this.currentMarkDown = markdown;
       this.initEditor(markdown);
