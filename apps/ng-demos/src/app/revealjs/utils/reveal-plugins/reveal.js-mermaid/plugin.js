@@ -3,6 +3,7 @@
  */
 
 import mermaid from "mermaid";
+import { animateMermaid } from './mermaid-animate';
 
 const Plugin = {
   id: "mermaid",
@@ -22,6 +23,7 @@ const Plugin = {
     Array.from(mermaidEls).forEach(function (el) {
       var insertSvg = function (svgCode, bindFunctions) {
         el.innerHTML = svgCode;
+        animateMermaid(el);
       };
 
       // Using textContent not innerHTML, because innerHTML will get escaped code (eg: get --&gt; instead of -->).
