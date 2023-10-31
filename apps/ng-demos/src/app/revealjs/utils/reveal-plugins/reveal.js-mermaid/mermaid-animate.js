@@ -1,5 +1,5 @@
 export function animateMermaid(el) {
-    if(!el) {
+    if(el) {
         return;
     }
     if (el.classList.contains('mermaid-flowchart')) {
@@ -9,6 +9,8 @@ export function animateMermaid(el) {
 
 function addFragmentsToFlowChart(graphElement) {
     addFragmentByClassName(graphElement, '.flowchart-label');
+    addFragmentByClassName(graphElement, '.flowchart-link');
+   // addFragmentByClassName(graphElement, '.edgeLabel');
 }
 
 function addFragmentByClassName(graphElement, className) {
