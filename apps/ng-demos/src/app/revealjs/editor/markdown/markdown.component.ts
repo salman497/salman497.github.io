@@ -1,4 +1,4 @@
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   Component,
@@ -39,7 +39,7 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     private zone: NgZone
   ) {}
 
-  currentMarkDown!: string;
+  currentMarkDown = '';
   private content = new Subject<string>();
   private elm = this.elmRef.nativeElement;
   private editor!: Editor;
@@ -52,7 +52,13 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
   
 
   ngOnInit(): void {
-    this.initEditor();
+   this.markdown$.pipe(take(1)).subscribe(markdown => {
+    if(markdown !== null) {
+      this.currentMarkDown = markdown;
+      this.initEditor(markdown);
+    }
+  
+   })
   }
 
   ngOnDestroy(): void {
@@ -63,12 +69,12 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.complete();
   }
 
-  initEditor() {
+  initEditor(markdown: string) {
     if (!this.editor) {
       // this.elm.innerHTML = 'hello'
       this.zone.runOutsideAngular(() => {
         this.editor = initEditor(
-          '',
+          markdown,
           this.elm,
           () => {
             this.editorLoaded$.next(true); // on load
