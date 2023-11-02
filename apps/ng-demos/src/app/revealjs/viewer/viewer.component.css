@@ -8,8 +8,8 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
     overflow-x: auto;
-    max-width: 88vh;
-    max-height: 68vh;
+    /* max-width: 88vh;
+    max-height: 68vh; */
     padding: 20px;
     text-align: center;
     display: flex;

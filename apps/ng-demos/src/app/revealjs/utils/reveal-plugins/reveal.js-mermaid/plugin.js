@@ -21,9 +21,9 @@ const Plugin = {
     const mermaidEls = reveal.getRevealElement().querySelectorAll(".mermaid");
 
     Array.from(mermaidEls).forEach(function (el) {
-      var insertSvg = function (svgCode, bindFunctions) {
+      var insertSvg = function (svgCode, mermaidCode) {
         el.innerHTML = svgCode;
-        animateMermaid(el);
+        animateMermaid(el, mermaidCode);
       };
 
       // Using textContent not innerHTML, because innerHTML will get escaped code (eg: get --&gt; instead of -->).
@@ -36,7 +36,7 @@ const Plugin = {
             graphDefinition
           )
           .then(({ svg }) => {
-            insertSvg(svg);
+            insertSvg(svg, graphDefinition);
           });
       } catch (error) {
         let errorStr = "";
