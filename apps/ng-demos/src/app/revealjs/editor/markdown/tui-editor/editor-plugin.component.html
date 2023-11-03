@@ -45,6 +45,9 @@
     <button mat-menu-item (click)="onClick('flowchart')">
       <i class="menu-icon fas fa-sitemap"></i> Flowchart
     </button>
+    <button mat-menu-item (click)="onClick('flowchartSteps')">
+      <i class="menu-icon fas fa-sitemap"></i> Flowchart Steps
+    </button>
     <button mat-menu-item (click)="onClick('sequenceDiagram')">
       <i class="menu-icon fas fa-exchange-alt"></i> Sequence Diagram
     </button>
@@ -157,6 +160,9 @@
   <mat-menu #fragmentsMenu="matMenu">
     <button mat-menu-item (click)="onClick('fragmentText')">
       <i class="menu-icon fas fa-font"></i>Text 
+    </button>
+    <button mat-menu-item (click)="onClick('flowchartSteps')">
+      <i class="menu-icon fas fa-sitemap"></i> Mermaid Flowchart 
     </button>
     <button mat-menu-item (click)="onClick('fragmentStackImages')">
       <i class="menu-icon fas fa-images"></i>Stacked Images 
