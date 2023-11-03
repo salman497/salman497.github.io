@@ -49,7 +49,10 @@
       <i class="menu-icon fas fa-sitemap"></i> Flowchart Steps
     </button>
     <button mat-menu-item (click)="onClick('sequenceDiagram')">
-      <i class="menu-icon fas fa-exchange-alt"></i> Sequence Diagram
+      <i class="menu-icon fas fa-exchange-alt"></i> Sequence 
+    </button>
+    <button mat-menu-item (click)="onClick('sequenceDiagramSteps')">
+      <i class="menu-icon fas fa-exchange-alt"></i> Sequence Steps  
     </button>
     <button mat-menu-item (click)="onClick('classDiagram')">
       <i class="menu-icon fas fa-code-branch"></i> Class Diagram
@@ -163,6 +166,9 @@
     </button>
     <button mat-menu-item (click)="onClick('flowchartSteps')">
       <i class="menu-icon fas fa-sitemap"></i> Mermaid Flowchart 
+    </button>
+    <button mat-menu-item (click)="onClick('sequenceDiagramSteps')">
+      <i class="menu-icon fas fa-exchange-alt"></i> Mermaid Sequence 
     </button>
     <button mat-menu-item (click)="onClick('fragmentStackImages')">
       <i class="menu-icon fas fa-images"></i>Stacked Images 
