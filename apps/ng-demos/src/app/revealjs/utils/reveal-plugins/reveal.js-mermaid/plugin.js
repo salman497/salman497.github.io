@@ -23,7 +23,9 @@ const Plugin = {
     Array.from(mermaidEls).forEach(function (el) {
       var insertSvg = function (svgCode, mermaidCode) {
         el.innerHTML = svgCode;
-        animateMermaid(el, mermaidCode);
+        if (el.classList.contains('mermaid-steps')) { 
+          animateMermaid(el, mermaidCode);
+        }
       };
 
       // Using textContent not innerHTML, because innerHTML will get escaped code (eg: get --&gt; instead of -->).
