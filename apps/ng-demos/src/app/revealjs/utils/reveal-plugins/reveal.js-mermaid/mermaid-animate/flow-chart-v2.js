@@ -1,23 +1,13 @@
-import mermaid from "mermaid";
 
-export async function animateMermaid(el, textGraphDefinition) {
-  // if(el) {
-  //     return;
-  // }
-  if (el.classList.contains('mermaid-flowchart')) {
-  //  addFragmentsToFlowChart(el.firstElementChild);
-    const d = await mermaid.mermaidAPI.getDiagramFromText(textGraphDefinition);
-    //  d.parser.yy.getVertices()
-     const vertices = d.parser.yy.getVertices();
-     const edges = d.parser.yy.getEdges();
-     console.log('----getVertices----', vertices);
-     console.log('----getEdges----',edges);
-     createFragments(el, edges, vertices);
-     
-  }
+export function animateFlowChartV2(diagram, el) {
+    const vertices = diagram.parser.yy.getVertices();
+    const edges = diagram.parser.yy.getEdges();
+    console.log('----getVertices----', vertices);
+    console.log('----getEdges----',edges);
+    animateAllWithFragments(el, edges, vertices);
 }
 
-function createFragments(el, edges, vertices) {
+function animateAllWithFragments(el, edges, vertices) {
     const edgeLabels = el.querySelectorAll('span.edgeLabel');
     let fragmentIndex = 0;
     edges.forEach(item => {
@@ -74,4 +64,3 @@ function addFragmentToElement(element, index) {
     }
   }
 }
-

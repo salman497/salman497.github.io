@@ -3,7 +3,7 @@
  */
 
 import mermaid from "mermaid";
-import { animateMermaid } from './mermaid-animate';
+import { animateMermaid } from './mermaid-animate/mermaid-animate';
 
 const Plugin = {
   id: "mermaid",

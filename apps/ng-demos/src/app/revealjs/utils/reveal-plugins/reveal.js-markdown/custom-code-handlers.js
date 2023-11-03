@@ -18,17 +18,9 @@ export const customCodeHandler = (code, language) => {
 
   if (language === "mermaid") {
     // INFO: height and width are set to work around bug https://github.com/chartjs/Chart.js/issues/5805
-    const className = getMermaidNameClass(code);
-    return `<div class="mermaid${className}">${code}</div>`;
+    return `<div class="mermaid">${code}</div>`;
   }
 
   return undefined;
 }
 
-const flowChartRegex = /^\s*flowchart/m;
-function getMermaidNameClass(code) {
-  if (flowChartRegex.test(code)) {
-    return ' mermaid-flowchart'
-  }
-  return '';
-}
