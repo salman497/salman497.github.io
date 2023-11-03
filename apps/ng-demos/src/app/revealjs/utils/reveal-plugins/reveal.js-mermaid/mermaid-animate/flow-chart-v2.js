@@ -1,3 +1,4 @@
+import { addFragmentToElement } from './utils';
 
 export function animateFlowChartV2(diagram, el) {
     const vertices = diagram.parser.yy.getVertices();
@@ -15,21 +16,21 @@ function animateAllWithFragments(el, edges, vertices) {
              // Start Node
             const startNodeSelector = getNodeSelector(vertices[item.start].domId);
             const startNodeElement = el.querySelector(startNodeSelector);
-            addFragmentToElement(startNodeElement, fragmentIndex);
+            addFragmentToElement(startNodeElement, fragmentIndex, fragmentIndex === 0);
             fragmentIndex +=1;
         }
         if(item.end) {
            // Label
             const labelElement = getLabelElementByText(edgeLabels, item.text);
-           addFragmentToElement(labelElement, fragmentIndex);
+           addFragmentToElement(labelElement, fragmentIndex, fragmentIndex === 0);
            // Arrow
            const arrowSelector = getArrowSelector(item.start, item.end);
            const arrowElement = el.querySelector(arrowSelector);
-           addFragmentToElement(arrowElement, fragmentIndex);
+           addFragmentToElement(arrowElement, fragmentIndex, fragmentIndex === 0);
            // End Node
            const endNodeSelector = getNodeSelector(vertices[item.end].domId);
            const endNodeElement = el.querySelector(endNodeSelector);
-           addFragmentToElement(endNodeElement, fragmentIndex);
+           addFragmentToElement(endNodeElement, fragmentIndex, fragmentIndex === 0);
            fragmentIndex +=1;
         }
     });
@@ -53,14 +54,4 @@ function getArrowSelector(start, end) {
     return `[id^="L-${start}-${end}"]`;
 }
 
-function addFragmentToElement(element, index) {
-  if (element && !element.hasAttribute('data-fragment-index')) {
-    element.setAttribute('data-fragment-index', String(index));
-    if (!element.classList.contains('fragment')) {
-      element.classList.add('fragment');
-      if(index === 0) {
-        element.classList.add('visible');
-      }
-    }
-  }
-}
+
