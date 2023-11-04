@@ -109,8 +109,11 @@
     <i class="menu-icon fas fa-brain"></i> Specialized Diagrams
   </button>
   <mat-menu #specializedDiagramsMenu="matMenu">
-    <button mat-menu-item (click)="onClick('mindmaps')">
-      <i class="menu-icon fas fa-brain"></i> Mindmaps
+    <button mat-menu-item (click)="onClick('mindmap')">
+      <i class="menu-icon fas fa-brain"></i> Mindmap
+    </button>
+    <button mat-menu-item (click)="onClick('mindmapSteps')">
+      <i class="menu-icon fas fa-brain"></i> Mindmap Steps
     </button>
     <button mat-menu-item (click)="onClick('gitgraphGitDiagram')">
       <i class="menu-icon fas fa-code-branch"></i> Gitgraph (Git) Diagram
@@ -169,6 +172,9 @@
     </button>
     <button mat-menu-item (click)="onClick('sequenceDiagramSteps')">
       <i class="menu-icon fas fa-exchange-alt"></i> Mermaid Sequence 
+    </button>
+    <button mat-menu-item (click)="onClick('mindmapSteps')">
+      <i class="menu-icon fas fa-brain"></i> Mermaid Mindmap 
     </button>
     <button mat-menu-item (click)="onClick('fragmentStackImages')">
       <i class="menu-icon fas fa-images"></i>Stacked Images 

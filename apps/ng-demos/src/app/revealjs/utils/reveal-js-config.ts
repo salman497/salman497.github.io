@@ -40,7 +40,7 @@ export async function getRevealConfig(editor: Editor, isEditMode: boolean): Prom
     ],
    // hashOneBasedIndex: true,
     hash: false,
-    autoSlide: editor.showAutoSlide ? 4000 : 0,
+    autoSlide: editor.showAutoSlide ? 2000 : 0,
     // autoPlayMedia: false,
     showNotes: false, // IN speaker view S
     embedded: true,

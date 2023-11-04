@@ -20,7 +20,7 @@ sequenceDiagram
     John-->>-Alice: I feel great!
 </code></pre></div>`,
   },
-  mindmaps: {
+  mindmap: {
       markdown: `<div><br class="ProseMirror-trailingBreak"></div><div class="toastui-editor-md-code-block-line-background start"><span class="toastui-editor-md-code-block"><span class="toastui-editor-md-delimiter">\`\`\`</span><span class="toastui-editor-md-meta">mermaid</span></span></div>
       <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">mindmap</span></div>
       <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;root((mindmap))</span></div>
@@ -39,7 +39,7 @@ sequenceDiagram
       `,
       html: `<div data-language="mermaid" class="toastui-editor-ww-code-block"><pre><code data-language="mermaid">
 mindmap
-      root((mindmap))
+      root)mindmap(
         Origins
           Long history
           ::icon(fa fa-book)
@@ -214,5 +214,38 @@ sequenceDiagram
     John-->>-Alice: Hi Alice, I can hear you!
     John-->>-Alice: I feel great!
 </code></pre></div>`,
-  }
+  },
+  mindmapSteps: {
+    markdown: `<div><br class="ProseMirror-trailingBreak"></div><div class="toastui-editor-md-code-block-line-background start"><span class="toastui-editor-md-code-block"><span class="toastui-editor-md-delimiter">\`\`\`</span><span class="toastui-editor-md-meta">mermaid-steps</span></span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">mindmap</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;root((mindmap))</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;Origins</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Long history</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::icon(fa fa-book)</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Popularisation</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;British popular psychology author Tony Buzan</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;Research</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On effectivness and features</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On Automatic creation</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;Tools</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pen and paper</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mermaid</span></div>
+    <div class="toastui-editor-md-code-block-line-background"><span class="toastui-editor-md-code-block">\`\`\`</span></span></div>
+    `,
+    html: `<div data-language="mermaid-steps" class="toastui-editor-ww-code-block"><pre><code data-language="mermaid-steps">
+mindmap
+    root)mindmap(
+      Origins
+        Long history
+        ::icon(fa fa-book)
+        Popularisation
+          British popular psychology author Tony Buzan
+      Research
+        On effectivness and features
+        On Automatic creation
+      Tools
+        Pen and paper
+        Mermaid
+</code></pre></div>`
+},
 };
