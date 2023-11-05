@@ -91,8 +91,11 @@ export class ViewerComponent
            this.store.dispatch(setURLSlideNumber({ slideNumber: event.indexh, slideNumberVertical: event.indexv }));
         });
         this.deck.on('ready', () => {
-          // hide loading when reveal js presentation is ready
-          this.store.dispatch(changeLoadingState({ loading: false }));
+          // adjust layout for any dynamic change
+          setTimeout(() => {
+            this.deck?.layout();
+            this.store.dispatch(changeLoadingState({ loading: false }));
+          }, 100);
         });
         this.deck.addEventListener( 'customevent', function() {
           console.log( '"customevent" has fired2' );
