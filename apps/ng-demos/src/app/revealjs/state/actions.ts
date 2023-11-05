@@ -46,7 +46,7 @@ export const updateEditorShowAutoSlides = createAction(
 
 export const loadEditorStateSuccess = createAction(
   '[RevealJs] Load Editor State Success',
-   props<{ id?: number, name?: string, allowEdit?: boolean, editor: Editor }>()
+   props<{ id?: number, name?: string, allowEdit?: boolean, modified?: string, editor: Editor }>()
 );
 
 export const saveToStorageSuccess = createAction(

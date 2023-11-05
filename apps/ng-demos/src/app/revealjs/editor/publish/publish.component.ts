@@ -8,6 +8,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Constant } from '../../utils/constants';
 import { AuthService } from '../../../auth.service';
+import { buildURL } from '../../utils/basic-utils';
 
 @Component({
   selector: 'mono-repo-publish',
@@ -58,15 +59,22 @@ export class PublishComponent {
   }
 
   onPresentationSelected(id: number) {
-    this.store.dispatch(
-      actions.setURLInfo({
-        loadType: Constant.UrlLoadType.Published,
-        mode: Constant.UrlMode.Edit,
-        id: String(id),
-        name: this.presentations.find(p => p.id === id)?.url_name,
-      })
-    );
-    this.store.dispatch(actions.loadLoginUserEditor());
+    window.location.href = buildURL({
+      loadType: Constant.UrlLoadType.Published,
+      mode: Constant.UrlMode.Edit,
+      id: String(id),
+      name: this.presentations.find(p => p.id === id)?.url_name,
+    });
+    // this.store.dispatch(
+    //   actions.setURLInfo({
+    //     loadType: Constant.UrlLoadType.Published,
+    //     mode: Constant.UrlMode.Edit,
+    //     id: String(id),
+    //     name: this.presentations.find(p => p.id === id)?.url_name,
+    //   })
+    // );
+   
+    // this.store.dispatch(actions.loadLoginUserEditor());
   }
 
   async onDeleteButtonClick() {

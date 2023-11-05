@@ -19,7 +19,7 @@ import {
   throwError,
 } from 'rxjs';
 import { environment } from './environment/environment';
-import { valueExist } from './revealjs/utils/basic-utils';
+import { generateRandomId, valueExist } from './revealjs/utils/basic-utils';
 import { MarkdownDB } from './revealjs/models/db.model';
 
 @Injectable({
@@ -81,7 +81,8 @@ export class AuthService {
 
   saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
     if(data.id === 0) {
-      delete data.id;
+     // delete data.id;
+      data.id = generateRandomId();
     }
     return from(
       this.supabase.from('markdown').upsert([data]).select()

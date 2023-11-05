@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { getCurrentISODataTime } from '../utils/basic-utils';
 import {
   toggleViewerToReRender,
   loadEditorStateSuccess,
@@ -33,7 +34,7 @@ export const revealJsReducer = createReducer(
     ...state,
     loading: true,
   })),
-  on(loadEditorStateSuccess, (state, { name, id, editor, allowEdit }) => ({
+  on(loadEditorStateSuccess, (state, { name, id, editor, modified, allowEdit }) => ({
     ...state,
     editor: {
       ...editor,
@@ -43,6 +44,7 @@ export const revealJsReducer = createReducer(
     name: name ? name : state.name,
     id: id ? id : state.id,
     allowEdit: allowEdit === false ? false : true,
+    modified
   })),
   on(loadEditorStateFailure, (state, { errorType, message }) => ({
     ...state,
@@ -77,6 +79,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       content,
     },
+    modified: getCurrentISODataTime()
   })),
   on(updateEditorTheme, (state, { themeSelected }) => ({
     ...state,
@@ -84,6 +87,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       themeSelected,
     },
+    modified: getCurrentISODataTime()
   })),
   on(updateEditorAnimation, (state, { animationSelected }) => ({
     ...state,
@@ -91,6 +95,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       animationSelected,
     },
+    modified: getCurrentISODataTime()
   })),
   on(updateEditorShowPen, (state, { showPen }) => ({
     ...state,
@@ -98,6 +103,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       showPen,
     },
+    modified: getCurrentISODataTime()
   })),
   on(updateEditorShowDrawingArea, (state, { showDrawingArea }) => ({
     ...state,
@@ -105,6 +111,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       showDrawingArea,
     },
+    modified: getCurrentISODataTime()
   })),
   on(toggleViewerToReRender, (state) => ({
     ...state,
@@ -119,6 +126,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       showSlides,
     },
+    modified: getCurrentISODataTime()
   })),
   on(updateEditorShowAutoSlide, (state, { showAutoSlide }) => ({
     ...state,
@@ -126,6 +134,7 @@ export const revealJsReducer = createReducer(
       ...state.editor,
       showAutoSlide,
     },
+    modified: getCurrentISODataTime()
   })),
   on(setURLInfo, (state, {id, loadType, mode, name, slideNumber, slideNumberVertical} ) => ({
     ...state,
@@ -173,6 +182,7 @@ export const revealJsReducer = createReducer(
   on(setAllowEdit, (state, { allowEdit }) => ({
     ...state,
     allowEdit,
+    modified: getCurrentISODataTime()
   })),
   on(setEditorVisibility, (state, { isEditorVisible }) => ({
     ...state,

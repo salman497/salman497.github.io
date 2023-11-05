@@ -128,3 +128,24 @@ export function allowEdit(
 
   return true;
 }
+
+export function generateRandomId(): number {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
+export function getCurrentISODataTime() {
+  return new Date(Date.now()).toISOString();
+}
+
+
+export function isLocalStorageGreater(localState: any, db: MarkdownDB): boolean {
+  if(!localState || !localState.modified || !db || !db.modified) {
+    return false;
+  }
+  // Parse the date strings into Date objects
+  const localStorageDate = new Date(localState.modified);
+  const comparisonDate = new Date(db.modified);
+
+  // Compare the two dates
+  return localStorageDate > comparisonDate;
+}

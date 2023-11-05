@@ -28,14 +28,13 @@ import {
 import { EMPTY, from, of } from 'rxjs';
 import { initialState, Editor, LoginUser } from './state';
 import {
-  selectEditor,
   selectFullState,
   selectUrlInfo,
   selectUser,
 } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
-import { allowEdit, isEmpty } from '../utils/basic-utils';
+import { allowEdit, isEmpty, isLocalStorageGreater } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
@@ -98,17 +97,16 @@ export class RevealJsEffects {
       withLatestFrom(this.store.select(selectFullState)),
       switchMap(([_, state]) => {
         const urlInfo = state?.urlInfo || {};
-        if (urlInfo.loadType === Constant.UrlLoadType.Local && urlInfo.id) {
-          const editor = JSON.parse(localStorage.getItem(urlInfo.id) || '{}');
-          if (!isEmpty(editor)) {
-            return of(loadEditorStateSuccess({ editor }));
+        if (urlInfo.loadType === Constant.UrlLoadType.Local) {
+          const fullState = JSON.parse(localStorage.getItem(urlInfo.id || '0') || '{}');
+          if (!isEmpty(fullState)) {
+            return of(loadEditorStateSuccess({ ...fullState }));
           }
         }
 
         if (urlInfo.loadType === Constant.UrlLoadType.Published) {
           return this.auth.getEditor$(Number(urlInfo.id)).pipe(
             tap(data => {
-              
               if(!allowEdit(state.loginUser, data) && urlInfo.mode === Constant.UrlMode.Edit) {
                 // Apply permission
                 this.snackBar.open('Only view permission given.', 'Close', {
@@ -125,10 +123,15 @@ export class RevealJsEffects {
               }
             }),
             map((data) => {
+              const localState = JSON.parse(localStorage.getItem(urlInfo.id || '0') || '{}');
+              if(isLocalStorageGreater(localState, data)) {
+                return loadEditorStateSuccess({ ...localState });
+              }
               return loadEditorStateSuccess({
                 id: data.id,
                 name: data.name,
                 allowEdit: data.allow_edit,
+                modified: data.modified,
                 editor: data.editor as Editor,
               });
             }),
@@ -174,7 +177,8 @@ loadEditorStateFailure$ = createEffect(() =>
               editor: obj.editor,
               url_name: obj.urlInfo.name,
               allow_edit: obj.allowEdit,
-              user_id: obj?.loginUser?.id
+              user_id: obj?.loginUser?.id,
+              modified: obj?.modified
             })
             .pipe(
               tap((data) => {
@@ -218,11 +222,10 @@ loadEditorStateFailure$ = createEffect(() =>
         ofType(saveToLocalStorage),
         withLatestFrom(
           this.store.select(selectUrlInfo),
-          this.store.select(selectEditor)
+          this.store.select(selectFullState)
         ),
-        switchMap(([_ac, param, currentEditor]) => {
-          if (
-            !param.loadType ||
+        switchMap(([_ac, param, fullState]) => {
+          if (!param.loadType ||
             param.loadType === Constant.UrlLoadType.Startup
           ) {
             // For first time only
@@ -235,13 +238,13 @@ loadEditorStateFailure$ = createEffect(() =>
               })
             );
             localStorage.setItem(
-              Constant.UrlName.Default,
-              JSON.stringify(currentEditor)
+              '0',
+              JSON.stringify(fullState)
             );
             return EMPTY;
           }
           if (param.name) {
-            localStorage.setItem(param.name, JSON.stringify(currentEditor));
+            localStorage.setItem(String(fullState.id || 0), JSON.stringify(fullState));
           }
           return EMPTY;
         })

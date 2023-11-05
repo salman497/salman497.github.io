@@ -38,6 +38,7 @@ export interface RevealJsState {
     loginUserEditors?: MarkdownDB[]
     allowEdit?: boolean;
     isEditorVisible?: boolean;
+    modified?:string;
 }
 
 export interface Editor {
