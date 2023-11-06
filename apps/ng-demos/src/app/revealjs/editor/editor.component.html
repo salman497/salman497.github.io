@@ -7,6 +7,7 @@
       alt="User Image"
     />
     <span class="username username-ellipsis">{{ userName$ | async }}</span>
+    <span class="spacer"></span>
     <button
       mat-raised-button
       class="toolbar-button"
@@ -16,7 +17,7 @@
       Sign Out
     </button>
   </ng-container>
-  <span class="spacer"></span>
+  
   <ng-container *ngIf="(isLoggedIn$ | async) === false">
     <button
       mat-raised-button
