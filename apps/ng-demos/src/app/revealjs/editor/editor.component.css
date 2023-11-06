@@ -45,6 +45,13 @@ mat-toolbar {
   margin-top: 16px;
 }
 
+.username-ellipsis {
+  width: 30%; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
 
 /**(********* override material *********/
 .mat-expansion-panel-header {
@@ -54,4 +61,3 @@ mat-toolbar {
 .mat-expansion-panel-header mat-icon {
   margin-right: 10px; /* Add space between the icon and the text */
 }
-

@@ -45,3 +45,9 @@
       height: 30vh;
     }
   }
+
+  .mat-expansion-panel-body {
+    padding: 0 12px 16px!important;
+  }
+
+  
