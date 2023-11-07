@@ -27,19 +27,7 @@ export const revealJs = {
         markdown: ``
     },
     autoAnimateText: {
-        html: `<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
- <div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
- &lt;section data-auto-animate&gt;
-  &lt;h1&gt;Implicit&lt;/h1&gt;
-  &lt;/section&gt;
-</code></pre></div>
-<p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div>
-<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
-&lt;section data-auto-animate&gt;
-  &lt;h1&gt;Implicit&lt;/h1&gt;
-  &lt;h1&gt;Animation&lt;/h1&gt;
-&lt;/section&gt;
-</code></pre></div>`,
+        html: `<div data-html-comment="true">&lt;!-- .slide: data-auto-animate --&gt;</div><h1>Markdown</h1><div contenteditable="false"><hr></div><div data-html-comment="true">&lt;!-- .slide: data-auto-animate --&gt;</div><h1>Markdown</h1><h1>Magic</h1><div contenteditable="false"><hr></div><div data-html-comment="true">&lt;!-- .slide: data-auto-animate --&gt;</div><h1>Markdown</h1><h1>Magic</h1><h4>Easy way to create powerful Presentations! 🪄</h4>`,
         markdown: ``
     },
     autoAnimateCode: {
@@ -146,5 +134,6 @@ iframeBackgrounds: {
 </code></pre></div>`,
   markdown: ``
 }
+
 };
 
