@@ -19,10 +19,30 @@
   <button mat-menu-item [matMenuTriggerFor]="addBackgroundsMenu">
     <i class="menu-icon fas fa-image"></i> Backgrounds
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="addTransitionMenu">
+    <i class="menu-icon fas fa-exchange-alt"></i> Transition
+  </button>
   <button mat-menu-item [matMenuTriggerFor]="addOthersMenu">
     <i class="menu-icon fas fa-ellipsis-h"></i> Others
   </button>
 </mat-menu>
+
+<!-- Add Slide Transition -->
+<mat-menu #addTransitionMenu="matMenu">
+  <button mat-menu-item (click)="onClick('transitionZoom')">
+    <i class="menu-icon fas fa-search-plus"></i> Zoom
+  </button>
+  <button mat-menu-item (click)="onClick('transitionSlide')">
+    <i class="menu-icon fas fa-arrows-alt-h"></i> Slide
+  </button>
+  <button mat-menu-item (click)="onClick('transitionFade')">
+    <i class="menu-icon fas fa-adjust"></i> Fade
+  </button>
+  <button mat-menu-item (click)="onClick('transitionNone')">
+    <i class="menu-icon fas fa-ban"></i> None
+  </button>
+</mat-menu>
+
 
 <!-- Add Next Slide Menu -->
 <mat-menu #addSlideMenu="matMenu">
@@ -223,6 +243,7 @@
     <i class="menu-icon fas fa-window-restore"></i> Iframe Backgrounds
   </button>
 </mat-menu>
+
 
 <!-- Add Others Menu -->
 <mat-menu #addOthersMenu="matMenu">

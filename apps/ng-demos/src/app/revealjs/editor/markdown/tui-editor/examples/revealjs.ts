@@ -133,7 +133,27 @@ iframeBackgrounds: {
 &lt;/section&gt;
 </code></pre></div>`,
   markdown: ``
-}
+},
+transitionZoom: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-transition="zoom" --&gt;</div>
+  <h4>This slide will show Zoom transition overriding Global transitions</h4>`,
+  markdown: ``
+},
+transitionNone: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-transition="none" --&gt;</div>
+  <h4>This slide will show no transition overriding Global transitions</h4>`,
+  markdown: ``
+},
+transitionSlide: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-transition="slide" --&gt;</div>
+  <h4>This slide will show slide transition overriding Global transitions</h4>`,
+  markdown: ``
+},
+transitionFade: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-transition="fade" --&gt;</div>
+  <h4>This slide will show Fade transition overriding Global transitions</h4>`,
+  markdown: ``
+},
 
 };
 
