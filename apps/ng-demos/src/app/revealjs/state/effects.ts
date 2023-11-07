@@ -34,7 +34,7 @@ import {
 } from './selector';
 import { Constant } from '../utils/constants';
 import { Location } from '@angular/common';
-import { allowEdit, isEmpty, isLocalStorageGreater } from '../utils/basic-utils';
+import { allowEdit, getLocalData, isEmpty, isLocalStorageGreater, setLocalData } from '../utils/basic-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
@@ -98,7 +98,7 @@ export class RevealJsEffects {
       switchMap(([_, state]) => {
         const urlInfo = state?.urlInfo || {};
         if (urlInfo.loadType === Constant.UrlLoadType.Local) {
-          const fullState = JSON.parse(localStorage.getItem(urlInfo.id || '0') || '{}');
+          const fullState = getLocalData('local');
           if (!isEmpty(fullState)) {
             return of(loadEditorStateSuccess({ ...fullState }));
           }
@@ -123,7 +123,7 @@ export class RevealJsEffects {
               }
             }),
             map((data) => {
-              const localState = JSON.parse(localStorage.getItem(urlInfo.id || '0') || '{}');
+              const localState = getLocalData(urlInfo.id);
               if(isLocalStorageGreater(localState, data)) {
                 return loadEditorStateSuccess({ ...localState });
               }
@@ -237,14 +237,11 @@ loadEditorStateFailure$ = createEffect(() =>
                 name: Constant.UrlName.Default,
               })
             );
-            localStorage.setItem(
-              '0',
-              JSON.stringify(fullState)
-            );
+            setLocalData('local', fullState);
             return EMPTY;
           }
           if (param.name) {
-            localStorage.setItem(String(fullState.id || 0), JSON.stringify(fullState));
+            setLocalData(fullState.id, fullState);
           }
           return EMPTY;
         })

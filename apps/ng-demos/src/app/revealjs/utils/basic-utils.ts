@@ -149,3 +149,17 @@ export function isLocalStorageGreater(localState: any, db: MarkdownDB): boolean 
   // Compare the two dates
   return localStorageDate > comparisonDate;
 }
+
+export function setLocalData(id: any, jsonData: any) {
+  const key = String(id);
+  const value = jsonData ? JSON.stringify(jsonData) : '';
+ // localStorage.setItem(key, value);
+  sessionStorage.setItem(key, value);
+}
+
+export function getLocalData(id: any): any {
+  const key = String(id);
+  //const value = localStorage.getItem(String(key));
+  const value = sessionStorage.getItem(String(key));
+  return JSON.parse(value || '{}');
+}

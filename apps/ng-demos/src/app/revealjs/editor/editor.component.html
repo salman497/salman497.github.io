@@ -9,33 +9,34 @@
     <span class="username username-ellipsis">{{ userName$ | async }}</span>
     <span class="spacer"></span>
     <button
-      mat-raised-button
+      mat-icon-button
       class="toolbar-button"
       (click)="OnLogout()"
-      aria-label="Login"
+      matTooltip="Sign Out"
     >
-      Sign Out
+    <mat-icon>exit_to_app</mat-icon>
     </button>
   </ng-container>
   
   <ng-container *ngIf="(isLoggedIn$ | async) === false">
+    <span class="spacer"></span>
     <button
-      mat-raised-button
+    mat-icon-button
       class="toolbar-button"
       (click)="onLogin()"
-      aria-label="Login"
+      matTooltip="Login"
     >
-      Login
+    <mat-icon>login</mat-icon>
     </button>
   </ng-container>
 
   <button
-    mat-raised-button
+  mat-icon-button
     (click)="onClose()"
     class="toolbar-button"
-    aria-label="Close"
+    matTooltip="Close Window"
   >
-    Close
+  <mat-icon>close</mat-icon>
   </button>
 </mat-toolbar>
 <div class="editor-container">

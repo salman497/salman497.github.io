@@ -23,6 +23,8 @@ mat-toolbar {
 
 .toolbar-button {
   margin-right: 10px; 
+  border-radius: 50%;
+  background-color:#e1e1e1;
 }
 /*********/
 .editor-container {
