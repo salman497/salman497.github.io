@@ -3,7 +3,7 @@ import { addFragmentToElement } from './utils';
 
 export function animateMindMap(diagram, el) {
     const mindMap = diagram.parser.yy.getMindmap();
-    console.log('---------- test-----------', el, mindMap);
+   // console.log('---------- test-----------', el, mindMap);
     fragmentedEdges = [];
     if(mindMap && mindMap.children && mindMap.children.length > 0) {
         const allNodeElements = el.querySelectorAll('.mindmap-node');
