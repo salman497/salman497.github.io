@@ -99,4 +99,8 @@ export class EditorComponent implements OnInit {
   onClose(): void {
     this.onEditorClose.emit();
   }
+
+  onPublish(): void {
+    this.store.dispatch(actions.saveToStorage());
+  }
 }

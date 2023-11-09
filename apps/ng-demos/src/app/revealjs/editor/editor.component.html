@@ -29,7 +29,14 @@
     <mat-icon>login</mat-icon>
     </button>
   </ng-container>
-
+  <button
+  mat-icon-button
+    (click)="onPublish()"
+    class="toolbar-button"
+    matTooltip="Publish"
+  >
+  <mat-icon>save</mat-icon>
+  </button>
   <button
   mat-icon-button
     (click)="onClose()"
@@ -79,7 +86,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <mat-icon>publish</mat-icon> Publish Presentation
+          <mat-icon>publish</mat-icon> Publish & Load Setting
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mono-repo-publish
