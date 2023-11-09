@@ -3,6 +3,8 @@ import { addFragmentToElement } from './utils';
 
 export function animateMindMap(diagram, el) {
     const mindMap = diagram.parser.yy.getMindmap();
+    console.log('---------- test-----------', el, mindMap);
+    fragmentedEdges = [];
     if(mindMap && mindMap.children && mindMap.children.length > 0) {
         const allNodeElements = el.querySelectorAll('.mindmap-node');
         mindMap.children.forEach((node, index) => {
@@ -32,10 +34,24 @@ function traverseMindMap(node, depth, index, parentIndex, allNodeElements, el) {
     }
   }
 
+  let fragmentedEdges= [];
   function findEdge(el, parentIndex, depth, index) {
+     
      const foundEdges = el.querySelectorAll(`.section-edge-${parentIndex}.edge-depth-${depth}`);
-     if (foundEdges.length > index) {
-        return foundEdges[index];
+     const edgeIndex = tryGettingNodeEdgeIndex(parentIndex, depth, index);
+     if (foundEdges.length > edgeIndex) {
+        return foundEdges[edgeIndex];
      }
      return undefined;
+  }
+
+  function tryGettingNodeEdgeIndex(parentIndex, depth, index) {
+    const name = `edge_${parentIndex}_depth_${depth}_index${index}`;
+    if(fragmentedEdges.includes(name)) {
+      return tryGettingNodeEdgeIndex(parentIndex, depth, index+1)
+    }
+    // found index push unique name, so that next time same is not used.
+    fragmentedEdges.push(name);
+    // use it as it is unique never used before;
+    return index;
   }
