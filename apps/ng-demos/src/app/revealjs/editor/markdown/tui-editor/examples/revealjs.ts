@@ -154,6 +154,10 @@ transitionFade: {
   <h4>This slide will show Fade transition overriding Global transitions</h4>`,
   markdown: ``
 },
+autoSlideSpeed: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-autoslide="1000" --&gt;</div>`,
+  markdown: ``
+},
 
 };
 
