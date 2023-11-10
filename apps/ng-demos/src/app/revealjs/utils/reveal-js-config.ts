@@ -5,7 +5,10 @@ import RevealScriptFragment from 'reveal.js-script-fragment';
 import dynamicImports from './reveal-plugins/reveal-js-dynamic-imports';
 import { Editor } from '../state/state';
 
-export async function getRevealConfig(editor: Editor, isEditMode: boolean): Promise<any> {
+export async function getRevealConfig(
+  editor: Editor,
+  isEditMode: boolean
+): Promise<any> {
   const RevealCustomControls = await dynamicImports.customControls();
   const RevealChalkboard = await dynamicImports.chalkboard();
   const RevealZoom = await dynamicImports.zoom();
@@ -38,7 +41,7 @@ export async function getRevealConfig(editor: Editor, isEditMode: boolean): Prom
       RevealMath.KaTeX,
       //   window.RevealMenu
     ],
-   // hashOneBasedIndex: true,
+    // hashOneBasedIndex: true,
     hash: false,
     autoSlide: editor.showAutoSlide ? 2000 : 0,
     // autoPlayMedia: false,
@@ -56,12 +59,14 @@ export async function getRevealConfig(editor: Editor, isEditMode: boolean): Prom
     customcontrols: {
       controls: getCustomControls(editor, isEditMode),
     },
+    mermaid: {
+      theme: getMermaidThemeByRevealTheme(editor.themeSelected)
+    }
   };
 }
 
 function getMenuConfig() {
   return {
-    
     // Specifies which side of the presentation the menu will
     // be shown. Use 'left' or 'right'.
     side: 'left',
@@ -162,4 +167,30 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
     });
   }
   return controls;
+}
+
+function getMermaidThemeByRevealTheme(revealTheme: string): string {
+  /**
+   * Mermaid theme https://mermaid.js.org/config/theming.html
+   * default - This is the default theme for all diagrams.
+   * neutral - This theme is great for black and white documents that will be printed.
+   * dark - This theme goes well with dark-colored elements or dark-mode.
+   * forest - This theme contains shades of green.
+   * base - This is the only theme that can be modified. Use this theme as the base for customizations.
+   */
+  const revealMermaidThemeMap = {
+    Black: 'dark',
+    White: 'neutral',
+    League: 'default', // Assuming default for League as there's no direct match
+    Sky: 'default', // Assuming default for Sky for a light, airy feel
+    Beige: 'neutral', // Beige is close to white, so neutral might be a good fit
+    Simple: 'base', // Simple theme could use a customizable base
+    Serif: 'default', // Serif is a traditional style, so default seems fitting
+    Blood: 'dark', // Blood theme would go well with a dark theme
+    Night: 'dark', // Night theme obviously matches well with dark
+    Moon: 'neutral', // Moon can be a lighter theme, so neutral could work
+    Solarized: 'default', // Solarized is unique, default could be a start
+  };
+
+  return revealMermaidThemeMap[revealTheme] || 'default';
 }

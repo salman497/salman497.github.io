@@ -11,3 +11,9 @@
 .present h6 {
     font-size: 0.4em;
 }
+/********************* Mermaid overrite **********************/
+
+.mermaid .edgeLabel {
+    background-color: var(--r-background-color)!important; 
+   
+}
