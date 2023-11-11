@@ -173,7 +173,6 @@ gantt
   timeline: {
     html: `<div data-language="mermaid" class="toastui-editor-ww-code-block"><pre><code data-language="mermaid">
 timeline
-    title History of Social Media Platform
     2002 : LinkedIn
     2004 : Facebook
          : Google
