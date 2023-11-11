@@ -1,3 +1,4 @@
+import { Constant } from './../utils/constants';
 import { changeLoadingState, setURLSlideNumber } from './../state/actions';
 import {
   Component,
@@ -24,6 +25,10 @@ declare var $: any;
 declare global {
   interface Window {
     invokeFromOutsideOfAngular: any;
+    RevealChalkboard: {
+      toggleChalkboard: ()=> {}
+      toggleNotesCanvas: () => {}
+    }
   }
 }
 @Component({
@@ -37,7 +42,8 @@ export class ViewerComponent
 {
   @Input() editor!: Editor;
   @Input() isEditMode!: boolean | null;
-  @Output() onMenuClick = new EventEmitter<void>();
+  @Input() isEditorVisible!: boolean;
+  @Output() changeEditorView = new EventEmitter<boolean>();
   deck: Reveal.Api | undefined;
 
   constructor(private store: Store<RevealJsState>, 
@@ -114,12 +120,30 @@ export class ViewerComponent
 
   handEventsFromOutsideOfAngular(action: string) {
     console.log('---->>>>>Action From Outside of angular', action);
-    if(action === 'toggle') {
+    if(action === Constant.OutsideAngularEvents.Toggle) {
       this.deck?.toggleOverview();
     }
 
-    if(action === 'menu') {
-      this.onMenuClick.emit();
+    if(action === Constant.OutsideAngularEvents.Menu) {
+      this.changeEditorView.emit(!this.isEditorVisible);
+    }
+
+    if(action === Constant.OutsideAngularEvents.ChalkboardToggle) {
+      if(this.isEditorVisible) {
+        // hide editor for correct draw area 
+        this.changeEditorView.emit(false);
+      }
+     
+      window.RevealChalkboard.toggleChalkboard();
+    }
+
+    if(action === Constant.OutsideAngularEvents.ChalkboardCanvas) {
+      if(this.isEditorVisible) {
+        // hide editor for correct draw area 
+        this.changeEditorView.emit(false);
+      }
+     
+      window.RevealChalkboard.toggleNotesCanvas();
     }
   } 
 

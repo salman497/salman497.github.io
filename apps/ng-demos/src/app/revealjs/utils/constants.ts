@@ -32,6 +32,13 @@ export const Constant = {
         SaveErrorNoEditor: { errorType: 'save-error-editor-not-present', message: 'editor is not loaded property'}
     },
    
+    OutsideAngularEvents: {
+        Toggle: 'toggle',
+        Menu: 'menu',
+        ChalkboardToggle: 'chalkboardToggle',
+        ChalkboardCanvas: 'chalkboardCanvas'
+
+    },
     DefaultName: 'My presentation' as const 
 
 }

@@ -9,8 +9,8 @@
 
   <mat-sidenav-content  class="main-viewer">
     <ng-container *ngIf="editor$ | async as editor">
-      <mono-repo-viewer  *ngIf="editor?.toggleViewer" [editor]="editor" [isEditMode]="isEditMode$ | async"  class="main-viewer" (onMenuClick)="changeEditorVisibility(true)"></mono-repo-viewer>
-      <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" [isEditMode]="isEditMode$ | async" class="main-viewer" (onMenuClick)="changeEditorVisibility(true)"></mono-repo-viewer>
+      <mono-repo-viewer  *ngIf="editor?.toggleViewer" [editor]="editor" [isEditorVisible]="(isEditorVisible$ | async) || false" [isEditMode]="isEditMode$ | async"  class="main-viewer" (changeEditorView)="changeEditorVisibility($event)"></mono-repo-viewer>
+      <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" [isEditorVisible]="(isEditorVisible$ | async) || false" [isEditMode]="isEditMode$ | async"  class="main-viewer" (changeEditorView)="changeEditorVisibility($event)"></mono-repo-viewer>
     </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -155,7 +155,7 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
     controls.push({
       icon: '<i class="fa fa-pen-square"></i>',
       title: 'Toggle chalkboard (B)',
-      action: 'RevealChalkboard.toggleChalkboard();',
+      action: "invokeFromOutsideOfAngular('chalkboardToggle');",
     });
   }
 
@@ -163,7 +163,7 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
     controls.push({
       icon: '<i class="fa fa-pen"></i>',
       title: 'Toggle notes canvas (C)',
-      action: 'RevealChalkboard.toggleNotesCanvas();',
+      action: "invokeFromOutsideOfAngular('chalkboardCanvas');",
     });
   }
   return controls;

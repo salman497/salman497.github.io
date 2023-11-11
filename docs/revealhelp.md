@@ -1,3 +1,5 @@
+# Plugins 
+- Animate SVG, Audio, Poll, seminar, anything https://github.com/rajgoel/reveal.js-plugins/tree/master
 # Supported Syntax 
 
  - Angular slide [here](https://github.com/rangle/angular-training-slides/blob/efab7fcf49d4c8eedca07a49b37cdc745606658c/_includes/hello.md?plain=1#L2)
