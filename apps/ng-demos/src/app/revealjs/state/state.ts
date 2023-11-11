@@ -55,13 +55,13 @@ export interface Editor {
 export const initialState: RevealJsState = {
     editor: {
       content: StartingTemplate,
-      themeSelected: 'White',
+      themeSelected: 'Black',
       animationSelected: 'Slide',
       showPen: true,
       showDrawingArea: true,
       showSlides: true,
       toggleViewer: true,
-      showAutoSlide: false,
+      showAutoSlide: true,
     },
     editorInitialized: false,
     loading: true,
