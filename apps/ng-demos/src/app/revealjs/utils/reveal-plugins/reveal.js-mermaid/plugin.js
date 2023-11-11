@@ -26,11 +26,17 @@ const Plugin = {
       var graphDefinition = mermaidElement.textContent.trim();
 
       try {
-        const { svg } = await mermaid.render(`mermaid-${Math.random().toString(36).substring(2)}`, graphDefinition);
-        mermaidElement.innerHTML = svg;
-        if (mermaidElement.classList.contains('mermaid-steps')) { 
-          await animateMermaid(mermaidElement, graphDefinition);
+        const isParsed = await mermaid.parse(graphDefinition);
+        if(isParsed) {
+          const { svg } = await mermaid.render(`mermaid-${Math.random().toString(36).substring(2)}`, graphDefinition);
+          mermaidElement.innerHTML = svg;
+          if (mermaidElement.classList.contains('mermaid-steps')) { 
+            await animateMermaid(mermaidElement, graphDefinition);
+          }
+        } else {
+          console.error('Unable to parse mermaid code',graphDefinition);
         }
+        
          
       } catch (error) {
         let errorStr = "";
@@ -42,7 +48,7 @@ const Plugin = {
           errorStr = error.message;
         }
         console.error(errorStr, { error, graphDefinition, el: mermaidElement });
-        mermaidElement.innerHTML = errorStr;
+        // mermaidElement.innerHTML = errorStr;
       }
     };
   },

@@ -17,3 +17,7 @@
     background-color: var(--r-background-color)!important; 
    
 }
+
+.error-text {
+    display: none;
+}

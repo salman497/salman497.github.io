@@ -60,7 +60,8 @@ async function createChart(canvas, data) {
       );
     } catch (err) {
       console.error(err);
-      canvas.textContent = err.toString();
+      canvas.textContent = 'Chart render error!';
+      //canvas.textContent = err.toString();
     }
     // canvas.textContent = "done";
   } else {

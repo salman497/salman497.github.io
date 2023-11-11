@@ -104,25 +104,15 @@ media: {
 markdown: ``
 },
 colorBackground: {
-  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
-&lt;section data-background-color="rgb(70, 70, 255)"&gt;
-  &lt;h2&gt;Color Background&lt;/h2&gt;
-&lt;/section&gt;</code></pre></div>`,
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-background-color="rgb(70, 70, 255)" --&gt;</div>`,
   markdown: ``
 },
 imageBackground: {
-  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
-&lt;section data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3"&gt;
-  &lt;h2&gt;Image Background&lt;/h2&gt;
-&lt;/section&gt;</code></pre></div>`,
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3" --&gt;</div>`,
   markdown: ``
 },
 videoBackground: {
-  html: `<div data-language="html" class="toastui-editor-ww-code-block"><pre><code data-language="html">
-&lt;section data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" 
-  data-background-video-loop data-background-video-muted&gt;
-&lt;h2&gt;Video Background&lt;/h2&gt;
-&lt;/section&gt;</code></pre></div>`,
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" --&gt;</div>`,
   markdown: ``
 },
 iframeBackgrounds: {
