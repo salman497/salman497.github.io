@@ -36,8 +36,8 @@ export const StartingTemplate = `
 ##### *Create animated mindmap using simple syntax of mermaid!*
 
 ***
-
-\`\`\`mermaid
+<!-- .slide: data-autoslide="600" -->
+\`\`\`mermaid-steps
 
 mindmap
     root)Feature Highlight(
@@ -75,8 +75,9 @@ mindmap
 ##### *Create animated flowcharts using simple syntax of mermaid!*
 
 ***
+<!-- .slide: data-autoslide="600" -->
 
-\`\`\`mermaid
+\`\`\`mermaid-steps
 
 flowchart LR
 A(Presentation)

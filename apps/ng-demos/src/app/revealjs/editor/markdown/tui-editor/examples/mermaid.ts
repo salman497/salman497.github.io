@@ -185,11 +185,8 @@ timeline
   sankey: {
     html: `<div data-language="mermaid" class="toastui-editor-ww-code-block"><pre><code data-language="mermaid">
 sankey-beta
-
     Bio-conversion,Losses,26.862
-    
     Bio-conversion,Solid,280.322
-    
     Bio-conversion,Gas,81.144
     </code></pre></div>`,
     markdown: ``
