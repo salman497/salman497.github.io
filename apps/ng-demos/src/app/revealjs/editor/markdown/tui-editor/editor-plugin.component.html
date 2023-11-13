@@ -262,4 +262,13 @@
   <button mat-menu-item (click)="onClick('autoSlideSpeed')">
     <i class="menu-icon fas fa-play"></i>Auto Play Speed
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="addCustomEvent">
+    <i class="menu-icon fas fa-bolt"></i>Custom Event
+  </button>
+  <mat-menu #addCustomEvent="matMenu">
+    <button mat-menu-item (click)="onClick('customEventOpenMenu')">
+      <i class="menu-icon fas fa-bars"></i>Open Menu 
+    </button>
+    </mat-menu>  
 </mat-menu>
+

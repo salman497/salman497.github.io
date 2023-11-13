@@ -103,8 +103,8 @@ export class ViewerComponent
             this.store.dispatch(changeLoadingState({ loading: false }));
           }, 100);
         });
-        this.deck.addEventListener( 'customevent', function() {
-          console.log( '"customevent" has fired2' );
+        this.deck.addEventListener('openMenu', () => {
+          this.changeEditorView.emit(true);
         });
         // define custom event
 

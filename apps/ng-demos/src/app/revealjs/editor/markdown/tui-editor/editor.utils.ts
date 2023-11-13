@@ -25,7 +25,7 @@ export function initEditor(
     initialEditType: 'wysiwyg', // Set to 'wysiwyg' for the WYSIWYG mode
     previewStyle: 'tab',
     initialValue: markdown,
-    height: '600px',
+    height: '60vh',
     plugins: [editorPlugin],
     toolbarItems: getToolbars(),
   });

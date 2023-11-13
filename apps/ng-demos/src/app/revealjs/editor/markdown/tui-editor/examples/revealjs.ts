@@ -148,6 +148,10 @@ autoSlideSpeed: {
   html: `<div data-html-comment="true">&lt;!-- .slide: data-autoslide="1000" --&gt;</div>`,
   markdown: ``
 },
+customEventOpenMenu: {
+  html: `<div data-html-comment="true">&lt;!-- .slide: data-state="openMenu" --&gt;</div>`,
+  markdown: ``
+},
 
 };
 
