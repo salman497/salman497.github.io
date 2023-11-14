@@ -135,8 +135,8 @@ export class MarkDownComponent implements OnInit, OnDestroy, AfterViewInit {
     ])
       .pipe(
         filter(
-          ([_, isEditorVisible, isEditorLoaded]) =>
-            isEditorVisible === true && isEditorLoaded
+          ([slideNumber, isEditorVisible, isEditorLoaded]) =>
+          slideNumber !== undefined && isEditorVisible === true && isEditorLoaded
         ),
         map(([slideNumber]) => slideNumber),
         distinctUntilChanged(),
