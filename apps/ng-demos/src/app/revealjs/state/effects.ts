@@ -24,6 +24,7 @@ import {
   setLoginUserInfo,
   loadAllLoginUserEditors,
   loadLoginUserEditor,
+  updateEditorShowAutoSlides,
 } from './actions';
 import { EMPTY, from, of } from 'rxjs';
 import { initialState, Editor, LoginUser } from './state';
@@ -237,6 +238,10 @@ loadEditorStateFailure$ = createEffect(() =>
                 name: Constant.UrlName.Default,
               })
             );
+
+            //  disable auto slide when switching from auto slide
+           this.store.dispatch(updateEditorShowAutoSlides({ showAutoSlide: false }));
+           
             setLocalData('local', fullState);
             return EMPTY;
           }

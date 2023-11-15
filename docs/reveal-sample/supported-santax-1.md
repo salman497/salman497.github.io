@@ -747,3 +747,19 @@ See the next slide for a demo with the contents of this code block. {.fragment .
 
 - [Try the online editor](http://slides.com)
 - [Source code & documentation](https://github.com/hakimel/reveal.js)
+
+
+---
+
+<!-- .slide: data-fullscreen-->
+
+<iframe  class="stretch" data-src="https://www.evilznet.com/" ></iframe> 
+
+---
+
+audio plugin 
+<!-- .slide: data-audio-text="Reveal js is an HTML presentation framework with which you can easily create and share beautiful presentations" -->
+
+---
+<!-- .slide: data-background="../img/products/cloudbees.png" data-background-size="contain" -->
+<!-- .slide: data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3" data-background-size="600px" -->
