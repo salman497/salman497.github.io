@@ -19,7 +19,7 @@ export const StartingTemplate = `
 
 # Magic
 
-#### Easy way to create powerful Presentations! 🪄
+#### Transform your ideas into stunning presentations!
 
 ***
 
@@ -29,32 +29,44 @@ export const StartingTemplate = `
 
 # Magic
 
-#### Easy way to create powerful Presentations! 🪄
+#### Transform your ideas into stunning presentations!
 
-###### Powered by RevealJs, Mermaid, ChartJS, TUI Editor and many more.
+##### 🚀 Powered by RevealJs, Mermaid, ChartJS, TUI Editor, and AI.
 
 ***
+
 <!-- .slide: data-auto-animate -->
+
 ## Lets explore the magic!
 
 ***
+
 <!-- .slide: data-state="stopAutoSlide" -->
+
 <!-- .slide: data-auto-animate -->
+
 ## Lets explore the magic!
-##### Click Next (>) or Forward arrow key for next slide.
 
-***
-<!-- .slide: data-auto-animate -->
-## Live Editing Experience!
+##### Tap Next (>) or use the Forward arrow key to continue.
 
 ***
 
 <!-- .slide: data-auto-animate -->
-## Live Editing Experience!
-##### *Click Menu (☰ ) to see live editing experience.*
+
+## Real-Time Editing
 
 ***
+
+<!-- .slide: data-auto-animate -->
+
+## Real-Time Editing
+
+##### *Click the Menu (☰ ) to see live editable presentation.*
+
+***
+
 <!-- .slide: data-state="openMenu" -->
+
 <!-- .slide: data-auto-animate -->
 
 ### Diagrams
@@ -65,7 +77,7 @@ export const StartingTemplate = `
 
 ### Diagrams
 
-##### *Lets explore the diagrams you can present!*
+##### *Visualize ideas with a range of diagrams!*
 
 ***
 
@@ -266,26 +278,37 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-### Diagrams - Step by Step
+## Draw on top of your Presentation
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-### Diagrams - Step by Step
+## Draw on top of your Presentation
 
-##### *Present your Diagrams Step by Step*
+![image](/img/draw.jpg)
 
 ***
 
 <!-- .slide: data-auto-animate -->
+
+#### Animated Diagrams
+***
+
+<!-- .slide: data-auto-animate -->
+
+#### Animated Diagrams
+
+##### *Showcase your diagrams dynamically, step by step.*
+
+***
 
 ### Mind Map - Step By Step
 
 \`\`\`mermaid-steps
 
 mindmap
-    root)Feature Highlight(
+    root)Our Feature Highlight(
         Slide
             Horizontal
             Veritical
@@ -359,17 +382,17 @@ sequenceDiagram
 
 <!-- .slide: data-auto-animate -->
 
-## Many more samples...
+## Explore many samples
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Many more samples...
+## Explore many samples
 
-##### In Editor, Use ➕ icon to quickly insert many samples.
+##### Simply click ➕ icon in the editor to insert various samples..
 
-![image](http://localhost:4300/img/add-sample.jpg)
+![image](/img/add-sample.jpg)
 
 ***
 
@@ -406,9 +429,15 @@ Stacked Images
 
 <!-- .slide: data-transition="zoom" -->
 
-## Custom Slide Transition
+## Unique Slide Transitions
 
-##### This slide will show Zoom transition overriding Global transition, several other options available
+##### This slide showed 'Zoom' effect and other transitions avaiable!
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Ready for More?
 
 ***
 
@@ -416,23 +445,20 @@ Stacked Images
 
 ## Want more ?
 
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Want more ?
-
-##### In Editor, Use ➕ Plus icon to explore Menu with plenty of options.
-
-![image](/img/add-sample.jpg)
+##### *Explore the endless possibilities.*
 
 ***
 
 <!-- .slide: data-auto-animate -->
-## Markdown Magic 
+
+## Markdown Magic
+
 ***
+
 <!-- .slide: data-auto-animate -->
-## Markdown Magic 
-##### *Go ahead and Present your magic!*
+
+## Markdown Magic
+
+##### *It's time to captivate your audience!*
 
 `;
