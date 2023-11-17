@@ -98,11 +98,11 @@ export class ViewerComponent
         });
       }
 
-      if (previous.showAutoSlide !== this.editor.showAutoSlide) {
-        this.deck?.configure({
-          autoSlide: this.editor.showAutoSlide ? 2000 : 0,
-        });
-      }
+      // if (previous.showAutoSlide !== this.editor.showAutoSlide) {
+      //   this.deck?.configure({
+      //     autoSlide: this.editor.showAutoSlide ? 2000 : 0,
+      //   });
+      // }
     }
   }
   async ngAfterViewInit() {
