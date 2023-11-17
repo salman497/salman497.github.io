@@ -81,10 +81,11 @@ export class ViewerComponent
     }, 2000);
   }
   ngOnChanges(changes: SimpleChanges) {
-    this.deck?.configure({
-      transition: this.editor.animationSelected.toLowerCase() as any,
-      autoSlide: this.editor.showAutoSlide ? 2000 : 0,
-    });
+    if (changes['editor'] && changes['editor'].previousValue?.animationSelected !== this.editor.animationSelected) {
+      this.deck?.configure({
+        transition: this.editor.animationSelected.toLowerCase() as any,
+      });
+    }
   }
   async ngAfterViewInit() {
     try {
