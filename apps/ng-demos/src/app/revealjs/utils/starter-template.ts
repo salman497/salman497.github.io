@@ -41,7 +41,7 @@ export const StartingTemplate = `
 <!-- .slide: data-state="stopAutoSlide" -->
 <!-- .slide: data-auto-animate -->
 ## Lets explore the magic!
-##### Click Next Slide (>) to move forward.
+##### Click Next (>) or Forward arrow key for next slide.
 
 ***
 <!-- .slide: data-auto-animate -->

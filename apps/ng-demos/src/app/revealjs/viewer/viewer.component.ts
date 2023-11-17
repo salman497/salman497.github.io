@@ -13,6 +13,7 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Reveal from 'reveal.js';
@@ -79,10 +80,10 @@ export class ViewerComponent
       }
     }, 2000);
   }
-  ngOnChanges() {
-    console.log('>>>>>', this.editor);
+  ngOnChanges(changes: SimpleChanges) {
     this.deck?.configure({
       transition: this.editor.animationSelected.toLowerCase() as any,
+      autoSlide: this.editor.showAutoSlide ? 2000 : 0,
     });
   }
   async ngAfterViewInit() {
@@ -107,7 +108,9 @@ export class ViewerComponent
           this.changeEditorView.emit(true);
         });
         this.deck.addEventListener('stopAutoSlide', () => {
-        //  this.store.dispatch(updateEditorShowAutoSlides({ showAutoSlide: false }));
+          setTimeout(() => {
+          this.store.dispatch(updateEditorShowAutoSlides({ showAutoSlide: false }));
+        }, 1000);
           this.deck?.toggleAutoSlide(false);
         });
         // define custom event
