@@ -443,7 +443,7 @@ Stacked Images
 
 <!-- .slide: data-auto-animate -->
 
-## Want more ?
+## Ready for More?
 
 ##### *Explore the endless possibilities.*
 
