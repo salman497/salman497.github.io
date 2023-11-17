@@ -1,5 +1,9 @@
 import { Constant } from './../utils/constants';
-import { changeLoadingState, setURLSlideNumber, updateEditorShowAutoSlides } from './../state/actions';
+import {
+  changeLoadingState,
+  setURLSlideNumber,
+  updateEditorShowAutoSlides,
+} from './../state/actions';
 import {
   Component,
   AfterViewInit,
@@ -27,9 +31,9 @@ declare global {
   interface Window {
     invokeFromOutsideOfAngular: any;
     RevealChalkboard: {
-      toggleChalkboard: ()=> {}
-      toggleNotesCanvas: () => {}
-    }
+      toggleChalkboard: () => {};
+      toggleNotesCanvas: () => {};
+    };
   }
 }
 @Component({
@@ -47,23 +51,28 @@ export class ViewerComponent
   @Output() changeEditorView = new EventEmitter<boolean>();
   deck: Reveal.Api | undefined;
 
-  constructor(private store: Store<RevealJsState>, 
-              private renderer: Renderer2, 
-              private el: ElementRef) {
-                
-              }
+  constructor(
+    private store: Store<RevealJsState>,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {}
 
   ngOnInit() {
-    window.invokeFromOutsideOfAngular = function(action: string) {
-      const customEvent = new CustomEvent('customControlEvent', { detail: action });
+    window.invokeFromOutsideOfAngular = function (action: string) {
+      const customEvent = new CustomEvent('customControlEvent', {
+        detail: action,
+      });
       document.querySelector('mono-repo-viewer')?.dispatchEvent(customEvent);
-    }
-    
+    };
 
-    this.renderer.listen(this.el.nativeElement, 'customControlEvent', (event) => {
-      // Access component properties and invoke functions here
-      this.handEventsFromOutsideOfAngular(event.detail);
-    });
+    this.renderer.listen(
+      this.el.nativeElement,
+      'customControlEvent',
+      (event) => {
+        // Access component properties and invoke functions here
+        this.handEventsFromOutsideOfAngular(event.detail);
+      }
+    );
   }
   ngOnDestroy() {
     if (this.deck) {
@@ -81,7 +90,11 @@ export class ViewerComponent
     }, 2000);
   }
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['editor'] && changes['editor'].previousValue?.animationSelected !== this.editor.animationSelected) {
+    if (
+      changes['editor'] &&
+      changes['editor'].previousValue?.animationSelected !==
+        this.editor.animationSelected
+    ) {
       this.deck?.configure({
         transition: this.editor.animationSelected.toLowerCase() as any,
       });
@@ -90,13 +103,21 @@ export class ViewerComponent
   async ngAfterViewInit() {
     try {
       this.changeTheme(this.editor.themeSelected.toLowerCase());
-      const config = await getRevealConfig(this.editor, this.isEditMode === null ? false: this.isEditMode);
+      const config = await getRevealConfig(
+        this.editor,
+        this.isEditMode === null ? false : this.isEditMode
+      );
       if (!this.deck) {
         this.deck = new Reveal($('#revealDiv'));
         this.deck.initialize(config);
         this.deck.on('slidechanged', (event: any) => {
-           updateWindowHash(event);
-           this.store.dispatch(setURLSlideNumber({ slideNumber: event.indexh, slideNumberVertical: event.indexv }));
+          updateWindowHash(event);
+          this.store.dispatch(
+            setURLSlideNumber({
+              slideNumber: event.indexh,
+              slideNumberVertical: event.indexv,
+            })
+          );
         });
         this.deck.on('ready', () => {
           // adjust layout for any dynamic change
@@ -110,13 +131,14 @@ export class ViewerComponent
         });
         this.deck.addEventListener('stopAutoSlide', () => {
           setTimeout(() => {
-          this.store.dispatch(updateEditorShowAutoSlides({ showAutoSlide: false }));
-        }, 1000);
+            this.store.dispatch(
+              updateEditorShowAutoSlides({ showAutoSlide: false })
+            );
+          }, 1000);
           this.deck?.toggleAutoSlide(false);
         });
         // define custom event
 
-       
         // window.customControlEvent = (eventName: string) => {
         //   console.log('---------------customControlEvent------------------', eventName);
         // }
@@ -128,32 +150,32 @@ export class ViewerComponent
 
   handEventsFromOutsideOfAngular(action: string) {
     console.log('---->>>>>Action From Outside of angular', action);
-    if(action === Constant.OutsideAngularEvents.Toggle) {
+    if (action === Constant.OutsideAngularEvents.Toggle) {
       this.deck?.toggleOverview();
     }
 
-    if(action === Constant.OutsideAngularEvents.Menu) {
+    if (action === Constant.OutsideAngularEvents.Menu) {
       this.changeEditorView.emit(!this.isEditorVisible);
     }
 
-    if(action === Constant.OutsideAngularEvents.ChalkboardToggle) {
-      if(this.isEditorVisible) {
-        // hide editor for correct draw area 
+    if (action === Constant.OutsideAngularEvents.ChalkboardToggle) {
+      if (this.isEditorVisible) {
+        // hide editor for correct draw area
         this.changeEditorView.emit(false);
       }
-     
+
       window.RevealChalkboard.toggleChalkboard();
     }
 
-    if(action === Constant.OutsideAngularEvents.ChalkboardCanvas) {
-      if(this.isEditorVisible) {
-        // hide editor for correct draw area 
+    if (action === Constant.OutsideAngularEvents.ChalkboardCanvas) {
+      if (this.isEditorVisible) {
+        // hide editor for correct draw area
         this.changeEditorView.emit(false);
       }
-     
+
       window.RevealChalkboard.toggleNotesCanvas();
     }
-  } 
+  }
 
   changeTheme(themeName: string): void {
     const linkEl = document.createElement('link');
