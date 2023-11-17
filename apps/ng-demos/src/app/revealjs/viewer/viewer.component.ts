@@ -90,14 +90,19 @@ export class ViewerComponent
     }, 2000);
   }
   ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['editor'] &&
-      changes['editor'].previousValue?.animationSelected !==
-        this.editor.animationSelected
-    ) {
-      this.deck?.configure({
-        transition: this.editor.animationSelected.toLowerCase() as any,
-      });
+    if (changes['editor']) {
+      const previous = changes['editor'].previousValue || {};
+      if (previous.animationSelected !== this.editor.animationSelected) {
+        this.deck?.configure({
+          transition: this.editor.animationSelected.toLowerCase() as any,
+        });
+      }
+
+      if (previous.showAutoSlide !== this.editor.showAutoSlide) {
+        this.deck?.configure({
+          autoSlide: this.editor.showAutoSlide ? 2000 : 0,
+        });
+      }
     }
   }
   async ngAfterViewInit() {
