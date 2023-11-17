@@ -1,5 +1,5 @@
 import { Constant } from './../utils/constants';
-import { changeLoadingState, setURLSlideNumber } from './../state/actions';
+import { changeLoadingState, setURLSlideNumber, updateEditorShowAutoSlides } from './../state/actions';
 import {
   Component,
   AfterViewInit,
@@ -105,6 +105,10 @@ export class ViewerComponent
         });
         this.deck.addEventListener('openMenu', () => {
           this.changeEditorView.emit(true);
+        });
+        this.deck.addEventListener('stopAutoSlide', () => {
+        //  this.store.dispatch(updateEditorShowAutoSlides({ showAutoSlide: false }));
+          this.deck?.toggleAutoSlide(false);
         });
         // define custom event
 

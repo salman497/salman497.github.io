@@ -34,122 +34,83 @@ export const StartingTemplate = `
 ###### Powered by RevealJs, Mermaid, ChartJS, TUI Editor and many more.
 
 ***
+<!-- .slide: data-auto-animate -->
+## Lets explore the magic!
+
+***
+<!-- .slide: data-state="stopAutoSlide" -->
+<!-- .slide: data-auto-animate -->
+## Lets explore the magic!
+##### Click Next Slide (>) to move forward.
+
+***
+<!-- .slide: data-auto-animate -->
+## Live Editing Experience!
+
+***
 
 <!-- .slide: data-auto-animate -->
+## Live Editing Experience!
+##### *Click Menu (☰ ) to see live editing experience.*
 
-### Mind Map
+***
+<!-- .slide: data-state="openMenu" -->
+<!-- .slide: data-auto-animate -->
 
-###### Create mind map in easy mermaid syntax.
+### Diagrams
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-<!-- .slide: data-autoslide="400" -->
+### Diagrams
 
-### Mind Map
-
-###### *Below example show how to create animated mind map!*
-
-\`\`\`mermaid-steps
-
-mindmap
-    root)Feature Highlight(
-        Slide
-            Horizontal
-            Veritical
-        Diagrams                
-                Flowchart
-                Sequence
-                Mind Map
-                Bar
-                Line
-        Animations
-            Steps
-            Auto Animate
-        Backgrounds
-            Image
-            Video
-            Iframe
-        Transitions
-            Zoom
-            Slide
-        Others
-            Theme
-            Draw
-            Add
-              100+ Samples
-            Many More...
-\`\`\`
+##### *Lets explore the diagrams you can present!*
 
 ***
-
-<!-- .slide: data-auto-animate -->
 
 ### Flow Chart
 
-###### *Create animated flowcharts using simple syntax of mermaid!*
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-<!-- .slide: data-autoslide="400" -->
-
-### Flow Chart
-
-###### *Below example show how to create animated flow chart diagram!*
-
-\`\`\`mermaid-steps
+\`\`\`mermaid
 
 flowchart LR
-A(Presentation)
-B{How to make ?}
-C[ Editor]
-D[[fa:fa-plus Add samples]]
-E[[Update]]
-F(fa:fa-chalkboard-teacher My Presentation)
-G1(fa:fa-thumbs-up)
-G2(fa:fa-heart)
-G3(fa:fa-trophy)
-A --> B
-B -.Open.-> C
-C -..-> D
-D -..-> E
-E -..-> D
-E -.Present it.-> F
-G1 -.nice job.-> F
-G2 -.loved it.-> F
-G3 -.winner.-> F
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
 \`\`\`
 
 ***
 
-<!-- .slide: data-auto-animate -->
-
 ### Sequence Diagram
 
-###### *Create animated sequence diagram using simple syntax of mermaid!*
+\`\`\`mermaid
+
+sequenceDiagram
+    Alice->>+John: Hello John, how are you?
+    Alice->>+John: John, can you hear me?
+    John-->>-Alice: Hi Alice, I can hear you!
+    John-->>-Alice: I feel great!
+\`\`\`
 
 ***
 
-<!-- .slide: data-auto-animate -->
+### Mind Map
 
-<!-- .slide: data-autoslide="400" -->
+\`\`\`mermaid
 
-### Sequence Diagram
-
-###### *Below example show how to create animated sequence diagram!*
-
-\`\`\`mermaid-steps
-
-sequenceDiagram
-    Me->>+Markdown Magic: create presentation
-    Me-->>Markdown Magic: Add Samples
-    Me-->>Markdown Magic: Update Content
-    Markdown Magic->>-Me: Presentation Url
-    Me-->>Audience: Present
-    Audience-->>Me: Awesome Presentation!
+mindmap
+  root((mindmap))
+    Origins
+      Long history
+      Popularisation
+    Research
+      On effectivness<br/>and features
+      On Automatic creation
+    Tools
+      Pen and paper
+      Mermaid
 \`\`\`
 
 ***
@@ -305,25 +266,120 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-## Want more diagrams ?
+### Diagrams - Step by Step
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Want more diagrams ?
+### Diagrams - Step by Step
 
-##### In Editor, Use ➕Plus icon to explore Menu with plenty of options.
+##### *Present your Diagrams Step by Step*
 
 ***
 
-### Background Color
+<!-- .slide: data-auto-animate -->
+
+### Mind Map - Step By Step
+
+\`\`\`mermaid-steps
+
+mindmap
+    root)Feature Highlight(
+        Slide
+            Horizontal
+            Veritical
+        Diagrams                
+                Flowchart
+                Sequence
+                Mind Map
+                Bar
+                Line
+        Animations
+            Steps
+            Auto Animate
+        Backgrounds
+            Image
+            Video
+            Iframe
+        Transitions
+            Zoom
+            Slide
+        Others
+            Theme
+            Draw
+            Add
+              100+ Samples
+            Many More...
+\`\`\`
+
+***
+
+### Flow Chart - Step by Step
+
+\`\`\`mermaid-steps
+
+flowchart LR
+A(Presentation)
+B{How to make ?}
+C[ Editor]
+D[[fa:fa-plus Add samples]]
+E[[Update]]
+F(fa:fa-chalkboard-teacher My Presentation)
+G1(fa:fa-thumbs-up)
+G2(fa:fa-heart)
+G3(fa:fa-trophy)
+A --> B
+B -.Open.-> C
+C -..-> D
+D -..-> E
+E -..-> D
+E -.Present it.-> F
+G1 -.nice job.-> F
+G2 -.loved it.-> F
+G3 -.winner.-> F
+\`\`\`
+
+***
+
+### Sequence Diagram - Step by Step
+
+\`\`\`mermaid-steps
+
+sequenceDiagram
+    Me->>+Markdown Magic: create presentation
+    Me-->>Markdown Magic: Add Samples
+    Me-->>Markdown Magic: Update Content
+    Markdown Magic->>-Me: Presentation Url
+    Me-->>Audience: Present
+    Audience-->>Me: Awesome Presentation!
+\`\`\`
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Many more samples...
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Many more samples...
+
+##### In Editor, Use ➕ icon to quickly insert many samples.
+
+![image](http://localhost:4300/img/add-sample.jpg)
+
+***
+
+### Change Background Color
 
 <!-- .slide: data-background-color="rgb(70, 70, 255)" -->
 
 ***
 
-### Background Image
+### Set Background Image
 
 <!-- .slide: data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3" -->
 
@@ -331,7 +387,7 @@ classDiagram
 
 <!-- .slide: data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" -->
 
-### Background Video
+### Set Background Video
 
 ***
 
@@ -358,20 +414,25 @@ Stacked Images
 
 <!-- .slide: data-auto-animate -->
 
-## Still want more ?
+## Want more ?
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Still want more ?
+## Want more ?
 
-##### In Editor, Use ➕Plus icon to explore Menu with plenty of options.
+##### In Editor, Use ➕ Plus icon to explore Menu with plenty of options.
+
+![image](/img/add-sample.jpg)
 
 ***
 
-<!-- .slide: data-transition="zoom" -->
-
-## Thank you!
+<!-- .slide: data-auto-animate -->
+## Markdown Magic 
+***
+<!-- .slide: data-auto-animate -->
+## Markdown Magic 
+##### *Go ahead and Present your magic!*
 
 `;
