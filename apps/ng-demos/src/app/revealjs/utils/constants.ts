@@ -23,7 +23,8 @@ export const Constant = {
         Startup: 'startup' as const
     },
     UrlName: {
-        Default: 'my-presentation' as const
+        Default: 'my-presentation' as const,
+        New: 'new-presentation' as const
     },
     Error: {
         LoadErrorNoEditPermission: { errorType: 'load-error-access', message: 'Edit permission is not given.' },

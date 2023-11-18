@@ -263,20 +263,22 @@ loadEditorStateFailure$ = createEffect(() =>
         ofType(setURLInfo),
         withLatestFrom(this.store.select(selectUrlInfo)),
         switchMap(([_ac, param]) => {
+          const hash = param.resetHash ? '' : window.location.hash;
           if (param.loadType === Constant.UrlLoadType.Local) {
             this.location.replaceState(
-              `/${Constant.UrlLoadType.Local}/${Constant.UrlMode.Edit}/${param.name}${window.location.hash}`
+              `/${Constant.UrlLoadType.Local}/${Constant.UrlMode.Edit}/${param.name}${hash}`
             );
             return EMPTY;
           }
           if (param.loadType === Constant.UrlLoadType.Published) {
             this.location.replaceState(
-              `/${Constant.UrlLoadType.Published}/${param.mode}/${param.id}/${param.name}${window.location.hash}`
+              `/${Constant.UrlLoadType.Published}/${param.mode}/${param.id}/${param.name}${hash}`
             );
             return EMPTY;
           }
+          
           // return startup state
-          this.location.replaceState(`/${Constant.UrlLoadType.Startup}${window.location.hash}`);
+          this.location.replaceState(`/${Constant.UrlLoadType.Startup}${hash}`);
           return EMPTY;
         })
       ),

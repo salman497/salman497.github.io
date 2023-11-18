@@ -136,7 +136,7 @@ export const revealJsReducer = createReducer(
     },
     modified: getCurrentISODataTime()
   })),
-  on(setURLInfo, (state, {id, loadType, mode, name, slideNumber, slideNumberVertical} ) => ({
+  on(setURLInfo, (state, {id, loadType, mode, name, slideNumber, slideNumberVertical, resetHash} ) => ({
     ...state,
     urlInfo: {
       id,
@@ -144,7 +144,8 @@ export const revealJsReducer = createReducer(
       mode,
       name,
       slideNumber,
-      slideNumberVertical
+      slideNumberVertical,
+      resetHash
     },
   })),
   on(setURLSlideNumber, (state, {slideNumber, slideNumberVertical} ) => ({

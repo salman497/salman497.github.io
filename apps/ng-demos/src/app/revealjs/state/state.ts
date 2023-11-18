@@ -15,6 +15,7 @@ export interface URLInfo {
     name?: string
     slideNumber?: string,
     slideNumberVertical?: string
+    resetHash?: boolean
 } 
 
 export interface LoginUser {
