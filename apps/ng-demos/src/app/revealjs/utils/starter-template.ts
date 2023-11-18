@@ -292,6 +292,22 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
+## Explore many samples
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Explore many samples
+
+##### Simply click ➕ icon in the editor to insert various samples..
+
+![image](/img/add-sample.jpg)
+
+***
+
+<!-- .slide: data-auto-animate -->
+
 #### Animated Diagrams
 ***
 
@@ -377,22 +393,6 @@ sequenceDiagram
     Me-->>Audience: Present
     Audience-->>Me: Awesome Presentation!
 \`\`\`
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Explore many samples
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Explore many samples
-
-##### Simply click ➕ icon in the editor to insert various samples..
-
-![image](/img/add-sample.jpg)
 
 ***
 
