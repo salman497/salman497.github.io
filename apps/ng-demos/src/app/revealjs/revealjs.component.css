@@ -22,11 +22,20 @@
 }
 
 .main-editor {
-  width: 30%;
   background-color: #f8f9fa;
+  overflow-x: hidden;
 }
 
-
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: -5px; /* Adjust as needed to align with the right edge */
+  height: 100%;
+  width: 10px; /* Adjust width for easier interaction */
+  cursor: ew-resize;
+  z-index: 10; /* Ensure it's above other elements */
+  transform: none!important;
+}
 
 /*******Loading Spinner ***/
 .loading-container {

@@ -2,12 +2,13 @@
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 <mat-sidenav-container  class="main-container">
-  <mat-sidenav *ngIf="isEditMode$ | async" #editorSidenav mode="side" [opened]="(isEditorVisible$ | async)" (openedChange)="changeEditorVisibility($event)" class="main-editor">
-      <mono-repo-editor 
+  <mat-sidenav *ngIf="isEditMode$ | async" #editorSidenav [style]="{ width: sideNavWidth }" mode="side" [opened]="(isEditorVisible$ | async)" (openedChange)="changeEditorVisibility($event)" class="main-editor">
+    <div #dragHandle class="resize-handle" cdkDrag cdkDragAxis="x" (cdkDragMoved)="onDragMoved($event)"></div>
+    <mono-repo-editor 
       (onEditorClose)="changeEditorVisibility(false)"></mono-repo-editor>
   </mat-sidenav>
 
-  <mat-sidenav-content  class="main-viewer">
+  <mat-sidenav-content  class="main-viewer" [style]="{'margin-left': sideNavWidth }">
     <ng-container *ngIf="editor$ | async as editor">
       <mono-repo-viewer  *ngIf="editor?.toggleViewer" [editor]="editor" [isEditorVisible]="(isEditorVisible$ | async) || false" [isEditMode]="isEditMode$ | async"  class="main-viewer" (changeEditorView)="changeEditorVisibility($event)"></mono-repo-viewer>
       <mono-repo-viewer *ngIf="!editor?.toggleViewer" [editor]="editor" [isEditorVisible]="(isEditorVisible$ | async) || false" [isEditMode]="isEditMode$ | async"  class="main-viewer" (changeEditorView)="changeEditorVisibility($event)"></mono-repo-viewer>

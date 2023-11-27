@@ -30,7 +30,7 @@ import { PublishComponent } from './editor/publish/publish.component';
 import { MarkDownComponent } from './editor/markdown/markdown.component';
 import { SettingsComponent } from './editor/settings/settings.component';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, MarkDownComponent, SettingsComponent],
   imports: [
@@ -52,6 +52,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ClipboardModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    DragDropModule,
     StoreModule.forRoot({
       revealJs: revealJsReducer
     }),
