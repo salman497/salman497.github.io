@@ -26,6 +26,9 @@
   overflow-x: hidden;
 }
 
+.resize-handle:hover {
+  background-color: gray;
+}
 .resize-handle {
   position: absolute;
   top: 0;
