@@ -94,6 +94,32 @@ flowchart LR
 \`\`\`
 
 ***
+### Flow Chart - Step by Step
+
+\`\`\`mermaid-steps
+
+flowchart LR
+A(Presentation)
+B{How to make ?}
+C[ Editor]
+D[[fa:fa-plus Add samples]]
+E[[Update]]
+F(fa:fa-chalkboard-teacher My Presentation)
+G1(fa:fa-thumbs-up)
+G2(fa:fa-heart)
+G3(fa:fa-trophy)
+A --> B
+B -.Open.-> C
+C -..-> D
+D -..-> E
+E -..-> D
+E -.Present it.-> F
+G1 -.nice job.-> F
+G2 -.loved it.-> F
+G3 -.winner.-> F
+\`\`\`
+
+***
 
 ### Sequence Diagram
 
@@ -309,6 +335,7 @@ classDiagram
 <!-- .slide: data-auto-animate -->
 
 #### Animated Diagrams
+
 ***
 
 <!-- .slide: data-auto-animate -->
@@ -350,33 +377,6 @@ mindmap
             Add
               100+ Samples
             Many More...
-\`\`\`
-
-***
-
-### Flow Chart - Step by Step
-
-\`\`\`mermaid-steps
-
-flowchart LR
-A(Presentation)
-B{How to make ?}
-C[ Editor]
-D[[fa:fa-plus Add samples]]
-E[[Update]]
-F(fa:fa-chalkboard-teacher My Presentation)
-G1(fa:fa-thumbs-up)
-G2(fa:fa-heart)
-G3(fa:fa-trophy)
-A --> B
-B -.Open.-> C
-C -..-> D
-D -..-> E
-E -..-> D
-E -.Present it.-> F
-G1 -.nice job.-> F
-G2 -.loved it.-> F
-G3 -.winner.-> F
 \`\`\`
 
 ***
@@ -460,5 +460,4 @@ Stacked Images
 ## Markdown Magic
 
 ##### *It's time to captivate your audience!*
-
 `;
