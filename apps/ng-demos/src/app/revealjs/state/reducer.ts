@@ -37,6 +37,7 @@ export const revealJsReducer = createReducer(
   on(loadEditorStateSuccess, (state, { name, id, editor, modified, allowEdit }) => ({
     ...state,
     editor: {
+      ...state.editor, // just to override non existing prop by GPT
       ...editor,
       toggleViewer: !state.editor.toggleViewer,
     },
