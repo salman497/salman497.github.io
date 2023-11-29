@@ -39,6 +39,7 @@ export const revealJsReducer = createReducer(
     editor: {
       ...state.editor, // just to override non existing prop by GPT
       ...editor,
+      showAutoSlide: editor.showAutoSlide === undefined ? false: editor.showAutoSlide,
       toggleViewer: !state.editor.toggleViewer,
     },
     editorInitialized: true,
