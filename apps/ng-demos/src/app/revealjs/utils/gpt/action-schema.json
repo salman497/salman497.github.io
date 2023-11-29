@@ -13,8 +13,8 @@
     "paths": {
       "/rest/v1/markdown": {
         "post": {
-          "description": "Insert a new markdown record",
-          "operationId": "InsertMarkdownRecord",
+          "description": "Insert a new markdown record in supabase",
+          "operationId": "InsertMarkdownRecordInSupabase",
           "parameters": [],
           "requestBody": {
             "required": true,
