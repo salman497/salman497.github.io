@@ -1,0 +1,78 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Supabase Markdown Table Row Insert",
+      "description": "Saves markdown content and parameters in Supabase markdown table.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://keopaarrwhppnzememsw.supabase.co"
+      }
+    ],
+    "paths": {
+      "/rest/v1/markdown": {
+        "post": {
+          "description": "Insert a new markdown record",
+          "operationId": "InsertMarkdownRecord",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "8 digit random number like e.g. 69327567 or 25689635."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Based on user topic."
+                    },
+                    "editor": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string",
+                          "description": "Use markdown content generated in supported syntax."
+                        }
+                      }
+                    },
+                    "url_name": {
+                      "type": "string",
+                      "description": "Presentation name in lowercase, alphabets only, spaces replaced with dashes."
+                    },
+                    "allow_edit": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Use true value when making request. Flag to allow editing."
+                    }
+                  },
+                  "required": ["id", "name", "editor", "url_name"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Record inserted successfully"
+            },
+            "default": {
+              "description": "Error"
+            }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "schemas": {}
+    }
+  }

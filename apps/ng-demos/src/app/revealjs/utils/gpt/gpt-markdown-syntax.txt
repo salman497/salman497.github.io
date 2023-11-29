@@ -1,0 +1,462 @@
+<!-- .slide: data-auto-animate -->
+
+# Markdown
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+# Markdown
+
+# Magic
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+# Markdown
+
+# Magic
+
+#### Transform your ideas into stunning presentations!
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+# Markdown
+
+# Magic
+
+#### Transform your ideas into stunning presentations!
+
+##### 🚀 Powered by RevealJs, Mermaid, ChartJS, TUI Editor, and AI.
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Lets explore the magic!
+
+***
+
+<!-- .slide: data-state="stopAutoSlide" -->
+
+<!-- .slide: data-auto-animate -->
+
+## Lets explore the magic!
+
+##### Tap Next (>) or use the Forward arrow key to continue.
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Real-Time Editing
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Real-Time Editing
+
+##### *Click the Menu (☰ ) to see live editable presentation.*
+
+***
+
+<!-- .slide: data-state="openMenu" -->
+
+<!-- .slide: data-auto-animate -->
+
+### Diagrams
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+### Diagrams
+
+##### *Visualize ideas with a range of diagrams!*
+
+***
+
+### Flow Chart
+
+```mermaid
+
+flowchart LR
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+```
+
+***
+
+### Sequence Diagram
+
+```mermaid
+
+sequenceDiagram
+    Alice->>+John: Hello John, how are you?
+    Alice->>+John: John, can you hear me?
+    John-->>-Alice: Hi Alice, I can hear you!
+    John-->>-Alice: I feel great!
+```
+
+***
+
+### Mind Map
+
+```mermaid
+
+mindmap
+  root((mindmap))
+    Origins
+      Long history
+      Popularisation
+    Research
+      On effectivness<br/>and features
+      On Automatic creation
+    Tools
+      Pen and paper
+      Mermaid
+```
+
+***
+
+### Git Branching
+
+```mermaid
+gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    commit
+```
+
+***
+
+### Timeline Diagram
+
+```mermaid
+
+timeline
+    2002 : LinkedIn
+    2004 : Facebook
+         : Google
+    2005 : Youtube
+    2006 : Twitter
+    
+```
+
+***
+
+### Sankey Diagram
+
+```mermaid
+
+sankey-beta
+    Bio-conversion,Losses,26.862
+    Bio-conversion,Solid,280.322
+    Bio-conversion,Gas,81.144
+    
+```
+
+***
+
+### State Diagram
+
+```mermaid
+
+stateDiagram-v2
+    [*] --> Still
+    Still --> [*]
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
+    
+```
+
+***
+
+### Quandrant Diagram
+
+```mermaid
+
+  quadrantChart
+    title Reach and engagement of campaigns
+    x-axis Low Reach --> High Reach
+    y-axis Low Engagement --> High Engagement
+    quadrant-1 We should expand
+    quadrant-2 Need to promote
+    quadrant-3 Re-evaluate
+    quadrant-4 May be improved
+    Campaign A: [0.3, 0.6]
+    Campaign B: [0.45, 0.23]
+    Campaign C: [0.57, 0.69]
+    Campaign D: [0.78, 0.34]
+    Campaign E: [0.40, 0.34]
+    Campaign F: [0.35, 0.78]
+    
+```
+
+***
+
+### Class Diagram
+
+```mermaid
+
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    
+```
+
+***
+
+### Bubble Chart
+
+```chartjs
+{
+    "type": "bar",
+    "data": {
+        "labels": ["Features", "Flexibility", "Design", "AI Integration"],
+        "datasets": [{
+        "label": "User Satisfaction %",
+        "data": [75, 85, 90, 92],
+        "backgroundColor": ["#FF6F61", "#6BFED5", "#6B8EFE", "#FFD06B"]
+        }]}
+}
+```
+
+***
+
+### Line Chart
+
+```chartjs
+{
+            "type": "line",
+            "data": {
+                "labels": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6"],
+                "datasets": [{
+                    "label": "Dataset",
+                    "data": [10, -20, 50, -40, 60, 30],
+                    "borderColor": "#FF0000",
+                    "backgroundColor": "rgba(255, 0, 0, 0.5)",
+                    "pointStyle": "circle",
+                    "pointRadius": 10,
+                    "pointHoverRadius": 15
+                }]
+            }
+        }
+```
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Draw on top of your Presentation
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Draw on top of your Presentation
+
+![image](/img/draw.jpg)
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Explore many samples
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Explore many samples
+
+##### Simply click ➕ icon in the editor to insert various samples..
+
+![image](/img/add-sample.jpg)
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+#### Animated Diagrams
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+#### Animated Diagrams
+
+##### *Showcase your diagrams dynamically, step by step.*
+
+***
+
+### Mind Map - Step By Step
+
+```mermaid-steps
+
+mindmap
+    root)Our Feature Highlight(
+        Slide
+            Horizontal
+            Veritical
+        Diagrams                
+                Flowchart
+                Sequence
+                Mind Map
+                Bar
+                Line
+        Animations
+            Steps
+            Auto Animate
+        Backgrounds
+            Image
+            Video
+            Iframe
+        Transitions
+            Zoom
+            Slide
+        Others
+            Theme
+            Draw
+            Add
+              100+ Samples
+            Many More...
+```
+
+***
+
+### Flow Chart - Step by Step
+
+```mermaid-steps
+
+flowchart LR
+A(Presentation)
+B{How to make ?}
+C[ Editor]
+D[[fa:fa-plus Add samples]]
+E[[Update]]
+F(fa:fa-chalkboard-teacher My Presentation)
+G1(fa:fa-thumbs-up)
+G2(fa:fa-heart)
+G3(fa:fa-trophy)
+A --> B
+B -.Open.-> C
+C -..-> D
+D -..-> E
+E -..-> D
+E -.Present it.-> F
+G1 -.nice job.-> F
+G2 -.loved it.-> F
+G3 -.winner.-> F
+```
+
+***
+
+### Sequence Diagram - Step by Step
+
+```mermaid-steps
+
+sequenceDiagram
+    Me->>+Markdown Magic: create presentation
+    Me-->>Markdown Magic: Add Samples
+    Me-->>Markdown Magic: Update Content
+    Markdown Magic->>-Me: Presentation Url
+    Me-->>Audience: Present
+    Audience-->>Me: Awesome Presentation!
+```
+
+***
+
+### Change Background Color
+
+<!-- .slide: data-background-color="rgb(70, 70, 255)" -->
+
+***
+
+### Set Background Image
+
+<!-- .slide: data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3" -->
+
+***
+
+<!-- .slide: data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" -->
+
+### Set Background Video
+
+***
+
+Stacked Images
+
+```html
+
+ <div class="r-stack">
+  <img class="fragment visible" src="https://placekitten.com/450/300" width="450" height="300">
+  <img class="fragment" src="https://placekitten.com/300/450" width="300" height="450">
+  <img class="fragment" src="https://placekitten.com/400/400" width="400" height="400">
+</div>
+```
+
+***
+
+<!-- .slide: data-transition="zoom" -->
+
+## Unique Slide Transitions
+
+##### This slide showed 'Zoom' effect and other transitions avaiable!
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Ready for More?
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Ready for More?
+
+##### *Explore the endless possibilities.*
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Markdown Magic
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Markdown Magic
+
+##### *It's time to captivate your audience!*
