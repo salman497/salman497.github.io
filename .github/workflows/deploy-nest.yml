@@ -33,10 +33,17 @@ jobs:
     - name: Login to Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.PRESENTATION_AZURE_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy NestJS to Web App
-      if: contains(github.event.head_commit.message, 'api')
+    - name: Deploy using ARM Template
+      uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: presentation-resources
+        template: infra/backend.azure-template.json
+        parameters: infra/backend.azure-parameters.json
+        additionalArguments: '--parameters someSecretValue="${{ secrets.SOME_SECRET_VALUE }}"'
+
+    - name: Deploy NestJS to App Service
       uses: azure/webapps-deploy@v2
       with:
         app-name: presentation
