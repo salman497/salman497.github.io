@@ -16,7 +16,9 @@
                 "name": "SOME_SECRET_NAME",
                 "value": "[parameters('someSecretValue')]"
               }
-            ]
+            ],
+            "linuxFxVersion": "NODE|18-lts",
+            "appCommandLine": "node main.js"
           }
         }
       }

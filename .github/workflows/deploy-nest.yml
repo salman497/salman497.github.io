@@ -35,7 +35,7 @@ jobs:
       with:
         creds: ${{ secrets.PRESENTATION_AZURE_SECRET }}
 
-    - name: Deploy using ARM Template
+    - name: Deploy Backend ARM Template
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: presentation-resources
