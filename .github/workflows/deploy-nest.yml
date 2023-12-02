@@ -33,20 +33,13 @@ jobs:
     - name: Login to Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.PRESENTATION_AZURE_SECRET }}
 
-    - name: Deploy using ARM Template
-      uses: azure/arm-deploy@v1
-      with:
-        resourceGroupName: evonix
-        template: infra/backend.azure-template.json
-        parameters: infra/backend.azure-parameters.json
-        additionalArguments: '--parameters someSecretValue="${{ secrets.SOME_SECRET_VALUE }}"'
-
-    - name: Deploy NestJS to App Service
+    - name: Deploy NestJS to Web App
+      if: contains(github.event.head_commit.message, 'api')
       uses: azure/webapps-deploy@v2
       with:
-        app-name: evonix-backend
+        app-name: presentation
         package: dist/apps/backend 
 
     - name: Logout of Azure
