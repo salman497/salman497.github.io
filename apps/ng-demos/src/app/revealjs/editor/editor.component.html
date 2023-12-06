@@ -65,7 +65,7 @@
       <mono-repo-markdown></mono-repo-markdown>
     </mat-expansion-panel>
       <!-- AI Chat Section -->
-      <mat-expansion-panel [disabled]="chatDisabled && (isLoggedIn$ | async) === false">
+      <mat-expansion-panel [disabled]="chatDisabled$ | async">
         <mat-expansion-panel-header>
           <mat-panel-title> <mat-icon>chat</mat-icon>AI Chat</mat-panel-title>
         </mat-expansion-panel-header>
