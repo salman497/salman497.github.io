@@ -1,11 +1,8 @@
 <div class="input-container">
-    <div class="textarea-wrapper">
-        <textarea [(ngModel)]="searchString" class="input-textarea" placeholder="Type your message..."></textarea>
-        <!-- Send button positioned relative to the wrapper -->
-        <button [disabled]="processing$ | async" (click)="onAssistanceClick()" class="send-button">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
-            </svg>
+    <mat-form-field class="textarea-wrapper">
+        <textarea matInput [disabled]="(processing$ | async) || false" [(ngModel)]="searchString" class="input-textarea" placeholder="Type your message..." (keyup.enter)="onAssistanceClick()" ></textarea>
+        <button mat-icon-button [disabled]="(processing$ | async) || false" (click)="onAssistanceClick()" class="send-button" >
+            <mat-icon>send</mat-icon>
         </button>
-    </div>
+    </mat-form-field>
 </div>
