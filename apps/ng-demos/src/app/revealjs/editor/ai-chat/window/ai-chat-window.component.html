@@ -1,6 +1,12 @@
 <div class="chat-window">
     <!-- Chat messages container -->
     <div class="messages-container" #chatWindow>
+        <!-- Display default message if there are no messages -->
+        <div *ngIf="(messages$ | async)?.length === 0" class="default-message">
+            How can I help you today?
+        </div>
+
+        <!-- Display chat messages -->
         <div *ngFor="let message of messages$ | async">
             <div class="message" [ngClass]="message.sender">
                 {{ message.text }}

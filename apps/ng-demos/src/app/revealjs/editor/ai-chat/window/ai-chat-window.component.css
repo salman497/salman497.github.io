@@ -1,6 +1,7 @@
 .chat-window {
     height: calc(100vh - 333px);
     position: relative; /* For positioning of dots-animation */
+    background-color: #f2f2f2;
 }
 
 .messages-container {
@@ -63,4 +64,20 @@
 
 .dots-animation div:nth-child(3) {
     animation-delay: 0.4s; /* Third dot starts the animation even later */
+}
+
+.default-message {
+    font-size: 1.5em; /* Bigger text */
+    text-align: center;
+    padding: 20px;
+    margin: auto; /* Centers the element in the flex container */
+    display: flex;
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    width: 100%; /* Take full width of the container */
+    height: 100%; /* Take full height of the container */
+    border-radius: 10px;
+    background-color: #f2f2f2; /* Optional: background color */
+    color: #333; /* Optional: text color */
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow */
 }
