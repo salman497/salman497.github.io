@@ -1,0 +1,66 @@
+.chat-window {
+    height: calc(100vh - 333px);
+    position: relative; /* For positioning of dots-animation */
+}
+
+.messages-container {
+    overflow-y: auto;
+    height: calc(100% - 40px); /* Adjust height to make room for dots-animation */
+    padding: 2px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+    max-width: 70%;
+}
+
+.message.user {
+    background-color: #e0e0e0;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.message.ai {
+    background-color: #2196f3;
+    color: white;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+.dots-animation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute; /* Absolute positioning */
+    bottom: 10px; /* From the bottom of the chat-window */
+    left: 10px; /* From the left of the chat-window */
+}
+
+.dots-animation div {
+    width: 8px;
+    height: 8px;
+    background-color: #2196f3;
+    border-radius: 50%;
+    animation: wave 1.2s infinite;
+}
+
+@keyframes wave {
+    0%,
+    60%,
+    100% {
+        transform: initial;
+    }
+    30% {
+        transform: translateY(-15px);
+    }
+}
+
+.dots-animation div:nth-child(2) {
+    animation-delay: 0.2s; /* Second dot starts the animation later */
+}
+
+.dots-animation div:nth-child(3) {
+    animation-delay: 0.4s; /* Third dot starts the animation even later */
+}

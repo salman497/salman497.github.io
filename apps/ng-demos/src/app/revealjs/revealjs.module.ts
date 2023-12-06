@@ -31,8 +31,23 @@ import { MarkDownComponent } from './editor/markdown/markdown.component';
 import { SettingsComponent } from './editor/settings/settings.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AIChatComponent } from './editor/ai-chat/ai-chat.component';
+import { AiChatWindowComponent } from './editor/ai-chat/window/ai-chat-window.component';
+import { AiChatExamplePluginComponent } from './editor/ai-chat/window/plugins/example-plugin.component';
+import { AiChatInputComponent } from './editor/ai-chat/input/ai-chat-input.component';
 @NgModule({
-  declarations: [EditorComponent, ViewerComponent, RevealjsComponent, PublishComponent, MarkDownComponent, SettingsComponent],
+  declarations: [
+    EditorComponent, 
+    ViewerComponent, 
+    RevealjsComponent, 
+    PublishComponent, 
+    MarkDownComponent, 
+    SettingsComponent,
+    AIChatComponent,
+    AiChatWindowComponent,
+    AiChatExamplePluginComponent,
+    AiChatInputComponent
+  ],
   imports: [
     MatExpansionModule,
     MatFormFieldModule,

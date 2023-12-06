@@ -1,0 +1,18 @@
+<div class="chat-window">
+    <!-- Chat messages container -->
+    <div class="messages-container" #chatWindow>
+        <div *ngFor="let message of messages$ | async">
+            <div class="message" [ngClass]="message.sender">
+                {{ message.text }}
+            </div>
+            <example-plugin *ngIf="message.pluginName === 'example-plugin'"></example-plugin>
+        </div>
+    </div>
+
+    <!-- Three dot animation for AI processing -->
+    <div class="dots-animation" *ngIf="isProcessing$ | async">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
