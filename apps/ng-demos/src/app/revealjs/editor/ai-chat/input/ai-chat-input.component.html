@@ -1,7 +1,7 @@
 <div class="input-container">
     <mat-form-field class="textarea-wrapper">
-        <textarea matInput [(ngModel)]="searchString" class="input-textarea" placeholder="Type your message..."></textarea>
-        <button mat-icon-button [disabled]="processing$ | async" (click)="onAssistanceClick()" class="send-button" (keyup.enter)="onAssistanceClick()">
+        <textarea matInput [(ngModel)]="searchString" class="input-textarea" placeholder="Type your message..." (keyup.enter)="onAssistanceClick()"></textarea>
+        <button mat-icon-button [disabled]="processing$ | async" (click)="onAssistanceClick()" class="send-button" >
             <mat-icon>send</mat-icon>
         </button>
     </mat-form-field>
