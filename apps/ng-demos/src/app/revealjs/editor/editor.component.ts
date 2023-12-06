@@ -24,7 +24,7 @@ import { MarkdownDB } from '../models/db.model';
 import { selectIsLogin } from '../state/selector';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Constant } from '../utils/constants';
-
+import { environment } from '../../environment/environment';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -32,6 +32,8 @@ import { Constant } from '../utils/constants';
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit {
+
+  chatDisabled = environment.chatDisabled;
   allowEdit$ = this.store.select(selectAllowEdit);
 
   /*** login */
