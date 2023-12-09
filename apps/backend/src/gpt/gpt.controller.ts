@@ -3,14 +3,19 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { Formidable } from 'formidable';
 import { BlobServiceClient } from '@azure/storage-blob';
+import { ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
  
-
+@ApiTags('gpt')
 @Controller('gpt')
 export class GPTController {
   constructor() {}
 
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
+  @ApiOperation({ summary: 'Save operation' })
+  @ApiResponse({ status: 201, description: 'The record has been successfully created.' })
+  @ApiResponse({ status: 500, description: 'Server error.' })
+  @ApiConsumes('multipart/form-data')
   saveOperation(@Req() req: Request, @Res() res: Response) {
     const form = new Formidable();
     form.parse(req, async (err, fields, files) => {
