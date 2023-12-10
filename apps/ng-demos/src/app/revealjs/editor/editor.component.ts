@@ -22,9 +22,8 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, map, of, Subject } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
 import { selectIsLogin } from '../state/selector';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Constant } from '../utils/constants';
-import { environment } from '../../environment/environment';
+
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -38,7 +37,7 @@ export class EditorComponent implements OnInit {
   /*** login */
  
   isLoggedIn$ = this.store.select(selectIsLogin);
-  chatDisabled$ = environment.chatDisabled ?  of(true): this.isLoggedIn$.pipe(map(login => login === false));
+  chatDisabled$ = this.isLoggedIn$.pipe(map(login => login === false));
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
   markdown$ = this.store.select(selectMarkdown);
