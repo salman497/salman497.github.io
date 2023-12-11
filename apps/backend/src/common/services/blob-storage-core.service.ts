@@ -1,13 +1,9 @@
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { Inject, Injectable } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
-
-import configuration from '../../config/configuration';
-
+import { Injectable, Scope } from '@nestjs/common';
 import { ErrorTitle } from './../../utils/constants';
 import { ErrorType, httpException } from './../../utils/http.util';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class BlobStorageCoreService {
     private blobClient: BlobServiceClient;
 

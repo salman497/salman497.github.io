@@ -13,7 +13,9 @@ export interface ApiError {
 export enum ErrorType {
     InternalError = 1,
     AzureBlob = 2,
-    OpenAI = 3
+    OpenAI = 3,
+    Supabase = 4,
+    GPT = 5
 }
 
 function getCustomError(title: string, type: ErrorType, detail: string, err: any, statusCode?: number): ApiError {

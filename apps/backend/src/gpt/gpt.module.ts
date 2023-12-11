@@ -1,10 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { GPTController } from './gpt.controller';
+import { GPTService } from './services/gpt.service';
+import { CommonModule } from '../common/common.module';
 
 @Module({
-  imports: [],
+  imports: [CommonModule],
   controllers: [GPTController],
-  providers: [],
+  providers: [GPTService],
 })
 export class GPTModule  implements NestModule {
     public configure(consumer: MiddlewareConsumer) {
