@@ -3,8 +3,7 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('config', () => ({
     appInsightsKey: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
     blob: {
-        connectionString: process.env.BLOB_CONNECTION_STRING || 'DefaultEndpointsProtocol=https;AccountName=presentydata;AccountKey=fPKNcANIuzalVHTv5J9i6XHwm0UZg2PozY0YIenFO1hIq1btKUPO+Opt1HksoBv4wvhYamA0RaYL+ASt0l2Uqw==;EndpointSuffix=core.windows.net',
-        containerName: 'images',
+        connectionString: process.env.BLOB_CONNECTION_STRING || 'DefaultEndpointsProtocol=https;AccountName=presenty;AccountKey=Xz141S3XzqOO3ukdmxDdmIwFPK7Ft4M/uolqS91Y+VfXKEsMGv89drW1vG1rJ4TzSWV8Gw14Nju7+AStzE1cxQ==;EndpointSuffix=core.windows.net',
     },
     supaBase: {
         table: 'markdown',

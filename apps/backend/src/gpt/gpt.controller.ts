@@ -44,14 +44,14 @@ export class GPTController {
   @ApiResponse({ status: 201, description: 'Content processed successfully.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
   create(
-    @UploadedFiles() files: Express.Multer.File[],
+    @UploadedFiles() data: { files: Express.Multer.File[] },
     @Body('markdownContent') markdownContent: string,
     @Body('presentationName') presentationName: string,
   ): Observable<string> {
     if (!markdownContent) {
       throw httpException('Invalid payload', ErrorType.GPT, 'markdown is empty', HttpStatus.BAD_REQUEST);
     }
-    const uploadObservables = files?.map(file => this.gptService.uploadImage$(file.buffer)) || [of(null)];
+    const uploadObservables = data?.files?.map(file => this.gptService.uploadImage$(file.buffer, file.originalname)) || [of(null)];
     return forkJoin(uploadObservables).pipe(
       switchMap(() => {
         return this.gptService.saveContent$(markdownContent, presentationName);

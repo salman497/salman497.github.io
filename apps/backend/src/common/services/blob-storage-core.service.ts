@@ -14,7 +14,7 @@ export class BlobStorageCoreService {
         try {
             this.connectStorageAccount(connectionString);
             const container = this.blobClient.getContainerClient(containerName);
-            await container.createIfNotExists();
+            await container.createIfNotExists( { access: 'container' });
             return container;
         } catch (error) {
             throw httpException(ErrorTitle.AzureBlobInitializeFailure, ErrorType.AzureBlob, error);

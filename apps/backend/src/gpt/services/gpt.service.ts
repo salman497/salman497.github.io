@@ -25,7 +25,7 @@ export class GPTService implements OnModuleInit {
     public async onModuleInit() {
         this.supaBaseService.initialize(this.config.supaBase.url,this.config.supaBase.key, this.config.supaBase.table);
         this.container = await this.blobCoreService.initializeContainer(
-            this.config.blob.containerName,
+            'images',
             this.config.blob.connectionString,
         );
     }
@@ -52,9 +52,8 @@ export class GPTService implements OnModuleInit {
         }))
     }
 
-    uploadImage$(fileBuffer: Buffer): Observable<string> {
-        const blobName = uuid() + '.png'; 
-        const blockBlobClient = this.container.getBlockBlobClient(blobName);
+    uploadImage$(fileBuffer: Buffer, fileName: string): Observable<string> {
+        const blockBlobClient = this.container.getBlockBlobClient(fileName);
     
         return from(blockBlobClient.upload(fileBuffer, fileBuffer.length)).pipe(
           map(() => blockBlobClient.url)
