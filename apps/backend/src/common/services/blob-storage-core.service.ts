@@ -12,7 +12,7 @@ export class BlobStorageCoreService {
 
     public async initializeContainer(containerName: string, connectionString: string): Promise<ContainerClient> {
         try {
-            this.connectStorageAccount(connectionString);
+            this.blobClient = BlobServiceClient.fromConnectionString(connectionString);
             const container = this.blobClient.getContainerClient(containerName);
             await container.createIfNotExists( { access: 'container' });
             return container;
@@ -21,11 +21,5 @@ export class BlobStorageCoreService {
         }
     }
 
-    private connectStorageAccount(connectionString: string) {
-        try {
-            this.blobClient = BlobServiceClient.fromConnectionString(connectionString);
-        } catch (error) {
-            throw httpException(ErrorTitle.AzureBlobInitializeFailure, ErrorType.AzureBlob, error);
-        }
-    }
+    
 }
