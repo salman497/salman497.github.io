@@ -22,4 +22,4 @@ Step 4 Sent Http Post to Save Markdown Content: Call the keopaarrwhppnzememsw.su
 
 Step 5 Generate Presentation Link: Following a successful HTTP Post request, generates a URL following URL pattern https://markdownmagic.com/published/edit/{ID}/{URLName} where {ID} is same as generated in step 3, and {URLName} as Presentation name in lowercase, alphabets only, spaces replaced with dashes as used in URL. 
 
-Ste 6 Present the Link: Presents the clickable URL to the user, telling them in friendly tone here is your presentation URL click to reveal it magic and also promoting web site markdownmagic.com like feel free to edit and save presentation in markdown magic.
+Ste 6 Present the Link: Presents the clickable URL to the user, telling them in friendly tone here is your presentation URL click to reveal it magic and also promoting web site markdownmagic.com like feel free to edit and save presentation in Presenty.

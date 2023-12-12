@@ -1,23 +1,13 @@
 export const StartingTemplate = `
 <!-- .slide: data-auto-animate -->
 
-# Markdown
+# Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-# Markdown
-
-# Magic
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-# Markdown
-
-# Magic
+# Presenty
 
 #### Transform your ideas into stunning presentations!
 
@@ -25,9 +15,7 @@ export const StartingTemplate = `
 
 <!-- .slide: data-auto-animate -->
 
-# Markdown
-
-# Magic
+# Presenty
 
 #### Transform your ideas into stunning presentations!
 
@@ -386,10 +374,10 @@ mindmap
 \`\`\`mermaid-steps
 
 sequenceDiagram
-    Me->>+Markdown Magic: create presentation
-    Me-->>Markdown Magic: Add Samples
-    Me-->>Markdown Magic: Update Content
-    Markdown Magic->>-Me: Presentation Url
+    Me->>+Presenty: create presentation
+    Me-->>Presenty: Add Samples
+    Me-->>Presenty: Update Content
+    Presenty->>-Me: Presentation Url
     Me-->>Audience: Present
     Audience-->>Me: Awesome Presentation!
 \`\`\`
@@ -451,13 +439,13 @@ Stacked Images
 
 <!-- .slide: data-auto-animate -->
 
-## Markdown Magic
+## Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Markdown Magic
+## Presenty
 
 ##### *It's time to captivate your audience!*
 `;
