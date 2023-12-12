@@ -1,22 +1,13 @@
+
 <!-- .slide: data-auto-animate -->
 
-# Markdown
+# Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-# Markdown
-
-# Magic
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-# Markdown
-
-# Magic
+# Presenty
 
 #### Transform your ideas into stunning presentations!
 
@@ -24,9 +15,7 @@
 
 <!-- .slide: data-auto-animate -->
 
-# Markdown
-
-# Magic
+# Presenty
 
 #### Transform your ideas into stunning presentations!
 
@@ -90,6 +79,32 @@ flowchart LR
     C -->|One| D[Laptop]
     C -->|Two| E[iPhone]
     C -->|Three| F[fa:fa-car Car]
+```
+
+***
+### Flow Chart - Step by Step
+
+```mermaid-steps
+
+flowchart LR
+A(Presentation)
+B{How to make ?}
+C[ Editor]
+D[[fa:fa-plus Add samples]]
+E[[Update]]
+F(fa:fa-chalkboard-teacher My Presentation)
+G1(fa:fa-thumbs-up)
+G2(fa:fa-heart)
+G3(fa:fa-trophy)
+A --> B
+B -.Open.-> C
+C -..-> D
+D -..-> E
+E -..-> D
+E -.Present it.-> F
+G1 -.nice job.-> F
+G2 -.loved it.-> F
+G3 -.winner.-> F
 ```
 
 ***
@@ -350,33 +365,6 @@ mindmap
             Add
               100+ Samples
             Many More...
-```
-
-***
-
-### Flow Chart - Step by Step
-
-```mermaid-steps
-
-flowchart LR
-A(Presentation)
-B{How to make ?}
-C[ Editor]
-D[[fa:fa-plus Add samples]]
-E[[Update]]
-F(fa:fa-chalkboard-teacher My Presentation)
-G1(fa:fa-thumbs-up)
-G2(fa:fa-heart)
-G3(fa:fa-trophy)
-A --> B
-B -.Open.-> C
-C -..-> D
-D -..-> E
-E -..-> D
-E -.Present it.-> F
-G1 -.nice job.-> F
-G2 -.loved it.-> F
-G3 -.winner.-> F
 ```
 
 ***

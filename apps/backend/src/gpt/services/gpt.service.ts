@@ -10,6 +10,7 @@ import { ContainerClient } from '@azure/storage-blob';
 import { SupaBaseCoreService } from '../../common/services/supabase-core.service';
 import { MarkdownTable } from '../../common/model/supabase.model';
 import { generateRandomId } from '../../utils/utils';
+import { GPTResponse } from '../model/gpt.model';
 
 
 
@@ -30,12 +31,12 @@ export class GPTService implements OnModuleInit {
         );
     }
 
-    saveContent$(markdown: string, presentationName:string): Observable<string> {
+    saveContent$(markdown: string, presentationName:string, presentationId: number): Observable<GPTResponse> {
         const name = presentationName || 'my presentation';
         const item: MarkdownTable = {
             name,
             url_name: name.replace(/\s+/g, '-').toLowerCase(),
-            id: generateRandomId(),
+            id: presentationId || generateRandomId(),
             editor:{
                 content: markdown,
                 themeSelected: 'Black',
@@ -48,7 +49,8 @@ export class GPTService implements OnModuleInit {
               }
         }
        return this.supaBaseService.save<MarkdownTable>(item).pipe(map(item => {
-            return `https://www.presenty.app/published/edit/${item.id}/${item.url_name}`;
+            return { presentationUrl: `https://www.presenty.app/published/edit/${item.id}/${item.url_name}`,
+                     presentationId: item.id };
         }))
     }
 
