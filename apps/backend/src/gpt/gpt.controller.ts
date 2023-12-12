@@ -5,23 +5,27 @@ import {
   UploadedFiles,
   UseInterceptors,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { Observable, forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ApiConsumes, ApiBody, ApiTags, ApiResponse, ApiOperation  } from '@nestjs/swagger';
+import { ApiConsumes, ApiBody, ApiTags, ApiResponse, ApiOperation, ApiHeader  } from '@nestjs/swagger';
 import { GPTService } from './services/gpt.service';
 import 'multer';
 import { ErrorType, httpException } from '../utils/http.util';
+import { GPTAuthGuard } from '../common/guards/gpt.guard';
 
 @ApiTags('GPT')
+@UseGuards(GPTAuthGuard)
 @Controller('gpt')
 export class GPTController {
   constructor(private readonly gptService: GPTService) {}
 
-  @Post('create')
+  @Post('process')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'files', maxCount: 10 }]))
   @ApiConsumes('multipart/form-data')
+  @ApiHeader({ name: 'gpt-key', required: true })
   @ApiBody({
     description: 'Upload DALL-E generated images and GPT generated markdown content with a presentation name.',
     schema: {
@@ -43,7 +47,8 @@ export class GPTController {
   @ApiOperation({ summary: 'Process OpenAI GPT and DALL-E content' })
   @ApiResponse({ status: 201, description: 'Content processed successfully.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  create(
+  @ApiResponse({ status: 401, description: 'Api key missing.' })
+  process(
     @UploadedFiles() data: { files: Express.Multer.File[] },
     @Body('markdownContent') markdownContent: string,
     @Body('presentationName') presentationName: string,
