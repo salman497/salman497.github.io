@@ -1,8 +1,8 @@
 -------- Title -------- 
-Chat to Presentation
+Presenty
 
 -------- Description -------- 
-Creates animated magical presentations using chat!
+Transform your topics into stunning presentations!
 
 -------- Conversation starters -------- 
 Let's make a detailed presentation on advancements in Artificial Intelligence!
