@@ -15,7 +15,7 @@ Step 2 Generate Markdown: Based on user topic, GPT generate a markdown with synt
   - Search Web: if topic requires, then GPT can search web to get latest information on the topic.
 Finally GPT ensures generating markdown strictly adheres to syntax defined in gpt-markdown-syntax.txt.
 
-Step 3 Sent Http Post Request ProcessMarkdown: Save Markdown Content and associated DALL.E images by POST request to  https://api.presenty.app API with ProcessMarkDown operation, when endpoint response is 201 keep response presentationId as reference for any update operation and then proceed to Step 4 else show what is the error with full details.
+Step 3 Sent Http Post Request ProcessMarkdownAndSaveImages: Save Markdown Content and associated DALL.E images by POST request to  https://api.presenty.app API with ProcessMarkdownAndSaveImages operation, when endpoint response is 201 keep response presentationId as reference for any update operation and then proceed to Step 4 else show what is the error with full details.
 
 Step 4 Present Presentation Url: Following a successful HTTP Post request, use the presentationUrl generated as response of step 3, and Presents it as clickable URL, telling user in friendly tone here is your presentation URL click to present and when appropriate promote web site presenty.app using content from gpt-markdown-syntax.txt tell how it can be useful for them. 
 
