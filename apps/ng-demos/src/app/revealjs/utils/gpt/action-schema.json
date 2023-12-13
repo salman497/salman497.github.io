@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Process Markdown And Save Images",
+    "title": "Save markdown content and chunked DALL.E images",
     "version": "1.0.0",
-    "description": "API for generate presentation url and saving DALL-E images"
+    "description": "Presenty save endpoint, it Save markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId"
   },
   "servers": [
     {
@@ -11,34 +11,18 @@
     }
   ],
   "paths": {
-    "/gpt/process": {
+    "/gpt/save": {
       "post": {
+        "summary": "Save OpenAI GPT content",
         "tags": ["GPT"],
-        "summary": "Process Markdown content and DALL-E content",
-        "description": "",
-        "operationId": "ProcessMarkdownAndSaveImages",
-        "security": [
-          {
-            "gptApiKey": []
-          }
-        ],
-        "consumes": ["multipart/form-data"],
-        "produces": ["application/json"],
-        "parameters": [],
+        "security": [{ "gptAuth": [] }],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary",
-                      "description": "DALL-E generated images"
-                    }
-                  },
                   "markdownContent": {
                     "type": "string",
                     "description": "GPT generated markdown content"
@@ -49,17 +33,39 @@
                   },
                   "presentationId": {
                     "type": "number",
-                    "description": "Optional presentation ID. Required only when updating existing markdown content."
+                    "description": "Optional presentation ID. Required only when updating existing content."
+                  },
+                  "dalleImages": {
+                    "type": "array",
+                    "description": "Array of Dall.E generated images. Each image is processed using the following steps and then used as a value in dalleImages: Step 1: The image is converted to a JPEG format with a resolution of 720px; Step 2: The JPEG image is then converted into a base64 encoded string; Step 3: This base64 string is split into a sequence of chunks, with each chunk containing 200 or less characters, placing its value in base64Chunks.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "fileNameWithExtension": {
+                          "type": "string",
+                          "description": "GUID Filename of Dall.E generated image, including .jpeg extension.",
+                          "example": "550e8400-e29b-41d4-a716-446655440000.jpeg"
+                        },
+                        "base64Chunks": {
+                          "type": "array",
+                          "description": "Array of chunked base64 encoded strings, each chunk is of 200 or less characters",
+                          "items": {
+                            "type": "string",
+                            "example": "9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGE3MTAxMDAwMDQzMmEwMDAwMjU3MTAwMDBlODc3MDAwMDYxN2QwMDAwNmFiYzAwMDAzYzJjMDEwMDYyMzQwMTAwMGIzZTAxMDAzZjQ3MDEwMGQxMGYw7"
+                          }
+                        }
+                      }
+                    }
                   }
                 },
-                "required": ["files", "markdownContent", "presentationName"]
+                "required": ["markdownContent", "presentationName"]
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Content processed successfully.",
+            "description": "Content saved successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -69,10 +75,7 @@
             }
           },
           "400": {
-            "description": "Bad request."
-          },
-          "401": {
-            "description": "API key missing."
+            "description": "Bad request"
           }
         }
       }
@@ -85,21 +88,23 @@
         "properties": {
           "presentationUrl": {
             "type": "string",
-            "description": "Generated Presentation URL"
+            "description": "URL of the generated presentation. This URL points to the location where the presentation is accessible.",
+            "example": "https://example.com/presentation/12345"
           },
           "presentationId": {
             "type": "number",
-            "description": "Generated Presentation Id for update"
+            "description": "Unique identifier for the generated presentation. This ID can be used to reference or retrieve the presentation at a later time.",
+            "example": 12345
           }
         },
-        "required": ["presentationUrl", "presentationId"]
+        "required": ["presentationUrl"]
       }
     },
     "securitySchemes": {
-      "gptApiKey": {
+      "gptAuth": {
         "type": "apiKey",
-        "name": "gpt-key",
-        "in": "header"
+        "in": "header",
+        "name": "gpt-key"
       }
     }
   }

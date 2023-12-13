@@ -1,9 +1,6 @@
-import { extname } from 'path';
-
-import { HttpStatus, Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { from, map, Observable, of, switchMap } from 'rxjs';
-import { v4 as uuid } from 'uuid';
 import configuration from '../../config/configuration';
 import { BlobStorageCoreService } from '../../common/services/blob-storage-core.service';
 import { ContainerClient } from '@azure/storage-blob';
@@ -11,6 +8,7 @@ import { SupaBaseCoreService } from '../../common/services/supabase-core.service
 import { MarkdownTable } from '../../common/model/supabase.model';
 import { generateRandomId } from '../../utils/utils';
 import { GPTResponse } from '../model/gpt.model';
+import { extractBase64Data } from '../utils/gpt.utils';
 
 
 
@@ -48,17 +46,24 @@ export class GPTService implements OnModuleInit {
                 showAutoSlide: true,
               }
         }
+
+        
        return this.supaBaseService.save<MarkdownTable>(item).pipe(map(item => {
             return { presentationUrl: `https://www.presenty.app/published/edit/${item.id}/${item.url_name}`,
                      presentationId: item.id };
         }))
     }
 
-    uploadImage$(fileBuffer: Buffer, fileName: string): Observable<string> {
-        const blockBlobClient = this.container.getBlockBlobClient(fileName);
-    
+    uploadImage$(fileNameWithExtension: string, chunkedBase64Image: string[]): Observable<{imageUrl: string}> {
+        const base64Image = chunkedBase64Image.join('');
+        const onlyBase64Part = extractBase64Data(base64Image);
+        const fileBuffer = Buffer.from(onlyBase64Part, 'base64');
+        
+        // Generating the file name with the correct extension
+        const blockBlobClient = this.container.getBlockBlobClient(fileNameWithExtension);
+      
         return from(blockBlobClient.upload(fileBuffer, fileBuffer.length)).pipe(
-          map(() => blockBlobClient.url)
+          map(() => { return { imageUrl: blockBlobClient.url };})
         );
       }
 }
