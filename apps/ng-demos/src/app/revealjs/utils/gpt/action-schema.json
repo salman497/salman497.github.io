@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Save markdown content and chunked DALL.E images",
+    "title": "Presenty GPT API",
     "version": "1.0.0",
-    "description": "Presenty save endpoint, it Save markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId"
+    "description": "This contains endpoints exposed by api.presenty.app for GPT"
   },
   "servers": [
     {
@@ -13,7 +13,9 @@
   "paths": {
     "/gpt/save": {
       "post": {
-        "summary": "Save OpenAI GPT content",
+        "operationId": "SaveMarkdownContentAndChunkedDALLEImagesToGenerateURL",
+        "description": "Save endpoint, it Saves markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId",
+        "summary": "Save endpoint, it Saves markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId",
         "tags": ["GPT"],
         "security": [{ "gptAuth": [] }],
         "requestBody": {
@@ -37,18 +39,18 @@
                   },
                   "dalleImages": {
                     "type": "array",
-                    "description": "Array of Dall.E generated images. Each image is processed using the following steps and then used as a value in dalleImages: Step 1: The image is converted to a JPEG format with a resolution of 720px; Step 2: The JPEG image is then converted into a base64 encoded string; Step 3: This base64 string is split into a sequence of chunks, with each chunk containing 200 or less characters, placing its value in base64Chunks.",
+                    "description": "Array of Dall.E generated images. Each image is processed using the following steps and then used as a value in dalleImages: Step 1: Dall.E image is converted to a JPEG format with a resolution of 720px; Step 2: The JPEG image is then converted into a base64 encoded string; Step 3: This base64 string is split or chunked into a sequence of string array, with each chunk containing 200 or less characters, Note: api.presenty.app server will combine string array get full base64 string representing jpeg Dall.E generated image.",
                     "items": {
                       "type": "object",
                       "properties": {
                         "fileNameWithExtension": {
                           "type": "string",
-                          "description": "GUID Filename of Dall.E generated image, including .jpeg extension.",
+                          "description": "GUID Filename of Dall.E generated image, including .jpeg extension, value should be same as used in markdown content in step 2.",
                           "example": "550e8400-e29b-41d4-a716-446655440000.jpeg"
                         },
                         "base64Chunks": {
                           "type": "array",
-                          "description": "Array of chunked base64 encoded strings, each chunk is of 200 or less characters",
+                          "description": "Array of chunked (split) base64 encoded strings, each chunk string is max of 200 or less characters",
                           "items": {
                             "type": "string",
                             "example": "9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGE3MTAxMDAwMDQzMmEwMDAwMjU3MTAwMDBlODc3MDAwMDYxN2QwMDAwNmFiYzAwMDAzYzJjMDEwMDYyMzQwMTAwMGIzZTAxMDAzZjQ3MDEwMGQxMGYw7"
@@ -89,7 +91,7 @@
           "presentationUrl": {
             "type": "string",
             "description": "URL of the generated presentation. This URL points to the location where the presentation is accessible.",
-            "example": "https://example.com/presentation/12345"
+            "example": "https://www.presenty.app/published/edit/97146622676/my-presentation"
           },
           "presentationId": {
             "type": "number",

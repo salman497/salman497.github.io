@@ -17,22 +17,22 @@ import configuration from './config/configuration';
     CommonModule, 
     HealthCheckModule, 
     GPTModule, 
-    // no more than 3 calls in a second, 20 calls in 10 seconds, and 100 calls in a minute
+    // no more than 30 calls in a second, 200 calls in 10 seconds, and 1000 calls in a minute
     ThrottlerModule.forRoot([
       {
         name: 'short',
         ttl: 1 * 1000,
-        limit: 3,
+        limit: 30,
       },
       {
         name: 'medium',
         ttl: 10 * 1000,
-        limit: 20
+        limit: 200
       },
       {
         name: 'long',
         ttl: 60 * 1000,
-        limit: 100
+        limit: 1000
       }
       ])],
   providers: [

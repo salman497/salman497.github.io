@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, UseGuards, Get } from '@nestjs/common';
 import { Observable, forkJoin, of, switchMap } from 'rxjs';
 import {
   ApiBody,
@@ -11,13 +11,14 @@ import { GPTService } from './services/gpt.service';
 import { ErrorType, httpException } from '../utils/http.util';
 import { GPTAuthGuard } from '../common/guards/gpt.guard';
 import { GPTResponse } from './model/gpt.model';
+import { GPTPrivacyPolicy } from './utils/gpt.privacy';
 
 @ApiTags('GPT')
-@UseGuards(GPTAuthGuard)
 @Controller('gpt')
 export class GPTController {
   constructor(private readonly gptService: GPTService) {}
 
+  @UseGuards(GPTAuthGuard)
   @Post('save')
   @ApiHeader({ name: 'gpt-key', required: true })
   @ApiBody({
@@ -105,5 +106,10 @@ export class GPTController {
         );
       })
     );
+  }
+
+  @Get('privacy')
+  getPrivacyPolicy(): Observable<string> {
+    return of(GPTPrivacyPolicy);
   }
 }
