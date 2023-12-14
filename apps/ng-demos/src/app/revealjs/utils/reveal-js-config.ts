@@ -43,7 +43,7 @@ export async function getRevealConfig(
     ],
     // hashOneBasedIndex: true,
     hash: false,
-    autoSlide: editor.showAutoSlide ? (editor.showAutoDelayInMS || 3500) : 0,
+    autoSlide: editor.showAutoSlide ? editor.showAutoDelayInMS : 0,
     // autoPlayMedia: false,
     showNotes: false, // IN speaker view S
     embedded: true,

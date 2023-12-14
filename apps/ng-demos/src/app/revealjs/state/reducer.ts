@@ -40,6 +40,7 @@ export const revealJsReducer = createReducer(
       ...state.editor, // just to override non existing prop by GPT
       ...editor,
       showAutoSlide: editor.showAutoSlide === undefined ? false: editor.showAutoSlide,
+      showAutoDelayInMS: editor.showAutoSlide && editor.showAutoDelayInMS === undefined ? 3500: editor.showAutoDelayInMS,
       toggleViewer: !state.editor.toggleViewer,
     },
     editorInitialized: true,
