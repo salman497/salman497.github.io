@@ -51,6 +51,7 @@ export interface Editor {
     showSlides: boolean;
     showAutoSlide:boolean;
     toggleViewer: boolean;
+    showAutoDelayInMS: number;
 }
 
 export const initialState: RevealJsState = {
@@ -63,6 +64,7 @@ export const initialState: RevealJsState = {
       showSlides: true,
       toggleViewer: true,
       showAutoSlide: true,
+      showAutoDelayInMS: 2000
     },
     editorInitialized: false,
     loading: true,

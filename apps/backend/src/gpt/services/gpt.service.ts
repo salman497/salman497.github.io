@@ -8,7 +8,7 @@ import { SupaBaseCoreService } from '../../common/services/supabase-core.service
 import { MarkdownTable } from '../../common/model/supabase.model';
 import { generateRandomId } from '../../utils/utils';
 import { GPTResponse } from '../model/gpt.model';
-import { extractBase64Data } from '../utils/gpt.utils';
+import { extractBase64Data, updateMarkdownContent } from '../utils/gpt.utils';
 
 
 
@@ -36,14 +36,14 @@ export class GPTService implements OnModuleInit {
             url_name: name.replace(/\s+/g, '-').toLowerCase(),
             id: presentationId || generateRandomId(),
             editor:{
-                content: markdown,
+                content: updateMarkdownContent(markdown),
                 themeSelected: 'Black',
                 animationSelected: 'Slide',
                 showPen: true,
                 showDrawingArea: true,
                 showSlides: true,
                 toggleViewer: true,
-                showAutoSlide: true,
+                showAutoSlide: true
               }
         }
 
