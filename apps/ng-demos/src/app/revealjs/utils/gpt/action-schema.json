@@ -13,7 +13,7 @@
   "paths": {
     "/gpt/save": {
       "post": {
-        "operationId": "SaveMarkdownContentAndChunkedDALLEImagesToGenerateURL",
+        "operationId": "SavePresentation",
         "description": "Save endpoint, it Saves markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId",
         "summary": "Save endpoint, it Saves markdown content and chunked DALL.E images by taking Step 2 generated markdown content and DALL-E images and outputs presentationUrl and presentationId",
         "tags": ["GPT"],
@@ -27,15 +27,16 @@
                 "properties": {
                   "markdownContent": {
                     "type": "string",
-                    "description": "GPT generated markdown content"
+                    "description": "GPT Step 2 generated markdown content that adheres to syntax used in markdowncontent.txt"
                   },
                   "presentationName": {
                     "type": "string",
-                    "description": "Presentation name"
+                    "description": "Presentation name, based on user topic",
+                    "example": "Advancement in AI"
                   },
                   "presentationId": {
                     "type": "number",
-                    "description": "Optional presentation ID. Required only when updating existing content."
+                    "description": "Optional presentation Id. Required only when updating existing content."
                   },
                   "dalleImages": {
                     "type": "array",
