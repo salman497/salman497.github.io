@@ -27,22 +27,31 @@ export const presentationEndingContent = `
 
 <!-- .slide: data-auto-animate -->
 
-# Presenty
+<img src="https://presenty.app/img/presenty_128x128.png" width="128" height="128">
+
+
+***
+<!-- .slide: data-auto-animate -->
+<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
+
+### Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
+<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
 
-# Presenty
+### Presenty
 
-#### Transform your text into stunning presentations!
+#### Transform your ideas into stunning presentations!
 
 ***
 
 <!-- .slide: data-auto-animate -->
+<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
 
-# Presenty
+### Presenty
 
-#### Transform your text into stunning presentations!
+#### Transform your ideas into stunning presentations!
 
 ##### 🚀 Powered by RevealJs, Mermaid, ChartJS, TUI Editor, and AI.`;
