@@ -15,6 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Get last commit message
+      id: get_commit_message
+      run: echo "LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
       with:
@@ -36,6 +40,7 @@ jobs:
         creds: ${{ secrets.PRESENTATION_AZURE_SECRET }}
 
     - name: Deploy Backend ARM Template
+      if: contains(env.LAST_COMMIT_MESSAGE, 'api')
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: presentation-resources
@@ -44,6 +49,7 @@ jobs:
         additionalArguments: '--parameters someSecretValue="${{ secrets.SOME_SECRET_VALUE }}"'
 
     - name: Deploy NestJS to App Service
+      if: contains(env.LAST_COMMIT_MESSAGE, 'api')
       uses: azure/webapps-deploy@v2
       with:
         app-name: presentation
