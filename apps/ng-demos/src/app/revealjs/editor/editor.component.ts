@@ -122,4 +122,8 @@ export class EditorComponent implements OnInit {
     );
     this.store.dispatch(actions.saveToLocalStorage());
   }
+
+  redirectToBot() {
+    window.open('https://chat.openai.com/g/g-IumLsKslz-presenty', '_blank');
+  }
 }

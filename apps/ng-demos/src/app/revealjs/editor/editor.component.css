@@ -26,6 +26,10 @@ mat-toolbar {
   border-radius: 50%;
   background-color:#e1e1e1;
 }
+
+.toolbar-button .fas{
+  margin-left: -3px;
+}
 /*********/
 .editor-container {
   background-color: #f8f9fa;

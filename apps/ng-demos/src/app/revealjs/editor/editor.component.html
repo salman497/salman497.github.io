@@ -39,6 +39,14 @@
   </button>
   <button
   mat-icon-button
+  (click)="redirectToBot()"
+  class="toolbar-button"
+  matTooltip="Presenty GPT"
+>
+  <i class="fas fa-robot"></i>
+</button>
+  <button
+  mat-icon-button
     (click)="newPresentation()"
     class="toolbar-button"
     matTooltip="New Presentation"
