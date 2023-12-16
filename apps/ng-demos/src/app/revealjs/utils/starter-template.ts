@@ -411,14 +411,15 @@ sequenceDiagram
 
 ***
 
-Stacked Images
+#### Using Stacked Images
 
 \`\`\`html
 
- <div class="r-stack">
-  <img class="fragment visible" src="https://placekitten.com/450/300" width="450" height="300">
-  <img class="fragment" src="https://placekitten.com/300/450" width="300" height="450">
-  <img class="fragment" src="https://placekitten.com/400/400" width="400" height="400">
+<div class="r-stack">
+    <img class="fragment visible" src="/img/starter-demo-step-1.png" width="800" >
+    <img class="fragment" src="/img/starter-demo-step-2.png" width="800" >
+    <img class="fragment" src="/img/starter-demo-step-3.png" width="800" >
+    <img class="fragment" src="/img/starter-demo-step-4.png" width="800" >
 </div>
 \`\`\`
 
