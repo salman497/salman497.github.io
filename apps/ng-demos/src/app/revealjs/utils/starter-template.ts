@@ -411,7 +411,7 @@ sequenceDiagram
 
 ***
 
-#### Using Stacked Images
+#### Step by Step Stacked Images
 
 \`\`\`html
 
