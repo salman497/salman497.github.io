@@ -9,6 +9,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Constant } from '../../utils/constants';
 import { AuthService } from '../../../auth.service';
 import { buildURL } from '../../utils/basic-utils';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'mono-repo-publish',
@@ -30,6 +31,7 @@ export class PublishComponent {
     private clipboard: Clipboard,
     private snackBar: MatSnackBar,
     private auth: AuthService,
+    private gaService: GoogleAnalyticsService
   ) {}
 
   onPresentationNameChange(event: any) {
@@ -41,6 +43,8 @@ export class PublishComponent {
     const urlName = this.name.replace(/\s+/g, '-').toLowerCase();
     this.store.dispatch(actions.updateURLNameOnly({ name: urlName }));
     this.store.dispatch(actions.saveToStorage());
+    this.gaService.event('publish_presentation', 'edit');
+
   }
 
   copyToClipboard(url: string) {
