@@ -19,6 +19,9 @@
                   <input matInput placeholder="Email" formControlName="email">
               </mat-form-field>
               <mat-form-field>
+                <input matInput placeholder="Subject" formControlName="title">
+             </mat-form-field>
+              <mat-form-field>
                   <textarea matInput placeholder="Message" formControlName="message"></textarea>
               </mat-form-field>
               <mat-form-field>
@@ -31,6 +34,8 @@
               <button mat-raised-button color="primary" type="submit">Submit</button>
           </form>
       </mat-card-content>
+
+     
   
       <!-- Contact Information Section -->
       <mat-card-actions>
@@ -44,5 +49,8 @@
         </div>
       </mat-card-actions>
     </div>
-  </mat-card>
-  
+     <!-- Success Message -->
+     <div *ngIf="submissionSuccess" class="submission-success">
+        Successfully submitted, you will be contacted in 24 hours.
+    </div>
+</mat-card>

@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { HttpHeaderMiddleware } from './common/middleware/http-header.middleware';
 import { AppInsightsMiddleware } from './common/middleware/app-insights.middleware';
 import configuration from './config/configuration';
+import { ContactModule } from './contact/contact.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,6 +18,7 @@ import configuration from './config/configuration';
     CommonModule, 
     HealthCheckModule, 
     GPTModule, 
+    ContactModule,
     // no more than 30 calls in a second, 200 calls in 10 seconds, and 1000 calls in a minute
     ThrottlerModule.forRoot([
       {
