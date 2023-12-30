@@ -28,7 +28,7 @@ import { catchError, of } from 'rxjs';
 })
 export class ContactusComponent {
   contactForm: FormGroup;
-  submissionSuccess = true; 
+  submissionSuccess = false; 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.contactForm = this.fb.group({
