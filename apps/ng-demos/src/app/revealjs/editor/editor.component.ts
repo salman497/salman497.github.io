@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
 import { RevealJsState } from '../state/state';
 import * as actions from './../state/actions';
 import { AuthService } from '../../auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, map, of, Subject } from 'rxjs';
 import { MarkdownDB } from '../models/db.model';
@@ -83,7 +83,7 @@ export class EditorComponent implements OnInit {
   selectedPresentation!: MarkdownDB;
   userPresentations$ = this.store.select(selectLoginUserEditors);
 
-  constructor(private store: Store<RevealJsState>, private auth: AuthService) {}
+  constructor(private store: Store<RevealJsState>, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -125,5 +125,9 @@ export class EditorComponent implements OnInit {
 
   redirectToBot() {
     window.open('https://chat.openai.com/g/g-IumLsKslz-presenty', '_blank');
+  }
+
+  redirectToContactUs() {
+    this.router.navigate(['/contactus']);
   }
 }
