@@ -1,0 +1,124 @@
+/* contactus.component.css */
+mat-card {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+
+mat-card-content, .direct-contact-info {
+  flex: 1;
+  margin: 0 10px;
+}
+
+mat-form-field {
+  width: 100%; /* Full width */
+  margin-bottom: 20px;
+}
+
+textarea[matInput] {
+  min-height: 150px; /* Larger initial size */
+}
+
+
+
+.direct-contact-info {
+  background-color: #f9f9f9; /* Softer background color */
+  padding: 20px;
+  border-radius: 10px; /* Slightly more pronounced rounded corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Enhanced shadow for depth */
+  font-family: 'Arial', sans-serif; /* Modern, readable font */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #333; /* Consistent text color */
+}
+
+.direct-contact-info h1 {
+  font-size: 1.5rem; /* Larger font size for the heading */
+  margin-bottom: 20px; /* More space below the heading */
+  font-weight: bold; /* Bold font for emphasis */
+}
+
+.direct-contact-info ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0;
+  margin-top: 0; /* Reduce space above the list */
+}
+
+.direct-contact-info li {
+  margin-bottom: 15px; /* Increase space between list items */
+  font-size: 1rem; /* Readable font size */
+}
+
+.direct-contact-info a {
+  color: #007bff; /* Brand color for links */
+  text-decoration: none; /* Remove underline */
+}
+
+.direct-contact-info a:hover {
+  text-decoration: underline; /* Underline on hover for better user interaction */
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns children (button) to the right */
+}
+
+.top-header-image img {
+  max-width: 47%;
+  height: auto;
+  border-radius: 9px;
+  /* border-bottom: 1px solid #ddd; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(0, 0, 0, 0.0);
+}
+
+.top-header-image {
+  width: 100%;
+  text-align: center;
+  /* background-color: #f5f5f5; */
+  padding: 10px 0;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  form {
+    align-items: stretch; /* Full width button on smaller screens */
+  }
+}
+@media (max-width: 900px) {
+  .content {
+      flex-direction: column;
+  }
+}
+
+@media (max-width: 900px) {
+  mat-card {
+      flex-direction: column; /* Stack elements in a column on smaller screens */
+      max-width: 100%;
+  }
+
+  mat-card-content, .direct-contact-info {
+      margin: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .direct-contact-info {
+    margin-top: 20px; /* Additional top margin on smaller screens */
+  }
+}
+
