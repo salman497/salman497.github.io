@@ -28,7 +28,8 @@ import { catchError, of } from 'rxjs';
 })
 export class ContactusComponent {
   contactForm: FormGroup;
-  submissionSuccess = false; 
+  submissionSuccess = false;
+  inProgress = false; 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.contactForm = this.fb.group({
@@ -42,11 +43,13 @@ export class ContactusComponent {
   onSubmit() {
     console.log('Form Values', this.contactForm);
     if (this.contactForm.valid) {
+      this.inProgress = true;
       // http://localhost:3000/contact
       // https://api.presenty.app/contact
       this.http.post('https://api.presenty.app/contact', this.contactForm.value).pipe(
         catchError((error) => {
           console.error('Error sending contact form:', error);
+          this.inProgress = false;
           return of({ success: false, error: error.message });
         })
       ).subscribe(response => {
@@ -55,6 +58,7 @@ export class ContactusComponent {
           this.contactForm.reset();
         }
         console.log('Response:', response);
+        this.inProgress = false;
       });
     }
   }

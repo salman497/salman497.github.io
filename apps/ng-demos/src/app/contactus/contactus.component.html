@@ -31,7 +31,7 @@
                       <mat-option value="support">Support</mat-option>
                   </mat-select>
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit">Submit</button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="inProgress">Submit</button>
           </form>
       </mat-card-content>
 
