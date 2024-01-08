@@ -102,7 +102,7 @@
     "dompurify": "^3.0.5",
     "firebase": "^10.4.0",
     "formidable": "3.5.1",
-    "lit": "^2.8.0",
+    "lit": "^3.1.0",
     "marked": "^9.0.0",
     "marked-base-url": "^1.1.0",
     "marked-gfm-heading-id": "^3.0.8",

@@ -35,6 +35,7 @@ import { AIChatComponent } from './editor/ai-chat/ai-chat.component';
 import { AiChatWindowComponent } from './editor/ai-chat/window/ai-chat-window.component';
 import { AiChatExamplePluginComponent } from './editor/ai-chat/window/plugins/example-plugin.component';
 import { AiChatInputComponent } from './editor/ai-chat/input/ai-chat-input.component';
+import './utils/web-components/layout-component';
 @NgModule({
   declarations: [
     EditorComponent, 
