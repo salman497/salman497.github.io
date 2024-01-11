@@ -16,21 +16,22 @@ function animateAllWithFragments(el, edges, vertices) {
              // Start Node
             const startNodeSelector = getNodeSelector(vertices[item.start].domId);
             const startNodeElement = el.querySelector(startNodeSelector);
-            addFragmentToElement(startNodeElement, fragmentIndex, fragmentIndex === 0);
+            if(fragmentIndex === 0) {}
+            addFragmentToFlowChart(startNodeElement, fragmentIndex);
             fragmentIndex +=1;
         }
         if(item.end) {
            // Label
             const labelElement = getLabelElementByText(edgeLabels, item.text);
-           addFragmentToElement(labelElement, fragmentIndex, fragmentIndex === 0);
+            addFragmentToFlowChart(labelElement, fragmentIndex);
            // Arrow
            const arrowSelector = getArrowSelector(item.start, item.end);
            const arrowElement = el.querySelector(arrowSelector);
-           addFragmentToElement(arrowElement, fragmentIndex, fragmentIndex === 0);
+           addFragmentToFlowChart(arrowElement, fragmentIndex);
            // End Node
            const endNodeSelector = getNodeSelector(vertices[item.end].domId);
            const endNodeElement = el.querySelector(endNodeSelector);
-           addFragmentToElement(endNodeElement, fragmentIndex, fragmentIndex === 0);
+           addFragmentToFlowChart(endNodeElement, fragmentIndex);
            fragmentIndex +=1;
         }
     });
@@ -53,5 +54,15 @@ function getNodeSelector(domId) {
 function getArrowSelector(start, end) {
     return `[id^="L-${start}-${end}"]`;
 }
+
+
+function addFragmentToFlowChart(labelElement, fragmentIndex) {
+    // 0 = start of diagram
+    if(fragmentIndex !== 0) {
+        addFragmentToElement(labelElement, fragmentIndex, false);
+    }
+   
+}
+
 
 
