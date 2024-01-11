@@ -16,7 +16,6 @@ function animateAllWithFragments(el, edges, vertices) {
              // Start Node
             const startNodeSelector = getNodeSelector(vertices[item.start].domId);
             const startNodeElement = el.querySelector(startNodeSelector);
-            if(fragmentIndex === 0) {}
             addFragmentToFlowChart(startNodeElement, fragmentIndex);
             fragmentIndex +=1;
         }
