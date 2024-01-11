@@ -36,6 +36,7 @@ export const Constant = {
     OutsideAngularEvents: {
         Toggle: 'toggle',
         Menu: 'menu',
+        FullScreen: 'fullscreen',
         ChalkboardToggle: 'chalkboardToggle',
         ChalkboardCanvas: 'chalkboardCanvas'
 

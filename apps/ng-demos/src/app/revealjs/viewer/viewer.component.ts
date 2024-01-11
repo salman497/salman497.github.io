@@ -24,7 +24,7 @@ import Reveal from 'reveal.js';
 import { getRevealConfig } from '../utils/reveal-js-config';
 import { Editor, RevealJsState } from '../state/state';
 import { ActivatedRoute, Router } from '@angular/router';
-import { updateWindowHash } from '../utils/basic-utils';
+import { toggleFullScreen, updateWindowHash } from '../utils/basic-utils';
 import { Store } from '@ngrx/store';
 declare var $: any;
 declare global {
@@ -158,6 +158,11 @@ export class ViewerComponent
     if (action === Constant.OutsideAngularEvents.Toggle) {
       this.deck?.toggleOverview();
     }
+
+    if (action === Constant.OutsideAngularEvents.FullScreen) {
+      toggleFullScreen();
+    }
+
 
     if (action === Constant.OutsideAngularEvents.Menu) {
       this.changeEditorView.emit(!this.isEditorVisible);

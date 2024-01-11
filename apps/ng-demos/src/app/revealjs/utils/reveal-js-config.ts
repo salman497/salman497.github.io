@@ -166,6 +166,14 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
       action: "invokeFromOutsideOfAngular('chalkboardCanvas');",
     });
   }
+
+  controls.push({
+    id: 'fullscreen',
+    title: 'Show in Full Screen (F)',
+    icon: '<i class="fa fa-expand"></i>',
+    action: "invokeFromOutsideOfAngular('fullscreen');",
+  });
+  
   return controls;
 }
 

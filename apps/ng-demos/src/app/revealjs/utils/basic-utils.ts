@@ -34,14 +34,14 @@ export function getSlideNumberFromFragments(fragment: string | null): {
   }
 
   if (fragment.includes('/')) {
-     // '/15'
+    // '/15'
     const parts = fragment.split('/');
     const slideNumber = parts[1];
     let slideNumberVertical;
-    if(parts.length > 1) {
-        slideNumberVertical = parts[2];
+    if (parts.length > 1) {
+      slideNumberVertical = parts[2];
     }
-   
+
     return {
       slideNumber,
       slideNumberVertical,
@@ -137,9 +137,11 @@ export function getCurrentISODataTime() {
   return new Date(Date.now()).toISOString();
 }
 
-
-export function isLocalStorageGreater(localState: any, db: MarkdownDB): boolean {
-  if(!localState || !localState.modified || !db || !db.modified) {
+export function isLocalStorageGreater(
+  localState: any,
+  db: MarkdownDB
+): boolean {
+  if (!localState || !localState.modified || !db || !db.modified) {
     return false;
   }
   // Parse the date strings into Date objects
@@ -153,7 +155,7 @@ export function isLocalStorageGreater(localState: any, db: MarkdownDB): boolean 
 export function setLocalData(id: any, jsonData: any) {
   const key = String(id);
   const value = jsonData ? JSON.stringify(jsonData) : '';
- // localStorage.setItem(key, value);
+  // localStorage.setItem(key, value);
   sessionStorage.setItem(key, value);
 }
 
@@ -162,4 +164,60 @@ export function getLocalData(id: any): any {
   //const value = localStorage.getItem(String(key));
   const value = sessionStorage.getItem(String(key));
   return JSON.parse(value || '{}');
+}
+
+function propExistsInObject(object: any, propName: string): boolean {
+  return object && propName in object;
+}
+
+function callPropIfExistsInObject(object: any, propName: string): void {
+  if (propExistsInObject(object, propName)) {
+    object[propName]();
+  }
+}
+
+function changeCustomButtonIcon(
+  id: string,
+  previousIcon: string,
+  newIcon: string,
+  title: string
+) {
+  const fsButton = document.getElementById(id)?.querySelector('button');
+  if(fsButton) {
+    fsButton.title = title;
+  }
+  
+  const icon = fsButton?.querySelector('i');
+  if (icon) {
+    icon.classList.remove(previousIcon);
+    icon.classList.add(newIcon);
+  }
+}
+
+export function toggleFullScreen() {
+  const elem = document.documentElement;
+
+  if (!document.fullscreenElement) {
+    callPropIfExistsInObject(elem, 'requestFullscreen');
+    callPropIfExistsInObject(elem, 'mozRequestFullScreen'); // Firefox
+    callPropIfExistsInObject(elem, 'webkitRequestFullscreen'); // Chrome, Safari, Opera
+    callPropIfExistsInObject(elem, 'msRequestFullscreen'); // IE/Edge
+    changeCustomButtonIcon(
+      Constant.OutsideAngularEvents.FullScreen,
+      'fa-expand',
+      'fa-compress',
+      'Exit Full Screen (F)'
+    );
+  } else {
+    callPropIfExistsInObject(document, 'exitFullscreen');
+    callPropIfExistsInObject(document, 'mozCancelFullScreen'); // Firefox
+    callPropIfExistsInObject(document, 'webkitExitFullscreen'); // Chrome, Safari, Opera
+    callPropIfExistsInObject(document, 'msExitFullscreen'); // IE/Edge
+    changeCustomButtonIcon(
+      Constant.OutsideAngularEvents.FullScreen,
+      'fa-compress',
+      'fa-expand',
+      'Show in Full Screen (F)'
+    );
+  }
 }
