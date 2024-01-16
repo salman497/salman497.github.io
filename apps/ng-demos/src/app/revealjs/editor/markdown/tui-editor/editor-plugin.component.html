@@ -65,17 +65,28 @@
     <button mat-menu-item (click)="onClick('flowchart')">
       <i class="menu-icon fas fa-sitemap"></i> Flowchart
     </button>
-    <button mat-menu-item (click)="onClick('flowchartSteps')">
-      <i class="menu-icon fas fa-sitemap"></i> Flowchart Steps
-    </button>
+   
     <button mat-menu-item (click)="onClick('sequenceDiagram')">
       <i class="menu-icon fas fa-exchange-alt"></i> Sequence 
+    </button>
+   
+    <button mat-menu-item (click)="onClick('classDiagram')">
+      <i class="menu-icon fas fa-code-branch"></i> Class Diagram
+    </button>
+  </mat-menu>
+   <!-- Step by Step Diagrams -->
+   <button mat-menu-item [matMenuTriggerFor]="stepbystepDiagramsMenu">
+    <i class="menu-icon fas fa-layer-group"></i> Step by Step Diagrams
+  </button>
+  <mat-menu #stepbystepDiagramsMenu="matMenu">
+    <button mat-menu-item (click)="onClick('flowchartSteps')">
+      <i class="menu-icon fas fa-sitemap"></i> Flowchart Steps
     </button>
     <button mat-menu-item (click)="onClick('sequenceDiagramSteps')">
       <i class="menu-icon fas fa-exchange-alt"></i> Sequence Steps  
     </button>
-    <button mat-menu-item (click)="onClick('classDiagram')">
-      <i class="menu-icon fas fa-code-branch"></i> Class Diagram
+    <button mat-menu-item (click)="onClick('mindmapSteps')">
+      <i class="menu-icon fas fa-brain"></i> Mindmap Steps
     </button>
   </mat-menu>
 
@@ -132,9 +143,7 @@
     <button mat-menu-item (click)="onClick('mindmap')">
       <i class="menu-icon fas fa-brain"></i> Mindmap
     </button>
-    <button mat-menu-item (click)="onClick('mindmapSteps')">
-      <i class="menu-icon fas fa-brain"></i> Mindmap Steps
-    </button>
+  
     <button mat-menu-item (click)="onClick('gitgraphGitDiagram')">
       <i class="menu-icon fas fa-code-branch"></i> Gitgraph (Git) Diagram
     </button>
