@@ -183,10 +183,10 @@ function changeCustomButtonIcon(
   title: string
 ) {
   const fsButton = document.getElementById(id)?.querySelector('button');
-  if(fsButton) {
+  if (fsButton) {
     fsButton.title = title;
   }
-  
+
   const icon = fsButton?.querySelector('i');
   if (icon) {
     icon.classList.remove(previousIcon);
@@ -219,5 +219,31 @@ export function toggleFullScreen() {
       'fa-expand',
       'Show in Full Screen (F)'
     );
+  }
+}
+
+export function isMermaidApp(): boolean {
+  try {
+    const parsedUrl = new URL(window.location.href);
+
+    // Check if the port is 4500 for localhost
+    if (parsedUrl.hostname === 'localhost' && parsedUrl.port === '4500') {
+      return true;
+    }
+
+    // Check if the hostname contains 'mermaid.'
+    if (parsedUrl.hostname.includes('mermaid.')) {
+      return true;
+    }
+
+    // Check if the hostname contains 'diagram.'
+    if (parsedUrl.hostname.includes('diagram.')) {
+      return true;
+    }
+
+    return false;
+  } catch (e) {
+    console.error('Error parsing the current window URL:', e);
+    return false;
   }
 }

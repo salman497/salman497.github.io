@@ -1,6 +1,6 @@
 import { Constant } from './../utils/constants';
 // state.ts
-import { StartingTemplate } from "../utils/starter-template";
+import { StartingTemplate } from "../utils/templates/starter-template";
 import { MarkdownDB } from '../models/db.model';
 
 export interface ErrorState {
