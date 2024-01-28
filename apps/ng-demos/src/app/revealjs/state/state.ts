@@ -1,7 +1,6 @@
 import { Constant } from './../utils/constants';
-// state.ts
-import { StartingTemplate } from "../utils/templates/starter-template";
 import { MarkdownDB } from '../models/db.model';
+import { getStarterTemplate } from '../utils/basic-utils';
 
 export interface ErrorState {
     errorType: string, 
@@ -56,7 +55,7 @@ export interface Editor {
 
 export const initialState: RevealJsState = {
     editor: {
-      content: StartingTemplate,
+      content: getStarterTemplate(),
       themeSelected: 'Black',
       animationSelected: 'Slide',
       showPen: true,

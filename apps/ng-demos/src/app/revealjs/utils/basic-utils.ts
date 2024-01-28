@@ -2,6 +2,8 @@ import { MarkdownDB } from './../models/db.model';
 import { LoginUser } from './../state/state';
 import { URLInfo } from '../state/state';
 import { Constant } from './constants';
+import { StartingTemplate } from './templates/starter-template';
+import { StartingDiagramTemplate } from './templates/diagram-template';
 
 export const valueExist = (value: any): boolean => {
   if (value === null || value === undefined) {
@@ -222,7 +224,7 @@ export function toggleFullScreen() {
   }
 }
 
-export function isMermaidApp(): boolean {
+export function isDiagramApp(): boolean {
   try {
     const parsedUrl = new URL(window.location.href);
 
@@ -246,4 +248,11 @@ export function isMermaidApp(): boolean {
     console.error('Error parsing the current window URL:', e);
     return false;
   }
+}
+
+export function getStarterTemplate(): string {
+  if (isDiagramApp()) {
+    return StartingDiagramTemplate;
+  }
+  return StartingTemplate;
 }
