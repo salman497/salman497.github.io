@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Presenty GPT API",
+    "version": "1.0.0",
+    "description": "This contains endpoints exposed by api.presenty.app for GPT"
+  },
+  "servers": [
+    {
+      "url": "https://api.presenty.app"
+    }
+  ],
+  "paths": {
+    "/gpt/save": {
+      "post": {
+        "operationId": "SavePresentation",
+        "description": "Save endpoint, it Saves markdown content and outputs presentationUrl and presentationId",
+        "summary": "Save endpoint, it Saves markdown content and outputs presentationUrl and presentationId",
+        "tags": ["GPT"],
+        "security": [{ "gptAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "markdownContent": {
+                    "type": "string",
+                    "description": "GPT Step 2 generated markdown content that adheres to syntax used in markdowncontent.txt"
+                  },
+                  "presentationName": {
+                    "type": "string",
+                    "description": "Presentation name, based on user topic",
+                    "example": "Advancement in AI"
+                  },
+                  "presentationId": {
+                    "type": "number",
+                    "description": "Optional presentation Id. Required only when updating existing content."
+                  }
+                },
+                "required": ["markdownContent", "presentationName"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Content saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GPTResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GPTResponse": {
+        "type": "object",
+        "properties": {
+          "presentationUrl": {
+            "type": "string",
+            "description": "URL of the generated presentation. This URL points to the location where the presentation is accessible.",
+            "example": "https://www.presenty.app/published/edit/97146622676/my-presentation"
+          },
+          "presentationId": {
+            "type": "number",
+            "description": "Unique identifier for the generated presentation. This ID can be used to reference or retrieve the presentation at a later time.",
+            "example": 12345
+          }
+        },
+        "required": ["presentationUrl"]
+      }
+    },
+    "securitySchemes": {
+      "gptAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "gpt-key"
+      }
+    }
+  }
+}

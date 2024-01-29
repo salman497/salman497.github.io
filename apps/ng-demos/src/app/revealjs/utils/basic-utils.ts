@@ -256,3 +256,8 @@ export function getStarterTemplate(): string {
   }
   return StartingTemplate;
 }
+
+
+export function getGPTUrl(): string {
+  return `https://chat.openai.com/g/g-IumLsKslz-presenty`;
+}

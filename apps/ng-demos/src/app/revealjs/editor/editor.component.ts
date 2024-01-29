@@ -25,6 +25,7 @@ import { selectIsLogin } from '../state/selector';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Constant } from '../utils/constants';
 import { environment } from '../../environment/environment';
+import { getGPTUrl } from '../utils/basic-utils';
 @Component({
   selector: 'mono-repo-editor',
   templateUrl: './editor.component.html',
@@ -124,7 +125,7 @@ export class EditorComponent implements OnInit {
   }
 
   redirectToBot() {
-    window.open('https://chat.openai.com/g/g-IumLsKslz-presenty', '_blank');
+    window.open(getGPTUrl(), '_blank');
   }
 
   redirectToContactUs() {
