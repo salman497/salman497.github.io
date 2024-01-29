@@ -1,39 +1,42 @@
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png" width="128" height="128">
-
-
-***
-<!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
-
-### Presenty
-
-***
-
-<!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
-
-### Presenty
-
-#### Transform your ideas into stunning presentations!
-
-***
-
-<!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
-
-### Presenty
-
-#### Transform your ideas into stunning presentations!
-
-##### 🚀 Powered by RevealJs, Mermaid, ChartJS, TUI Editor, and AI.
+<img src="https://presenty.app/img/presenty_128x128.png">
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Lets explore the magic!
+<img src="https://presenty.app/img/presenty_128x128.png">
+
+### Diagram Presenty
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+<img src="https://presenty.app/img/presenty_128x128.png">
+
+### Diagram Presenty
+
+#### Transform your diagrams into stunning presentations!
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+<img src="https://presenty.app/img/presenty_128x128.png">
+
+### Diagram Presenty
+
+#### Transform your diagrams into stunning presentations!
+
+###### 🚀 Powered by RevealJs, Mermaid, ChartJS, TUI Editor, and AI.
+
+***
+
+<!-- .slide: data-auto-animate -->
+
+## Lets explore some diagrams!
 
 ***
 
@@ -41,43 +44,13 @@
 
 <!-- .slide: data-auto-animate -->
 
-## Lets explore the magic!
+## Lets explore some diagrams!
 
 ##### Tap Next (>) or use the Forward arrow key to continue.
 
 ***
 
-<!-- .slide: data-auto-animate -->
-
-## Real-Time Editing
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Real-Time Editing
-
-##### *Click the Menu (☰ ) to see live editable presentation.*
-
-***
-
-<!-- .slide: data-state="openMenu" -->
-
-<!-- .slide: data-auto-animate -->
-
-### Diagrams
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-### Diagrams
-
-##### *Visualize ideas with a range of diagrams!*
-
-***
-
-### Flow Chart
+##### Flow Chart
 
 ```mermaid
 
@@ -90,7 +63,8 @@ flowchart LR
 ```
 
 ***
-### Flow Chart - Step by Step
+
+### Flow Chart - Animated
 
 ```mermaid-steps
 
@@ -130,6 +104,28 @@ sequenceDiagram
 
 ***
 
+### Sequence Diagram - Animated
+
+```mermaid-steps
+
+sequenceDiagram
+    participant U as Me
+    participant GPT as Diagram Presenty GPT
+    participant Auth as Google Login
+    participant Presenty as Diagram Presenty Website 
+    
+
+    U->>+GPT: Chat to create/edit diagram
+    GPT-->>-Presenty: Edit/view diagram
+    U->>Presenty: Manually Create/Edit diagram 
+    U->>Presenty: Save diagram publicly
+    U->>+Auth: Log in with Google to Save Diagram privately
+    Auth-->>-Presenty: Save & Reload your diagrams
+    U->>Presenty: Present diagram
+```
+
+***
+
 ### Mind Map
 
 ```mermaid
@@ -145,6 +141,41 @@ mindmap
     Tools
       Pen and paper
       Mermaid
+```
+
+***
+
+### Mind Map - Ainmated
+
+```mermaid-steps
+
+mindmap
+    root)Our Feature Highlight(
+        Slide
+            Horizontal
+            Veritical
+        Diagrams                
+                Flowchart
+                Sequence
+                Mind Map
+                Bar
+                Line
+        Animations
+            Steps
+            Auto Animate
+        Backgrounds
+            Image
+            Video
+            Iframe
+        Transitions
+            Zoom
+            Slide
+        Others
+            Theme
+            Draw
+            Add
+              100+ Samples
+            Many More...
 ```
 
 ***
@@ -300,13 +331,13 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-## Draw on top of your Presentation
+## Draw on top of your Diagram
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Draw on top of your Presentation
+## Draw on top of your Diagram
 
 ![image](/img/draw.jpg)
 
@@ -314,15 +345,15 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-## Explore many samples
+## Many more options
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-## Explore many samples
+## Many more options
 
-##### Simply click ➕ icon in the editor to insert various samples..
+##### Change themes Or Simply click ➕ icon in the editor to insert various samples..
 
 ![image](/img/add-sample.jpg)
 
@@ -330,129 +361,16 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-#### Animated Diagrams
+<img src="https://presenty.app/img/presenty_128x128.png">
+
+### Diagram Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-#### Animated Diagrams
+<img src="https://presenty.app/img/presenty_128x128.png">
 
-##### *Showcase your diagrams dynamically, step by step.*
-
-***
-
-### Mind Map - Step By Step
-
-```mermaid-steps
-
-mindmap
-    root)Our Feature Highlight(
-        Slide
-            Horizontal
-            Veritical
-        Diagrams                
-                Flowchart
-                Sequence
-                Mind Map
-                Bar
-                Line
-        Animations
-            Steps
-            Auto Animate
-        Backgrounds
-            Image
-            Video
-            Iframe
-        Transitions
-            Zoom
-            Slide
-        Others
-            Theme
-            Draw
-            Add
-              100+ Samples
-            Many More...
-```
-
-***
-
-### Sequence Diagram - Step by Step
-
-```mermaid-steps
-
-sequenceDiagram
-    Me->>+Presenty: create presentation
-    Me-->>Presenty: Add Samples
-    Me-->>Presenty: Update Content
-    Presenty->>-Me: Presentation Url
-    Me-->>Audience: Present
-    Audience-->>Me: Awesome Presentation!
-```
-
-***
-
-### Change Background Color
-
-<!-- .slide: data-background-color="rgb(70, 70, 255)" -->
-
-***
-
-### Set Background Image
-
-<!-- .slide: data-background-image="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3" -->
-
-***
-
-<!-- .slide: data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" -->
-
-### Set Background Video
-
-***
-
-Stacked Images
-
-```html
-
- <div class="r-stack">
-  <img class="fragment visible" src="https://placekitten.com/450/300" width="450" height="300">
-  <img class="fragment" src="https://placekitten.com/300/450" width="300" height="450">
-  <img class="fragment" src="https://placekitten.com/400/400" width="400" height="400">
-</div>
-```
-
-***
-
-<!-- .slide: data-transition="zoom" -->
-
-## Unique Slide Transitions
-
-##### This slide showed 'Zoom' effect and other transitions avaiable!
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Ready for More?
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Ready for More?
-
-##### *Explore the endless possibilities.*
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Presenty
-
-***
-
-<!-- .slide: data-auto-animate -->
-
-## Presenty
+### Diagram Presenty
 
 ##### *It's time to captivate your audience!*

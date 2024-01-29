@@ -1,12 +1,12 @@
 -------- Title -------- 
-Presenty
+Diagram Presenty
 
 -------- Description -------- 
-Transform your topics into stunning presentations!
+Transform your ideas into animated diagrams!
 
 -------- Conversation starters -------- 
-Let's make a detailed presentation on advancements in Artificial Intelligence!
-How about an overview on climate change and sustainable practices?
-Need an in-depth look at marketing strategies?
-Let's draft a general presentation on mental health in the digital age!
-Blockchain and Cryptocurrency Innovations
+Create diagram explaining http request flow in browser
+A high-level view of the Transformer architecture used in GPT
+Diagrams explain RAG vs Fine tuning vs Prompt engineering
+Illustrate the internal processing of DALL-E, including feature extraction and pattern recognition.
+Break down of natural language processing (NLP) stages.
