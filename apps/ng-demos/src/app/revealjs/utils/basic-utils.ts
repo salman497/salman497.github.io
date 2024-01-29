@@ -259,5 +259,9 @@ export function getStarterTemplate(): string {
 
 
 export function getGPTUrl(): string {
+
+  if(isDiagramApp()) {
+    return `https://chat.openai.com/g/g-hnX0ClAQc-diagram-presenty`;
+  }
   return `https://chat.openai.com/g/g-IumLsKslz-presenty`;
 }
