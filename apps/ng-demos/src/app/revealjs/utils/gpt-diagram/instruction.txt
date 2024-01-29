@@ -25,7 +25,7 @@ Step 2. Generate diagram Markdown: Using special markdown syntax analyzed in Ste
 
 
 Step 3. diagram URL Generation:
-  - Use an HTTP POST request to `https://api.presenty.app` with the Savediagram operation.
+  - Use an HTTP POST request to `https://api.presenty.app` with the SaveDiagram operation.
   - From successful HTTP POST response take diagram URL and change domain from https://www.presenty.app to https://diagram.presenty.app and reveal URL in two ways  
       - 1nd diagram Url as clickable url: Present full url where anchor element title is diagram name.
       - 2nd diagram Url as Text: Type diagram full Url as text https://diagram.presenty.app/published/edit/{diagramId}/{diagram-name} and inform user they can manually copy url to open in browser new tab.

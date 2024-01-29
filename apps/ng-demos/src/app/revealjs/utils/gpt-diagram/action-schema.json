@@ -13,7 +13,7 @@
   "paths": {
     "/gpt/save": {
       "post": {
-        "operationId": "SavePresentation",
+        "operationId": "SaveDiagram",
         "description": "Save endpoint, it Saves markdown content and outputs presentationUrl and presentationId",
         "summary": "Save endpoint, it Saves markdown content and outputs presentationUrl and presentationId",
         "tags": ["GPT"],
