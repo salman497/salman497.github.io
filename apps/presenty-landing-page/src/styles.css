@@ -1,1 +1,111 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset some basic elements */
+body, h1, h2, h3, ul, li, p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Basic styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    padding: 0 20px;
+    background-color: #f4f4f4;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Header styling */
+header {
+    background: #007BFF;
+    color: #ffffff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
+}
+
+header a {
+    color: #ffffff;
+}
+
+nav ul {
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+/* Hero section */
+#hero {
+    background: #007bff;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+#hero h1 {
+    margin-bottom: 20px;
+}
+
+/* Features section */
+#features {
+    padding: 50px 0;
+    background: #ffffff;
+    text-align: center;
+}
+
+#features ul {
+    padding-top: 20px;
+}
+
+#features li {
+    text-align: left;
+    padding: 10px;
+    margin: 5px;
+    background: #f4f4f4;
+    display: inline-block;
+    width: calc(33.333% - 10px);
+    min-width: 200px;
+}
+
+/* About section */
+#about, #contact {
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #007BFF;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 40px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    #features li {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    #features li {
+        width: 100%;
+    }
+}
