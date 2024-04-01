@@ -1,0 +1,77 @@
+{
+  "name": "presenty-landing-page",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/presenty-landing-page/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/presenty-landing-page",
+        "compiler": "swc",
+        "main": "apps/presenty-landing-page/src/main.ts",
+        "tsConfig": "apps/presenty-landing-page/tsconfig.app.json",
+        "webpackConfig": "apps/presenty-landing-page/webpack.config.js",
+        "assets": [
+          "apps/presenty-landing-page/src/favicon.ico",
+          "apps/presenty-landing-page/src/assets"
+        ],
+        "index": "apps/presenty-landing-page/src/index.html",
+        "baseHref": "/",
+        "styles": ["apps/presenty-landing-page/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/presenty-landing-page/src/environments/environment.ts",
+              "with": "apps/presenty-landing-page/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "presenty-landing-page:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "presenty-landing-page:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/presenty-landing-page/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/presenty-landing-page/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
