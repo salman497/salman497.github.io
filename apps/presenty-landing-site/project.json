@@ -17,7 +17,8 @@
         "webpackConfig": "apps/presenty-landing-site/webpack.config.js",
         "assets": [
           "apps/presenty-landing-site/src/favicon.ico",
-          "apps/presenty-landing-site/src/assets"
+          "apps/presenty-landing-site/src/assets",
+          "apps/presenty-landing-site/src/images"
         ],
         "index": "apps/presenty-landing-site/src/index.html",
         "baseHref": "/",
