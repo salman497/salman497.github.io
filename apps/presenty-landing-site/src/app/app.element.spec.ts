@@ -15,7 +15,7 @@ describe('AppElement', () => {
     app.connectedCallback();
 
     expect(app.querySelector('h1').innerHTML).toContain(
-      'Welcome presenty-landing-page'
+      'Welcome presenty-landing-site'
     );
   });
 });

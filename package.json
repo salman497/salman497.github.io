@@ -6,7 +6,7 @@
     "start:diagram": "npx nx run ng-demos:serve --configuration=development --port=4500",
     "start": "npx nx run ng-demos:serve --configuration=development",
     "backend": "npx nx run backend:serve --configuration=development",
-    "start:landing" : "nx run presenty-landing-page:serve:production",
+    "start:landing" : "nx run presenty-landing-site:serve:production",
     "all": "nx run-many --target=serve --configuration=development --parallel --projects=ng-demos,backend"
   },
   "private": true,
