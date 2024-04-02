@@ -1,0 +1,21 @@
+# netlify.toml
+
+[build]
+  publish = "dist/apps"
+  command = "nx run ng-demos:build && nx run presenty-landing-site:build"
+
+[[redirects]]
+  from = "/about"
+  to = "/presenty-landing-site/index.html"
+  status = 200
+  force = true 
+
+[[redirects]]
+  from = "/about/*"
+  to = "/presenty-landing-site/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/ng-demos/index.html"
+  status = 200
