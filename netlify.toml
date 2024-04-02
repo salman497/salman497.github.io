@@ -2,7 +2,7 @@
 
 [build]
   publish = "/dist/apps/ng-demos"
-  command = "bash /build.sh"
+  command = "bash ./build.sh"
 
 
 [[redirects]]
