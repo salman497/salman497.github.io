@@ -20,6 +20,7 @@
           "apps/ng-demos/src/assets",
           "apps/ng-demos/src/404.html",
           "apps/ng-demos/src/sitemap.xml",
+          "apps/ng-demos/src/robot.txt",
           {
             "glob": "**/*",
             "input": "node_modules/reveal.js-plugins/chalkboard/img",
