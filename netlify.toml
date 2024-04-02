@@ -2,10 +2,16 @@
 
 [build]
   publish = "/dist/apps"
-  command = "nx run ng-demos:build && nx run presenty-landing-site:build"
+  command = "nx run ng-demos:build -- --base-href=/ng-demos/ && nx run presenty-landing-site:build -- --base-href=/presenty-landing-site/"
+
 
 [[redirects]]
   from = "/about"
+  to = "/presenty-landing-site/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/about/*"
   to = "/presenty-landing-site/index.html"
   status = 200
 
