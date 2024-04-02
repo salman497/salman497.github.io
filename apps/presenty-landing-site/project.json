@@ -16,7 +16,6 @@
         "tsConfig": "apps/presenty-landing-site/tsconfig.app.json",
         "webpackConfig": "apps/presenty-landing-site/webpack.config.js",
         "assets": [
-          "apps/presenty-landing-site/src/favicon.ico",
           "apps/presenty-landing-site/src/assets",
           "apps/presenty-landing-site/src/images"
         ],
