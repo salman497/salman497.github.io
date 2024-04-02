@@ -1,8 +1,9 @@
 # netlify.toml
 
 [build]
-  publish = "dist/apps"
-  command = "nx run ng-demos:build && nx run presenty-landing-site:build"
+  base = "Package/"
+  publish = "Package/dist/apps"
+  command = "nx run ng-demos:build && nx run presenty-landing-site:build:build"
 
 [[redirects]]
   from = "/about"
