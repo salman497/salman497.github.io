@@ -5,8 +5,3 @@
   command = "bash ./build.sh"
 
 
-[[redirects]]
-  from = "/about"
-  to = "/presenty-landing-site/index.html"
-  status = 200
-
