@@ -2,7 +2,7 @@
 
 [build]
   publish = "/dist/apps/ng-demos"
-  command = "nx run ng-demos:build"
+  command = "./build.sh"
 
 
 [[redirects]]
