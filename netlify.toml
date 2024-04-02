@@ -3,7 +3,7 @@
 [build]
   base = "Package/"
   publish = "Package/dist/apps"
-  command = "nx run ng-demos:build && nx run presenty-landing-site:build:build"
+  command = "nx run ng-demos:build && nx run presenty-landing-site:build"
 
 [[redirects]]
   from = "/about"
