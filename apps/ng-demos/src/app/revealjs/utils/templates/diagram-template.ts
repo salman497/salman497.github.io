@@ -1,13 +1,13 @@
 export const StartingDiagramTemplate = `
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ***
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ### Diagram Presenty
 
@@ -15,7 +15,7 @@ export const StartingDiagramTemplate = `
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ### Diagram Presenty
 
@@ -25,7 +25,7 @@ export const StartingDiagramTemplate = `
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ### Diagram Presenty
 
@@ -362,7 +362,7 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ### Diagram Presenty
 
@@ -370,7 +370,7 @@ classDiagram
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png">
 
 ### Diagram Presenty
 

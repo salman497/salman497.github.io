@@ -1,1 +1,1 @@
-Sitemap: https://presenty.app/sitemap.xml
+Sitemap: https://presenty.evonix.tech/sitemap.xml

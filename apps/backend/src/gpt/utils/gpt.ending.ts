@@ -2,19 +2,19 @@ export const presentationEndingContent = `
 
 <!-- .slide: data-auto-animate -->
 
-<img src="https://presenty.app/img/presenty_128x128.png" width="128" height="128">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png" width="128" height="128">
 
 
 ***
 <!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png" width="80" height="80">
 
 ### Presenty
 
 ***
 
 <!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png" width="80" height="80">
 
 ### Presenty
 
@@ -23,7 +23,7 @@ export const presentationEndingContent = `
 ***
 
 <!-- .slide: data-auto-animate -->
-<img src="https://presenty.app/img/presenty_128x128.png" width="80" height="80">
+<img src="https://presenty.evonix.tech/img/presenty_128x128.png" width="80" height="80">
 
 ### Presenty
 

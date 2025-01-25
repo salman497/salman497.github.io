@@ -3,7 +3,7 @@ export const GPTPrivacyPolicy = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/ico" href="https://presenty.app/img/presenty16px.ico" />
+    <link rel="icon" type="image/ico" href="https://presenty.evonix.tech/img/presenty16px.ico" />
     <title>Presenty API privacy policy for Presenty GPT</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }

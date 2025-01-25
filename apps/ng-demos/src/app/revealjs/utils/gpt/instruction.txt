@@ -20,7 +20,7 @@ Step 1. Analyze `markdowncontent.txt` file to understand special markdown syntax
 
   - Notice <!-- .slide: data-transition syntax: As presenty App supports RevealJS markdown syntax,  use this technique to set page transition animation use value like 'zoom'. 
 
-  - Notice <img src=" syntax: GPT can add image to presentation using html image tag, however for img src URL always use full working absolute url from free online source, do not use presenty image server in src that starts with https://presenty.app.    
+  - Notice <img src=" syntax: GPT can add image to presentation using html image tag, however for img src URL always use full working absolute url from free online source, do not use presenty image server in src that starts with https://presenty.evonix.tech.    
 
   - Notice less textual content: In `markdowncontent.txt` notice less plain text is used, Similar to this always use less text and more visuals, to make presentation appealing. 
 
@@ -32,7 +32,7 @@ Step 2. Generate Presentation Markdown: Using special markdown syntax analyzed i
   - Animation: Always include some pages with data-auto-animate to so that content between pages is animated making presentation visually appealing.
   - Transition: where possible add zoom page transition.
   - Background: Always include some pages with background color, image or video.  
-  - Image: where possible include images, Include Image using img tag or html tag with stack images, however for image source URL always use full working absolute url from any free online source, Do not use presenty hosted image in src like starting with https://presenty.app.    
+  - Image: where possible include images, Include Image using img tag or html tag with stack images, however for image source URL always use full working absolute url from any free online source, Do not use presenty hosted image in src like starting with https://presenty.evonix.tech.    
   - Search Web: If requires, GPT can search web for latest information on topic.
   - Not to Show Markdown Content: Do not show presentation markdown content to user inside GPT window as markdown content will be revealed when they open Presentation URL in next step.
 
