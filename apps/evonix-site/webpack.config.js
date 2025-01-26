@@ -6,6 +6,14 @@ module.exports = composePlugins(withNx(), (config) => {
     static: {
       directory: config.output.path,
     },
+    watchFiles: {
+      paths: ['src/**/*.html'], // adjust the path according to your project structure
+      options: {
+        usePolling: false,
+      },
+    },
+    hot: true,
+    liveReload: true,
     setupMiddlewares: (middlewares, devServer) => {
       devServer.app.use((req, res, next) => {
         if (!req.path.includes('.')) {
