@@ -53,17 +53,18 @@
         }
       }
     },
-    "serve": {
-      "executor": "@nx/webpack:dev-server",
-      "options": {
-        "buildTarget": "evonix-site:build"
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "evonix-site:build:production"
-        }
-      }
-    },
+"serve": {
+  "executor": "@nx/webpack:dev-server",
+  "options": {
+    "buildTarget": "evonix-site:build",
+    "watch": true
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "evonix-site:build:production"
+    }
+  }
+},
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
