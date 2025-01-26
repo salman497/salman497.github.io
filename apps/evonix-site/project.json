@@ -19,7 +19,17 @@
           "apps/evonix-site/src/css",
           "apps/evonix-site/src/img",
           "apps/evonix-site/src/js",
-          "apps/evonix-site/src/lib"
+          "apps/evonix-site/src/lib",
+          "apps/evonix-site/src/contact.html",
+          "apps/evonix-site/src/404.html",
+          "apps/evonix-site/src/about.html",
+          "apps/evonix-site/src/contact.html",
+          "apps/evonix-site/src/faq.html",
+          "apps/evonix-site/src/feature.html",
+          "apps/evonix-site/src/project.html",
+          "apps/evonix-site/src/service.html",
+          "apps/evonix-site/src/team.html",
+          "apps/evonix-site/src/testimonial.html"
         ],
         "index": "apps/evonix-site/src/index.html",
         "baseHref": "/",
