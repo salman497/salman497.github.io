@@ -1,0 +1,77 @@
+{
+  "name": "evonix-site",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/evonix-site/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/evonix-site",
+        "compiler": "swc",
+        "main": "apps/evonix-site/src/main.ts",
+        "tsConfig": "apps/evonix-site/tsconfig.app.json",
+        "webpackConfig": "apps/evonix-site/webpack.config.js",
+        "assets": [
+          "apps/evonix-site/src/assets",
+          "apps/evonix-site/src/images"
+        ],
+        "index": "apps/evonix-site/src/index.html",
+        "baseHref": "/",
+        "styles": ["apps/evonix-site/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/evonix-site/src/environments/environment.ts",
+              "with": "apps/evonix-site/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "evonix-site:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "evonix-site:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/evonix-site/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/evonix-site/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
