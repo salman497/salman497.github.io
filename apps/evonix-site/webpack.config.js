@@ -1,8 +1,21 @@
 const { composePlugins, withNx } = require('@nx/webpack');
 
-// Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
-  // Update the webpack config as needed here.
-  // e.g. `config.plugins.push(new MyPlugin())`
+  config.devServer = {
+    ...config.devServer,
+    static: {
+      directory: config.output.path,
+    },
+    setupMiddlewares: (middlewares, devServer) => {
+      devServer.app.use((req, res, next) => {
+        if (!req.path.includes('.')) {
+          req.url = `${req.url}.html`;
+        }
+        next();
+      });
+      return middlewares;
+    }
+  };
+  
   return config;
 });
