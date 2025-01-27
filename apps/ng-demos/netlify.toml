@@ -1,0 +1,7 @@
+# netlify.toml
+
+[build]
+  publish = "/dist/apps/ng-demos"
+  command = "bash ./build.sh"
+
+
