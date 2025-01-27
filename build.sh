@@ -6,6 +6,9 @@ nx reset
 # Build ng-demos application
 nx run ng-demos:build
 
+# Build evonix-site application
+nx run evonix-site:build
+
 # Build presenty-landing-site application
 nx run presenty-landing-site:build -- --base-href=/about/
 
