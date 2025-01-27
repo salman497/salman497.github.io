@@ -2,6 +2,6 @@
 
 [build]
   publish = "/dist/apps/ng-demos"
-  command = "bash ./apps/ng-demos/build.sh"
+  command = "bash ./build.sh"
 
 

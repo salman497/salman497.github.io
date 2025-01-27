@@ -8,7 +8,8 @@
     "backend": "npx nx run backend:serve --configuration=development",
     "start:landing": "nx run presenty-landing-site:serve --configuration=development",
     "start:evonix": "nx run evonix-site:serve --configuration=development",
-    "all": "nx run-many --target=serve --configuration=development --parallel --projects=ng-demos,backend"
+    "all": "nx run-many --target=serve --configuration=development --parallel --projects=ng-demos,backend",
+    "affected": "nx show projects --affected --base=main --head=HEAD"
   },
   "private": true,
   "devDependencies": {
