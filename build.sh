@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
+nx reset
+
 # Build ng-demos application
 nx run ng-demos:build
 

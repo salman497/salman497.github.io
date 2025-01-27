@@ -3,5 +3,5 @@
 [build]
   publish = "/dist/apps/ng-demos"
   command = "bash ./build.sh"
-
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF . ':!apps/ng-demos/**' ':!apps/presenty-landing-site/**'"
 
