@@ -1,8 +1,15 @@
 export const environment = {
     production: false,
     hostURL: 'http://localhost:4200',
-    supabaseUrl: 'https://keopaarrwhppnzememsw.supabase.co',
-    supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlb3BhYXJyd2hwcG56ZW1lbXN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUwOTQ1MTMsImV4cCI6MjAxMDY3MDUxM30.2Nv4KkM6EqtLGtLEadPkvQsG5o7-fLs3q2_gKVkecdg',
+    firebase: {
+      apiKey: "AIzaSyDlLBPmrctU5tkm4MjP-Jpo96wBoIoiyzo",
+      authDomain: "presenty-c21c5.firebaseapp.com",
+      projectId: "presenty-c21c5",
+      storageBucket: "presenty-c21c5.firebasestorage.app",
+      messagingSenderId: "332852709973",
+      appId: "1:332852709973:web:7db1436aea2884757fa2dc",
+      measurementId: "G-TQZE2BTQD1"
+    },
     chatDisabled: false,
     googleAnalyticId: 'G-MBSH5R8MXN'
   };
