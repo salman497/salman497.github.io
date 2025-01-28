@@ -3,6 +3,7 @@ import {
   Auth, 
   GoogleAuthProvider, 
   signInWithPopup, 
+  signInWithRedirect, 
   signOut, 
   user 
 } from '@angular/fire/auth';
@@ -17,7 +18,7 @@ import {
   where, 
   deleteDoc 
 } from '@angular/fire/firestore';
-import { Observable, from, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, from, map, of } from 'rxjs';
 import { LoginUser } from './revealjs/state/state';
 import { MarkdownDB } from './revealjs/models/db.model';
 import { generateRandomId } from './revealjs/utils/basic-utils';
@@ -28,24 +29,31 @@ import { generateRandomId } from './revealjs/utils/basic-utils';
 export class AuthService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
-  
-  user$ = user(this.auth);
+  private currentUserSubject = new BehaviorSubject<LoginUser>({});
 
-  async getLoginUser(): Promise<LoginUser> {
-    const currentUser = this.auth.currentUser;
-    if (!currentUser) return {};
-    
-    return {
-      id: currentUser.uid,
-      name: currentUser.displayName || '',
-      imageUrl: currentUser.photoURL || ''
-    };
+  user$ = user(this.auth);
+  getLoginUser$ = this.currentUserSubject.asObservable();
+
+  constructor() {
+    this.auth.onAuthStateChanged((user) => {
+      console.log('onAuthStateChanged', user);
+      if (user) {
+        const loginUser: LoginUser = {
+          id: user.uid,
+          name: user.displayName || '',
+          imageUrl: user.photoURL || ''
+        };
+        this.currentUserSubject.next(loginUser);
+      } else {
+        this.currentUserSubject.next({});
+      }
+    });
   }
 
   async signInWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(this.auth, provider);
+      await signInWithRedirect(this.auth, provider);
     } catch (error) {
       console.error('Error signing in with Google:', error);
       throw error;
