@@ -98,7 +98,7 @@
     "@nrwl/nest": "^16.9.0",
     "@supabase/auth-ui-react": "^0.4.5",
     "@supabase/auth-ui-shared": "^0.1.7",
-    "@supabase/supabase-js": "^2.36.0",
+    "@supabase/supabase-js": "^2.48.1",
     "@swc/helpers": "~0.5.2",
     "@toast-ui/editor": "^3.2.2",
     "@types/multer": "^1.4.7",
