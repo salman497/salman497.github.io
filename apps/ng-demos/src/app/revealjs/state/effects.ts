@@ -53,7 +53,7 @@ export class RevealJsEffects {
     this.actions$.pipe(
       ofType(loadLoginUserInfo),
       switchMap(() => {
-        return from(this.auth.getLoginUser$).pipe(
+        return from(this.auth.getLoginUser()).pipe(
           concatMap((loginUser) => {
             return from([
               // multiple actions

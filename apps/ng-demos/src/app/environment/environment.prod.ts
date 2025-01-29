@@ -1,16 +1,9 @@
 export const environment = {
-    production: true,
-    hostURL: 'https://presenty.evonix.tech/',
-    chatDisabled: true,
-    googleAnalyticId: 'G-3BDWL43VXZ',
-    firebase: {
-      apiKey: "AIzaSyCtEIs3GMah9TlMbnO7S6hvJMcHzLMtxyg",
-      authDomain: "presenty-by-evonix.firebaseapp.com",
-      projectId: "presenty-by-evonix",
-      storageBucket: "presenty-by-evonix.firebasestorage.app",
-      messagingSenderId: "98157662769",
-      appId: "1:98157662769:web:d079d71cdf5802f83c3b10",
-      measurementId: "G-E7CB2MXKPE"
-    }
-  };
-  
+  production: false,
+  hostURL: 'http://localhost:4200',
+  supabaseUrl: 'https://tdshfbcwufayaaiflple.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkc2hmYmN3dWZheWFhaWZscGxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDYyMTAsImV4cCI6MjA1MzM4MjIxMH0.wlfJrBdrnm_iEOPytYighCEELBk3fFi__sXXENlzGmU',
+  chatDisabled: false,
+  googleAnalyticId: 'G-MBSH5R8MXN'
+};
+

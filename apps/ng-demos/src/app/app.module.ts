@@ -7,18 +7,12 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { environment } from './environment/environment';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
     AppComponent,  
   ],
   imports: [
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
     BrowserModule,  // Import the BrowserModule to enable Angular's features for web applications
     RevealJsModule,
     NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticId),

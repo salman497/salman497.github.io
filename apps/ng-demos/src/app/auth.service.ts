@@ -1,116 +1,149 @@
-import { Injectable, inject } from '@angular/core';
-import { 
-  Auth, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  signInWithRedirect, 
-  signOut, 
-  user 
-} from '@angular/fire/auth';
-import { 
-  Firestore, 
-  collection, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  getDocs, 
-  query, 
-  where, 
-  deleteDoc 
-} from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, from, map, of } from 'rxjs';
-import { LoginUser } from './revealjs/state/state';
+/* eslint-disable no-useless-catch */
+import { switchMap } from 'rxjs/operators';
+import { Editor, LoginUser, RevealJsState } from './revealjs/state/state';
+import { Injectable } from '@angular/core';
+import {
+  SupabaseClient,
+  User,
+  createClient,
+  Session,
+} from '@supabase/supabase-js';
+import {
+  BehaviorSubject,
+  EMPTY,
+  from,
+  map,
+  Observable,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
+import { environment } from './environment/environment';
+import { generateRandomId, valueExist } from './revealjs/utils/basic-utils';
 import { MarkdownDB } from './revealjs/models/db.model';
-import { generateRandomId } from './revealjs/utils/basic-utils';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private auth: Auth = inject(Auth);
-  private firestore: Firestore = inject(Firestore);
-  private currentUserSubject = new BehaviorSubject<LoginUser>({});
+  private supabase: SupabaseClient;
+   constructor() {
+    this.supabase = createClient(
+      environment.supabaseUrl,
+      environment.supabaseKey
+    );
+  }
 
-  user$ = user(this.auth);
-  getLoginUser$ = this.currentUserSubject.asObservable();
+  async getLoginUser(): Promise<LoginUser> {
+    const sessionResp = await this.supabase.auth.getSession();
+    if (!valueExist(sessionResp?.data?.session)) {
+      console.log('----unabel to login No session exist---', sessionResp.error);
+      return {};
+    }
 
-  constructor() {
-    this.auth.onAuthStateChanged((user) => {
-      console.log('onAuthStateChanged', user);
-      if (user) {
-        const loginUser: LoginUser = {
-          id: user.uid,
-          name: user.displayName || '',
-          imageUrl: user.photoURL || ''
-        };
-        this.currentUserSubject.next(loginUser);
-      } else {
-        this.currentUserSubject.next({});
-      }
-    });
+    const { data, error} = await this.supabase.auth.getUser();
+    if (error) {
+      console.log('----get user error---', error);
+      return {};
+    }
+    return {
+      id: data?.user?.id,
+      name: data?.user?.user_metadata['name'],
+      imageUrl: data?.user?.user_metadata['avatar_url'],
+    };
   }
 
   async signInWithGoogle(): Promise<void> {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithRedirect(this.auth, provider);
-    } catch (error) {
-      console.error('Error signing in with Google:', error);
-      throw error;
-    }
+    await this.supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    });
   }
 
   async logout(): Promise<void> {
-    try {
-      await signOut(this.auth);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error signing out:', error);
-      throw error;
-    }
+    await this.supabase.auth.signOut();
+    this.supabase.storage.emptyBucket(environment.supabaseKey);
+    this.supabase.storage.deleteBucket(environment.supabaseKey);
+    // set empty login state
+    // setTimeout(() => {
+    //   //signal logout after a second
+    //   this.supabase$.next({ });
+    // }, 1000);
+
+    window.location.reload();
   }
 
   saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
-    if (!data.id) {
+    if(data.id === 0) {
+     // delete data.id;
       data.id = generateRandomId();
     }
-
-    const docRef = doc(this.firestore, 'markdown', data.id.toString());
-    return from(setDoc(docRef, data, { merge: true })).pipe(
-      map(() => data)
+    return from(
+      this.supabase.from('markdown').upsert([data]).select()
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data[0] : {};
+      })
     );
   }
 
   getEditor$(id: number): Observable<MarkdownDB> {
-    const docRef = doc(this.firestore, 'markdown', id.toString());
-    return from(getDoc(docRef)).pipe(
-      map(doc => {
-        if (!doc.exists()) return {};
-        return { id: doc.id, ...doc.data() } as MarkdownDB;
+    return from(
+      this.supabase.from('markdown').select().eq('id', id)
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data[0] : {};
       })
     );
   }
 
   getAllUserEditors$(userId: string): Observable<MarkdownDB[]> {
-    const markdownRef = collection(this.firestore, 'markdown');
-    const q = query(markdownRef, where('user_id', '==', userId));
-
-    return from(getDocs(q)).pipe(
-      map(snapshot => 
-        snapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        } as MarkdownDB))
-      )
+    return from(
+      this.supabase.from('markdown').select().eq('user_id', userId)
+    ).pipe(
+      map((resp) => {
+        if (resp.error) {
+          console.log('--------->>> save error', resp.error);
+          throwError(() => resp.error);
+        }
+        console.log('--------->>> save', resp.data);
+        return resp.data ? resp.data: [];
+      })
     );
   }
 
   async deleteMarkdown(markdownId: any): Promise<void> {
     try {
-      const docRef = doc(this.firestore, 'markdown', markdownId.toString());
-      await deleteDoc(docRef);
+      // Replace 'markdown' with your actual table name
+      const { error } = await this.supabase
+        .from("markdown")
+        .delete()
+        .match({"id": markdownId});
+    
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+    
+      return undefined;
     } catch (error) {
-      console.error('Error deleting document:', error);
+      console.error(error);
       throw error;
     }
   }

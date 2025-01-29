@@ -1,6 +1,6 @@
 import { Editor } from './../state/state';
 export interface MarkdownDB {
-    id?: any, 
+    id?: number,
     created_at?: any,
     editor?: Editor
     user_id?: any,

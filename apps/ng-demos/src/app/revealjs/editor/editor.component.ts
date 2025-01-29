@@ -88,8 +88,8 @@ export class EditorComponent implements OnInit {
 
   ngOnInit() {}
 
-  onLogin(): void {
-    this.auth.signInWithGoogle();
+  async onLogin() {
+    await this.auth.signInWithGoogle();
   }
 
   OnLogout() {
