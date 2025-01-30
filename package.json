@@ -118,7 +118,7 @@
     "nodemailer": "^6.9.8",
     "prosemirror-model": "1.19.3",
     "reflect-metadata": "^0.1.13",
-    "reveal.js": "=4.3.1",
+    "reveal.js": "=5.1.0",
     "reveal.js-animate-fragments": "^0.1.0",
     "reveal.js-menu": "^2.1.0",
     "reveal.js-mermaid-plugin": "^2.0.0",

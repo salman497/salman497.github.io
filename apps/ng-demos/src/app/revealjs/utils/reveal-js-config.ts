@@ -43,6 +43,13 @@ export async function getRevealConfig(
     ],
     // hashOneBasedIndex: true,
     hash: false,
+    /** version 5 */
+    view: 'scroll',
+    scrollActivationWidth: null,
+    scrollSnap: 'mandatory',
+    scrollLayout: 'compact', // full
+    scrollProgress: 'auto',
+    /** end version 5 */
     autoSlide: editor.showAutoSlide ? editor.showAutoDelayInMS : 0,
     // autoPlayMedia: false,
     showNotes: false, // IN speaker view S
