@@ -40,6 +40,8 @@ export class EditorComponent implements OnInit {
  
   isLoggedIn$ = this.store.select(selectIsLogin);
   chatDisabled$ = environment.chatDisabled ?  of(true): this.isLoggedIn$.pipe(map(login => login === false));
+  chatMessage$ = environment.chatDisabled ?  of('AI Chat - Coming Soon!'): of('AI Chat');
+
   userName$ = this.store.select(selectUserName);
   userImage$ = this.store.select(selectUserImageUrl);
   markdown$ = this.store.select(selectMarkdown);
