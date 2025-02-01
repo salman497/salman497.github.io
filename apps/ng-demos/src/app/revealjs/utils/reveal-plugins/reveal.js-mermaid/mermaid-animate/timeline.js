@@ -39,7 +39,7 @@ export function animateTimeline(diagram, el) {
 
         // Then, animate the connecting line
         if (connectingLines[i]) {
-            addFragmentToElement(connectingLines[i], fragmentIndex - 1); // Same index as year box
+            addFragmentToElement(connectingLines[i], fragmentIndex++); 
         }
 
         // Get the x-coordinate for this column
