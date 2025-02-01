@@ -244,4 +244,15 @@ mindmap
         Mermaid
 </code></pre></div>`
 },
+timelineSteps: {
+  html: `<div data-language="mermaid-steps" class="toastui-editor-ww-code-block"><pre><code data-language="mermaid-steps">
+timeline
+  2002 : LinkedIn
+  2004 : Facebook
+       : Google
+  2005 : Youtube
+  2006 : Twitter
+  </code></pre></div>`,
+  markdown: ``
+},
 };
