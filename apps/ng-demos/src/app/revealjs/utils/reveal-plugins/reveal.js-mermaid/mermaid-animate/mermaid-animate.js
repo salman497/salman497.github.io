@@ -2,6 +2,7 @@ import mermaid from "mermaid";
 import { animateFlowChartV2 } from './flow-chart-v2';
 import { animateSequence } from './sequence';
 import { animateMindMap } from './mindmap';
+import { animateTimeline } from './timeline';
 
 export async function animateMermaid(el, textGraphDefinition) {
   if(!el || !textGraphDefinition) {
@@ -18,6 +19,10 @@ export async function animateMermaid(el, textGraphDefinition) {
 
   if(diagram.type === 'mindmap') {
     animateMindMap(diagram, el);
+  }
+
+  if(diagram.type === 'timeline') {
+    animateTimeline(diagram, el);
   }
 }
 
