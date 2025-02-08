@@ -80,7 +80,7 @@ export class AuthService {
   }
 
   saveEditor(data: MarkdownDB): Observable<MarkdownDB> {
-    if(data.id === 0) {
+    if(!data.id) {
      // delete data.id;
       data.id = generateRandomId();
     }
