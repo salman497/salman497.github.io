@@ -431,7 +431,9 @@ const Plugin = () => {
 
 			if( !renderer ) {
 				renderer = new marked.Renderer();
-
+				renderer.link = function(href, title, text) {
+					return `<a href="${href}" target="_blank" rel="noopener noreferrer" title="${title || ''}">${text}</a>`;
+				};				
 				renderer.code = ( code, language ) => {
 
 					// Off by default
