@@ -78,10 +78,15 @@ export async function customControls() {
 }
 
 export async function chalkboard() {
-  await import('reveal.js-plugins/chalkboard/plugin');
-
+  await import('./reveal.js-chalkboard/plugin');
   return window.RevealChalkboard;
 }
+
+// don't use it from node modules 
+// export async function chalkboard() {
+//   await import('reveal.js-plugins/chalkboard/plugin');
+//   return window.RevealChalkboard;
+// }
 
 // export async function menu() {
 //   await import('reveal.js-menu/menu.esm');
