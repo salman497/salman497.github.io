@@ -109,9 +109,14 @@ const initChalkboard = function ( Reveal ) {
 		src: path + 'img/sponge.png',
 		radius: 20
 	};
-	var boardmarkers = [ {
-			color: 'rgba(100,100,100,1)',
+	var boardmarkers = [
+		{
+			color: 'rgba(255,255,255,1)',
 			cursor: 'url(' + path + 'img/boardmarker-black.png), auto'
+		},
+		{
+		color: 'rgba(100,100,100,1)',
+		cursor: 'url(' + path + 'img/boardmarker-black.png), auto'
 		},
 		{
 			color: 'rgba(30,144,255, 1)',
