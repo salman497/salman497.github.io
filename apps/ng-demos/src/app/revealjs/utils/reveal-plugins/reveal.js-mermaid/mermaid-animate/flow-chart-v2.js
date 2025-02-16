@@ -12,23 +12,23 @@ function animateAllWithFragments(el, edges, vertices, subgraphs) {
     const edgeLabels = el.querySelectorAll('span.edgeLabel');
     let fragmentIndex = 0;
 
-    // Separate normal edges and loop-back edges
-    const { normalEdges, loopBackEdges } = separateEdges(edges, vertices);
+    // Separate edges into categories
+    const { mainPathEdges, feedbackEdges } = categorizeEdges(edges, vertices);
     
-    // Find the true starting node (ChatBot)
+    // Find the starting node
     const startNodeId = Object.keys(vertices || {}).length > 0 
-    ? Object.keys(vertices)[0] 
-    : null;
+        ? Object.keys(vertices)[0] 
+        : null;
 
-    // Start with ChatBot node
+    // Start with first node
     if (startNodeId) {
         const startNodeSelector = getNodeSelector(vertices[startNodeId].domId);
         const startNodeElement = el.querySelector(startNodeSelector);
-        addFragmentToFlowChart(startNodeElement, 0);
-        fragmentIndex = 1;
+        addFragmentToFlowChart(startNodeElement, fragmentIndex);
+        fragmentIndex++;
     }
 
-    // Handle subgraphs first if they exist
+    // Handle subgraphs
     if (subgraphs && subgraphs.length > 0) {
         subgraphs.forEach(subgraph => {
             const subgraphElement = el.querySelector(`#${subgraph.id}`);
@@ -39,50 +39,36 @@ function animateAllWithFragments(el, edges, vertices, subgraphs) {
         fragmentIndex++;
     }
 
-    // Process normal edges in sequence
-    normalEdges.forEach(edge => {
-        // Skip if this edge starts from ChatBot as we've already handled it
-        if (edge.start === startNodeId) {
-            // Handle only the edge and its label
-            if (edge.text) {
-                const labelElement = getLabelElementByText(edgeLabels, edge.text);
-                addFragmentToFlowChart(labelElement, fragmentIndex);
-            }
-            const arrowSelector = getArrowSelector(edge.start, edge.end);
-            const arrowElement = el.querySelector(arrowSelector);
-            addFragmentToFlowChart(arrowElement, fragmentIndex);
-
-            // Add the end node (Tokenizer in this case)
-            if (edge.end) {
-                const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
-                const endNodeElement = el.querySelector(endNodeSelector);
-                addFragmentToFlowChart(endNodeElement, fragmentIndex);
-            }
-            fragmentIndex++;
-        } else {
-            // Edge label
-            if (edge.text) {
-                const labelElement = getLabelElementByText(edgeLabels, edge.text);
-                addFragmentToFlowChart(labelElement, fragmentIndex);
-            }
-
-            // Arrow
-            const arrowSelector = getArrowSelector(edge.start, edge.end);
-            const arrowElement = el.querySelector(arrowSelector);
-            addFragmentToFlowChart(arrowElement, fragmentIndex);
-
-            // End node of this edge
-            if (edge.end) {
-                const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
-                const endNodeElement = el.querySelector(endNodeSelector);
-                addFragmentToFlowChart(endNodeElement, fragmentIndex);
-            }
-            fragmentIndex++;
+    // Process main path edges
+    mainPathEdges.forEach(edge => {
+        // Edge label
+        if (edge.text) {
+            const labelElement = getLabelElementByText(edgeLabels, edge.text);
+            addFragmentToFlowChart(labelElement, fragmentIndex);
         }
+        // Arrow
+        const arrowSelector = getArrowSelector(edge.start, edge.end);
+        const arrowElement = el.querySelector(arrowSelector);
+        addFragmentToFlowChart(arrowElement, fragmentIndex);
+        // End node
+        if (edge.end) {
+            const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
+            const endNodeElement = el.querySelector(endNodeSelector);
+            addFragmentToFlowChart(endNodeElement, fragmentIndex);
+        }
+        fragmentIndex++;
     });
 
-    // Handle loop-back edges last
-    loopBackEdges.forEach(edge => {
+    // Process feedback edges last
+    feedbackEdges.forEach(edge => {
+        // First show the source node if it hasn't been shown yet
+        const sourceNodeSelector = getNodeSelector(vertices[edge.start].domId);
+        const sourceNodeElement = el.querySelector(sourceNodeSelector);
+        if (!sourceNodeElement.classList.contains('fragment')) {
+            addFragmentToFlowChart(sourceNodeElement, fragmentIndex);
+        }
+
+        // Then show the edge label and arrow
         if (edge.text) {
             const labelElement = getLabelElementByText(edgeLabels, edge.text);
             addFragmentToFlowChart(labelElement, fragmentIndex);
@@ -94,6 +80,23 @@ function animateAllWithFragments(el, edges, vertices, subgraphs) {
     });
 }
 
+function categorizeEdges(edges, vertices) {
+    const mainPathEdges = [];
+    const feedbackEdges = [];
+    
+    // Create a map of nodes that are part of feedback paths
+    const feedbackNodes = new Set();
+    edges.forEach(edge => {
+        if (edge.start.startsWith('G')) {
+            feedbackNodes.add(edge.start);
+            feedbackEdges.push(edge);
+        } else {
+            mainPathEdges.push(edge);
+        }
+    });
+
+    return { mainPathEdges, feedbackEdges };
+}
 function addFragmentToFlowChart(element, fragmentIndex) {
     if (element && fragmentIndex !== undefined && !element.hasAttribute('data-fragment-index')) {
         element.classList.add('fragment');
