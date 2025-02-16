@@ -61,6 +61,10 @@ export async function getRevealConfig(
     },
     mermaid: {
       theme: getMermaidThemeByRevealTheme(editor.themeSelected)
+    },
+    chalkboard: {
+      // don't reset drawing when mermaid fragement change
+      drawPerFragment: false
     }
   };
 }

@@ -89,9 +89,16 @@ const initChalkboard = function ( Reveal ) {
 	} catch ( err ) {}
 
 
+
 /*****************************************************************
  ** Configuration
  ******************************************************************/
+
+
+	/*** Start My Custom Logic: Salman */
+	var drawPerFragment = true;
+	/*** End My Custom Logic: Salman */
+
 	var background, pens, draw, color;
 	var grid = false;
 	var boardmarkerWidth = 3;
@@ -232,6 +239,7 @@ const initChalkboard = function ( Reveal ) {
 
 	function configure( config ) {
 
+		if ( config.drawPerFragment != undefined ) drawPerFragment = config.drawPerFragment;
 		if ( config.boardmarkerWidth || config.penWidth ) boardmarkerWidth = config.boardmarkerWidth || config.penWidth;
 		if ( config.chalkWidth ) chalkWidth = config.chalkWidth;
 		if ( config.chalkEffect ) chalkEffect = config.chalkEffect;
@@ -1689,7 +1697,7 @@ const initChalkboard = function ( Reveal ) {
 	Reveal.addEventListener( 'fragmentshown', function ( evt ) {
 //		clearTimeout( slidechangeTimeout );
 //console.log('fragmentshown');
-		if ( !printMode ) {
+		if ( !printMode && drawPerFragment) {
 			slideStart = Date.now() - getSlideDuration();
 			slideIndices = Reveal.getIndices();
 			closeChalkboard();
@@ -1709,7 +1717,7 @@ const initChalkboard = function ( Reveal ) {
 	Reveal.addEventListener( 'fragmenthidden', function ( evt ) {
 //		clearTimeout( slidechangeTimeout );
 //console.log('fragmenthidden');
-		if ( !printMode ) {
+		if ( !printMode && drawPerFragment) {
 			slideStart = Date.now() - getSlideDuration();
 			slideIndices = Reveal.getIndices();
 			closeChalkboard();
