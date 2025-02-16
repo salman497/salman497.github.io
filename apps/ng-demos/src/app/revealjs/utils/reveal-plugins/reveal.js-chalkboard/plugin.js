@@ -29,6 +29,9 @@ window.RevealChalkboard = window.RevealChalkboard || {
 	toggleChalkboard: function () {
 		toggleChalkboard();
 	},
+	showEraser: function () {
+		showEraser();
+	},
 	colorIndex: function () {
 		colorIndex();
 	},
@@ -194,6 +197,7 @@ const initChalkboard = function ( Reveal ) {
 			key: 'DEL',
 			description: 'Clear drawings on slide'
 		},
+		
 /*
 		reset: {
 			keyCode: 173,
@@ -220,7 +224,12 @@ const initChalkboard = function ( Reveal ) {
 			keyCode: 68,
 			key: 'D',
 			description: 'Download drawings'
-		}
+		},
+		showEraser: {
+			keyCode: 69,
+			key: 'E',
+			description: 'Show eraser.'
+		},
 	};
 
 
@@ -1787,6 +1796,16 @@ const initChalkboard = function ( Reveal ) {
 			}
 		}
 	};
+	var previousColorIndex;
+	function showEraser() {
+		
+		if(color[ mode ] != -1) {
+			previousColorIndex = color[ mode ];
+			colorIndex( -1 );
+		}else {
+			colorIndex( previousColorIndex || 0 );
+		}
+	}
 
 	function toggleChalkboard() {
 //console.log("toggleChalkboard " + mode);
@@ -1961,6 +1980,7 @@ const initChalkboard = function ( Reveal ) {
 	this.clear = clear;
 	this.reset = resetSlide;
 	this.resetAll = resetStorage;
+	this.showEraser = showEraser;
 	this.download = downloadData;
 	this.updateStorage = updateStorage;
 	this.getData = getData;

@@ -64,7 +64,8 @@ export async function getRevealConfig(
     },
     chalkboard: {
       // don't reset drawing when mermaid fragement change
-      drawPerFragment: false
+      drawPerFragment: false,
+      penWidth: 4
     }
   };
 }
