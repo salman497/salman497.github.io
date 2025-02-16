@@ -16,9 +16,9 @@ function animateAllWithFragments(el, edges, vertices, subgraphs) {
     const { normalEdges, loopBackEdges } = separateEdges(edges, vertices);
     
     // Find the true starting node (ChatBot)
-    const startNodeId = Object.keys(vertices).find(id => 
-        vertices[id].text.includes('ChatBot')
-    );
+    const startNodeId = Object.keys(vertices || {}).length > 0 
+    ? Object.keys(vertices)[0] 
+    : null;
 
     // Start with ChatBot node
     if (startNodeId) {
