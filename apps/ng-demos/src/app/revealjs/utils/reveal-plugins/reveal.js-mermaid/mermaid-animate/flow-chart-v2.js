@@ -12,124 +12,112 @@ function animateAllWithFragments(el, edges, vertices, subgraphs) {
     const edgeLabels = el.querySelectorAll('span.edgeLabel');
     let fragmentIndex = 0;
 
-    // Find all nodes that are part of loops
-    const loopNodes = findLoopNodes(edges);
-
-    // Find the true starting node (ChatBot in this case)
-    const startNodeId = findStartNode(edges, vertices, loopNodes);
+    // Separate normal edges and loop-back edges
+    const { normalEdges, loopBackEdges } = separateEdges(edges, vertices);
     
-    // Start with the initial node (ChatBot)
+    // Find the true starting node (ChatBot)
+    const startNodeId = Object.keys(vertices).find(id => 
+        vertices[id].text.includes('ChatBot')
+    );
+
+    // Start with ChatBot node
     if (startNodeId) {
         const startNodeSelector = getNodeSelector(vertices[startNodeId].domId);
         const startNodeElement = el.querySelector(startNodeSelector);
-        addFragmentToFlowChart(startNodeElement, fragmentIndex);
+        addFragmentToFlowChart(startNodeElement, 0);
+        fragmentIndex = 1;
+    }
+
+    // Handle subgraphs first if they exist
+    if (subgraphs && subgraphs.length > 0) {
+        subgraphs.forEach(subgraph => {
+            const subgraphElement = el.querySelector(`#${subgraph.id}`);
+            if (subgraphElement) {
+                addFragmentToFlowChart(subgraphElement, fragmentIndex);
+            }
+        });
         fragmentIndex++;
     }
 
-    // Process edges in sequence, excluding the loop-back edge
-    const processedEdges = edges.filter(edge => !isLoopBackEdge(edge, startNodeId));
-    processedEdges.forEach((edge, index) => {
-        // Handle subgraph when first entering it
-        if (subgraphs && subgraphs.length > 0) {
-            subgraphs.forEach(subgraph => {
-                if (subgraph.nodes.includes(edge.end) && 
-                    isFirstNodeInSubgraph(edge.end, subgraph, processedEdges)) {
-                    const subgraphElement = el.querySelector(`#${subgraph.id}`);
-                    if (subgraphElement) {
-                        addFragmentToFlowChart(subgraphElement, fragmentIndex);
-                    }
-                }
-            });
-        }
-
-        // Edge label
-        if (edge.text) {
-            const labelElement = getLabelElementByText(edgeLabels, edge.text);
-            if (labelElement) {
+    // Process normal edges in sequence
+    normalEdges.forEach(edge => {
+        // Skip if this edge starts from ChatBot as we've already handled it
+        if (edge.start === startNodeId) {
+            // Handle only the edge and its label
+            if (edge.text) {
+                const labelElement = getLabelElementByText(edgeLabels, edge.text);
                 addFragmentToFlowChart(labelElement, fragmentIndex);
             }
-        }
-
-        // Arrow
-        const arrowSelector = getArrowSelector(edge.start, edge.end);
-        const arrowElement = el.querySelector(arrowSelector);
-        if (arrowElement) {
+            const arrowSelector = getArrowSelector(edge.start, edge.end);
+            const arrowElement = el.querySelector(arrowSelector);
             addFragmentToFlowChart(arrowElement, fragmentIndex);
-        }
 
-        // End node of this edge
-        if (edge.end) {
-            const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
-            const endNodeElement = el.querySelector(endNodeSelector);
-            if (endNodeElement) {
+            // Add the end node (Tokenizer in this case)
+            if (edge.end) {
+                const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
+                const endNodeElement = el.querySelector(endNodeSelector);
                 addFragmentToFlowChart(endNodeElement, fragmentIndex);
             }
-        }
-
-        fragmentIndex++;
-    });
-
-    // Handle the loop-back edge last
-    const loopBackEdge = edges.find(edge => isLoopBackEdge(edge, startNodeId));
-    if (loopBackEdge) {
-        // Loop back label
-        if (loopBackEdge.text) {
-            const labelElement = getLabelElementByText(edgeLabels, loopBackEdge.text);
-            if (labelElement) {
+            fragmentIndex++;
+        } else {
+            // Edge label
+            if (edge.text) {
+                const labelElement = getLabelElementByText(edgeLabels, edge.text);
                 addFragmentToFlowChart(labelElement, fragmentIndex);
             }
-        }
 
-        // Loop back arrow
-        const arrowSelector = getArrowSelector(loopBackEdge.start, loopBackEdge.end);
-        const arrowElement = el.querySelector(arrowSelector);
-        if (arrowElement) {
+            // Arrow
+            const arrowSelector = getArrowSelector(edge.start, edge.end);
+            const arrowElement = el.querySelector(arrowSelector);
             addFragmentToFlowChart(arrowElement, fragmentIndex);
+
+            // End node of this edge
+            if (edge.end) {
+                const endNodeSelector = getNodeSelector(vertices[edge.end].domId);
+                const endNodeElement = el.querySelector(endNodeSelector);
+                addFragmentToFlowChart(endNodeElement, fragmentIndex);
+            }
+            fragmentIndex++;
         }
+    });
+
+    // Handle loop-back edges last
+    loopBackEdges.forEach(edge => {
+        if (edge.text) {
+            const labelElement = getLabelElementByText(edgeLabels, edge.text);
+            addFragmentToFlowChart(labelElement, fragmentIndex);
+        }
+        const arrowSelector = getArrowSelector(edge.start, edge.end);
+        const arrowElement = el.querySelector(arrowSelector);
+        addFragmentToFlowChart(arrowElement, fragmentIndex);
+        fragmentIndex++;
+    });
+}
+
+function addFragmentToFlowChart(element, fragmentIndex) {
+    if (element && fragmentIndex !== undefined && !element.hasAttribute('data-fragment-index')) {
+        element.classList.add('fragment');
+        element.setAttribute('data-fragment-index', fragmentIndex);
+        element.style.opacity = ''; // Remove the opacity we set in hideAllElements
     }
 }
 
-function findStartNode(edges, vertices, loopNodes) {
-    // Find nodes that have no incoming edges (excluding loop-back edges)
-    const nodesWithIncomingEdges = new Set(edges.map(edge => edge.end));
-    const potentialStartNodes = Object.keys(vertices).filter(nodeId => 
-        !nodesWithIncomingEdges.has(nodeId) || loopNodes.has(nodeId)
-    );
-    
-    // In your case, return the node with "ChatBot" in its name
-    return potentialStartNodes.find(nodeId => 
-        vertices[nodeId].text.includes('ChatBot')
-    );
-}
 
-function findLoopNodes(edges) {
-    const loopNodes = new Set();
+function separateEdges(edges, vertices) {
+    const normalEdges = [];
+    const loopBackEdges = [];
+    
     edges.forEach(edge => {
-        // If there's an edge where the end node has an edge back to the start node
-        const hasLoopBack = edges.some(e => 
-            e.start === edge.end && e.end === edge.start
-        );
-        if (hasLoopBack) {
-            loopNodes.add(edge.start);
-            loopNodes.add(edge.end);
+        if (vertices[edge.end]?.text.includes('ChatBot')) {
+            loopBackEdges.push(edge);
+        } else {
+            normalEdges.push(edge);
         }
     });
-    return loopNodes;
+    
+    return { normalEdges, loopBackEdges };
 }
 
-function isLoopBackEdge(edge, startNodeId) {
-    return edge.end === startNodeId;
-}
-
-function isFirstNodeInSubgraph(nodeId, subgraph, edges) {
-    // Check if this is the first node in the subgraph that gets connected to
-    const subgraphNodes = subgraph.nodes;
-    const edgeIndex = edges.findIndex(edge => 
-        subgraphNodes.includes(edge.end) || subgraphNodes.includes(edge.start)
-    );
-    const currentEdge = edges.find(edge => edge.end === nodeId);
-    return edges.indexOf(currentEdge) === edgeIndex;
-}
 
 
 function getLabelElementByText(edgeLabels, text) {
@@ -141,7 +129,7 @@ function getLabelElementByText(edgeLabels, text) {
 
 function getNodeSelector(domId) {
     const parts = domId.split('-');
-    parts.pop(); // Removes the last element from the array
+    parts.pop();
     return `[id^="${parts.join('-')}"]`;
 }
 
@@ -149,9 +137,3 @@ function getArrowSelector(start, end) {
     return `[id^="L-${start}-${end}"]`;
 }
 
-function addFragmentToFlowChart(element, fragmentIndex) {
-    if (element && fragmentIndex !== undefined) {
-        element.classList.add('fragment');
-        element.setAttribute('data-fragment-index', fragmentIndex);
-    }
-}
