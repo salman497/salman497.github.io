@@ -2,6 +2,7 @@ import { Constant } from './../utils/constants';
 import {
   changeLoadingState,
   setURLSlideNumber,
+  toggleViewerToReRender,
   updateEditorShowAutoSlides,
 } from './../state/actions';
 import {
@@ -184,6 +185,10 @@ export class ViewerComponent
       }
 
       window.RevealChalkboard.toggleNotesCanvas();
+    }
+
+    if(action === Constant.OutsideAngularEvents.Refresh) {
+      this.store.dispatch(toggleViewerToReRender());
     }
   }
 

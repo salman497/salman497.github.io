@@ -173,6 +173,12 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
   }
 
   controls.push({
+    icon: '<i class="fa fa-sync"></i>',
+    title: 'Refresh',
+    action: "invokeFromOutsideOfAngular('refreshViewer');",
+  });
+
+  controls.push({
     id: 'fullscreen',
     title: 'Show in Full Screen (F)',
     icon: '<i class="fa fa-expand"></i>',

@@ -38,7 +38,8 @@ export const Constant = {
         Menu: 'menu',
         FullScreen: 'fullscreen',
         ChalkboardToggle: 'chalkboardToggle',
-        ChalkboardCanvas: 'chalkboardCanvas'
+        ChalkboardCanvas: 'chalkboardCanvas',
+        Refresh: 'refreshViewer'
 
     },
     DefaultName: 'My presentation' as const 
