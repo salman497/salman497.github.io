@@ -1,2 +1,2 @@
-# Salman Aziz Mono Repo 
-For my personal testing.
+# Salman Aziz MonoRepo
+For my personal testing and projects.
