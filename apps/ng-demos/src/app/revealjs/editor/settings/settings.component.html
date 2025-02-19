@@ -18,6 +18,16 @@
   </mat-select>
 </mat-form-field>
 
+<!-- Mermaid Dropdown -->
+<mat-form-field class="dropdown-field">
+  <mat-label>Mermaid Style</mat-label>
+  <mat-select [value]="mermaidStyle" (valueChange)="updateMermaidStyle($event)">
+    <mat-option *ngFor="let mermaidStyle of mermaidStyles" [value]="mermaidStyle">{{
+      mermaidStyle || 'Internal'
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
 <!-- Slide Toggles -->
 <div class="toggle-container">
   <mat-slide-toggle

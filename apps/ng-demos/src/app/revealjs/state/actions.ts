@@ -12,10 +12,16 @@ export const updateEditorTheme = createAction(
   props<{ themeSelected: string }>()
 );
 
+export const updateEditorMermaidStyle = createAction(
+  '[RevealJs] Update Editor Mermaid Style',
+  props<{ mermaidStyleSelected: string }>()
+);
+
 export const updateEditorAnimation = createAction(
   '[RevealJs] Update Editor Animation',
   props<{ animationSelected: string }>()
 );
+
 
 export const updateEditorShowPen = createAction(
   '[RevealJs] Update Editor Show Pen',

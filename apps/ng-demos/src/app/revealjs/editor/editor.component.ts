@@ -48,6 +48,9 @@ export class EditorComponent implements OnInit {
   theme$ = this.store
     .select(selectEditor)
     .pipe(map((e) => e && e.themeSelected));
+  mermaidStyle$ = this.store
+    .select(selectEditor)
+    .pipe(map((e) => e && e.mermaidStyleSelected));
   animation$ = this.store
     .select(selectEditor)
     .pipe(map((e) => e && e.animationSelected));

@@ -98,6 +98,7 @@
 
       <mono-repo-settings
         [theme]="(theme$ | async) || 'White'"
+        [mermaidStyle]="(mermaidStyle$ | async) || ''"
         [animation]="(animation$ | async) || 'None'"
         [showPen]="showPen$ | async"
         [showDrawingArea]="showDrawingArea$ | async"
@@ -111,7 +112,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <mat-icon>publish</mat-icon> Publish 
+          <mat-icon>publish</mat-icon> Publish & Load
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mono-repo-publish

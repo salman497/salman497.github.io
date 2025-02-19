@@ -60,7 +60,7 @@ export async function getRevealConfig(
       controls: getCustomControls(editor, isEditMode),
     },
     mermaid: {
-      theme: getMermaidThemeByRevealTheme(editor.themeSelected)
+      theme: getMermaidThemeByRevealTheme(editor)
     },
     chalkboard: {
       // don't reset drawing when mermaid fragement change
@@ -188,7 +188,10 @@ function getCustomControls(editor: Editor, isEditMode: boolean) {
   return controls;
 }
 
-function getMermaidThemeByRevealTheme(revealTheme: string): string {
+function getMermaidThemeByRevealTheme(editor: Editor): string {
+  if(editor.mermaidStyleSelected) {
+    return editor.mermaidStyleSelected;
+  }
   /**
    * Mermaid theme https://mermaid.js.org/config/theming.html
    * default - This is the default theme for all diagrams.
@@ -211,5 +214,5 @@ function getMermaidThemeByRevealTheme(revealTheme: string): string {
     Solarized: 'default', // Solarized is unique, default could be a start
   };
 
-  return revealMermaidThemeMap[revealTheme] || 'default';
+  return revealMermaidThemeMap[editor.themeSelected] || 'default';
 }

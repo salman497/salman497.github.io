@@ -45,6 +45,7 @@ export interface Editor {
     content: string;
     themeSelected: string;
     animationSelected: string;
+    mermaidStyleSelected: string;
     showPen: boolean;
     showDrawingArea: boolean;
     showSlides: boolean;
@@ -58,6 +59,7 @@ export const initialState: RevealJsState = {
       content: getStarterTemplate(),
       themeSelected: 'Black',
       animationSelected: 'Slide',
+      mermaidStyleSelected: '',
       showPen: true,
       showDrawingArea: true,
       showSlides: true,

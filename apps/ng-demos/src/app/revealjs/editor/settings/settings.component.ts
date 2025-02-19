@@ -23,9 +23,12 @@ export class SettingsComponent {
     'Solarized',
   ];
   animations = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
+  
+  mermaidStyles = ['', 'dark', 'neutral', 'default', 'base'];
 
   @Input() theme!: string;
   @Input() animation!: string;
+  @Input() mermaidStyle!: string;
   @Input() showPen!: boolean | null;
   @Input() showDrawingArea!: boolean | null;
   @Input() showSlides!: boolean | null;
@@ -35,6 +38,12 @@ export class SettingsComponent {
     private store: Store<RevealJsState>,
   ) {}
   
+  updateMermaidStyle(mermaidStyleSelected: string): void {
+    this.store.dispatch(actions.updateEditorMermaidStyle({ mermaidStyleSelected }));
+    this.store.dispatch(actions.toggleViewerToReRender());
+    this.store.dispatch(actions.saveToLocalStorage());
+  }
+
   updateTheme(themeSelected: string): void {
     this.store.dispatch(actions.updateEditorTheme({ themeSelected }));
     this.store.dispatch(actions.toggleViewerToReRender());

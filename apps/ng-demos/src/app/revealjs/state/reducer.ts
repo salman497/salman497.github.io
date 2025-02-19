@@ -24,7 +24,8 @@ import {
   setAllowEdit,
   updateEditorShowAutoSlides as updateEditorShowAutoSlide,
   setURLSlideNumber,
-  setEditorVisibility
+  setEditorVisibility,
+  updateEditorMermaidStyle
 } from './actions';
 import { initialState, URLInfo } from './state';
 
@@ -89,6 +90,14 @@ export const revealJsReducer = createReducer(
     editor: {
       ...state.editor,
       themeSelected,
+    },
+    modified: getCurrentISODataTime()
+  })),
+  on(updateEditorMermaidStyle, (state, { mermaidStyleSelected }) => ({
+    ...state,
+    editor: {
+      ...state.editor,
+      mermaidStyleSelected,
     },
     modified: getCurrentISODataTime()
   })),
