@@ -34,6 +34,7 @@ declare global {
     RevealChalkboard: {
       toggleChalkboard: () => {};
       toggleNotesCanvas: () => {};
+      setDrawingTool: (name: 'pen' | 'rectangle' | 'square') => {};
     };
   }
 }
@@ -183,8 +184,10 @@ export class ViewerComponent
         // hide editor for correct draw area
         this.changeEditorView.emit(false);
       }
-
       window.RevealChalkboard.toggleNotesCanvas();
+      window.RevealChalkboard.setDrawingTool('rectangle');
+
+     // window.RevealChalkboard.toggleNotesCanvas();
     }
 
     if(action === Constant.OutsideAngularEvents.Refresh) {

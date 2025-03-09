@@ -1,5 +1,5 @@
 /*****************************************************************
- ** Author: Asvin Goel, goel@telematique.eu
+ ** Authors: Asvin Goel, goel@telematique.eu
  **
  ** A plugin for reveal.js adding a chalkboard.
  **
@@ -58,6 +58,9 @@ window.RevealChalkboard = window.RevealChalkboard || {
 	},
 	download: function () {
 		download();
+	},
+	setDrawingTool: function(toolName) {
+		setDrawingTool(toolName);
 	},
 };
 
@@ -240,6 +243,7 @@ const initChalkboard = function ( Reveal ) {
 	var colorButtons = true;
 	var boardHandle = true;
 	var transition = 800;
+	var drawingTool = 'pen'; // Default drawing tool: pen, rectangle, square
 
 	var readOnly = false;
 	var messageType = 'broadcast';
@@ -261,6 +265,7 @@ const initChalkboard = function ( Reveal ) {
 		if ( config.eraser ) eraser = config.eraser;
 		if ( config.boardmarkers ) boardmarkers = config.boardmarkers;
 		if ( config.chalks ) chalks = config.chalks;
+		if ( config.drawingTool ) drawingTool = config.drawingTool;
 
 		if ( config.theme ) theme = config.theme;
 		switch ( theme ) {
@@ -349,15 +354,13 @@ const initChalkboard = function ( Reveal ) {
 	var mouseY = 0;
 	var lastX = null;
 	var lastY = null;
+	var startX = null;
+	var startY = null;
+	var slideStart = Date.now();
+	var slideIndices = { h:0, v:0 };
 
 	var drawing = false;
 	var erasing = false;
-
-	var slideStart = Date.now();
-	var slideIndices = {
-		h: 0,
-		v: 0
-	};
 
 	var timeouts = [
 		[],
@@ -946,6 +949,70 @@ const initChalkboard = function ( Reveal ) {
 			}
 		}
 	}
+
+	function drawRectangle( context, fromX, fromY, toX, toY, colorIdx ) {
+		if ( colorIdx == undefined ) colorIdx = color[ mode ];
+		
+		// Use appropriate styling based on mode (chalkboard or whiteboard)
+		if (mode === 0) { // boardmarker
+			context.lineWidth = boardmarkerWidth;
+			context.strokeStyle = boardmarkers[ colorIdx ].color;
+		} else { // chalk
+			context.lineWidth = chalkWidth;
+			context.strokeStyle = chalks[ colorIdx ].color;
+		}
+		
+		context.beginPath();
+		context.rect(Math.min(fromX, toX), Math.min(fromY, toY), Math.abs(toX - fromX), Math.abs(toY - fromY));
+		context.stroke();
+		
+		// Add chalk effect if in chalk mode
+		if (mode === 1) {
+			var width = Math.abs(toX - fromX);
+			var height = Math.abs(toY - fromY);
+			var startX = Math.min(fromX, toX);
+			var startY = Math.min(fromY, toY);
+			
+			// Add chalk effect to the rectangle border
+			for (var i = 0; i < width; i += 5) {
+				if (chalkEffect > (Math.random() * 0.9)) {
+					var xRandom = startX + i + (Math.random() - 0.5) * chalkWidth;
+					var yRandom = startY + (Math.random() - 0.5) * chalkWidth;
+					context.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
+					
+					xRandom = startX + i + (Math.random() - 0.5) * chalkWidth;
+					yRandom = startY + height + (Math.random() - 0.5) * chalkWidth;
+					context.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
+				}
+			}
+			
+			for (var i = 0; i < height; i += 5) {
+				if (chalkEffect > (Math.random() * 0.9)) {
+					var xRandom = startX + (Math.random() - 0.5) * chalkWidth;
+					var yRandom = startY + i + (Math.random() - 0.5) * chalkWidth;
+					context.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
+					
+					xRandom = startX + width + (Math.random() - 0.5) * chalkWidth;
+					yRandom = startY + i + (Math.random() - 0.5) * chalkWidth;
+					context.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
+				}
+			}
+		}
+	}
+
+	function drawSquare( context, fromX, fromY, toX, toY, colorIdx ) {
+		if ( colorIdx == undefined ) colorIdx = color[ mode ];
+		
+		// Calculate the side length based on the maximum difference between coordinates
+		var sideLength = Math.max(Math.abs(toX - fromX), Math.abs(toY - fromY));
+		
+		// Determine the direction to ensure the square grows in the right direction
+		var newToX = fromX + (toX > fromX ? sideLength : -sideLength);
+		var newToY = fromY + (toY > fromY ? sideLength : -sideLength);
+		
+		// Use the rectangle drawing function with adjusted coordinates
+		drawRectangle(context, fromX, fromY, newToX, newToY, colorIdx);
+	}
  
 	function eraseWithSponge( context, x, y ) {
 		context.save();
@@ -1323,19 +1390,10 @@ const initChalkboard = function ( Reveal ) {
 //console.log( id + ": " + timestamp +" / " +  event.time +" / " + event.type +" / " + mode );
 		switch ( event.type ) {
 		case 'open':
-			if ( timestamp <= event.time ) {
-				showChalkboard();
-			} else {
-				mode = 1;
-			}
-
+			showChalkboard();
 			break;
 		case 'close':
-			if ( timestamp < event.time ) {
-				closeChalkboard();
-			} else {
-				mode = 0;
-			}
+			closeChalkboard();
 			break;
 		case 'clear':
 			clearCanvas( id );
@@ -1344,10 +1402,48 @@ const initChalkboard = function ( Reveal ) {
 			selectBoard( event.board );
 			break;
 		case 'draw':
-			drawLine( id, event, timestamp );
+			if (event.tool === 'rectangle') {
+				var ctx = drawingCanvas[id].context;
+				var scale = drawingCanvas[id].scale;
+				var xOffset = drawingCanvas[id].xOffset;
+				var yOffset = drawingCanvas[id].yOffset;
+				
+				drawRectangle(
+					ctx, 
+					event.x1 * scale + xOffset, 
+					event.y1 * scale + yOffset, 
+					event.x2 * scale + xOffset, 
+					event.y2 * scale + yOffset, 
+					event.color
+				);
+			} 
+			else if (event.tool === 'square') {
+				var ctx = drawingCanvas[id].context;
+				var scale = drawingCanvas[id].scale;
+				var xOffset = drawingCanvas[id].xOffset;
+				var yOffset = drawingCanvas[id].yOffset;
+				
+				drawSquare(
+					ctx, 
+					event.x1 * scale + xOffset, 
+					event.y1 * scale + yOffset, 
+					event.x2 * scale + xOffset, 
+					event.y2 * scale + yOffset, 
+					event.color
+				);
+			}
+			else {
+				drawLine(id, event, timestamp);
+			}
 			break;
 		case 'erase':
 			eraseCircle( id, event, timestamp );
+			break;
+		case 'setcolor':
+			setColor(event.index);
+			break;
+		case 'setdrawingtool':
+			setDrawingTool(event.tool);
 			break;
 		}
 	};
@@ -1357,8 +1453,15 @@ const initChalkboard = function ( Reveal ) {
 		var scale = drawingCanvas[ id ].scale;
 		var xOffset = drawingCanvas[ id ].xOffset;
 		var yOffset = drawingCanvas[ id ].yOffset;
-		draw[ id ]( ctx, xOffset + event.x1 * scale, yOffset + event.y1 * scale, xOffset + event.x2 * scale, yOffset + event.y2 * scale, event.color );
-	};
+
+		var fromX = event.x1 * scale + xOffset;
+		var fromY = event.y1 * scale + yOffset;
+
+		var toX = event.x2 * scale + xOffset;
+		var toY = event.y2 * scale + yOffset;
+
+		draw[ id ]( ctx, fromX, fromY, toX, toY, event.color );
+	}
 
 	function eraseCircle( id, event, timestamp ) {
 		var ctx = drawingCanvas[ id ].context;
@@ -1408,6 +1511,11 @@ const initChalkboard = function ( Reveal ) {
 		var scale = drawingCanvas[ mode ].scale;
 		var xOffset = drawingCanvas[ mode ].xOffset;
 		var yOffset = drawingCanvas[ mode ].yOffset;
+		
+		// Store the starting point
+		startX = x;
+		startY = y;
+		
 		lastX = x * scale + xOffset;
 		lastY = y * scale + yOffset;
 	}
@@ -1418,8 +1526,10 @@ const initChalkboard = function ( Reveal ) {
 		var xOffset = drawingCanvas[ mode ].xOffset;
 		var yOffset = drawingCanvas[ mode ].yOffset;
 
+		// Record the drawing event with the tool type
 		recordEvent( {
 			type: 'draw',
+			tool: drawingTool,
 			color: colorIdx,
 			x1: fromX,
 			y1: fromY,
@@ -1437,18 +1547,81 @@ const initChalkboard = function ( Reveal ) {
 			toX * scale + xOffset < drawingCanvas[ mode ].width &&
 			toY * scale + yOffset < drawingCanvas[ mode ].height
 		) {
-			draw[ mode ]( ctx, fromX * scale + xOffset, fromY * scale + yOffset, toX * scale + xOffset, toY * scale + yOffset, colorIdx );
+			// Use the appropriate drawing function based on the selected tool
+			if (drawingTool === 'pen') {
+				draw[ mode ]( ctx, fromX * scale + xOffset, fromY * scale + yOffset, toX * scale + xOffset, toY * scale + yOffset, colorIdx );
+			}
+		}
+	}
+
+	function finishDrawing() {
+		var ctx = drawingCanvas[ mode ].context;
+		var scale = drawingCanvas[ mode ].scale;
+		var xOffset = drawingCanvas[ mode ].xOffset;
+		var yOffset = drawingCanvas[ mode ].yOffset;
+		
+		// Only draw shapes when finishing the drawing action
+		if (drawingTool === 'rectangle') {
+			drawRectangle(
+				ctx, 
+				startX * scale + xOffset, 
+				startY * scale + yOffset, 
+				lastX, 
+				lastY, 
+				color[ mode ]
+			);
+			
+			// Record the rectangle drawing event
+			recordEvent({
+				type: 'draw',
+				tool: 'rectangle',
+				color: color[ mode ],
+				x1: startX,
+				y1: startY,
+				x2: (lastX - xOffset) / scale,
+				y2: (lastY - yOffset) / scale
+			});
+		} 
+		else if (drawingTool === 'square') {
+			drawSquare(
+				ctx, 
+				startX * scale + xOffset, 
+				startY * scale + yOffset, 
+				lastX, 
+				lastY, 
+				color[ mode ]
+			);
+			
+			// Record the square drawing event
+			recordEvent({
+				type: 'draw',
+				tool: 'square',
+				color: color[ mode ],
+				x1: startX,
+				y1: startY,
+				x2: (lastX - xOffset) / scale,
+				y2: (lastY - yOffset) / scale
+			});
 		}
 	}
 
 	function stopDrawing() {
-		drawing = false;
+		if (drawing) {
+			// Complete any shape drawing before stopping
+			if (drawingTool === 'rectangle' || drawingTool === 'square') {
+				finishDrawing();
+			}
+			drawing = false;
+		}
 	}
 
-
-/*****************************************************************
- ** User interface
- ******************************************************************/
+	function setDrawingTool(toolName) {
+		if (['pen', 'rectangle', 'square'].includes(toolName)) {
+			drawingTool = toolName;
+			return true;
+		}
+		return false;
+	}
 
 	function setupCanvasEvents( canvas ) {
 // TODO: check all touchevents
@@ -1487,23 +1660,27 @@ const initChalkboard = function ( Reveal ) {
 				mouseY = touch.pageY;
 
 				if ( drawing ) {
-					drawSegment( ( lastX - xOffset ) / scale, ( lastY - yOffset ) / scale, ( mouseX - xOffset ) / scale, ( mouseY - yOffset ) / scale, color[ mode ] );
-					// broadcast
-					var message = new CustomEvent( messageType );
-					message.content = {
-						sender: 'chalkboard-plugin',
-						type: 'draw',
-						timestamp: Date.now() - slideStart,
-						mode,
-						board,
-						fromX: ( lastX - xOffset ) / scale,
-						fromY: ( lastY - yOffset ) / scale,
-						toX: ( mouseX - xOffset ) / scale,
-						toY: ( mouseY - yOffset ) / scale,
-						color: color[ mode ]
-					};
-					document.dispatchEvent( message );
-
+					if (drawingTool === 'pen') {
+						drawSegment( ( lastX - xOffset ) / scale, ( lastY - yOffset ) / scale, ( mouseX - xOffset ) / scale, ( mouseY - yOffset ) / scale, color[ mode ] );
+						// broadcast
+						var message = new CustomEvent( messageType );
+						message.content = {
+							sender: 'chalkboard-plugin',
+							type: 'draw',
+							tool: drawingTool,
+							timestamp: Date.now() - slideStart,
+							mode,
+							board,
+							fromX: ( lastX - xOffset ) / scale,
+							fromY: ( lastY - yOffset ) / scale,
+							toX: ( mouseX - xOffset ) / scale,
+							toY: ( mouseY - yOffset ) / scale,
+							color: color[ mode ]
+						};
+						document.dispatchEvent( message );
+					}
+					
+					// For rectangle and square, we just update the last position
 					lastX = mouseX;
 					lastY = mouseY;
 				} else {
@@ -1587,23 +1764,27 @@ const initChalkboard = function ( Reveal ) {
 				mouseY = evt.pageY;
 
 				if ( drawing ) {
-					drawSegment( ( lastX - xOffset ) / scale, ( lastY - yOffset ) / scale, ( mouseX - xOffset ) / scale, ( mouseY - yOffset ) / scale, color[ mode ] );
-					// broadcast
-					var message = new CustomEvent( messageType );
-					message.content = {
-						sender: 'chalkboard-plugin',
-						type: 'draw',
-						timestamp: Date.now() - slideStart,
-						mode,
-						board,
-						fromX: ( lastX - xOffset ) / scale,
-						fromY: ( lastY - yOffset ) / scale,
-						toX: ( mouseX - xOffset ) / scale,
-						toY: ( mouseY - yOffset ) / scale,
-						color: color[ mode ]
-					};
-					document.dispatchEvent( message );
-
+					if (drawingTool === 'pen') {
+						drawSegment( ( lastX - xOffset ) / scale, ( lastY - yOffset ) / scale, ( mouseX - xOffset ) / scale, ( mouseY - yOffset ) / scale, color[ mode ] );
+						// broadcast
+						var message = new CustomEvent( messageType );
+						message.content = {
+							sender: 'chalkboard-plugin',
+							type: 'draw',
+							tool: drawingTool,
+							timestamp: Date.now() - slideStart,
+							mode,
+							board,
+							fromX: ( lastX - xOffset ) / scale,
+							fromY: ( lastY - yOffset ) / scale,
+							toX: ( mouseX - xOffset ) / scale,
+							toY: ( mouseY - yOffset ) / scale,
+							color: color[ mode ]
+						};
+						document.dispatchEvent( message );
+					}
+					
+					// For rectangle and square, we just update the last position
 					lastX = mouseX;
 					lastY = mouseY;
 				} else {
@@ -1985,6 +2166,7 @@ const initChalkboard = function ( Reveal ) {
 	this.updateStorage = updateStorage;
 	this.getData = getData;
 	this.configure = configure;
+	this.setDrawingTool = setDrawingTool;
 
 
 	for ( var key in keyBindings ) {
@@ -1994,4 +2176,9 @@ const initChalkboard = function ( Reveal ) {
 	};
 
 	return this;
+};
+
+// Export the chalkboard plugin
+export default () => {
+	return RevealChalkboard;
 };
