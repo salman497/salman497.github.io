@@ -2,83 +2,71 @@
 // copied from https://github.com/AleCandido/show/blob/30b54767ef279f4ebd94f60b08a780a4809ab5cf/packages/show/src/lib/plugins/imports.ts
 //built-in plugins
 
-export async function mermaid() {
-  const MermaidPlugin = (await import('./reveal.js-mermaid/plugin')).default;
+import MermaidPlugin from './reveal.js-mermaid/plugin';
+import ApexCharPlugin from './reveal.js-apexchart/plugin';
+import ChartJsPlugin from './reveal.js-chartjs/plugin';
+import slideDown from './reveal.js-slidedown/main';
+import Highlight from 'reveal.js/plugin/highlight/highlight.esm';
+import SpeakerNotes from 'reveal.js/plugin/notes/notes.esm';
+import Search from 'reveal.js/plugin/search/search.esm';
+import Zoom from 'reveal.js/plugin/zoom/zoom.esm';
+import math from 'reveal.js/plugin/math/math.esm';
+import customMarkdown from './reveal.js-markdown/plugin';
+import markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+import 'reveal.js-plugins/customcontrols/plugin';
+import './reveal.js-chalkboard/plugin';
 
+export function mermaid() {
   return MermaidPlugin;
 }
-export async function apexChart() {
-  const ApexCharPlugin = (await import('./reveal.js-apexchart/plugin')).default;
 
+export function apexChart() {
   return ApexCharPlugin;
 }
 
-export async function chartJs() {
-  const ChartJsPlugin = (await import('./reveal.js-chartjs/plugin')).default;
-
+export function chartJs() {
   return ChartJsPlugin;
 }
 
-export async function slideDown() {
-  const slideDown = (await import('./reveal.js-slidedown/main')).default;
-
+export function slideDown() {
   return slideDown;
 }
 
-export async function highlight() {
-  const Highlight = (await import('reveal.js/plugin/highlight/highlight.esm'))
-    .default;
-
+export function highlight() {
   return Highlight;
 }
 
-export async function notes() {
-  const SpeakerNotes = (await import('reveal.js/plugin/notes/notes.esm')).default;
-
+export function notes() {
   return SpeakerNotes;
 }
 
-export async function search() {
-  const Search = (await import('reveal.js/plugin/search/search.esm')).default;
-
+export function search() {
   return Search;
 }
 
-export async function zoom() {
-  const Zoom = (await import('reveal.js/plugin/zoom/zoom.esm')).default;
-
+export function zoom() {
   return Zoom;
 }
 
-export async function math() {
-  const math = (await import('reveal.js/plugin/math/math.esm')).default;
-
+export function math() {
   return math;
 }
 
-export async function customMarkdown() {
-  const markdown = (await import('./reveal.js-markdown/plugin')).default;
-
-  return markdown;
+export function customMarkdown() {
+  return customMarkdown;
 }
 
-export async function markdown() {
-  const markdown = (await import('reveal.js/plugin/markdown/markdown.esm.js'))
-    .default;
-
+export function markdown() {
   return markdown;
 }
 
 //extra plugins
 
-export async function customControls() {
-  await import('reveal.js-plugins/customcontrols/plugin');
-
+export function customControls() {
   return window.RevealCustomControls;
 }
 
-export async function chalkboard() {
-  await import('./reveal.js-chalkboard/plugin');
+export function chalkboard() {
   return window.RevealChalkboard;
 }
 

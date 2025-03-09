@@ -5,23 +5,23 @@ import RevealScriptFragment from 'reveal.js-script-fragment';
 import dynamicImports from './reveal-plugins/reveal-js-dynamic-imports';
 import { Editor } from '../state/state';
 
-export async function getRevealConfig(
+export function getRevealConfig(
   editor: Editor,
   isEditMode: boolean
 ): Promise<any> {
-  const RevealCustomControls = await dynamicImports.customControls();
-  const RevealChalkboard = await dynamicImports.chalkboard();
-  const RevealZoom = await dynamicImports.zoom();
-  const RevealSearch = await dynamicImports.search();
-  const CustomMarkdown = await dynamicImports.customMarkdown();
-  //const RevealMarkdown = await dynamicImports.markdown();
-  const RevealMath = await dynamicImports.math();
-  const RevealHighlight = await dynamicImports.highlight();
-  const RevealNotes = await dynamicImports.notes();
-  const RevealMermaidPlugin = await dynamicImports.mermaid();
-  //   const SlideDown = await dynamicImports.slideDown();
-  const RevealChartJsPlugin = await dynamicImports.chartJs();
-  const RevealApexChartPlugin = await dynamicImports.apexChart();
+  const RevealCustomControls = dynamicImports.customControls();
+  const RevealChalkboard = dynamicImports.chalkboard();
+  const RevealZoom = dynamicImports.zoom();
+  const RevealSearch = dynamicImports.search();
+  const CustomMarkdown = dynamicImports.customMarkdown();
+  //const RevealMarkdown = dynamicImports.markdown();
+  const RevealMath = dynamicImports.math();
+  const RevealHighlight = dynamicImports.highlight();
+  const RevealNotes = dynamicImports.notes();
+  const RevealMermaidPlugin = dynamicImports.mermaid();
+  //const SlideDown = dynamicImports.slideDown();
+  const RevealChartJsPlugin = dynamicImports.chartJs();
+  const RevealApexChartPlugin = dynamicImports.apexChart();
   return {
     plugins: [
       //   SlideDown,
