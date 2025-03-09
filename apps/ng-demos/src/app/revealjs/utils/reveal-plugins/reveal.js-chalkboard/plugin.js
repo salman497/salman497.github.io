@@ -1018,6 +1018,40 @@ const initChalkboard = function (Reveal) {
       }
     }
   }
+  function drawPreviewRectangle() {
+    if (drawing && (drawingTool === 'rectangle' || drawingTool === 'square')) {
+      var ctx = drawingCanvas[mode].context;
+      var scale = drawingCanvas[mode].scale;
+      var xOffset = drawingCanvas[mode].xOffset;
+      var yOffset = drawingCanvas[mode].yOffset;
+      
+      // Clear the canvas and redraw all stored drawings
+      // This approach assumes you have a way to redraw existing content
+      // If you don't, you'll need to use a separate overlay canvas for preview
+      ctx.clearRect(0, 0, drawingCanvas[mode].canvas.width, drawingCanvas[mode].canvas.height);
+      //redrawStoredDrawings(); // You need to implement this function to restore previous drawings
+      
+      if (drawingTool === 'rectangle') {
+        drawRectangle(
+          ctx,
+          startX * scale + xOffset,
+          startY * scale + yOffset,
+          mouseX,
+          mouseY,
+          color[mode]
+        );
+      } else if (drawingTool === 'square') {
+        drawSquare(
+          ctx,
+          startX * scale + xOffset,
+          startY * scale + yOffset,
+          mouseX,
+          mouseY,
+          color[mode]
+        );
+      }
+    }
+  }
 
   function drawRectangle(context, fromX, fromY, toX, toY, colorIdx) {
     if (colorIdx == undefined) colorIdx = color[mode];
@@ -1780,6 +1814,9 @@ const initChalkboard = function (Reveal) {
               color: color[mode]
             };
             document.dispatchEvent(message);
+          }else if (drawingTool === 'rectangle' || drawingTool === 'square') {
+            // Draw preview rectangle or square during touch movement
+            drawPreviewRectangle();
           }
 
           // For rectangle and square, we just update the last position
@@ -1896,6 +1933,9 @@ const initChalkboard = function (Reveal) {
               color: color[mode]
             };
             document.dispatchEvent(message);
+          }else if (drawingTool === 'rectangle' || drawingTool === 'square') {
+            // Draw preview rectangle or square during mouse movement
+            drawPreviewRectangle();
           }
 
           // For rectangle and square, we just update the last position
