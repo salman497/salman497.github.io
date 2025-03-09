@@ -134,7 +134,7 @@ const initChalkboard = function (Reveal) {
       cursor: 'url(' + path + 'img/boardmarker-black.png), auto'
     },
     {
-      color: 'rgba(100,100,100,1)',
+      color: 'rgb(0, 0, 0)',
       cursor: 'url(' + path + 'img/boardmarker-black.png), auto'
     },
     {
@@ -433,6 +433,9 @@ const initChalkboard = function (Reveal) {
       colorButton.setAttribute('data-color', i);
       colorButton.innerHTML = '<i class="fa fa-square"></i>';
       colorButton.style.color = colors[i].color;
+      if(colors[i].color === 'rgb(0, 0, 0)') {
+        colorButton.style.color = 'rgb(53 52 52 / 81%)';
+      }
       colorButton.addEventListener('click', function (e) {
         var element = e.target;
         while (!element.hasAttribute('data-color')) {
