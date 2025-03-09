@@ -5,14 +5,14 @@
 import MermaidPlugin from './reveal.js-mermaid/plugin';
 import ApexCharPlugin from './reveal.js-apexchart/plugin';
 import ChartJsPlugin from './reveal.js-chartjs/plugin';
-import slideDown from './reveal.js-slidedown/main';
+import SlideDown from './reveal.js-slidedown/main';
 import Highlight from 'reveal.js/plugin/highlight/highlight.esm';
 import SpeakerNotes from 'reveal.js/plugin/notes/notes.esm';
 import Search from 'reveal.js/plugin/search/search.esm';
 import Zoom from 'reveal.js/plugin/zoom/zoom.esm';
-import math from 'reveal.js/plugin/math/math.esm';
-import customMarkdown from './reveal.js-markdown/plugin';
-import markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+import Math from 'reveal.js/plugin/math/math.esm';
+import CustomMarkdown from './reveal.js-markdown/plugin';
+import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import 'reveal.js-plugins/customcontrols/plugin';
 import './reveal.js-chalkboard/plugin';
 
@@ -29,7 +29,7 @@ export function chartJs() {
 }
 
 export function slideDown() {
-  return slideDown;
+  return SlideDown;
 }
 
 export function highlight() {
@@ -49,15 +49,15 @@ export function zoom() {
 }
 
 export function math() {
-  return math;
+  return Math;
 }
 
 export function customMarkdown() {
-  return customMarkdown;
+  return CustomMarkdown;
 }
 
 export function markdown() {
-  return markdown;
+  return Markdown;
 }
 
 //extra plugins
