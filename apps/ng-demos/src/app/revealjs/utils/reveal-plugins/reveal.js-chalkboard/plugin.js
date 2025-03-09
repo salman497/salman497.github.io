@@ -1025,11 +1025,9 @@ const initChalkboard = function (Reveal) {
       var xOffset = drawingCanvas[mode].xOffset;
       var yOffset = drawingCanvas[mode].yOffset;
       
-      // Clear the canvas and redraw all stored drawings
-      // This approach assumes you have a way to redraw existing content
-      // If you don't, you'll need to use a separate overlay canvas for preview
+      
       ctx.clearRect(0, 0, drawingCanvas[mode].canvas.width, drawingCanvas[mode].canvas.height);
-      //redrawStoredDrawings(); // You need to implement this function to restore previous drawings
+      redrawStoredDrawings(); 
       
       if (drawingTool === 'rectangle') {
         drawRectangle(
@@ -2383,6 +2381,18 @@ const initChalkboard = function (Reveal) {
 
   // Call updateActiveToolIndication after a short delay to ensure the palette is created
   setTimeout(updateActiveToolIndication, 1000);
+
+  function redrawStoredDrawings() {
+    var slideData = getSlideData(slideIndices, mode);
+    var index = 0;
+    while (index < slideData.events.length) {
+      // Only redraw drawing events (not eraser or other events)
+      if (slideData.events[index].type === 'draw') {
+        playEvent(mode, slideData.events[index], Date.now() - slideStart);
+      }
+      index++;
+    }
+  }
 
   return this;
 };
