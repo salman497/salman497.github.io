@@ -111,10 +111,18 @@ const initChalkboard = function ( Reveal ) {
 	var chalkWidth = 7;
 	var chalkEffect = 1.0;
 	var rememberColor = [ true, false ];
+	
 	var eraser = {
 		src: path + 'img/sponge.png',
 		radius: 20
 	};
+	
+	var rectangle = {
+		src: path + 'img/rectangle.png',
+		width: 24,
+		height: 24
+	};
+	
 	var boardmarkers = [
 		{
 			color: 'rgba(255,255,255,1)',
@@ -147,7 +155,7 @@ const initChalkboard = function ( Reveal ) {
 		{
 			color: 'rgba(255,220,0,1)',
 			cursor: 'url(' + path + 'img/boardmarker-yellow.png), auto'
-		}
+		},
 	];
 	var chalks = [ {
 			color: 'rgba(255,255,255,0.5)',
@@ -425,8 +433,36 @@ const initChalkboard = function ( Reveal ) {
 		eraserButton.addEventListener( 'touchstart', function ( e ) {
 			colorIndex( -1 );
 		} );
+		
+		// rectangle tool
+		var rectangleButton = document.createElement( 'li' );
+		rectangleButton.setAttribute( 'data-tool', 'rectangle' );
+		var rectangleImg = document.createElement( 'img' );
+		rectangleImg.src = rectangle.src;
+		rectangleImg.height = "24";
+		rectangleImg.width = "24";
+		rectangleImg.style.marginTop = '10px';
+		rectangleImg.style.marginRight = '0';
+		rectangleImg.style.marginBottom = '0';
+		rectangleImg.style.marginLeft = '0';
+		rectangleButton.appendChild(rectangleImg);
+		rectangleButton.addEventListener( 'click', function ( e ) {
+			setDrawingTool('rectangle');
+			// Reset to the current color (not eraser)
+			if (color[mode] === -1) {
+				colorIndex(0);
+			}
+		} );
+		rectangleButton.addEventListener( 'touchstart', function ( e ) {
+			setDrawingTool('rectangle');
+			// Reset to the current color (not eraser)
+			if (color[mode] === -1) {
+				colorIndex(0);
+			}
+		} );
+		
 		list.appendChild( eraserButton );
-
+		list.appendChild( rectangleButton );
 		palette.appendChild( list );
 		return palette;
 	};
@@ -1154,6 +1190,9 @@ const initChalkboard = function ( Reveal ) {
     else {
       changeCursor( drawingCanvas[ mode ].canvas, pens[ mode ][ color[ mode ] ] );
     }
+    
+    // Update the active tool indication
+    updateActiveToolIndication();
 	}
 
 	/**
@@ -1551,6 +1590,22 @@ const initChalkboard = function ( Reveal ) {
 			if (drawingTool === 'pen') {
 				draw[ mode ]( ctx, fromX * scale + xOffset, fromY * scale + yOffset, toX * scale + xOffset, toY * scale + yOffset, colorIdx );
 			}
+			else if (drawingTool === 'rectangle' && drawing) {
+				// For rectangle tool, we need to clear the previous preview and draw a new one
+				// This creates a live preview as the user drags
+				var slideData = getSlideData();
+				redrawChalkboard(mode);
+				
+				// Draw the current rectangle preview
+				drawRectangle(
+					ctx, 
+					startX * scale + xOffset, 
+					startY * scale + yOffset, 
+					toX * scale + xOffset, 
+					toY * scale + yOffset, 
+					colorIdx
+				);
+			}
 		}
 	}
 
@@ -1618,6 +1673,24 @@ const initChalkboard = function ( Reveal ) {
 	function setDrawingTool(toolName) {
 		if (['pen', 'rectangle', 'square'].includes(toolName)) {
 			drawingTool = toolName;
+			
+			// Update cursor based on the selected tool
+			var cursorStyle = 'crosshair';
+			if (toolName === 'rectangle' || toolName === 'square') {
+				cursorStyle = 'crosshair';
+			}
+			
+			// Update cursor for both drawing canvases
+			if (drawingCanvas[0] && drawingCanvas[0].canvas) {
+				drawingCanvas[0].canvas.style.cursor = cursorStyle;
+			}
+			if (drawingCanvas[1] && drawingCanvas[1].canvas) {
+				drawingCanvas[1].canvas.style.cursor = cursorStyle;
+			}
+			
+			// Update visual indication of selected tool in palette
+			updateActiveToolIndication();
+			
 			return true;
 		}
 		return false;
@@ -1707,6 +1780,18 @@ const initChalkboard = function ( Reveal ) {
 			evt.preventDefault();
 			stopDrawing();
 			stopErasing();
+			
+			// Update cursor based on the current tool
+			if ( color[ mode ] >= 0 ) {
+				// Only change cursor if we're using the pen tool
+				if (drawingTool === 'pen') {
+					changeCursor( drawingCanvas[ mode ].canvas, pens[ mode ][ color[ mode ] ] );
+				}
+				// For rectangle or square tools, keep the crosshair cursor
+				else if (drawingTool === 'rectangle' || drawingTool === 'square') {
+					drawingCanvas[ mode ].canvas.style.cursor = 'crosshair';
+				}
+			}
 		}, false );
 
 		canvas.addEventListener( 'mousedown', function ( evt ) {
@@ -1810,7 +1895,14 @@ const initChalkboard = function ( Reveal ) {
 		canvas.addEventListener( 'mouseup', function ( evt ) {
 			evt.preventDefault();
       if ( color[ mode ] >= 0 ) {
-        changeCursor( drawingCanvas[ mode ].canvas, pens[ mode ][ color[ mode ] ] );
+        // Only change cursor if we're using the pen tool
+        if (drawingTool === 'pen') {
+          changeCursor( drawingCanvas[ mode ].canvas, pens[ mode ][ color[ mode ] ] );
+        }
+        // For rectangle or square tools, keep the crosshair cursor
+        else if (drawingTool === 'rectangle' || drawingTool === 'square') {
+          drawingCanvas[ mode ].canvas.style.cursor = 'crosshair';
+        }
       }
 			if ( drawing || erasing ) {
 				stopDrawing();
@@ -2057,6 +2149,10 @@ const initChalkboard = function ( Reveal ) {
 
 	function colorIndex( idx ) {
 		if ( !readOnly ) {
+			// Only switch back to pen tool when coming from eraser
+			if (idx >= 0 && color[mode] === -1) {
+				setDrawingTool('pen');
+			}
 			setColor( idx, true );
 		}
 	}
@@ -2064,6 +2160,7 @@ const initChalkboard = function ( Reveal ) {
 	function colorNext() {
 		if ( !readOnly ) {
 			let idx = cycleColorNext();
+			// Don't automatically switch to pen tool when cycling colors
 			setColor( idx, true );
 		}
 	}
@@ -2071,6 +2168,7 @@ const initChalkboard = function ( Reveal ) {
 	function colorPrev() {
 		if ( !readOnly ) {
 			let idx = cycleColorPrev();
+			// Don't automatically switch to pen tool when cycling colors
 			setColor( idx, true );
 		}
 	}
@@ -2079,6 +2177,7 @@ const initChalkboard = function ( Reveal ) {
 		slideStart = Date.now();
 		closeChalkboard();
 
+		
 		clearCanvas( 0 );
 		clearCanvas( 1 );
 
@@ -2175,6 +2274,42 @@ const initChalkboard = function ( Reveal ) {
 		}
 	};
 
+	// Add CSS styles for the active tool button
+	var style = document.createElement('style');
+	style.textContent = `
+		.palette li.active {
+			background-color: rgba(255, 255, 255, 0.4);
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+		}
+	`;
+	document.head.appendChild(style);
+	
+	// Function to update the active tool indication in the palette
+	function updateActiveToolIndication() {
+		for (var id = 0; id < 2; id++) {
+			var palette = document.querySelector('.palette[data-mode="' + id + '"]');
+			if (palette) {
+				// Remove active class from all tool buttons
+				var toolButtons = palette.querySelectorAll('li[data-tool]');
+				toolButtons.forEach(function(button) {
+					button.classList.remove('active');
+				});
+				
+				// Add active class to the selected tool button
+				if (drawingTool !== 'pen') {
+					var activeButton = palette.querySelector('li[data-tool="' + drawingTool + '"]');
+					if (activeButton) {
+						activeButton.classList.add('active');
+					}
+				}
+			}
+		}
+	}
+	
+	// Call updateActiveToolIndication after a short delay to ensure the palette is created
+	setTimeout(updateActiveToolIndication, 1000);
+	
 	return this;
 };
 

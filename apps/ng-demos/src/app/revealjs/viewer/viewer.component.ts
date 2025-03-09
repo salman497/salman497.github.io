@@ -185,7 +185,6 @@ export class ViewerComponent
         this.changeEditorView.emit(false);
       }
       window.RevealChalkboard.toggleNotesCanvas();
-      window.RevealChalkboard.setDrawingTool('rectangle');
 
      // window.RevealChalkboard.toggleNotesCanvas();
     }
